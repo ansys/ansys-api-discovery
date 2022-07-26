@@ -8,17 +8,20 @@ on:
       - "*"
     branches:
       - main
+      
+env:
+  MAIN_PYTHON_VERSION: '3.10'
 
 jobs:
   build:
     name: Build package
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.7"
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
       - name: Install build requirements
         run: |
           pip install -U pip
@@ -31,8 +34,8 @@ jobs:
         run: |
           mkdir tmp
           cd tmp
-          python -c "import {{ cookiecutter._dot_package_name_no_ver }}.v{{ cookiecutter.api_version }}; print('Sucessfully imported {{ cookiecutter._dot_package_name_no_ver }}.v{{ cookiecutter.api_version }}')"
-          python -c "from {{ cookiecutter._dot_package_name_no_ver }}.v{{ cookiecutter.api_version }} import __version__; print(__version__)"
+          python -c "import ansys.api.discovery; print('Successfully imported ansys.api.discovery')"
+          python -c "from ansys.api.discovery import __version__; print(__version__)"
       - name: Upload packages
         uses: actions/upload-artifact@v2
         with:
@@ -46,11 +49,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
 
       - name: Display structure of downloaded files
         run: ls -R
