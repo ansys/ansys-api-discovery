@@ -18,26 +18,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
+
+      - name: Run protolint
+        uses: plexsystems/protolint-action@v0.7.0
+        with:
+          configDirectory: .
+
       - name: Install build requirements
         run: |
           pip install -U pip
           pip install build
+
       - name: Build
         run: python -m build
+
       - name: Install
         run: pip install dist/*.whl
+
       - name: Test import
         run: |
           mkdir tmp
           cd tmp
-          python -c "import ansys.api.discovery; print('Successfully imported ansys.api.discovery')"
+          python -c "import ansys.api.discovery.v0; print('Successfully imported ansys.api.discovery.v0')"
           python -c "from ansys.api.discovery import __version__; print(__version__)"
+
       - name: Upload packages
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ansys-api-discovery-packages
           path: dist/
