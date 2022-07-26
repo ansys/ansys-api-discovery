@@ -1,7 +1,7 @@
 ### ansys-api-discovery gRPC Interface Package
 
-This Python package contains the auto-generated gRPC Python interface files for
-discovery.
+This repository provides the auto-generated gRPC Python interface files and NuGet
+packages for Discovery/SpaceClaim.
 
 
 #### Installation
