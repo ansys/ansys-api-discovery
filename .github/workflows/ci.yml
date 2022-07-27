@@ -66,8 +66,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo apt update
-        sudo apt install protobuf-compiler
+        sudo apt-get update
+        sudo apt-get install protobuf-compiler
 
     - name: Generate C# files from .proto files 
       run: |

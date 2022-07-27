@@ -1,4 +1,6 @@
-# Bash script for generating auto-generated CSharp files from proto files
+#!/bin/bash
+
+# Script for generating auto-generated CSharp files from proto files
 #
 # First, clean the output directory
 rm -rf build/gen
