@@ -1,0 +1,29 @@
+// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1;
+option csharp_namespace = "Ansys.Api.Discovery.V1";
+option go_package = "ansys/api/discovery/v1";
+import "ansys/api/discovery/v1/models.proto";
+
+service DesignMeshes{
+  // Gets a design mesh.
+  rpc GetDesignMesh(GetDesignMeshRequest) returns(DesignMesh);
+
+  // Lists all design meshes.
+  rpc ListDesignMeshes(ListDesignMeshesRequest) returns(ListDesignMeshesResponse);
+
+}
+
+message GetDesignMeshRequest{
+  // The moniker for the item being requested.
+  string moniker = 1;
+}
+
+message ListDesignMeshesRequest{
+  // The parent, which can be empty or "designbodies/{moniker}" or "parts/{moniker}".
+  string parent = 1;
+}
+message ListDesignMeshesResponse{
+  // The faces on this page.
+  repeated DesignMesh design_meshes = 1                      [json_name="design_meshes"];
+}
