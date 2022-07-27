@@ -1,7 +1,7 @@
 // Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v1;
-import "google/api/httpbody.proto";
+import "ansys/api/discovery/v1/google/api/httpbody.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
