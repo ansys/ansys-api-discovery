@@ -1,67 +1,66 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v1;
+import "src/ansys/api/discovery/v1/models.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
 
-import "ansys/api/discovery/v1/models.proto";
-
 service Documents{
-    // Gets the document with the specified main part moniker. The document must have been previously loaded using 'Open'.
-    rpc GetDocument(GetDocumentRequest) returns(Document);
+  // Gets the document with the specified main part moniker. The document must have been previously loaded using 'Open'.
+  rpc GetDocument(GetDocumentRequest) returns(Document);
 
-    // Lists all documents.
-    rpc ListDocuments(ListDocumentsRequest) returns(ListDocumentsResponse) ;
-    
-    // Gets the active document (based on the active window).
-    rpc GetActive(GetActiveDocumentRequest) returns(GetActiveDocumentResponse) ;
+  // Lists all documents.
+  rpc ListDocuments(ListDocumentsRequest) returns(ListDocumentsResponse) ;
+  
+  // Gets the active document (based on the active window).
+  rpc GetActive(GetActiveDocumentRequest) returns(GetActiveDocumentResponse) ;
 
-    // Puts the active document (sets the active window).
-    rpc PutActive(PutActiveDocumentRequest) returns(PutActiveDocumentResponse);
+  // Puts the active document (sets the active window).
+  rpc PutActive(PutActiveDocumentRequest) returns(PutActiveDocumentResponse);
 
-    // Opens a document using the supplied file path.
-    rpc Open(OpenDocumentRequest) returns(OpenDocumentResponse);
+  // Opens a document using the supplied file path.
+  rpc Open(OpenDocumentRequest) returns(OpenDocumentResponse);
 
-    // Creates a new document.
-    rpc New(NewDocumentRequest) returns(NewDocumentResponse) ;
+  // Creates a new document.
+  rpc New(NewDocumentRequest) returns(NewDocumentResponse) ;
 
-    // Closes the active document.
-    rpc Close(CloseDocumentRequest) returns(CloseDocumentResponse);
+  // Closes the active document.
+  rpc Close(CloseDocumentRequest) returns(CloseDocumentResponse);
 
-    // Saves the active document.
-    rpc Save(SaveDocumentRequest) returns(SaveDocumentResponse) ;
+  // Saves the active document.
+  rpc Save(SaveDocumentRequest) returns(SaveDocumentResponse) ;
 
-    // Saves the active document using the supplied file path.
-    rpc SaveAs(SaveAsDocumentRequest) returns(SaveAsDocumentResponse);
+  // Saves the active document using the supplied file path.
+  rpc SaveAs(SaveAsDocumentRequest) returns(SaveAsDocumentResponse);
 
-    // Inserts a document into the currently active document.
-    rpc Insert(InsertDocumentRequest) returns(InsertDocumentResponse);
+  // Inserts a document into the currently active document.
+  rpc Insert(InsertDocumentRequest) returns(InsertDocumentResponse);
 }
 
 message GetDocumentRequest{
-    // The moniker for the item being requested.
-    string moniker = 1;
+  // The moniker for the item being requested.
+  string moniker = 1;
 }
 
 message ListDocumentsRequest{
-    // The location.
-    string parent = 1;
+  // The location.
+  string parent = 1;
 }
 
 message ListDocumentsResponse{
-    // The documents on this page.
-    repeated Document documents = 1;
+  // The documents on this page.
+  repeated Document documents = 1;
 }
 
 message GetActiveDocumentRequest{
 }
 
 message GetActiveDocumentResponse{
-    Document document = 1;
+  Document document = 1;
 }
 
 message PutActiveDocumentRequest{
-    string moniker = 1;
+  string moniker = 1;
 }
 
 message PutActiveDocumentResponse{
@@ -71,43 +70,43 @@ message NewDocumentRequest{
 }
 
 message NewDocumentResponse{
-    string moniker = 1;
+  string moniker = 1;
 }
 
 message OpenDocumentRequest{
-    string filepath = 1;
+  string filepath = 1;
 }
 
 message OpenDocumentResponse{
-    string moniker = 1;
+  string moniker = 1;
 }
 
 message CloseDocumentRequest{
-    string moniker = 1;
+  string moniker = 1;
 }
 
 message CloseDocumentResponse{
 }
 
 message SaveDocumentRequest{
-    string moniker = 1;
+  string moniker = 1;
 }
 
 message SaveDocumentResponse{
 }
 
 message SaveAsDocumentRequest{
-    string filepath = 1;
+  string filepath = 1;
 }
 
 message SaveAsDocumentResponse{
-    string moniker = 1;
+  string moniker = 1;
 }
 
 message InsertDocumentRequest{
-    string filepath = 1;
+  string filepath = 1;
 }
 
 message InsertDocumentResponse{
-    string moniker = 1;
+  string moniker = 1;
 }

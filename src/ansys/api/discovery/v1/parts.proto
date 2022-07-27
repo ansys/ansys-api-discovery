@@ -1,47 +1,46 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v1;
+import "src/ansys/api/discovery/v1/models.proto";
+import "src/ansys/api/discovery/v1/streaming.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
 
-import "ansys/api/discovery/v1/models.proto";
-import "ansys/api/discovery/v1/streaming.proto";
-
 service Parts{
-    // Gets a part.
-    rpc GetPart(GetPartRequest) returns(Part);
-    // Lists all parts.
-    rpc ListParts(ListPartsRequest) returns(ListPartsResponse) ;
-    // Exports the geometry for a part in a supported format.
-    rpc ExportPart(ExportPartRequest) returns(stream StreamPackage);
+  // Gets a part.
+  rpc GetPart(GetPartRequest) returns(Part);
+  // Lists all parts.
+  rpc ListParts(ListPartsRequest) returns(ListPartsResponse) ;
+  // Exports the geometry for a part in a supported format.
+  rpc ExportPart(ExportPartRequest) returns(stream StreamPackage);
 }
 
 message ListPartsRequest{
-    // The parent, which can be empty or "documents/{moniker}".
-    string parent = 1;
+  // The parent, which can be empty or "documents/{moniker}".
+  string parent = 1;
 }
 
 message ListPartsResponse{
-    // The parts on this page.
-    repeated Part parts = 1;
+  // The parts on this page.
+  repeated Part parts = 1;
 }
 
 message GetPartRequest{
-    // The moniker.
-    string moniker = 1;
+  // The moniker.
+  string moniker = 1;
 }
 
 message ExportPartRequest{
-    // Moniker of the part to export.
-    string moniker = 1;
-    // Format to export to.
-    PartExportFormat format = 2;
+  // Moniker of the part to export.
+  string moniker = 1;
+  // Format to export to.
+  PartExportFormat format = 2;
 }
 
 enum PartExportFormat {
-    PARTEXPORTFORMAT_ACIS_TEXT = 0;
-    PARTEXPORTFORMAT_ACIS_BINARY = 1;
-    PARTEXPORTFORMAT_PARASOLID_TEXT = 2;
-    PARTEXPORTFORMAT_PARASOLID_BINARY = 3;
-    PARTEXPORTFORMAT_STEP = 4;
+  PARTEXPORTFORMAT_ACIS_TEXT = 0;
+  PARTEXPORTFORMAT_ACIS_BINARY = 1;
+  PARTEXPORTFORMAT_PARASOLID_TEXT = 2;
+  PARTEXPORTFORMAT_PARASOLID_BINARY = 3;
+  PARTEXPORTFORMAT_STEP = 4;
 }

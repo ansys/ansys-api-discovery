@@ -1,30 +1,29 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v1;
+import "src/ansys/api/discovery/v1/models.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
 
-import "ansys/api/discovery/v1/models.proto";
-
 service DesignFaces{
-    // Gets a design face.
-    rpc GetDesignFace(GetDesignFaceRequest) returns(DesignFace);
+  // Gets a design face.
+  rpc GetDesignFace(GetDesignFaceRequest) returns(DesignFace);
 
-    // Lists all design faces.
-    rpc ListDesignFaces(ListDesignFacesRequest) returns(ListDesignFacesResponse);
+  // Lists all design faces.
+  rpc ListDesignFaces(ListDesignFacesRequest) returns(ListDesignFacesResponse);
 }
 
 message GetDesignFaceRequest{
-    // The moniker for the item being requested.
-    string moniker = 1;
+  // The moniker for the item being requested.
+  string moniker = 1;
 }
 
 message ListDesignFacesRequest{
-    // The parent, which can be empty or "designbodies/{moniker}" or "parts/{moniker}".
-    string parent = 1;
+  // The parent, which can be empty or "designbodies/{moniker}" or "parts/{moniker}".
+  string parent = 1;
 }
 
 message ListDesignFacesResponse{
-    // The faces on this page.
-    repeated DesignFace design_faces = 1                      [json_name="design_faces"];
+  // The faces on this page.
+  repeated DesignFace design_faces = 1                      [json_name="design_faces"];
 }

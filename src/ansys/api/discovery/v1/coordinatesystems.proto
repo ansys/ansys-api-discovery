@@ -1,49 +1,49 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v1;
+import "src/ansys/api/discovery/v1/models.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
-import "ansys/api/discovery/v1/models.proto";
 
 service CoordinateSystems{
 
-    // Gets a coordinate system.
-    rpc GetCoordinateSystem(GetCoordinateSystemRequest) returns(CoordinateSystem);
+  // Gets a coordinate system.
+  rpc GetCoordinateSystem(GetCoordinateSystemRequest) returns(CoordinateSystem);
 
-    // Lists all coordinate systems.
-    rpc ListCoordinateSystems(ListCoordinateSystemsRequest) returns(ListCoordinateSystemsResponse) ;
+  // Lists all coordinate systems.
+  rpc ListCoordinateSystems(ListCoordinateSystemsRequest) returns(ListCoordinateSystemsResponse) ;
 
-    // Creates a coordinate system.
-    rpc CreateCoordinateSystem(CreateCoordinateSystemRequest) returns(CoordinateSystem);
+  // Creates a coordinate system.
+  rpc CreateCoordinateSystem(CreateCoordinateSystemRequest) returns(CoordinateSystem);
 }
 
 message GetCoordinateSystemRequest{
-    // The moniker of the coordinate system to return.
-    string moniker = 1;
+  // The moniker of the coordinate system to return.
+  string moniker = 1;
 }
 
 message ListCoordinateSystemsRequest{
-    // The parent, which can be empty , "parts/{moniker}" or "namedselections/{moniker}".
-    string parent = 1;
-    // The view.
-    CoordinateSystemView view = 2;
-    // The filter.
-    string filter=3;
+  // The parent, which can be empty , "parts/{moniker}" or "namedselections/{moniker}".
+  string parent = 1;
+  // The view.
+  CoordinateSystemView view = 2;
+  // The filter.
+  string filter=3;
 }
 
 message ListCoordinateSystemsResponse{
-    // The coordinate systems on this page.
-    repeated CoordinateSystem coordinate_systems = 1                      [json_name = "coordinate_systems"];
+  // The coordinate systems on this page.
+  repeated CoordinateSystem coordinate_systems = 1                      [json_name = "coordinate_systems"];
 }
 
 message CreateCoordinateSystemRequest{
-    // The parent where the coordinate system is to be created which can be empty or "parts/{moniker}".
-    string parent = 1;
-    // The coordinate system to create. 
-    CoordinateSystem coordinate_system = 2                                [json_name = "coordinate_system"];
+  // The parent where the coordinate system is to be created which can be empty or "parts/{moniker}".
+  string parent = 1;
+  // The coordinate system to create. 
+  CoordinateSystem coordinate_system = 2                                [json_name = "coordinate_system"];
 }
 
 message CreateCoordinateSystemResponse{
-    // The created coordinate system.
-    CoordinateSystem coordinate_system=1                                  [json_name = "coordinate_system"];
+  // The created coordinate system.
+  CoordinateSystem coordinate_system=1                                  [json_name = "coordinate_system"];
 }

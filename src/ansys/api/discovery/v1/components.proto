@@ -1,17 +1,16 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v1;
+import "src/ansys/api/discovery/v1/models.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
 
-import "ansys/api/discovery/v1/models.proto";
-
 service Components{
-    // Gets a component.
-    rpc GetComponent(GetComponentRequest) returns(Component);
+  // Gets a component.
+  rpc GetComponent(GetComponentRequest) returns(Component);
 
-    // Lists all components.
-    rpc ListComponents(ListComponentsRequest) returns(ListComponentsResponse) ;
+  // Lists all components.
+  rpc ListComponents(ListComponentsRequest) returns(ListComponentsResponse) ;
 }
 
 message ListComponentsRequest{

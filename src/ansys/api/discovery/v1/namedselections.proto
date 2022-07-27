@@ -1,67 +1,66 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v1;
+import "src/ansys/api/discovery/v1/models.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
-
-import "ansys/api/discovery/v1/models.proto";
 
 // Named Selections
 //
 service NamedSelections{
-    // Gets a named selection.
-    rpc GetNamedSelection(GetNamedSelectionRequest) returns(NamedSelection);
+  // Gets a named selection.
+  rpc GetNamedSelection(GetNamedSelectionRequest) returns(NamedSelection);
 
-    // Creates a named selection. This is a custom method as the signature is non-standard.
-    rpc CreateNamedSelectionCustom(CreateNamedSelectionCustomRequest) returns(NamedSelection);
+  // Creates a named selection. This is a custom method as the signature is non-standard.
+  rpc CreateNamedSelectionCustom(CreateNamedSelectionCustomRequest) returns(NamedSelection);
 
-    // Lists all named selections.
-    rpc ListNamedSelections(ListNamedSelectionsRequest) returns(ListNamedSelectionsResponse);
+  // Lists all named selections.
+  rpc ListNamedSelections(ListNamedSelectionsRequest) returns(ListNamedSelectionsResponse);
 }
 
 message GetNamedSelectionRequest{
-    // Moniker of the named selection.
-    string moniker = 1;
+  // Moniker of the named selection.
+  string moniker = 1;
 
 }
 
 message CreateNamedSelectionCustomRequest{
-    // Name of the named selection.
-    string display_name = 1;
-    // Member monikers to populate the named selection.
-    repeated string member_monikers = 2                       [json_name = "member_monikers"];
+  // Name of the named selection.
+  string display_name = 1;
+  // Member monikers to populate the named selection.
+  repeated string member_monikers = 2                       [json_name = "member_monikers"];
 }
 
 message ListNamedSelectionsRequest {
-    // The parent, which must be empty.
-    string parent = 1;
+  // The parent, which must be empty.
+  string parent = 1;
 }
 
 message ListNamedSelectionsResponse{
-    // The named selections on this page.
-    repeated NamedSelection named_selections = 1              [json_name = "named_selections"];
+  // The named selections on this page.
+  repeated NamedSelection named_selections = 1              [json_name = "named_selections"];
 }
 
 message AddMembersRequest{
-    // Moniker of the named selection.
-    string moniker = 1;
-    // Monikers of the entities to add to the named selection.
-    repeated string member_monikers = 2                       [json_name = "member_monikers"];
+  // Moniker of the named selection.
+  string moniker = 1;
+  // Monikers of the entities to add to the named selection.
+  repeated string member_monikers = 2                       [json_name = "member_monikers"];
 }
 
 message AddMembersResponse{
-    // Updated named selection.
-    NamedSelection named_selection = 1;
+  // Updated named selection.
+  NamedSelection named_selection = 1;
 }
 
 message RemoveMembersRequest{
-    // Moniker of the named selection.
-    string moniker = 1;
-    // Monikers of the entities to remove from the named selection.
-    repeated string member_monikers = 2                       [json_name = "member_monikers"];
+  // Moniker of the named selection.
+  string moniker = 1;
+  // Monikers of the entities to remove from the named selection.
+  repeated string member_monikers = 2                       [json_name = "member_monikers"];
 }
 
 message RemoveMembersResponse{
-    // Updated named selection.
-    NamedSelection named_selection = 1                        [json_name = "named_selection"];
+  // Updated named selection.
+  NamedSelection named_selection = 1                        [json_name = "named_selection"];
 }

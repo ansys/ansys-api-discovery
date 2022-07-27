@@ -1,10 +1,9 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v1;
+import "google/protobuf/struct.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
-
-import "google/protobuf/struct.proto";
 
 //
 // The type of curve.
@@ -358,17 +357,17 @@ message Direction {
 //
 // A 3D coordinate frame.
 message Frame {
-    Point origin = 1;
-    Direction dir_x = 2                                    [json_name = "dir_x"];
-    Direction dir_y = 3                                    [json_name = "dir_y"];
-    Direction dir_z = 4                                    [json_name = "dir_z"];
+  Point origin = 1;
+  Direction dir_x = 2                                    [json_name = "dir_x"];
+  Direction dir_y = 3                                    [json_name = "dir_y"];
+  Direction dir_z = 4                                    [json_name = "dir_z"];
 }
 
 //
 // A 3D box.
 message Box {
-    Point min = 1;
-    Point max = 2;
+  Point min = 1;
+  Point max = 2;
 }
 
 //
@@ -378,22 +377,22 @@ message Box {
 // The translation is m03/m33, m13/m33, m23/m33.
 // The uniform scale is 1/m33.
 message Matrix{
-    double m00 = 1;
-    double m01 = 2;
-    double m02 = 3;
-    double m03 = 4;
-    double m10 = 5;
-    double m11 = 6;
-    double m12 = 7;
-    double m13 = 8;
-    double m20 = 9;
-    double m21 = 10;
-    double m22 = 11;
-    double m23 = 12;
-    double m30 = 13;
-    double m31 = 14;
-    double m32 = 15;
-    double m33 = 16;
+  double m00 = 1;
+  double m01 = 2;
+  double m02 = 3;
+  double m03 = 4;
+  double m10 = 5;
+  double m11 = 6;
+  double m12 = 7;
+  double m13 = 8;
+  double m20 = 9;
+  double m21 = 10;
+  double m22 = 11;
+  double m23 = 12;
+  double m30 = 13;
+  double m31 = 14;
+  double m32 = 15;
+  double m33 = 16;
 }
 //
 // An history track parameter
@@ -503,25 +502,25 @@ enum ScriptParameterView {
 //
 // ShrinkWrapOptions is used to specify ShrinkWrap method in the Facet Tools. 
 message ShrinkWrapOptions {
-// Gets or sets the maximum size of the facet in mm. 
-	double size =2;
-	 //Gets or sets a value indicating whether to keep the original body or not.
-	bool keep_original_bodies =3;
-	// Gets or sets a value indicating whether to preserve features.
-	bool preserve_features =4;
-	// Gets or sets a value indicating whether to preserve features.
-	double angle_tolerance =5;
-	// Gets or sets a value indicating whether to preserve features.
-	bool secondary_size_enabled =6;
-	// Get or sets a value indicating secondary size
-	double secondary_size = 7;
-	// Gets or sets a value indicating whether to preserve features.
-	bool max_size_enabled =8;
-	// Get or sets a value indicating secondary size
-	double max_size = 9;
-	// Gets or sets a value indicating whether to preserve features.
-	double curvature_angle =10;
-	// Get or sets a value indicating secondary size
+  // Gets or sets the maximum size of the facet in mm. 
+  double size =2;
+  //Gets or sets a value indicating whether to keep the original body or not.
+  bool keep_original_bodies =3;
+  // Gets or sets a value indicating whether to preserve features.
+  bool preserve_features =4;
+  // Gets or sets a value indicating whether to preserve features.
+  double angle_tolerance =5;
+  // Gets or sets a value indicating whether to preserve features.
+  bool secondary_size_enabled =6;
+  // Get or sets a value indicating secondary size
+  double secondary_size = 7;
+  // Gets or sets a value indicating whether to preserve features.
+  bool max_size_enabled =8;
+  // Get or sets a value indicating secondary size
+  double max_size = 9;
+  // Gets or sets a value indicating whether to preserve features.
+  double curvature_angle =10;
+  // Get or sets a value indicating secondary size
 }
 
 //
@@ -574,86 +573,86 @@ message OutputColumn {
 //
 // Represents the quantity type for a physics parameter.
 enum QuantityType {
-    QUANTITY_TYPE_ACCELERATION=0;
-    QUANTITY_TYPE_ANGLE=1;
-    QUANTITY_TYPE_AREA=2;
-    QUANTITY_TYPE_AREA_DENSITY=3;
-    QUANTITY_TYPE_AREA_MOMENT_OF_INERTIA=4;
-    QUANTITY_TYPE_CAPACITANCE=5;
-    QUANTITY_TYPE_COEFFICIENT_OF_THERMAL_EXPANSION=6;
-    QUANTITY_TYPE_DENSITY=7;
-    QUANTITY_TYPE_DYNAMIC_VISCOSITY=8;
-    QUANTITY_TYPE_ELECTRIC_ADMITTANCE=9;
-    QUANTITY_TYPE_ELECTRIC_CHARGE=10;
-    QUANTITY_TYPE_ELECTRIC_CHARGE_DENSITY=11;
-    QUANTITY_TYPE_ELECTRIC_CONDUCTANCE=12;
-    QUANTITY_TYPE_ELECTRIC_CONDUCTIVITY=13;
-    QUANTITY_TYPE_ELECTRIC_CURRENT=14;
-    QUANTITY_TYPE_ELECTRIC_CURRENT_DENSITY=15;
-    QUANTITY_TYPE_ELECTRIC_CURRENT_GRADIENT=16;
-    QUANTITY_TYPE_ELECTRIC_FIELD=17;
-    QUANTITY_TYPE_ELECTRIC_INDUCTANCE=18;
-    QUANTITY_TYPE_ELECTRIC_POTENTIAL=19;
-    QUANTITY_TYPE_ELECTRIC_POTENTIAL_AC=20;
-    QUANTITY_TYPE_ELECTRIC_POTENTIAL_CHANGE_RATE=21;
-    QUANTITY_TYPE_ELECTRIC_POTENTIAL_DC=22;
-    QUANTITY_TYPE_ELECTRIC_RESISTANCE=23;
-    QUANTITY_TYPE_ELECTRIC_RESISTIVITY=24;
-    QUANTITY_TYPE_ELECTRIC_SURFACE_CHARGE_DENSITY=25;
-    QUANTITY_TYPE_ENERGY=26;
-    QUANTITY_TYPE_ENTROPY=27;
-    QUANTITY_TYPE_FORCE=28;
-    QUANTITY_TYPE_FORCE_CHANGE_RATE=29;
-    QUANTITY_TYPE_FORCE_PER_LENGTH=30;
-    QUANTITY_TYPE_FREQUENCY=31;
-    QUANTITY_TYPE_HEAT_FLUX=32;
-    QUANTITY_TYPE_HEAT_TRANSFER_COEFFICIENT=33;
-    QUANTITY_TYPE_INVERSE_AREA=34;
-    QUANTITY_TYPE_INVERSE_LENGTH=35;
-    QUANTITY_TYPE_KINEMATIC_VISCOSITY=36;
-    QUANTITY_TYPE_LENGTH=37;
-    QUANTITY_TYPE_MAGNETIC_FIELD=38;
-    QUANTITY_TYPE_MASS=39;
-    QUANTITY_TYPE_MASS_CONCENTRATION=40;
-    QUANTITY_TYPE_MASS_FLOW=41;
-    QUANTITY_TYPE_MASS_FLUX=42;
-    QUANTITY_TYPE_MASS_FRACTION=43;
-    QUANTITY_TYPE_MASS_MOMENT_OF_INERTIA=44;
-    QUANTITY_TYPE_MOLARITY=45;
-    QUANTITY_TYPE_MOLAR_MASS=46;
-    QUANTITY_TYPE_PERMEABILITY=47;
-    QUANTITY_TYPE_PERMITTIVITY=48;
-    QUANTITY_TYPE_POWER=49;
-    QUANTITY_TYPE_POWER_DENSITY=50;
-    QUANTITY_TYPE_POWER_RATIO=51;
-    QUANTITY_TYPE_PRESSURE=52;
-    QUANTITY_TYPE_RATIO=53;
-    QUANTITY_TYPE_RATIO_CHANGE_RATE=54;
-    QUANTITY_TYPE_REACTIVE_ENERGY=55;
-    QUANTITY_TYPE_REACTIVE_POWER=56;
-    QUANTITY_TYPE_ROTATIONAL_ACCELERATION=57;
-    QUANTITY_TYPE_ROTATIONAL_SPEED=58;
-    QUANTITY_TYPE_ROTATIONAL_STIFFNESS=59;
-    QUANTITY_TYPE_ROTATIONAL_STIFFNESS_PER_LENGTH=60;
-    QUANTITY_TYPE_SOLID_ANGLE=61;
-    QUANTITY_TYPE_SPECIFIC_ENERGY=62;
-    QUANTITY_TYPE_SPECIFIC_ENTROPY=63;
-    QUANTITY_TYPE_SPECIFIC_VOLUME=64;
-    QUANTITY_TYPE_SPECIFIC_WEIGHT=65;
-    QUANTITY_TYPE_SPEED=66;
-    QUANTITY_TYPE_TEMPERATURE=67;
-    QUANTITY_TYPE_TEMPERATURE_CHANGE_RATE=68;
-    QUANTITY_TYPE_TEMPERATURE_DELTA=69;
-    QUANTITY_TYPE_THERMAL_CONDUCTIVITY=70;
-    QUANTITY_TYPE_THERMAL_RESISTANCE=71;
-    QUANTITY_TYPE_TIME=72;
-    QUANTITY_TYPE_TORQUE=73;
-    QUANTITY_TYPE_TORQUE_PER_LENGTH=74;
-    QUANTITY_TYPE_VOLUME=75;
-    QUANTITY_TYPE_VOLUME_CONCENTRATION=76;
-    QUANTITY_TYPE_VOLUME_FLOW=77;
-    QUANTITY_TYPE_VOLUME_PER_LENGTH=78;
-    QUANTITY_TYPE_WARPING_MOMENT_OF_INERTIA=79;
+  QUANTITY_TYPE_ACCELERATION=0;
+  QUANTITY_TYPE_ANGLE=1;
+  QUANTITY_TYPE_AREA=2;
+  QUANTITY_TYPE_AREA_DENSITY=3;
+  QUANTITY_TYPE_AREA_MOMENT_OF_INERTIA=4;
+  QUANTITY_TYPE_CAPACITANCE=5;
+  QUANTITY_TYPE_COEFFICIENT_OF_THERMAL_EXPANSION=6;
+  QUANTITY_TYPE_DENSITY=7;
+  QUANTITY_TYPE_DYNAMIC_VISCOSITY=8;
+  QUANTITY_TYPE_ELECTRIC_ADMITTANCE=9;
+  QUANTITY_TYPE_ELECTRIC_CHARGE=10;
+  QUANTITY_TYPE_ELECTRIC_CHARGE_DENSITY=11;
+  QUANTITY_TYPE_ELECTRIC_CONDUCTANCE=12;
+  QUANTITY_TYPE_ELECTRIC_CONDUCTIVITY=13;
+  QUANTITY_TYPE_ELECTRIC_CURRENT=14;
+  QUANTITY_TYPE_ELECTRIC_CURRENT_DENSITY=15;
+  QUANTITY_TYPE_ELECTRIC_CURRENT_GRADIENT=16;
+  QUANTITY_TYPE_ELECTRIC_FIELD=17;
+  QUANTITY_TYPE_ELECTRIC_INDUCTANCE=18;
+  QUANTITY_TYPE_ELECTRIC_POTENTIAL=19;
+  QUANTITY_TYPE_ELECTRIC_POTENTIAL_AC=20;
+  QUANTITY_TYPE_ELECTRIC_POTENTIAL_CHANGE_RATE=21;
+  QUANTITY_TYPE_ELECTRIC_POTENTIAL_DC=22;
+  QUANTITY_TYPE_ELECTRIC_RESISTANCE=23;
+  QUANTITY_TYPE_ELECTRIC_RESISTIVITY=24;
+  QUANTITY_TYPE_ELECTRIC_SURFACE_CHARGE_DENSITY=25;
+  QUANTITY_TYPE_ENERGY=26;
+  QUANTITY_TYPE_ENTROPY=27;
+  QUANTITY_TYPE_FORCE=28;
+  QUANTITY_TYPE_FORCE_CHANGE_RATE=29;
+  QUANTITY_TYPE_FORCE_PER_LENGTH=30;
+  QUANTITY_TYPE_FREQUENCY=31;
+  QUANTITY_TYPE_HEAT_FLUX=32;
+  QUANTITY_TYPE_HEAT_TRANSFER_COEFFICIENT=33;
+  QUANTITY_TYPE_INVERSE_AREA=34;
+  QUANTITY_TYPE_INVERSE_LENGTH=35;
+  QUANTITY_TYPE_KINEMATIC_VISCOSITY=36;
+  QUANTITY_TYPE_LENGTH=37;
+  QUANTITY_TYPE_MAGNETIC_FIELD=38;
+  QUANTITY_TYPE_MASS=39;
+  QUANTITY_TYPE_MASS_CONCENTRATION=40;
+  QUANTITY_TYPE_MASS_FLOW=41;
+  QUANTITY_TYPE_MASS_FLUX=42;
+  QUANTITY_TYPE_MASS_FRACTION=43;
+  QUANTITY_TYPE_MASS_MOMENT_OF_INERTIA=44;
+  QUANTITY_TYPE_MOLARITY=45;
+  QUANTITY_TYPE_MOLAR_MASS=46;
+  QUANTITY_TYPE_PERMEABILITY=47;
+  QUANTITY_TYPE_PERMITTIVITY=48;
+  QUANTITY_TYPE_POWER=49;
+  QUANTITY_TYPE_POWER_DENSITY=50;
+  QUANTITY_TYPE_POWER_RATIO=51;
+  QUANTITY_TYPE_PRESSURE=52;
+  QUANTITY_TYPE_RATIO=53;
+  QUANTITY_TYPE_RATIO_CHANGE_RATE=54;
+  QUANTITY_TYPE_REACTIVE_ENERGY=55;
+  QUANTITY_TYPE_REACTIVE_POWER=56;
+  QUANTITY_TYPE_ROTATIONAL_ACCELERATION=57;
+  QUANTITY_TYPE_ROTATIONAL_SPEED=58;
+  QUANTITY_TYPE_ROTATIONAL_STIFFNESS=59;
+  QUANTITY_TYPE_ROTATIONAL_STIFFNESS_PER_LENGTH=60;
+  QUANTITY_TYPE_SOLID_ANGLE=61;
+  QUANTITY_TYPE_SPECIFIC_ENERGY=62;
+  QUANTITY_TYPE_SPECIFIC_ENTROPY=63;
+  QUANTITY_TYPE_SPECIFIC_VOLUME=64;
+  QUANTITY_TYPE_SPECIFIC_WEIGHT=65;
+  QUANTITY_TYPE_SPEED=66;
+  QUANTITY_TYPE_TEMPERATURE=67;
+  QUANTITY_TYPE_TEMPERATURE_CHANGE_RATE=68;
+  QUANTITY_TYPE_TEMPERATURE_DELTA=69;
+  QUANTITY_TYPE_THERMAL_CONDUCTIVITY=70;
+  QUANTITY_TYPE_THERMAL_RESISTANCE=71;
+  QUANTITY_TYPE_TIME=72;
+  QUANTITY_TYPE_TORQUE=73;
+  QUANTITY_TYPE_TORQUE_PER_LENGTH=74;
+  QUANTITY_TYPE_VOLUME=75;
+  QUANTITY_TYPE_VOLUME_CONCENTRATION=76;
+  QUANTITY_TYPE_VOLUME_FLOW=77;
+  QUANTITY_TYPE_VOLUME_PER_LENGTH=78;
+  QUANTITY_TYPE_WARPING_MOMENT_OF_INERTIA=79;
 }
 
 //
@@ -673,8 +672,8 @@ message DesignCurve{
 //
 // Object type descriptor
 enum EntityType{
-	PART = 0;
-	COMPONENT = 1;
-	BODY = 2;
-	NAMED_SELECTION = 3;
+  PART = 0;
+  COMPONENT = 1;
+  BODY = 2;
+  NAMED_SELECTION = 3;
 }

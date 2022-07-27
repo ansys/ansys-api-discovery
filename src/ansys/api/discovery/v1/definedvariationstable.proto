@@ -1,180 +1,180 @@
 // Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v1;
+import "src/ansys/api/discovery/v1/models.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
-import "ansys/api/discovery/v1/models.proto";
 
 // Defined variation table servicer.
 //
 service DefinedVariationsTable{
-    // Gets a whole row from the defined variations table
-    //
-    rpc GetVariation(GetVariationRequest) returns(Variation);
+  // Gets a whole row from the defined variations table
+  //
+  rpc GetVariation(GetVariationRequest) returns(Variation);
 
-    // Get all the variations (i.e get all the table as rows list)
-    //
-    rpc ListVariations(ListVariationsRequest) returns(ListVariationsResponse);
-    
-    // Get all the inputs.
-    //
-    rpc ListInputs(ListInputsRequest) returns(ListInputsResponse);
-    
-    // Get all the outputs.
-    //
-    rpc ListOutputs(ListOutputsRequest) returns(ListOutputsResponse);
-    
-    // Get an input variation table's cell
-    //
-    rpc GetInputParameterForVariation(GetInputParameterForVariationRequest) returns(InputParameter) ;
-    
-    // Set an input parameter
-    //
-    rpc SetInputValue(SetInputValueRequest) returns(InputParameter) ;
+  // Get all the variations (i.e get all the table as rows list)
+  //
+  rpc ListVariations(ListVariationsRequest) returns(ListVariationsResponse);
+  
+  // Get all the inputs.
+  //
+  rpc ListInputs(ListInputsRequest) returns(ListInputsResponse);
+  
+  // Get all the outputs.
+  //
+  rpc ListOutputs(ListOutputsRequest) returns(ListOutputsResponse);
+  
+  // Get an input variation table's cell
+  //
+  rpc GetInputParameterForVariation(GetInputParameterForVariationRequest) returns(InputParameter) ;
+  
+  // Set an input parameter
+  //
+  rpc SetInputValue(SetInputValueRequest) returns(InputParameter) ;
 
-    // Create variation
-    //
-    rpc CreateVariation(CreateVariationRequest) returns(CreateVariationResponse);
-    
-    // Get an output variation table's cell
-    //
-    rpc GetOutputParameterForVariation(GetOutputParameterForVariationRequest) returns(OutputParameter);
-    
-    // Get a variation input table's column
-    //
-    rpc GetInputColumn(GetInputColumnRequest) returns(GetInputColumnResponse);
-    
-    // Get a variation output table's column
-    //
-    rpc GetOutputColumn(GetOutputColumnRequest) returns(GetOutputColumnResponse);
-    
-    // Set a star status for a variations list.
-    //
-    rpc SetStarredStatus(SetStarredStatusRequest) returns(SetStarredStatusResponse) ;
-    
-    // Updates outputs for current variation
-    //
-    rpc UpdateCurrent(UpdateCurrentRequest) returns(UpdateCurrentResponse);
-    
-    // Updates outputs for starred variations
-    //
-    rpc UpdateStarred(UpdateStarredRequest) returns(UpdateStarredResponse);
-    
-    // Updates outputs for current variation
-    //
-    rpc UpdateAll(UpdateAllRequest) returns(UpdateAllResponse) ;
+  // Create variation
+  //
+  rpc CreateVariation(CreateVariationRequest) returns(CreateVariationResponse);
+  
+  // Get an output variation table's cell
+  //
+  rpc GetOutputParameterForVariation(GetOutputParameterForVariationRequest) returns(OutputParameter);
+  
+  // Get a variation input table's column
+  //
+  rpc GetInputColumn(GetInputColumnRequest) returns(GetInputColumnResponse);
+  
+  // Get a variation output table's column
+  //
+  rpc GetOutputColumn(GetOutputColumnRequest) returns(GetOutputColumnResponse);
+  
+  // Set a star status for a variations list.
+  //
+  rpc SetStarredStatus(SetStarredStatusRequest) returns(SetStarredStatusResponse) ;
+  
+  // Updates outputs for current variation
+  //
+  rpc UpdateCurrent(UpdateCurrentRequest) returns(UpdateCurrentResponse);
+  
+  // Updates outputs for starred variations
+  //
+  rpc UpdateStarred(UpdateStarredRequest) returns(UpdateStarredResponse);
+  
+  // Updates outputs for current variation
+  //
+  rpc UpdateAll(UpdateAllRequest) returns(UpdateAllResponse) ;
 }
   
 message GetVariationRequest{
-    // The moniker to access the variation.
-    string moniker = 1;
+  // The moniker to access the variation.
+  string moniker = 1;
 }
 
 message ListVariationsRequest{
 }
 
 message ListVariationsResponse{
-    // The variations on this page.
-    repeated Variation defined_variations = 1 ;
+  // The variations on this page.
+  repeated Variation defined_variations = 1 ;
 }
 
 message ListInputsRequest{;
 }
 
 message ListInputsResponse{
-    // The inputs on this page.
-    repeated InputColumn inputs = 1 ;
+  // The inputs on this page.
+  repeated InputColumn inputs = 1 ;
 }
 
 message ListOutputsRequest{
 }
 
 message ListOutputsResponse{
-    // The outputs on this page.
-    repeated OutputColumn outputs = 1 ;
+  // The outputs on this page.
+  repeated OutputColumn outputs = 1 ;
 }
 
 message GetInputParameterForVariationRequest{
-    // The variation's moniker.
-    string variation_moniker = 1          [json_name = "variation_moniker"];
-    // The parameter' moniker.
-    string input_parameter_moniker = 2          [json_name = "input_parameter_moniker"];
+  // The variation's moniker.
+  string variation_moniker = 1          [json_name = "variation_moniker"];
+  // The parameter' moniker.
+  string input_parameter_moniker = 2          [json_name = "input_parameter_moniker"];
 }
 
 message SetInputValueRequest{
-    // The variation's moniker.
-    string variation_moniker = 1          [json_name = "variation_moniker"];
-    // The input parameter.
-    InputParameter defined_variation_table_input = 2                    [json_name = "defined_variation_table_input"];
+  // The variation's moniker.
+  string variation_moniker = 1          [json_name = "variation_moniker"];
+  // The input parameter.
+  InputParameter defined_variation_table_input = 2                    [json_name = "defined_variation_table_input"];
 }
 
 message GetOutputParameterForVariationRequest{
-    // The variation's moniker.
-    string variation_moniker = 1          [json_name = "variation_moniker"];
-    // The parameter' moniker.
-    string output_parameter_moniker = 2          [json_name = "output_parameter_moniker"];
+  // The variation's moniker.
+  string variation_moniker = 1          [json_name = "variation_moniker"];
+  // The parameter' moniker.
+  string output_parameter_moniker = 2          [json_name = "output_parameter_moniker"];
 }
 
 message GetInputColumnRequest{
-    // The parameter' moniker.
-    string input_parameter_moniker = 1;
+  // The parameter' moniker.
+  string input_parameter_moniker = 1;
 }
 
 message GetInputColumnResponse{
-    // The parameter's variations column.
-    InputColumn column = 1;
+  // The parameter's variations column.
+  InputColumn column = 1;
 }
 
 message GetOutputColumnRequest{
-    // The parameter' moniker.
-    string output_parameter_moniker = 1;
+  // The parameter' moniker.
+  string output_parameter_moniker = 1;
 }
 
 message GetOutputColumnResponse{
-    // The parameter's variations column.
-    OutputColumn column = 1;
+  // The parameter's variations column.
+  OutputColumn column = 1;
 }
 
 message SetStarredStatusRequest{
-    // The variations monikers.
-    repeated string variations_monikers = 1;
-    // The starred status
-    bool starred = 2;
+  // The variations monikers.
+  repeated string variations_monikers = 1;
+  // The starred status
+  bool starred = 2;
 }
 
 message CreateVariationRequest{
-    string name= 1;
+  string name= 1;
 }
 
 message CreateVariationResponse{
-    string result = 1;
+  string result = 1;
 }
 
 message SetStarredStatusResponse{
 }
 
-  ///UPDATES
-  //
+///UPDATES
+//
 message UpdateCurrentRequest{
 }
 
 message UpdateCurrentResponse{
-    // The result
-    bool result = 1;
+  // The result
+  bool result = 1;
 }
 
 message UpdateStarredRequest{
 }
 
 message UpdateStarredResponse{
-    // The result
-    bool result = 1;
+  // The result
+  bool result = 1;
 }
 
 message UpdateAllRequest{
 }
 
 message UpdateAllResponse{
-    // The result
-    bool result = 1;
+  // The result
+  bool result = 1;
 }
