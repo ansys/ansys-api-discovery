@@ -3,7 +3,7 @@ syntax = "proto3";
 package ansys.api.discovery.v1;
 import "google/protobuf/struct.proto";
 import "google/protobuf/wrappers.proto";
-import "src/ansys/api/discovery/v1/models.proto";
+import "ansys/api/discovery/v1/models.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
 
