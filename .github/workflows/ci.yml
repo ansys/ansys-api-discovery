@@ -13,8 +13,8 @@ env:
   MAIN_PYTHON_VERSION: '3.10'
 
 jobs:
-  build:
-    name: Build package
+  build-python:
+    name: Build Python package
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -54,9 +54,10 @@ jobs:
           path: dist/
           retention-days: 7
 
-  Release:
+  release-python:
+    name: Release Python packages
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-    needs: [build]
+    needs: [build-python]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -80,7 +81,17 @@ jobs:
       #     TWINE_USERNAME: __token__
       #     TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }} 
 
-      - name: Release
+      - name: Upload to Private PyPi
+        run: |
+          pip install twine
+          twine upload --skip-existing ./**/*.whl
+          twine upload --skip-existing ./**/*.tar.gz
+        env:
+          TWINE_USERNAME: PAT
+          TWINE_PASSWORD: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }} 
+          TWINE_REPOSITORY_URL: https://pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/upload
+
+      - name: Release Python package
         uses: softprops/action-gh-release@v1
         with:
           generate_release_notes: true
