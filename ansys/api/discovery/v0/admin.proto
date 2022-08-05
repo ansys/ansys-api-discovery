@@ -1,10 +1,10 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v0;
 option csharp_namespace = "Ansys.Api.Discovery.V0";
 option go_package = "ansys/api/discovery/v0";
-import "google/api/annotations.proto";
-import "google/api/httpbody.proto";
+import "ansys/api/discovery/v0/google/api/annotations.proto";
+import "ansys/api/discovery/v0/google/api/httpbody.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
 

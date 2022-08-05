@@ -3,7 +3,7 @@ syntax = "proto3";
 package ansys.api.discovery.v0;
 option csharp_namespace = "Ansys.Api.Discovery.V0";
 option go_package = "ansys/api/discovery/v0";
-import "google/api/annotations.proto";
+import "ansys/api/discovery/v0/google/api/annotations.proto";
 import "google/protobuf/field_mask.proto";
 import "ansys/api/discovery/v0/models.proto";
 
