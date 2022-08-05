@@ -1,13 +1,14 @@
 // Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v1;
+import "ansys/api/discovery/v1/streaming.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
 
 service Application {
 
   // Runs a script based on a file.
-  rpc RunScriptFile(RunScriptFileRequest) returns(RunScriptFileResponse);
+  rpc RunScriptFile(RunScriptFileRequest) returns(stream RunScriptFileResponse);
 
   // Runs a script based on a supplied string.
   rpc RunScript(RunScriptRequest) returns(RunScriptResponse);
