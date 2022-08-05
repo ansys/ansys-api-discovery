@@ -1,74 +1,73 @@
-// �2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v0;
+import "ansys/api/discovery/v0/google/api/annotations.proto";
+import "ansys/api/discovery/v0/google/api/httpbody.proto";
+import "ansys/api/discovery/v0/models.proto";
+import "google/protobuf/field_mask.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V0";
 option go_package = "ansys/api/discovery/v0";
-import "ansys/api/discovery/v0/google/api/annotations.proto";
-import "google/protobuf/field_mask.proto";
-import "ansys/api/discovery/v0/google/api/httpbody.proto";
-
-import "ansys/api/discovery/v0/models.proto";
 
 service Parts{
-    // Gets a part.
-    rpc GetPart(GetPartRequest) returns(Part) {
-        option(google.api.http) = {
-            get: "/v0/parts/{moniker}"
-        };
-    }
-    // Lists all parts.
-    rpc ListParts(ListPartsRequest) returns(ListPartsResponse) {
-        option(google.api.http) = {
-            get: "/v0/parts"
-        };
-    }
-    // Exports the geometry for a part in a supported format.
-    rpc ExportPart(ExportPartRequest) returns(google.api.HttpBody) {
-        option(google.api.http) = {
-            post: "/v0/parts/{moniker}:export"
-            body: "*"
-        };
-    }
+  // Gets a part.
+  rpc GetPart(GetPartRequest) returns(Part) {
+    option(google.api.http) = {
+      get: "/v0/parts/{moniker}"
+    };
+  }
+  // Lists all parts.
+  rpc ListParts(ListPartsRequest) returns(ListPartsResponse) {
+    option(google.api.http) = {
+      get: "/v0/parts"
+    };
+  }
+  // Exports the geometry for a part in a supported format.
+  rpc ExportPart(ExportPartRequest) returns(google.api.HttpBody) {
+    option(google.api.http) = {
+      post: "/v0/parts/{moniker}:export"
+      body: "*"
+    };
+  }
 }
 
 message ListPartsRequest{
-    // The parent, which can be empty or "documents/{moniker}".
-    string parent = 1;
-    // The maximum number of items to return.
-    int32 page_size = 2;
-    // The next_page_token value returned from a previous List request, if any.
-    string page_token = 3;
-    // The view.
-    PartView view = 4;
-    // The filter.
-    string filter = 5;
+  // The parent, which can be empty or "documents/{moniker}".
+  string parent = 1;
+  // The maximum number of items to return.
+  int32 page_size = 2;
+  // The next_page_token value returned from a previous List request, if any.
+  string page_token = 3;
+  // The view.
+  PartView view = 4;
+  // The filter.
+  string filter = 5;
 }
 
 message ListPartsResponse{
-    // The parts on this page.
-    repeated Part parts = 1;
-    // Next page token, or empty if there are no more results in the list.
-    string next_page_token = 2;
+  // The parts on this page.
+  repeated Part parts = 1;
+  // Next page token, or empty if there are no more results in the list.
+  string next_page_token = 2;
 }
 
 message GetPartRequest{
-    // The moniker.
-    string moniker = 1;
-    // The fields.
-    google.protobuf.FieldMask fields = 2;
+  // The moniker.
+  string moniker = 1;
+  // The fields.
+  google.protobuf.FieldMask fields = 2;
 }
 
 message ExportPartRequest{
-    // Moniker of the part to export.
-    string moniker = 1;
-    // Format to export to.
-    PartExportFormat format = 2;
+  // Moniker of the part to export.
+  string moniker = 1;
+  // Format to export to.
+  PartExportFormat format = 2;
 }
 
 enum PartExportFormat {
-    PARTEXPORTFORMAT_ACIS_TEXT = 0;
-    PARTEXPORTFORMAT_ACIS_BINARY = 1;
-    PARTEXPORTFORMAT_PARASOLID_TEXT = 2;
-    PARTEXPORTFORMAT_PARASOLID_BINARY = 3;
-    PARTEXPORTFORMAT_STEP = 4;
+  PARTEXPORTFORMAT_ACIS_TEXT = 0;
+  PARTEXPORTFORMAT_ACIS_BINARY = 1;
+  PARTEXPORTFORMAT_PARASOLID_TEXT = 2;
+  PARTEXPORTFORMAT_PARASOLID_BINARY = 3;
+  PARTEXPORTFORMAT_STEP = 4;
 }

@@ -1,8 +1,8 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v0;
-option csharp_namespace = "Ansys.Api.Discovery.V0";
 import "ansys/api/discovery/v0/models.proto";
+option csharp_namespace = "Ansys.Api.Discovery.V0";
 
 service DesignMeshes{
   // Gets a design mesh.

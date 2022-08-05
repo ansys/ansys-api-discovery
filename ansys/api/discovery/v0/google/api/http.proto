@@ -114,7 +114,8 @@ message Http {
 //
 // HTTP | RPC
 // -----|-----
-// `GET /v1/messages/123456?revision=2&sub.subfield=foo` | `GetMessage(message_id: "123456" revision: 2 sub: SubMessage(subfield: "foo"))`
+// `GET /v1/messages/123456?revision=2&sub.subfield=foo` | 
+// `GetMessage(message_id: "123456" revision: 2 sub: SubMessage(subfield: "foo"))`
 //
 // Note that fields which are mapped to HTTP parameters must have a
 // primitive type or a repeated primitive type. Message types are not
