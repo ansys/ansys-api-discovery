@@ -1,0 +1,68 @@
+// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0;
+option csharp_namespace = "Ansys.Api.Discovery.V0";
+option go_package = "ansys/api/discovery/v0";
+import "google/api/annotations.proto";
+
+service Application {
+
+    // Runs a script based on a file.
+    rpc RunScriptFile(RunScriptFileRequest) returns(RunScriptFileResponse) {
+        option(google.api.http) = {
+          post: "/v0/application:runscriptfile"
+          body : "*"
+        };
+    }
+    // Runs a script based on a supplied string.
+    rpc RunScript(RunScriptRequest) returns(RunScriptResponse) {
+        option(google.api.http) = {
+          post: "/v0/application:runscript"
+          body : "*"
+        };
+    }
+    // Runs a command. A command can be exposed by Addin.
+    rpc RunCommand(RunCommandRequest) returns(RunCommandResponse) {
+        option(google.api.http) = {
+          post: "/v0/application:runcommand"
+          body : "*"
+        };
+    }
+}
+
+message RunScriptFileRequest{
+    // Local path to the script to execute.
+    string script_path = 1                                  [json_name = "script_path"];
+    // map of argument names to values.
+    map<string,string> script_args = 2                      [json_name = "script_args"];
+    // The api version to be used to run the script
+    int32 api_version = 3;
+}
+
+message RunScriptFileResponse{
+    // Results returned by script.
+   string script_output = 1                      [json_name = "script_output"];
+}
+
+message RunScriptRequest{
+    // Script source to execute.
+    string script = 1;
+    // The api version to be used to run the script
+    int32 api_version = 2;
+}
+message RunScriptResponse{
+    // Result of script execution. True means script executed successfully.
+    bool script_result = 1                                    [json_name = "script_result"];
+}
+
+message RunCommandRequest{
+    // Command to execute.
+    string command = 1;
+    // Data to pass to command.
+    string data = 2;
+}
+
+message RunCommandResponse{
+    // Data returned from command.
+    string data = 1;
+}

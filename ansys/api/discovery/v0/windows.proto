@@ -1,0 +1,55 @@
+// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0;
+option csharp_namespace = "Ansys.Api.Discovery.V0";
+option go_package = "ansys/api/discovery/v0";
+import "google/api/annotations.proto";
+import "google/api/httpbody.proto";
+
+// Windows
+//
+service Windows{
+    // Gets an image for the active window. 
+    rpc GetImage(GetImageRequest) returns(google.api.HttpBody) {
+        option(google.api.http) = {
+            get: "/v0/windows/active:image"
+        };
+    }
+    // Sets the camera view for the active window. 
+    rpc SetView(SetViewRequest) returns(SetViewResponse) {
+        option(google.api.http) = {
+            post: "/v0/windows/active:view"
+            body: "*"
+        };
+    }
+}
+
+message GetImageRequest{
+    // The format of the image being requested.
+    ImageFormat format = 1;
+}
+
+enum ImageFormat {
+    IMAGEFORMAT_PNG = 0;
+    IMAGEFORMAT_JPEG = 1;
+}
+
+message SetViewRequest{
+    // The view operation being requested.
+    WindowView view = 1;
+}
+
+message SetViewResponse{
+}
+
+enum WindowView {
+    WINDOWVIEW_TOP = 0;
+    WINDOWVIEW_BOTTOM = 1;
+    WINDOWVIEW_LEFT = 2;
+    WINDOWVIEW_RIGHT = 3;
+    WINDOWVIEW_FRONT = 4;
+    WINDOWVIEW_BACK = 5;
+    WINDOWVIEW_ISOMETRIC = 6;
+    WINDOWVIEW_TRIMETRIC = 7;
+    WINDOWVIEW_FIT = 8;
+}

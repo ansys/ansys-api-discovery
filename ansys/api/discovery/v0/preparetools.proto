@@ -1,0 +1,90 @@
+﻿// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0;
+option csharp_namespace = "Ansys.Api.Discovery.V0";
+import "google/protobuf/wrappers.proto";
+import "ansys/api/discovery/v0/models.proto";
+
+service PrepareTools{
+	// Find and fix Interferences of the bodies.
+	rpc FixInterference(FixInterferenceRequest) returns (FixInterferenceResponse);
+
+	// Find and fix short edges under certain tolerance.
+	rpc FixShortEdges(FixShortEdgesRequest) returns (FixShortEdgesResponse);
+
+	// Find and fix shared topology between geometries.
+	rpc ShareTopology(ShareTopologyRequest) returns (ShareTopologyResponse);
+
+	// Find and ushare existing shared topologies between geometries.
+	rpc UnshareTopology(UnshareTopologyRequest) returns (UnshareTopologyResponse);
+
+	// Calls the remove rounds face command.
+    rpc RemoveRounds(RemoveRoundsRequest) returns(RemoveRoundsResponse);
+
+	// Calls the remove face command.
+    rpc RemoveFaces(RemoveFacesRequest) returns(RemoveFacesResponse);
+}
+
+
+message FixInterferenceRequest{
+	repeated DesignBody selection = 1;
+	// True if interfered body is removed from smaller body, false otherwise.
+	google.protobuf.BoolValue cut_smaller_body=2;
+}
+
+message FixInterferenceResponse{
+	bool result = 1;
+}
+
+message FixShortEdgesRequest{
+	repeated DesignEdge selection = 1;
+	// The maximum edge length in mm to remove shorter edges.
+	google.protobuf.DoubleValue max_edge_length=2;
+}
+
+message FixShortEdgesResponse{
+	bool result = 1;
+}
+
+message ShareTopologyRequest{
+	repeated DesignBody selection = 1;
+	// Gets or sets the maximum distance between items to be considered intersecting in mm. 
+	google.protobuf.DoubleValue tolerance=2;
+	// Gets or sets the option for preserving the instancing. 
+	google.protobuf.BoolValue preserve_instances=3;
+}
+
+message ShareTopologyResponse{
+	bool result = 1;
+}
+
+message UnshareTopologyRequest{
+	// Gets or sets a value indicating whether to include groups. 
+	google.protobuf.BoolValue include_groups=1;
+	// Gets or sets a value indicating whether to unshare lower topology. 
+	google.protobuf.BoolValue unshare_lower_topology =2;
+}
+
+message UnshareTopologyResponse{
+	bool result = 1;
+}
+
+message RemoveRoundsRequest{
+	// The round faces to be removed.
+	repeated DesignFace selection = 1;
+	// Auto-shrink fill area 
+	google.protobuf.BoolValue auto_shrink = 2;
+}
+
+message RemoveRoundsResponse{
+	bool result = 1;
+}
+
+message RemoveFacesRequest{
+	// The faces to be removed.
+	repeated DesignFace selection = 1;
+}
+
+message RemoveFacesResponse{
+	bool result = 1;
+}

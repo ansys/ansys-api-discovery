@@ -1,0 +1,36 @@
+﻿// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0;
+option csharp_namespace = "Ansys.Api.Discovery.V0";
+
+import "ansys/api/discovery/v0/models.proto";
+
+service Commands{
+	// Rename many objects command.
+	rpc RenameMany(RenameManyRequest) returns (RenameManyResponse);
+	// Rename single object command.
+	rpc Rename(RenameRequest) returns (RenameResponse);
+}
+
+message RenameManyRequest{
+	map<string, SingleRenamedObject>	monikers_updates = 1;
+}
+
+message RenameManyResponse{
+	map<string,string> results = 1;
+}
+
+message SingleRenamedObject{
+	string new_name = 1;
+	EntityType type = 2;
+}
+
+message RenameRequest{
+	string	moniker = 1;
+	EntityType type = 2;
+	string	new_name = 3;
+}
+
+message RenameResponse{
+	string result = 1;
+}
