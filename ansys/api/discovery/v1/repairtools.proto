@@ -1,9 +1,9 @@
 // Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v1;
+import "ansys/api/discovery/v1/models.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/wrappers.proto";
-import "ansys/api/discovery/v1/models.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
 
