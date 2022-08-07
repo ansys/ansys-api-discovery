@@ -5,7 +5,7 @@ import "ansys/api/discovery/v1/models.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
 
-// History track parameters servicer.
+// History track parameters definition.
 //
 service HistoryTrackParameters{
   // Gets an history track parameter    .

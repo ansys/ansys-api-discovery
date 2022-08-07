@@ -1,27 +1,41 @@
 // Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1;
+package ansys.api.discovery.v0;
+import "ansys/api/discovery/google/api/annotations.proto";
 import "ansys/api/discovery/google/api/httpbody.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
-option csharp_namespace = "Ansys.Api.Discovery.V1";
-option go_package = "ansys/api/discovery/v1";
+option csharp_namespace = "Ansys.Api.Discovery.V0";
+option go_package = "ansys/api/discovery/v0";
 
 service Admin{
 
   rpc GetLogs(LogsRequest) returns(stream LogsResponse);
 
   // Gets the health of the service.
-  rpc Health(HealthRequest) returns(HealthResponse);
-
+  rpc Health(HealthRequest) returns(HealthResponse) {
+    option(google.api.http) = {
+      get: "/v0/admin:health"
+    };
+  }
   // Shuts down the underlying gRPC server.
-  rpc Shutdown(ShutdownRequest) returns(ShutdownResponse);
-
+  rpc Shutdown(ShutdownRequest) returns(ShutdownResponse) {
+    option(google.api.http) = {
+      post: "/v0/admin:shutdown"
+    };
+  } 
   // Gets a status page suitable for a browser.
-  rpc Status(StatusRequest) returns(google.api.HttpBody);
-
+  rpc Status(StatusRequest) returns(google.api.HttpBody) {
+    option(google.api.http) = {
+      get: "/v0/admin:status"
+    };
+  }
   // Gets basic status information.
-  rpc StatusInfo(StatusInfoRequest) returns(StatusInfoResponse);
+  rpc StatusInfo(StatusInfoRequest) returns(StatusInfoResponse) {
+    option(google.api.http) = {
+    get: "/v0/admin:statusinfo"
+    };
+  }   
 }
 
 enum LogsTarget{
@@ -77,7 +91,7 @@ message StatusInfoRequest{
 }
 
 message StatusInfoResponse{
-  string touch_time = 1                                     [json_name = "touch_time"];
-  string application_version = 2                            [json_name = "application_version"];
-  string embedded_api_version = 3                           [json_name = "embedded_api_version"];
+  string touch_time = 1                   [json_name = "touch_time"];
+  string application_version = 2              [json_name = "application_version"];
+  string embedded_api_version = 3               [json_name = "embedded_api_version"];
 }
