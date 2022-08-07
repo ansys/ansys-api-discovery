@@ -7,7 +7,7 @@ import "google/protobuf/field_mask.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V0";
 option go_package = "ansys/api/discovery/v0";
 
-// Defined variation table servicer.
+// Defined variation table definition.
 //
 service DefinedVariationsTable{
   // Gets a whole row from the defined variations table
