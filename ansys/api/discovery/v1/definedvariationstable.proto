@@ -5,7 +5,7 @@ import "ansys/api/discovery/v1/models.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
 
-// Defined variation table servicer.
+// Defined variation table definition.
 //
 service DefinedVariationsTable{
   // Gets a whole row from the defined variations table

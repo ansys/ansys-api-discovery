@@ -5,7 +5,7 @@ import "ansys/api/discovery/v1/models.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
 
-// script parameters servicer.
+// script parameters definition.
 //
 service ScriptParameters{
   // Gets an script parameter    .

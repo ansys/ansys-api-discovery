@@ -1,0 +1,278 @@
+// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0;
+import "ansys/api/discovery/google/api/annotations.proto";
+import "ansys/api/discovery/v0/models.proto";
+import "google/protobuf/field_mask.proto";
+option csharp_namespace = "Ansys.Api.Discovery.V0";
+option go_package = "ansys/api/discovery/v0";
+
+// Defined variation table definition.
+//
+service DefinedVariationsTable{
+  // Gets a whole row from the defined variations table
+  //
+  rpc GetVariation(GetVariationRequest) returns(Variation) {
+    option(google.api.http) = {
+      get: "/v0/definedvariationtable/{moniker}"
+    };
+  }
+
+  // Get all the variations (i.e get all the table as rows list)
+  //
+  rpc ListVariations(ListVariationsRequest) returns(ListVariationsResponse) {
+    option(google.api.http) = {
+      get: "/v0/definedvariationtable"
+    };
+  }
+  
+  // Get all the inputs.
+  //
+  rpc ListInputs(ListInputsRequest) returns(ListInputsResponse) {
+    option(google.api.http) = {
+      get: "/v0/definedvariationtable:inputs"
+    };
+  }
+  
+  // Get all the outputs.
+  //
+  rpc ListOutputs(ListOutputsRequest) returns(ListOutputsResponse) {
+    option(google.api.http) = {
+      get: "/v0/definedvariationtable:outputs"
+    };
+  }  
+  
+  // Get an input variation table's cell
+  //
+  rpc GetInputParameterForVariation(GetInputParameterForVariationRequest) returns(InputParameter) {
+    option(google.api.http) = {
+      get: "/v0/definedvariationtable/{moniker}/{input_parameter_moniker.moniker}"
+    };
+  }
+  
+  // Set an input parameter
+  //
+  rpc SetInputValue(SetInputValueRequest) returns(InputParameter) {
+    option(google.api.http) = {
+      patch: "/v0/definedvariationtable/{defined_variation_table_input.moniker}"
+      body : "defined_variation_table_input"
+    };
+  }
+
+  // Create variation
+  //
+  rpc CreateVariation(CreateVariationRequest) returns(CreateVariationResponse);
+  
+  // Get an output variation table's cell
+  //
+  rpc GetOutputParameterForVariation(GetOutputParameterForVariationRequest) returns(OutputParameter) {
+    option(google.api.http) = {
+      get: "/v0/definedvariationtable/{moniker}/{output_parameter_moniker.moniker}"
+    };
+  }
+  
+  // Get a variation input table's column
+  //
+  rpc GetInputColumn(GetInputColumnRequest) returns(GetInputColumnResponse) {
+    option(google.api.http) = {
+      get: "/v0/definedvariationtable/{moniker}"
+    };
+  }
+  
+  // Get a variation output table's column
+  //
+  rpc GetOutputColumn(GetOutputColumnRequest) returns(GetOutputColumnResponse) {
+    option(google.api.http) = {
+      get: "/v0/definedvariationtable/{moniker}"
+    };
+  }
+  
+  // Set a star status for a variations list.
+  //
+  rpc SetStarredStatus(SetStarredStatusRequest) returns(SetStarredStatusResponse) {
+    option(google.api.http) = {
+      patch: "/v0/definedvariationtable"
+      body : "variation"
+    };
+  }
+  
+  // Updates outputs for current variation
+  //
+  rpc UpdateCurrent(UpdateCurrentRequest) returns(UpdateCurrentResponse) {
+    option(google.api.http) = {
+      body : "defined_variation_table:updatecurrent"
+    };
+  }
+  
+  // Updates outputs for starred variations
+  //
+  rpc UpdateStarred(UpdateStarredRequest) returns(UpdateStarredResponse) {
+    option(google.api.http) = {
+      body : "defined_variation_table:updatestarred"
+    };
+  }
+  
+  // Updates outputs for current variation
+  //
+  rpc UpdateAll(UpdateAllRequest) returns(UpdateAllResponse) {
+    option(google.api.http) = {
+      body : "defined_variation_table:updateall"
+    };
+  }
+}
+  
+message GetVariationRequest{
+  // The moniker to access the variation.
+  string moniker = 1;
+}
+
+message ListVariationsRequest{
+  // The parent, which must be empty.
+  string parent = 1;
+  // The maximum number of items to return.
+  int32 page_size = 2;
+  // The next_page_token value returned from a previous List request, if any.
+  string page_token = 3;
+  // The view.
+  InputParameterView view = 4;
+  // The filter.
+  string filter = 5;
+}
+
+message ListVariationsResponse{
+  // The variations on this page.
+  repeated Variation defined_variations = 1 ;
+  // Next page token, or empty if there are no more results in the list.
+  string next_page_token = 2;
+}
+
+message ListInputsRequest{
+  // The parent, which must be empty.
+  string parent = 1;
+  // The maximum number of items to return.
+  int32 page_size = 2;
+  // The next_page_token value returned from a previous List request, if any.
+  string page_token = 3;
+  // The view.
+  InputParameterView view = 4;
+  // The filter.
+  string filter = 5;
+}
+
+message ListInputsResponse{
+  // The inputs on this page.
+  repeated InputColumn inputs = 1 ;
+  // Next page token, or empty if there are no more results in the list.
+  string next_page_token = 2;
+}
+
+message ListOutputsRequest{
+  // The parent, which must be empty.
+  string parent = 1;
+  // The maximum number of items to return.
+  int32 page_size = 2;
+  // The next_page_token value returned from a previous List request, if any.
+  string page_token = 3;
+  // The view.
+  InputParameterView view = 4;
+  // The filter.
+  string filter = 5;
+}
+
+message ListOutputsResponse{
+  // The outputs on this page.
+  repeated OutputColumn outputs = 1 ;
+  // Next page token, or empty if there are no more results in the list.
+  string next_page_token = 2;
+}
+
+message GetInputParameterForVariationRequest{
+  // The variation's moniker.
+  string variation_moniker = 1      [json_name = "variation_moniker"];
+  // The parameter' moniker.
+  string input_parameter_moniker = 2      [json_name = "input_parameter_moniker"];
+  // Next page token, or empty if there are no more results in the list.
+  string next_page_token = 3;
+}
+
+message SetInputValueRequest{
+  // The variation's moniker.
+  string variation_moniker = 1      [json_name = "variation_moniker"];
+  // The input parameter.
+  InputParameter defined_variation_table_input = 2          [json_name = "defined_variation_table_input"];
+  // The update mask.
+  google.protobuf.FieldMask update_mask = 3         [json_name = "update_mask"];
+}
+
+message GetOutputParameterForVariationRequest{
+  // The variation's moniker.
+  string variation_moniker = 1      [json_name = "variation_moniker"];
+  // The parameter' moniker.
+  string output_parameter_moniker = 2      [json_name = "output_parameter_moniker"];
+  // Next page token, or empty if there are no more results in the list.
+  string next_page_token = 3;
+}
+
+message GetInputColumnRequest{
+  // The parameter' moniker.
+  string input_parameter_moniker = 1;
+}
+
+message GetInputColumnResponse{
+  // The parameter's variations column.
+  InputColumn column = 1;
+}
+
+message GetOutputColumnRequest{
+  // The parameter' moniker.
+  string output_parameter_moniker = 1;
+}
+
+message GetOutputColumnResponse{
+  // The parameter's variations column.
+  OutputColumn column = 1;
+}
+
+message SetStarredStatusRequest{
+  // The variations monikers.
+  repeated string variations_monikers = 1;
+  // The starred status
+  bool starred = 2;
+}
+
+message CreateVariationRequest{
+  string name= 1;
+}
+
+message CreateVariationResponse{
+  string result = 1;
+}
+
+message SetStarredStatusResponse{
+}
+
+///UPDATES
+//
+message UpdateCurrentRequest{
+}
+
+message UpdateCurrentResponse{
+  // The result
+  bool result = 1;
+}
+
+message UpdateStarredRequest{
+}
+
+message UpdateStarredResponse{
+  // The result
+  bool result = 1;
+}
+
+message UpdateAllRequest{
+}
+
+message UpdateAllResponse{
+  // The result
+  bool result = 1;
+}

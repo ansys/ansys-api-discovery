@@ -1,0 +1,85 @@
+// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0;
+import "ansys/api/discovery/google/api/annotations.proto";
+import "ansys/api/discovery/v0/models.proto";
+import "google/protobuf/field_mask.proto";
+option csharp_namespace = "Ansys.Api.Discovery.V0";
+option go_package = "ansys/api/discovery/v0";
+
+
+service CoordinateSystems{
+
+  // Gets a coordinate system.
+  rpc GetCoordinateSystem(GetCoordinateSystemRequest) returns(CoordinateSystem) {
+    option(google.api.http) = {
+      get: "/v0/coordinatesystems/{moniker}"
+    };
+  }
+  // Lists all coordinate systems.
+  rpc ListCoordinateSystems(ListCoordinateSystemsRequest) returns(ListCoordinateSystemsResponse) {
+    option(google.api.http) = {
+      get: "/v0/coordinatesystems"
+    };
+  }
+  // Creates a coordinate system.
+  rpc CreateCoordinateSystem(CreateCoordinateSystemRequest) returns(CoordinateSystem) {
+    option(google.api.http) = {
+      post: "/v0/coordinatesystems"
+      body : "coordinate_system"
+    };
+  }
+  // Delete a coordinate system.
+  rpc DeleteCoordinateSystem(DeleteCoordinateSystemRequest) returns(DeleteCoordinateSystemResponse) {
+    option(google.api.http) = {
+      delete: "/v0/coordinatesystems/{moniker}"
+    };
+  }
+}
+
+message GetCoordinateSystemRequest{
+  // The moniker of the coordinate system to return.
+  string moniker = 1;
+  // The field mask to filter coordinate system. Not set will return 'default' information.
+  google.protobuf.FieldMask fields = 2;
+}
+
+message ListCoordinateSystemsRequest{
+  // The parent, which can be empty , "parts/{moniker}" or "namedselections/{moniker}".
+  string parent = 1;
+  // The maximum number of items to return.
+  int32 page_size = 2;
+  // The next_page_token value returned from a previous List request, if any.
+  string page_token = 3;
+  // The view.
+  CoordinateSystemView view = 4;
+  // The filter.
+  string filter=5;
+}
+
+message ListCoordinateSystemsResponse{
+  // The coordinate systems on this page.
+  repeated CoordinateSystem coordinate_systems = 1            [json_name = "coordinate_systems"];
+  // Next page token, or empty if there are no more results in the list.
+  string next_page_token = 2;
+}
+
+message CreateCoordinateSystemRequest{
+  // The parent where the coordinate system is to be created which can be empty or "parts/{moniker}".
+  string parent = 1;
+  // The coordinate system to create. 
+  CoordinateSystem coordinate_system = 2                [json_name = "coordinate_system"];
+}
+
+message CreateCoordinateSystemResponse{
+  // The created coordinate system.
+  CoordinateSystem coordinate_system=1                  [json_name = "coordinate_system"];
+}
+
+message DeleteCoordinateSystemRequest{
+  // The moniker of the coordinate sytem to be deleted.
+  string moniker = 1;
+}
+
+message DeleteCoordinateSystemResponse{
+}
