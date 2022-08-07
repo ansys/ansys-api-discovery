@@ -10,7 +10,7 @@ option go_package = "ansys/api/discovery/v0";
 // script parameters servicer.
 //
 service ScriptParameters{
-  // Gets an script parameter.
+  // Gets a script parameter.
   rpc GetScriptParameter(GetScriptParameterRequest) returns(ScriptParameter) {
     option(google.api.http) = {
       get: "/v0/scriptparameters/{moniker}"
