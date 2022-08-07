@@ -22,7 +22,7 @@ service ScriptParameters{
       get: "/v0/scriptparameters"
     };
   }
-  // Upates a script parameter.
+  // Updates a script parameter.
   rpc UpdateScriptParameter(UpdateScriptParameterRequest) returns(ScriptParameter) {
     option(google.api.http) = {
       patch: "/v0/scriptparameters/{script_parameter.moniker}"
