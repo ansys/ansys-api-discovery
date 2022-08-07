@@ -1,4 +1,4 @@
-// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v0;
 import "ansys/api/discovery/v0/models.proto";
