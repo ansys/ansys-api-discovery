@@ -4,10 +4,12 @@ package ansys.api.discovery.v1;
 option csharp_namespace = "Ansys.Api.Discovery.V1";
 option go_package = "ansys/api/discovery/v1";
 
+import "ansys/api/discovery/v1/streaming.proto";
+
 service Application {
 
   // Runs a script based on a file.
-  rpc RunScriptFile(RunScriptFileRequest) returns(stream RunScriptFileResponse);
+  rpc RunScriptFile(RunScriptFileRequest) returns(stream StreamPackage);
 
   // Runs a script based on a supplied string.
   rpc RunScript(RunScriptRequest) returns(RunScriptResponse);
@@ -23,11 +25,6 @@ message RunScriptFileRequest{
   map<string,string> script_args = 2                      [json_name = "script_args"];
   // The api version to be used to run the script
   int32 api_version = 3;
-}
-
-message RunScriptFileResponse{
-  // Results returned by script.
-  string script_output = 1                      [json_name = "script_output"];
 }
 
 message RunScriptRequest{
