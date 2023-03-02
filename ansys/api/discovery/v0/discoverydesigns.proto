@@ -1,0 +1,46 @@
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v0.discoverydesigns;
+
+import "ansys/api/geometry/v0/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.DiscoveryDesigns";
+
+
+service DiscoveryDesigns{
+  
+  rpc Get(ansys.api.geometry.v0.Empty) returns(ansys.api.geometry.v0.Design);
+  
+  rpc Open(OpenRequest) returns(ansys.api.geometry.v0.EntityIdentifier);
+  
+  rpc New(NewRequest) returns(ansys.api.geometry.v0.Design) ;
+  
+  rpc Close(ansys.api.geometry.v0.Empty) returns(ansys.api.geometry.v0.Empty);
+  
+  rpc Save(ansys.api.geometry.v0.Empty) returns(ansys.api.geometry.v0.Empty) ;
+  
+  rpc SaveAs(SaveAsRequest) returns(ansys.api.geometry.v0.EntityIdentifier);
+  
+  rpc Insert(InsertRequest) returns(ansys.api.geometry.v0.EntityIdentifier);  
+}
+
+message GetAllResponse{
+  repeated ansys.api.geometry.v0.Design designs = 1;
+}
+
+message OpenRequest{
+  string filepath = 1;
+}
+
+message NewRequest{
+  string name = 1;
+}
+
+message SaveAsRequest{
+  string filepath = 1;
+}
+
+message InsertRequest{
+  string filepath = 1;
+}
