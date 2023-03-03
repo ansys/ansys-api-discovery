@@ -1,0 +1,46 @@
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v0.Documents;
+
+import "ansys/api/discovery/v0/datamodels.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Documents";
+
+service Documents{
+  
+  rpc Get(google.protobuf.Empty) returns(Document);
+  
+  rpc Open(OpenRequest) returns(EntityIdentifier);
+  
+  rpc New(NewRequest) returns(Document) ;
+  
+  rpc Close(google.protobuf.Empty) returns(google.protobuf.Empty);
+  
+  rpc Save(google.protobuf.Empty) returns(google.protobuf.Empty) ;
+  
+  rpc SaveAs(SaveAsRequest) returns(EntityIdentifier);
+  
+  rpc Insert(InsertRequest) returns(EntityIdentifier);  
+}
+
+message GetAllResponse{
+  repeated Document designs = 1;
+}
+
+message OpenRequest{
+  string filepath = 1;
+}
+
+message NewRequest{
+  string name = 1;
+}
+
+message SaveAsRequest{
+  string filepath = 1;
+}
+
+message InsertRequest{
+  string filepath = 1;
+}
