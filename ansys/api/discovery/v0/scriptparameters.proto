@@ -1,49 +1,42 @@
 // ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v0;
+package ansys.api.discovery.v0.ScriptParameters;
 
-import "ansys/api/geometry/v0/models.proto";
+import "ansys/api/discovery/v0/datamodels.proto";
+import "google/protobuf/empty.proto";
 
-option csharp_namespace = "Ansys.Api.Discovery.V0";
+option csharp_namespace = "Ansys.Api.Discovery.V0.ScriptParameters";
 option go_package = "ansys/api/discovery/v0";
 
 // script parameters servicer.
 //
 service ScriptParameters{
   // Gets an script parameter  .
-  rpc GetScriptParameter(GetScriptParameterRequest) returns(ansys.api.geometry.v0.ScriptParameter);
+  rpc Get(EntityIdentifier) returns(ScriptParameter);
 
   // Lists all script parameters.
-  rpc ListScriptParameters(ListScriptParametersRequest) returns(ListScriptParametersResponse) ;
+  rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
 
   // Upates a script parameter.
-  rpc UpdateScriptParameter(UpdateScriptParameterRequest) returns(ansys.api.geometry.v0.ScriptParameter) ;
+  rpc Update(UpdateRequest) returns(ScriptParameter) ;
 
   // Replays the script
-  rpc Replay(ReplayRequest) returns(ReplayResponse) ;
+  rpc Replay(google.protobuf.Empty) returns(ReplayResponse) ;
 }
 
-message GetScriptParameterRequest{
-  // The moniker to access the dimension.
-  string moniker = 1;
-}
-
-message ListScriptParametersRequest{
+message GetAllRequest{
   // The parent, which must be empty.
   string parent = 1;
 }
 
-message ListScriptParametersResponse{
+message GetAllResponse{
   // The script parameters on this page.
-  repeated ansys.api.geometry.v0.ScriptParameter script_parameters = 1;
+  repeated ScriptParameter script_parameters = 1;
 }
 
-message UpdateScriptParameterRequest{
+message UpdateRequest{
   // The script parameter to update.
-  ansys.api.geometry.v0.ScriptParameter script_parameter = 1;
-}
-
-message ReplayRequest{
+  ScriptParameter script_parameter = 1;
 }
 
 message ReplayResponse{

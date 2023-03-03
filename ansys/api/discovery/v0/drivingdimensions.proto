@@ -1,40 +1,34 @@
 // ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v0;
+package ansys.api.discovery.v0.DrivingDimensions;
 
-import "ansys/api/geometry/v0/models.proto";
+import "ansys/api/discovery/v0/datamodels.proto";
 
-option csharp_namespace = "Ansys.Api.Discovery.V0";
+option csharp_namespace = "Ansys.Api.Discovery.V0.DrivingDimensions";
 option go_package = "ansys/api/discovery/v0";
-
 
 service DrivingDimensions{
   // Gets a driving dimension.
-  rpc GetDrivingDimension(GetDrivingDimensionRequest) returns(ansys.api.geometry.v0.DrivingDimension);
+  rpc Get(EntityIdentifier) returns(DrivingDimension);
 
   // Lists all driving dimensions.
-  rpc ListDrivingDimensions(ListDrivingDimensionsRequest) returns(ListDrivingDimensionsResponse);
+  rpc GetAll(GetAllRequest) returns(GetAllResponse);
 
   // Upates a driving dimension.
-  rpc UpdateDrivingDimension(UpdateDrivingDimensionRequest) returns(ansys.api.geometry.v0.DrivingDimension);
+  rpc Update(UpdateRequest) returns(DrivingDimension);
 }
 
-message GetDrivingDimensionRequest{
-  // The moniker to access the dimension.
-  string moniker = 1;
-}
-
-message ListDrivingDimensionsRequest{
+message GetAllRequest{
   // The parent, which must be empty.
   string parent = 1;
 }
 
-message ListDrivingDimensionsResponse{
+message GetAllResponse{
   // The driving dimensions on this page.
-  repeated ansys.api.geometry.v0.DrivingDimension driving_dimensions = 1;
+  repeated DrivingDimension driving_dimensions = 1;
 }
 
-message UpdateDrivingDimensionRequest{
+message UpdateRequest{
   // The driving dimension to update.
-  ansys.api.geometry.v0.DrivingDimension driving_dimension = 1;
+  DrivingDimension driving_dimension = 1;
 }
