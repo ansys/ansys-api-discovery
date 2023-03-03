@@ -1,17 +1,15 @@
-// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1;
 
-import "ansys/api/discovery/v1/streaming.proto";
+package ansys.api.discovery.v0.DiscoveryApplication;
 
-option csharp_namespace = "Ansys.Api.Discovery.V1";
-option go_package = "ansys/api/discovery/v1";
+option csharp_namespace = "Ansys.Api.Discovery.V0.DiscoveryApplication";
+option go_package = "ansys/api/discovery/v0";
 
-
-service Application {
+service DiscoveryApplication {
 
   // Runs a script based on a file.
-  rpc RunScriptFile(RunScriptFileRequest) returns(stream StreamPackage);
+  rpc RunScriptFile(RunScriptFileRequest) returns(RunScriptFileResponse);
 
   // Runs a script based on a supplied string.
   rpc RunScript(RunScriptRequest) returns(RunScriptResponse);
@@ -22,11 +20,15 @@ service Application {
 
 message RunScriptFileRequest{
   // Local path to the script to execute.
-  string script_path = 1                                  [json_name = "script_path"];
+  string script_path = 1;
   // map of argument names to values.
-  map<string,string> script_args = 2                      [json_name = "script_args"];
+  map<string,string> script_args = 2;
   // The api version to be used to run the script
   int32 api_version = 3;
+}
+message RunScriptFileResponse{
+  // Results returned by script.
+  map<string,string> script_output = 1;
 }
 
 message RunScriptRequest{
@@ -35,9 +37,10 @@ message RunScriptRequest{
   // The api version to be used to run the script
   int32 api_version = 2;
 }
+
 message RunScriptResponse{
   // Result of script execution. True means script executed successfully.
-  bool script_result = 1                                    [json_name = "script_result"];
+  bool script_result = 1;
 }
 
 message RunCommandRequest{

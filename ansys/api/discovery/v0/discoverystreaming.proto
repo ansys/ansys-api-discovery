@@ -1,8 +1,7 @@
-// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1;
-option go_package = "ansys/api/discovery/v1";
-option csharp_namespace = "Ansys.Api.Discovery.V1";
+package ansys.api.discovery.v0;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Streaming";
 
 message StreamPackage{
   // The type of content

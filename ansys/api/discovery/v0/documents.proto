@@ -1,162 +1,46 @@
-// Copyright 2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v0;
-import "ansys/api/discovery/google/api/annotations.proto";
-import "ansys/api/discovery/v0/models.proto";
-import "google/protobuf/field_mask.proto";
-option csharp_namespace = "Ansys.Api.Discovery.V0";
-option go_package = "ansys/api/discovery/v0";
+
+package ansys.api.discovery.v0.Documents;
+
+import "ansys/api/discovery/v0/datamodels.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Documents";
 
 service Documents{
-  // Gets the document with the specified main part moniker. The document must have been previously loaded using 'Open'.
-  rpc GetDocument(GetDocumentRequest) returns(Document) {
-    option(google.api.http) = {
-      get: "/v0/documents/{moniker}"
-    };
-  }
-  // Lists all documents.
-  rpc ListDocuments(ListDocumentsRequest) returns(ListDocumentsResponse) {
-    option(google.api.http) = {
-      get: "/v0/documents"
-    };
-  }
   
-  // Gets the active document (based on the active window).
-  rpc GetActive(GetActiveDocumentRequest) returns(GetActiveDocumentResponse) {
-    option(google.api.http) = {
-      get: "/v0/documents:active"
-    };
-  }
-  // Puts the active document (sets the active window).
-  rpc PutActive(PutActiveDocumentRequest) returns(PutActiveDocumentResponse) {
-    option(google.api.http) = {
-      post: "/v0/documents:active"
-    };
-  }
-  // Opens a document using the supplied file path.
-  rpc Open(OpenDocumentRequest) returns(OpenDocumentResponse) {
-    option(google.api.http) = {
-      post: "/v0/documents:open"
-      body : "filepath"
-    };
-  }
-  // Creates a new document.
-  rpc New(NewDocumentRequest) returns(NewDocumentResponse) {
-    option(google.api.http) = {
-      post: "/v0/documents:new"
-    };
-  }
-  // Closes the active document.
-  rpc Close(CloseDocumentRequest) returns(CloseDocumentResponse) {
-    option(google.api.http) = {
-      post: "/v0/documents:close"
-    };
-  }
-  // Saves the active document.
-  rpc Save(SaveDocumentRequest) returns(SaveDocumentResponse) {
-    option(google.api.http) = {
-      post: "/v0/documents:save"
-    };
-  }
-  // Saves the active document using the supplied file path.
-  rpc SaveAs(SaveAsDocumentRequest) returns(SaveAsDocumentResponse) {
-    option(google.api.http) = {
-      post: "/v0/documents:saveas"
-      body : "filepath"
-    };
-  }
-  // Inserts a document into the currently active document.
-  rpc Insert(InsertDocumentRequest) returns(InsertDocumentResponse) {
-    option(google.api.http) = {
-      post: "/v0/documents:insert"
-      body : "filepath"
-    };
-  }
+  rpc Get(google.protobuf.Empty) returns(Document);
+  
+  rpc Open(OpenRequest) returns(EntityIdentifier);
+  
+  rpc New(NewRequest) returns(Document) ;
+  
+  rpc Close(google.protobuf.Empty) returns(google.protobuf.Empty);
+  
+  rpc Save(google.protobuf.Empty) returns(google.protobuf.Empty) ;
+  
+  rpc SaveAs(SaveAsRequest) returns(EntityIdentifier);
+  
+  rpc Insert(InsertRequest) returns(EntityIdentifier);  
 }
 
-message GetDocumentRequest{
-  // The moniker for the item being requested.
-  string moniker = 1;
-  // FieldMask used to filter returned values.
-  google.protobuf.FieldMask fields = 2;
+message GetAllResponse{
+  repeated Document designs = 1;
 }
 
-message ListDocumentsRequest{
-  // The location.
-  string parent = 1;
-  // The maximum number of items to return.
-  int32 page_size = 2;
-  // The next_page_token value returned from a previous List request, if any.
-  string page_token = 3;
-  // The view.
-  DocumentView view = 4;
-  // The filter.
-  string filter = 5;
-}
-
-message ListDocumentsResponse{
-  // The documents on this page.
-  repeated Document documents = 1;
-  // Next page token, or empty if there are no more results in the list.
-  string next_page_token = 2;
-}
-
-message GetActiveDocumentRequest{
-  google.protobuf.FieldMask fields = 2;
-}
-
-message GetActiveDocumentResponse{
-  Document document = 1;
-}
-
-message PutActiveDocumentRequest{
-  string moniker = 1;
-}
-
-message PutActiveDocumentResponse{
-}
-
-message NewDocumentRequest{
-}
-
-message NewDocumentResponse{
-  string moniker = 1;
-}
-
-message OpenDocumentRequest{
+message OpenRequest{
   string filepath = 1;
 }
 
-message OpenDocumentResponse{
-  string moniker = 1;
+message NewRequest{
+  string name = 1;
 }
 
-message CloseDocumentRequest{
-  string moniker = 1;
-}
-
-message CloseDocumentResponse{
-}
-
-message SaveDocumentRequest{
-  string moniker = 1;
-}
-
-message SaveDocumentResponse{
-}
-
-message SaveAsDocumentRequest{
+message SaveAsRequest{
   string filepath = 1;
 }
 
-message SaveAsDocumentResponse{
-  string moniker = 1;
-}
-
-message InsertDocumentRequest{
+message InsertRequest{
   string filepath = 1;
-}
-
-message InsertDocumentResponse{
-  string moniker = 1;
 }

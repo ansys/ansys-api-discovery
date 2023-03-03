@@ -1,0 +1,38 @@
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.DiscoveryApi;
+
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.DiscoveryApi";
+option go_package = "ansys/api/discovery/v0";
+
+// Api
+//
+service DiscoveryApi{
+  // Sets the current scripting version.
+  rpc SetVersion(SetVersionRequest) returns(SetVersionResponse) ;
+
+  // Sets the current scripting version.
+  rpc GetVersion(google.protobuf.Empty) returns(GetVersionResponse) ;
+}
+
+message GetVersionResponse{
+  ApiVersion version = 1;
+}
+
+message SetVersionRequest{
+  // The set api operation being requested.
+  ApiVersion version = 1;
+}
+
+message SetVersionResponse{
+  string result = 1;
+}
+
+enum ApiVersion {
+  V_21 = 0;
+  V_22 = 1;
+  V_231 = 2;
+  V_232 = 3;
+}
