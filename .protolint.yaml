@@ -18,6 +18,7 @@ lint:
     # - Enum fields with 0 value are not suffixed UNSPECIFIED
     # - Prepositions should be exluded from message and field names
     remove:
+      - PACKAGE_NAME_LOWER_CASE
       - MESSAGES_HAVE_COMMENT
       - SERVICES_HAVE_COMMENT
       - RPCS_HAVE_COMMENT
