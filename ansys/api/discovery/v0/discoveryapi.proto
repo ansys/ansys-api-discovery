@@ -1,6 +1,9 @@
 // ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v0.discoveryapi;
+package ansys.api.discovery.v0.DiscoveryApi;
+
+import "google/protobuf/empty.proto";
+
 option csharp_namespace = "Ansys.Api.Discovery.V0.DiscoveryApi";
 option go_package = "ansys/api/discovery/v0";
 
@@ -11,10 +14,7 @@ service DiscoveryApi{
   rpc SetVersion(SetVersionRequest) returns(SetVersionResponse) ;
 
   // Sets the current scripting version.
-  rpc GetVersion(GetVersionRequest) returns(GetVersionResponse) ;
-}
-
-message GetVersionRequest{
+  rpc GetVersion(google.protobuf.Empty) returns(GetVersionResponse) ;
 }
 
 message GetVersionResponse{
