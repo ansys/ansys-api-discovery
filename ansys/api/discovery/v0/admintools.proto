@@ -1,0 +1,72 @@
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.AdminTools;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.AdminTools";
+option go_package = "ansys/api/discovery/v0";
+
+service AdminTools{
+
+  rpc GetLogs(LogsRequest) returns(stream LogsResponse);
+
+  rpc Health(google.protobuf.Empty) returns(HealthResponse);
+
+  rpc Shutdown(google.protobuf.Empty) returns(google.protobuf.Empty);
+
+  rpc StatusInfo(google.protobuf.Empty) returns(StatusInfoResponse);
+
+  rpc SetApplicationTitle(SetApplicationTitleRequest) returns(google.protobuf.Empty);
+
+  rpc CloseApplication(google.protobuf.Empty) returns(google.protobuf.Empty);
+}
+
+enum LogsTarget{
+  CLIENT = 0;
+  PATH = 1;
+}
+
+enum PeriodType{
+  CURRENT = 0;
+  PAST = 1;
+  ALL = 2;
+}
+
+message LogsRequest{
+
+  LogsTarget target = 1;
+  oneof path{
+    google.protobuf.NullValue null_path = 2;
+    string target_path =3;
+  }
+
+  PeriodType period_type = 4;
+
+  oneof period {
+    google.protobuf.NullValue null_period = 5;
+    google.protobuf.Timestamp logs_period = 6;
+  }
+}
+
+message LogsResponse{
+  string relative_path = 1;
+  string log_name = 2;
+  bytes log_chunk = 3;
+}
+
+message HealthResponse{
+  string message = 1;
+}
+
+message StatusInfoResponse{
+  string touch_time = 1  [json_name = "touch_time"];
+  string application_version = 2  [json_name = "application_version"];
+  string embedded_api_version = 3  [json_name = "embedded_api_version"];
+}
+
+message SetApplicationTitleRequest{
+  string title =1;
+}
