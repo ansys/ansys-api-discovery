@@ -31,8 +31,9 @@ message SetVersionResponse{
 }
 
 enum ApiVersion {
-  V_21 = 0;
-  V_22 = 1;
-  V_231 = 2;
-  V_232 = 3;
+  INVALID = 0;
+  V_21 = 21;
+  V_22 = 22;
+  V_231 = 231;
+  V_232 = 232;
 }

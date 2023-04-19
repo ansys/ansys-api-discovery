@@ -1,4 +1,4 @@
-// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ï¿½2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v0;
 
@@ -101,6 +101,15 @@ message InputParameter {
   double quantity_value=5;
   int32 unit=6;
   string unit_abbreviation=7;
+  InputParameterType input_type=8;
+  string parent_object_id = 9;
+}
+
+enum InputParameterType{
+  PHYSICS=0;
+  DRIVING_DIMENSION=1;
+  HISTORY_TRACK=2;
+  UNKNOWN=3;
 }
 
 //

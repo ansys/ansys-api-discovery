@@ -1,4 +1,4 @@
-// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ï¿½2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v0.HistoryTrackParameters;
 
@@ -22,6 +22,10 @@ service HistoryTrackParameters{
 
   // Replays the history block parameters
   rpc Replay(google.protobuf.Empty) returns(ReplayResponse);
+
+  rpc GetRecordingStatus(google.protobuf.Empty) returns(GetRecordingStatusResponse);
+
+  rpc SetRecordingStatus(SetRecordingStatusRequest) returns(google.protobuf.Empty);
 }
 
 message GetAllResponse{
@@ -36,4 +40,17 @@ message UpdateRequest{
 message ReplayResponse{
   // The result
   string result = 1;
+}
+
+enum RecordingStatus{
+  OFF=0;
+  ON=1;
+}
+
+message GetRecordingStatusResponse{
+  RecordingStatus status=1;
+}
+
+message SetRecordingStatusRequest{
+  RecordingStatus status=1;
 }
