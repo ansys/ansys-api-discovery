@@ -13,8 +13,6 @@ installed with:
 pip install ansys-api-discovery
 ```
 
-Otherwise, see the
-
 
 #### Build
 
