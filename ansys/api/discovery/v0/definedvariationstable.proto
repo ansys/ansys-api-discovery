@@ -1,4 +1,4 @@
-// Â©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 
 package ansys.api.discovery.v0.DefinedVariationsTable;
@@ -31,7 +31,7 @@ service DefinedVariationsTable{
   rpc SetInputValue(SetInputValueRequest) returns(InputParameter) ;
 
   // Create variation
-  rpc CreateVariation(google.protobuf.Empty) returns(CreateVariationResponse);
+  rpc CreateVariation(google.protobuf.Empty) returns(Variation);
     
   // Get an output variation table's cell
   rpc GetOutputForVariation(GetOutputForVariationRequest) returns(OutputParameter);
@@ -121,9 +121,6 @@ message SetStarredStatusRequest{
   bool starred = 2;
 }
 
-message CreateVariationResponse{
-  Variation new_variation = 1;
-}
 ///UPDATES
 //
 
