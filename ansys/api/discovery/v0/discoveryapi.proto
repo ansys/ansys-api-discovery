@@ -1,4 +1,4 @@
-// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ï¿½2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v0.DiscoveryApi;
 
@@ -31,8 +31,10 @@ message SetVersionResponse{
 }
 
 enum ApiVersion {
+  INVALID = 0;
   V_21 = 21;
   V_22 = 22;
   V_231 = 231;
   V_232 = 232;
+  V_241 = 241;
 }
