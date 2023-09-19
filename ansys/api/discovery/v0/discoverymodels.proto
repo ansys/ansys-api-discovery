@@ -1,0 +1,171 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0";
+
+//
+// A Variation (represents a row into the variation table)
+message Variation {
+  string id = 1;
+  string name = 2;
+  bool starred = 3;
+  repeated InputParameter inputs = 4;
+  repeated OutputParameter outputs = 5;
+}
+
+//
+// An input column (represents the same input parameter across all the variations )
+message InputColumn {
+  string id = 1;
+  string name = 2;
+  string range = 3;
+  repeated InputParameter parameter_variations= 4;
+}
+
+//
+// An output column (represents the same output parameter across all the variations )
+message OutputColumn {
+  string id = 1;
+  string name = 2;
+  string range = 3;
+  repeated OutputParameter parameter_variations= 4;
+}
+
+//
+// An history track parameter
+message HistoryTrackParameter {
+  string id = 1;
+  string name=2;
+  ansys.api.dbu.v0.DimensionType dimension_type=3;
+  double dimension_value=4;
+}
+
+//
+// An input parameter
+message InputParameter {
+  string id = 1;
+  string parent_id=2;
+  string name=3;
+  QuantityType quantity_type=4;
+  double quantity_value=5;
+  int32 unit=6;
+  string unit_abbreviation=7;
+  InputParameterType input_type=8;
+  string parent_object_id = 9;
+}
+
+enum InputParameterType{
+  PHYSICS=0;
+  DRIVING_DIMENSION=1;
+  HISTORY_TRACK=2;
+  UNKNOWN=3;
+}
+
+//
+// An output parameter
+message OutputParameter {
+  string id = 1;
+  string parent_id = 2;
+  string name = 3;
+  QuantityType quantity_type = 4;
+  double quantity_value = 5;
+  int32 unit = 6;
+  string unit_abbreviation = 7;
+}
+
+//
+// A script parameter
+message ScriptParameter {
+  string id = 1;
+  string name = 2;
+  ansys.api.dbu.v0.DimensionType dimension_type = 3;
+  double dimension_value = 4;
+}
+
+//
+// Represents the quantity type for a physics parameter.
+enum QuantityType {
+  QUANTITY_TYPE_ACCELERATION=0;
+  QUANTITY_TYPE_ANGLE=1;
+  QUANTITY_TYPE_AREA=2;
+  QUANTITY_TYPE_AREA_DENSITY=3;
+  QUANTITY_TYPE_AREA_MOMENT_OF_INERTIA=4;
+  QUANTITY_TYPE_CAPACITANCE=5;
+  QUANTITY_TYPE_COEFFICIENT_OF_THERMAL_EXPANSION=6;
+  QUANTITY_TYPE_DENSITY=7;
+  QUANTITY_TYPE_DYNAMIC_VISCOSITY=8;
+  QUANTITY_TYPE_ELECTRIC_ADMITTANCE=9;
+  QUANTITY_TYPE_ELECTRIC_CHARGE=10;
+  QUANTITY_TYPE_ELECTRIC_CHARGE_DENSITY=11;
+  QUANTITY_TYPE_ELECTRIC_CONDUCTANCE=12;
+  QUANTITY_TYPE_ELECTRIC_CONDUCTIVITY=13;
+  QUANTITY_TYPE_ELECTRIC_CURRENT=14;
+  QUANTITY_TYPE_ELECTRIC_CURRENT_DENSITY=15;
+  QUANTITY_TYPE_ELECTRIC_CURRENT_GRADIENT=16;
+  QUANTITY_TYPE_ELECTRIC_FIELD=17;
+  QUANTITY_TYPE_ELECTRIC_INDUCTANCE=18;
+  QUANTITY_TYPE_ELECTRIC_POTENTIAL=19;
+  QUANTITY_TYPE_ELECTRIC_POTENTIAL_AC=20;
+  QUANTITY_TYPE_ELECTRIC_POTENTIAL_CHANGE_RATE=21;
+  QUANTITY_TYPE_ELECTRIC_POTENTIAL_DC=22;
+  QUANTITY_TYPE_ELECTRIC_RESISTANCE=23;
+  QUANTITY_TYPE_ELECTRIC_RESISTIVITY=24;
+  QUANTITY_TYPE_ELECTRIC_SURFACE_CHARGE_DENSITY=25;
+  QUANTITY_TYPE_ENERGY=26;
+  QUANTITY_TYPE_ENTROPY=27;
+  QUANTITY_TYPE_FORCE=28;
+  QUANTITY_TYPE_FORCE_CHANGE_RATE=29;
+  QUANTITY_TYPE_FORCE_PER_LENGTH=30;
+  QUANTITY_TYPE_FREQUENCY=31;
+  QUANTITY_TYPE_HEAT_FLUX=32;
+  QUANTITY_TYPE_HEAT_TRANSFER_COEFFICIENT=33;
+  QUANTITY_TYPE_INVERSE_AREA=34;
+  QUANTITY_TYPE_INVERSE_LENGTH=35;
+  QUANTITY_TYPE_KINEMATIC_VISCOSITY=36;
+  QUANTITY_TYPE_LENGTH=37;
+  QUANTITY_TYPE_MAGNETIC_FIELD=38;
+  QUANTITY_TYPE_MASS=39;
+  QUANTITY_TYPE_MASS_CONCENTRATION=40;
+  QUANTITY_TYPE_MASS_FLOW=41;
+  QUANTITY_TYPE_MASS_FLUX=42;
+  QUANTITY_TYPE_MASS_FRACTION=43;
+  QUANTITY_TYPE_MASS_MOMENT_OF_INERTIA=44;
+  QUANTITY_TYPE_MOLARITY=45;
+  QUANTITY_TYPE_MOLAR_MASS=46;
+  QUANTITY_TYPE_PERMEABILITY=47;
+  QUANTITY_TYPE_PERMITTIVITY=48;
+  QUANTITY_TYPE_POWER=49;
+  QUANTITY_TYPE_POWER_DENSITY=50;
+  QUANTITY_TYPE_POWER_RATIO=51;
+  QUANTITY_TYPE_PRESSURE=52;
+  QUANTITY_TYPE_RATIO=53;
+  QUANTITY_TYPE_RATIO_CHANGE_RATE=54;
+  QUANTITY_TYPE_REACTIVE_ENERGY=55;
+  QUANTITY_TYPE_REACTIVE_POWER=56;
+  QUANTITY_TYPE_ROTATIONAL_ACCELERATION=57;
+  QUANTITY_TYPE_ROTATIONAL_SPEED=58;
+  QUANTITY_TYPE_ROTATIONAL_STIFFNESS=59;
+  QUANTITY_TYPE_ROTATIONAL_STIFFNESS_PER_LENGTH=60;
+  QUANTITY_TYPE_SOLID_ANGLE=61;
+  QUANTITY_TYPE_SPECIFIC_ENERGY=62;
+  QUANTITY_TYPE_SPECIFIC_ENTROPY=63;
+  QUANTITY_TYPE_SPECIFIC_VOLUME=64;
+  QUANTITY_TYPE_SPECIFIC_WEIGHT=65;
+  QUANTITY_TYPE_SPEED=66;
+  QUANTITY_TYPE_TEMPERATURE=67;
+  QUANTITY_TYPE_TEMPERATURE_CHANGE_RATE=68;
+  QUANTITY_TYPE_TEMPERATURE_DELTA=69;
+  QUANTITY_TYPE_THERMAL_CONDUCTIVITY=70;
+  QUANTITY_TYPE_THERMAL_RESISTANCE=71;
+  QUANTITY_TYPE_TIME=72;
+  QUANTITY_TYPE_TORQUE=73;
+  QUANTITY_TYPE_TORQUE_PER_LENGTH=74;
+  QUANTITY_TYPE_VOLUME=75;
+  QUANTITY_TYPE_VOLUME_CONCENTRATION=76;
+  QUANTITY_TYPE_VOLUME_FLOW=77;
+  QUANTITY_TYPE_VOLUME_PER_LENGTH=78;
+  QUANTITY_TYPE_WARPING_MOMENT_OF_INERTIA=79;
+}

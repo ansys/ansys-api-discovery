@@ -1,0 +1,135 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v0.definedvariationstable;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.DefinedVariationsTable";
+
+// Defined variation table servicer.
+//
+service DefinedVariationsTable{
+  // Gets a whole row from the defined variations table
+  rpc GetVariation(ansys.api.dbu.v0.EntityIdentifier) returns(Variation);
+
+  // Get all the variations (i.e get all the table as rows list)
+  rpc GetAllVariations(google.protobuf.Empty) returns(GetAllVariationsResponse);
+    
+  // Get all the inputs.
+  rpc GetAllInputs(google.protobuf.Empty) returns(GetAllInputsResponse);
+    
+  // Get all the outputs.
+  rpc GetAllOutputs(google.protobuf.Empty) returns(GetAllOutputsResponse);
+    
+  // Get an input variation table's cell
+  rpc GetInputForVariation(GetInputForVariationRequest) returns(InputParameter);
+    
+  // Set an input parameter
+  rpc SetInputValue(SetInputValueRequest) returns(InputParameter) ;
+
+  // Create variation
+  rpc CreateVariation(google.protobuf.Empty) returns(Variation);
+    
+  // Get an output variation table's cell
+  rpc GetOutputForVariation(GetOutputForVariationRequest) returns(OutputParameter);
+    
+  // Get a variation input table's column
+  rpc GetInputColumn(GetInputColumnRequest) returns(GetInputColumnResponse);
+    
+  // Get a variation output table's column
+  rpc GetOutputColumn(GetOutputColumnRequest) returns(GetOutputColumnResponse);
+    
+  // Set a star status for a variations list.
+  rpc SetStarredStatus(SetStarredStatusRequest) returns(google.protobuf.Empty) ;
+    
+  // Updates outputs for current variation
+  rpc UpdateCurrent(google.protobuf.Empty) returns(UpdateResponse);
+    
+  // Updates outputs for starred variations
+  rpc UpdateStarred(google.protobuf.Empty) returns(UpdateResponse);
+    
+  // Updates outputs for current variation
+  rpc UpdateAll(google.protobuf.Empty) returns(UpdateResponse) ;
+
+  // Asks if the solve is running
+  rpc IsSolving(google.protobuf.Empty) returns(IsSolvingResponse);
+
+}
+
+message GetAllVariationsResponse{
+  // The variations on this page.
+  repeated Variation defined_variations = 1 ;
+}
+
+message GetAllInputsResponse{
+  // The inputs on this page.
+  repeated InputColumn inputs = 1 ;
+}
+message GetAllOutputsResponse{
+  // The outputs on this page.
+  repeated OutputColumn outputs = 1 ;
+}
+
+message GetInputForVariationRequest{
+  // The variation's moniker.
+  string variation_moniker = 1;
+  // The parameter' moniker.
+  string input_parameter_moniker = 2;
+}
+
+message SetInputValueRequest{
+  // The variation's moniker.
+  string variation_moniker = 1;
+  // The input parameter.
+  InputParameter defined_variation_table_input = 2;
+}
+
+message GetOutputForVariationRequest{
+  // The variation's moniker.
+  string variation_moniker = 1;
+  // The parameter' moniker.
+  string output_parameter_moniker = 2;
+}
+
+message GetInputColumnRequest{
+  // The parameter' moniker.
+  string input_parameter_moniker = 1;
+}
+
+message GetInputColumnResponse{
+  // The parameter's variations column.
+  InputColumn column = 1;
+}
+
+message GetOutputColumnRequest{
+  // The parameter' moniker.
+  string output_parameter_moniker = 1;
+}
+
+message GetOutputColumnResponse{
+  // The parameter's variations column.
+  OutputColumn column = 1;
+}
+
+message SetStarredStatusRequest{
+  // The variations monikers.
+  repeated string variations_monikers = 1;
+  // The starred status
+  bool starred = 2;
+}
+
+///UPDATES
+//
+
+message UpdateResponse{
+  // The result
+  bool result = 1;
+}
+
+message IsSolvingResponse{
+  // The result
+  bool is_solving = 1;
+}
