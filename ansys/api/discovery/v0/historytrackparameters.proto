@@ -1,0 +1,57 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.historytrackparameters;
+
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.HistoryTrackParameters";
+
+// History track parameters servicer.
+//
+service HistoryTrackParameters{
+  // Gets an history track parameter  .
+  rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(HistoryTrackParameter);
+
+  // Lists all history track parameters.
+  rpc GetAll(google.protobuf.Empty) returns(GetAllResponse);
+
+  // Upates a history track parameter.
+  rpc Update(UpdateRequest) returns(HistoryTrackParameter);
+
+  // Replays the history block parameters
+  rpc Replay(google.protobuf.Empty) returns(ReplayResponse);
+
+  rpc GetRecordingStatus(google.protobuf.Empty) returns(GetRecordingStatusResponse);
+
+  rpc SetRecordingStatus(SetRecordingStatusRequest) returns(google.protobuf.Empty);
+}
+
+message GetAllResponse{
+  // The history track parameters on this page.
+  repeated HistoryTrackParameter history_track_parameters = 1;
+}
+message UpdateRequest{
+  // The history track parameter to update.
+  HistoryTrackParameter history_track_parameter = 1;
+}
+
+message ReplayResponse{
+  // The result
+  string result = 1;
+}
+
+enum RecordingStatus{
+  OFF=0;
+  ON=1;
+}
+
+message GetRecordingStatusResponse{
+  RecordingStatus status=1;
+}
+
+message SetRecordingStatusRequest{
+  RecordingStatus status=1;
+}
