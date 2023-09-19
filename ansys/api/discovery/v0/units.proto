@@ -1,8 +1,7 @@
-// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v0;
 option csharp_namespace = "Ansys.Api.Discovery.V0";
-option go_package = "ansys/api/discovery/v0";
 
 //
 // Acceleration units.
