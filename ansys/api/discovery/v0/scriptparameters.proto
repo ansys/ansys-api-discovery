@@ -1,0 +1,45 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.scriptparameters;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.ScriptParameters";
+
+// script parameters servicer.
+//
+service ScriptParameters{
+  // Gets an script parameter  .
+  rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(ScriptParameter);
+
+  // Lists all script parameters.
+  rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
+
+  // Upates a script parameter.
+  rpc Update(UpdateRequest) returns(ScriptParameter) ;
+
+  // Replays the script
+  rpc Replay(google.protobuf.Empty) returns(ReplayResponse) ;
+}
+
+message GetAllRequest{
+  // The parent, which must be empty.
+  string parent = 1;
+}
+
+message GetAllResponse{
+  // The script parameters on this page.
+  repeated ScriptParameter script_parameters = 1;
+}
+
+message UpdateRequest{
+  // The script parameter to update.
+  ScriptParameter script_parameter = 1;
+}
+
+message ReplayResponse{
+  // The result
+  string result = 1;
+}
