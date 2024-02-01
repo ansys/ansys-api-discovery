@@ -84,8 +84,46 @@ message ScriptParameter {
   ansys.api.dbu.v0.DimensionType dimension_type = 3;
   double dimension_value = 4;
 }
-
+// 
+// SIMULATIONS PROTOS
 //
+message Simulation {
+  string id = 1;
+  string label = 2;
+}
+// 
+// CONDITIONS PROTOS
+//
+
+// Heat
+//
+
+//  Defines how heat is specified
+enum HeatSpecification {
+  TOTALHEAT = 0;
+  HEATPERUNITVOLUMEORAREA = 1;
+}
+
+// Defines whether heat is applied to body or face
+enum LocationSpecification {
+  FACELOCATIONS = 0;
+  BODYLOCATIONS = 1;
+}
+
+// Heat definition
+message Heat {
+  string id = 1;
+  string parentid = 2;
+  string label = 3;
+  LocationSpecification location_specification = 4;
+  repeated string locations = 5;
+  HeatSpecification heat_specifcation = 6;
+  QuantityType quantity_type = 7;
+  double quantity_value = 8;
+  int32 unit = 9;
+  string unit_abbreviation = 10;
+}
+
 // Represents the quantity type for a physics parameter.
 enum QuantityType {
   QUANTITY_TYPE_ACCELERATION=0;

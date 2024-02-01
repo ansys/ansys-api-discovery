@@ -1,0 +1,67 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Conditions
+{
+  //Heat methods
+  rpc CreateHeat(HeatCreationRequest) returns (Heat);
+
+  rpc ChangeHeatLocation(HeatChangeLocationRequest) returns(ConditionChangedResponse);
+
+  rpc ChangeTotalHeat(ChangeQuantityRequest) returns(ConditionChangedResponse);
+
+  rpc ChangeHeatPerUnitVolume(ChangeQuantityRequest) returns(ConditionChangedResponse);
+
+  rpc ChangeHeatPerUnitArea(ChangeQuantityRequest) returns(ConditionChangedResponse);
+
+  rpc ChangeHeatSpecification(HeatSpecificationRequest) returns(ConditionChangedResponse);
+}
+
+message ChangeLocationRequest{
+  string object_id = 1;
+  repeated string locations = 2;
+}
+
+message ChangeQuantityRequest{
+  string object_id = 1;
+  QuantityType quantity_type = 2;
+  double quantity_value = 3;
+  int32 unit = 4; 
+}
+
+message ConditionChangedResponse {
+  bool success = 1;
+}
+
+//Heat methods
+
+message HeatSpecificationRequest {
+  string object_id = 1;
+  HeatSpecification heat_specifcation = 2;
+}
+
+message HeatChangeLocationRequest
+{
+  ChangeLocationRequest change_locationrequest = 1;
+  LocationSpecification location_specification = 2;
+}
+
+// Inputs for heat creation
+message HeatCreationRequest {
+  string simulation = 1;
+  LocationSpecification location_specification = 2;
+  repeated string locations = 3;
+  HeatSpecification heat_specifcation = 4;
+  QuantityType quantity_type = 5;
+  double quantity_value = 6;
+  int32 unit = 7; 
+}
+
+
