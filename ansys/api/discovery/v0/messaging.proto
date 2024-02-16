@@ -1,0 +1,21 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v0.messaging;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Messaging";
+
+// Messaging service for getting events out of Discovery
+//
+service Messaging{
+  rpc GetMessages(google.protobuf.Empty) returns(stream MessagingResponse);
+  rpc ClearMessages(google.protobuf.Empty) returns(google.protobuf.Empty);
+}
+
+message MessagingResponse{
+  string event_message = 1;
+}

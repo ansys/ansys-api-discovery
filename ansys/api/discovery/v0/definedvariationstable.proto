@@ -127,6 +127,7 @@ message SetStarredStatusRequest{
 message UpdateResponse{
   // The result
   bool result = 1;
+  string message = 2;
 }
 
 message IsSolvingResponse{
