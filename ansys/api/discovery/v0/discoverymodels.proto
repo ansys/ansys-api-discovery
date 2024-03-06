@@ -115,13 +115,19 @@ message Heat {
   string id = 1;
   string parentid = 2;
   string label = 3;
-  LocationSpecification location_specification = 4;
-  repeated string locations = 5;
+  repeated string locations = 4;
+  bool suppressed = 5;
   HeatSpecification heat_specifcation = 6;
-  QuantityType quantity_type = 7;
-  double quantity_value = 8;
-  int32 unit = 9;
-  string unit_abbreviation = 10;
+  Quantity total_heat = 7;
+  Quantity heat_per_unitvolume = 8;
+  Quantity heat_per_unitarea = 9;
+}
+
+message Quantity {
+  QuantityType quantity_type = 1;
+  double quantity_value = 2;
+  int32 unit = 3;
+  string unit_abbreviation = 4;
 }
 
 // Represents the quantity type for a physics parameter.
