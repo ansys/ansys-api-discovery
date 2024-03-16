@@ -1,0 +1,29 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.solution;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Solution";
+
+service Solution
+{
+  rpc GetSolverFidelity(SimulationStageRequest) returns (SolverFidelityResponse);
+  rpc SetSolverFidelity(SolverFidelityRequest) returns (google.protobuf.Empty);
+}
+
+message SolverFidelityRequest{
+  SimulationStageRequest simulation_stage = 1;
+  double value = 2;
+}
+
+message SimulationStageRequest{
+  string simulation = 1;
+  string stage = 2;
+}
+
+message SolverFidelityResponse{
+  double value = 1;
+}
