@@ -95,6 +95,12 @@ message Simulation {
 // CONDITIONS PROTOS
 //
 
+// Defines the type of location, some conditions support application to either bodies and faces
+enum LocationSpecification {
+  FACELOCATIONS = 0;
+  BODYLOCATIONS = 1;
+}
+
 // Heat
 //
 
@@ -104,12 +110,6 @@ enum HeatSpecification {
   HEATPERUNITVOLUMEORAREA = 1;
 }
 
-// Defines whether heat is applied to body or face
-enum LocationSpecification {
-  FACELOCATIONS = 0;
-  BODYLOCATIONS = 1;
-}
-
 // Heat definition
 message Heat {
   string id = 1;
@@ -117,10 +117,27 @@ message Heat {
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
-  HeatSpecification heat_specifcation = 6;
+  HeatSpecification heat_specification = 6;
   Quantity total_heat = 7;
   Quantity heat_per_unitvolume = 8;
   Quantity heat_per_unitarea = 9;
+}
+
+message Temperature {
+  string id = 1;
+  string parentid = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  Quantity magnitude = 6;
+}
+
+message Insulated {
+  string id = 1;
+  string parentid = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
 }
 
 message Quantity {
