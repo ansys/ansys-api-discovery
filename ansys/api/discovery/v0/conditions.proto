@@ -73,9 +73,7 @@ message HeatCreationRequest {
   LocationSpecification location_specification = 2;
   repeated string locations = 3;
   HeatSpecification heat_specification = 4;
-  QuantityType quantity_type = 5;
-  double quantity_value = 6;
-  int32 unit = 7;
+  Quantity quantity = 5;  
 }
 
 message TemperatureCreationRequest{
