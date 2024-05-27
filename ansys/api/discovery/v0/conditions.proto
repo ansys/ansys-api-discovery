@@ -10,6 +10,14 @@ option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
 
 service Conditions
 {
+  //General condition methods
+  rpc DeleteCondition(DeleteConditionRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeConditionSuppressionState(ChangeConditionSuppressionStateRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeConditionName(ChangeConditionNameRequest) returns (ConditionChangedResponse);
+
+
   //Heat condition methods
   rpc CreateHeat(HeatCreationRequest) returns (Heat);
 
@@ -35,6 +43,20 @@ service Conditions
 
   rpc ChangeInsulatedLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
 
+}
+
+message DeleteConditionRequest{
+  string object_id = 1;
+}
+
+message ChangeConditionSuppressionStateRequest{
+  string object_id = 1;
+  bool is_suppressed = 2;
+}
+
+message ChangeConditionNameRequest{
+  string object_id = 1;
+  string new_name = 2;
 }
 
 message ChangeLocationRequest{
