@@ -2,9 +2,7 @@
 syntax = "proto3";
 package ansys.api.discovery.v0.conditions;
 
-import "ansys/api/dbu/v0/dbumodels.proto";
 import "ansys/api/discovery/v0/discoverymodels.proto";
-import "google/protobuf/empty.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
 
@@ -19,9 +17,9 @@ service Conditions
 
 
   //Heat condition methods
-  rpc CreateHeat(HeatCreationRequest) returns (Heat);
+  rpc CreateHeat(HeatCreationRequest) returns (HeatCreationResponse);
 
-  rpc ChangeHeatLocation(ChangeLocationRequestExtended) returns(ConditionChangedResponse);
+  rpc ChangeHeatLocation(ChangeLocationExtendedRequest) returns(ConditionChangedResponse);
 
   rpc ChangeTotalHeat(ChangeQuantityRequest) returns(ConditionChangedResponse);
 
@@ -29,22 +27,28 @@ service Conditions
 
   rpc ChangeHeatPerUnitArea(ChangeQuantityRequest) returns(ConditionChangedResponse);
 
-  rpc ChangeHeatSpecification(HeatSpecificationRequest) returns(ConditionChangedResponse);
+  rpc ChangeHeatSpecification(ChangeHeatSpecificationRequest) returns(ConditionChangedResponse);
 
   //Temperature condition methods
-  rpc CreateTemperature(TemperatureCreationRequest) returns (Temperature);
+  rpc CreateTemperature(TemperatureCreationRequest) returns (TemperatureCreationResponse);
 
-  rpc ChangeTemperatureLocation(ChangeLocationRequestExtended) returns(ConditionChangedResponse);
+  rpc ChangeTemperatureLocation(ChangeLocationExtendedRequest) returns(ConditionChangedResponse);
 
   rpc ChangeTemperatureMagnitude(ChangeQuantityRequest) returns(ConditionChangedResponse);
 
   //Insulated condition methods
-  rpc CreateInsulated(InsulatedCreationRequest) returns (Insulated);
+  rpc CreateInsulated(InsulatedCreationRequest) returns (InsulatedCreationResponse);
 
   rpc ChangeInsulatedLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
 
+  //Fluid flow methods
+  rpc CreateFlowVelocityInlet(FlowVelocityInletCreationRequest) returns (FlowVelocityInletCreationResponse);  
+
+  rpc CreateFlowPressureOutlet(FlowPressureOutletCreationRequest) returns (FlowPressureOutletCreationResponse);
+
 }
 
+//General Requests
 message DeleteConditionRequest{
   string object_id = 1;
 }
@@ -64,6 +68,13 @@ message ChangeLocationRequest{
   repeated string locations = 2;
 }
 
+//enables the type of location to be changed as well as the scope.  Only supported for specific condition types
+message ChangeLocationExtendedRequest
+{
+  ChangeLocationRequest change_location_request = 1;
+  LocationSpecification location_specification = 2;
+}
+
 message ChangeQuantityRequest{
   string object_id = 1;
   QuantityType quantity_type = 2;
@@ -71,45 +82,146 @@ message ChangeQuantityRequest{
   int32 unit = 4;
 }
 
-message ConditionChangedResponse {
+// General Responses
+
+message ConditionChangedResponse{
   bool success = 1;
   string message = 2;
 }
 
-//Heat methods
+message ConditionCreationResponse{
+  bool success = 1;
+  string message = 2;
+}
 
-message HeatSpecificationRequest {
+
+
+// Solid thermal requests and responses
+
+// Heat
+message ChangeHeatSpecificationRequest{
   string object_id = 1;
   HeatSpecification heat_specification = 2;
 }
 
-message ChangeLocationRequestExtended
-{
-  ChangeLocationRequest change_locationrequest = 1;
-  LocationSpecification location_specification = 2;
+message HeatCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  HeatDefinition condition_data = 2;
 }
 
-// Inputs for heat creation
-message HeatCreationRequest {
-  string simulation_id = 1;
-  LocationSpecification location_specification = 2;
-  repeated string locations = 3;
-  HeatSpecification heat_specification = 4;
-  Quantity quantity = 5;  
+message HeatCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  LocationSpecification location_specification = 3;
+  repeated string locations = 4;
+  HeatSpecification heat_specification = 5;
+  Quantity quantity = 6;
 }
 
+// Temperature
 message TemperatureCreationRequest{
-  string simulation_id = 1;
-  LocationSpecification location_specification = 2;
-  repeated string locations = 3;
-  QuantityType quantity_type = 4;
-  double quantity_value = 5;
-  int32 unit = 6;
+  string object_id = 1;
+  string simulation_id = 2;
+  LocationSpecification location_specification = 3;
+  repeated string locations = 4;
+  QuantityType quantity_type = 5;
+  double quantity_value = 6;
+  int32 unit = 7;
 }
 
+message TemperatureCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  TemperatureDefinition condition_data = 2;
+}
+
+// Insulated
 message InsulatedCreationRequest{
-  string simulation_id = 1;
-  repeated string locations = 2;
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
 }
 
+message InsulatedCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  InsulatedDefinition condition_data = 2;
+}
 
+// Flow condition creation
+
+// Velocity In
+message FlowVelocityInletCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  VelocityInletProperties velocity_inlet = 4;
+}
+
+message FlowVelocityInletCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  FlowVelocityInletDefinition condition_data = 2;
+}
+/*
+// Velocity Out
+message FlowVelocityOutletCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  VelocityOutletProperties velocity_outlet = 4;
+}
+
+message FlowVelocityOutletCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  FlowVelocityOutletDefinition condition_data = 2;
+}
+
+// Pressure In
+message FlowPressureInletCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  PressureIntletProperties pressure_inlet = 4;
+}
+
+message FlowPressureInletCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  FlowPressureInletDefinition condition_data = 2;
+}
+*/
+// Pressure Out
+message FlowPressureOutletCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  PressureOutletProperties pressure_outlet = 4;
+}
+message FlowPressureOutletCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  FlowPressureOutletDefinition condition_data = 2;
+}
+/*
+// Mass Flow In
+message FlowMassFlowInletCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  MassFlowInletProperties mass_flow_inlet = 4;
+}
+
+message FlowMassFlowInletCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  FlowMassFlowInletDefinition condition_data = 2;
+}
+
+// Mass Flow Out
+message FlowMassFlowOutletCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  MassFlowOutletProperties mass_flow_outlet = 4;
+}
+
+message FlowMassFlowOutletCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  FlowMassFlowOutletDefinition condition_data = 2;
+}
+*/
