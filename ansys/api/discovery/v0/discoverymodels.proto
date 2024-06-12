@@ -101,7 +101,8 @@ enum LocationSpecification {
   BODYLOCATIONS = 1;
 }
 
-// Heat
+//
+// Solid Thermal physics conditions
 //
 
 //  Defines how heat is specified
@@ -111,9 +112,9 @@ enum HeatSpecification {
 }
 
 // Heat definition
-message Heat {
+message HeatDefinition {
   string id = 1;
-  string parentid = 2;
+  string parent_id = 2;
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
@@ -123,22 +124,167 @@ message Heat {
   Quantity heat_per_unitarea = 9;
 }
 
-message Temperature {
+message TemperatureDefinition {
   string id = 1;
-  string parentid = 2;
+  string parent_id = 2;
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
   Quantity magnitude = 6;
 }
 
-message Insulated {
+message InsulatedDefinition {
   string id = 1;
-  string parentid = 2;
+  string parent_id = 2;
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
 }
+
+//
+// Fluid physics conditions
+//
+
+// Flow condition properties
+
+message VelocityInletProperties
+{
+  QuantityType speed_quantity_type = 1;
+  double speed_quantity_value = 2;
+  int32 speed_unit = 3;
+  FlowThermalProperties thermal_properties = 4;
+  bool is_swirling = 5;
+  QuantityType rotation_quantity_type = 6;
+  double rotation_quantity_value = 7;
+  int32 rotation_unit = 8;
+}
+
+message VelocityOutletProperties
+{
+  QuantityType speed_quantity_type = 1;
+  double speed_quantity_value = 2;
+  int32 speed_unit = 3;
+  FlowThermalProperties thermal_properties = 4;
+}
+
+message PressureInletProperties
+{
+  QuantityType pressure_quantity_type = 1;
+  double pressure_quantity_value = 2;
+  int32 pressure_unit = 3;
+  FlowThermalProperties thermal_properties = 4;
+}
+
+message PressureOutletProperties
+{
+  QuantityType pressure_quantity_type = 1;
+  double pressure_quantity_value = 2;
+  int32 pressure_unit = 3;
+  FlowThermalProperties thermal_properties = 4;
+}
+
+message MassFlowInletProperties
+{
+  QuantityType mass_flow_quantity_type = 1;
+  double mass_flow_quantity_value = 2;
+  int32 mass_flow_unit = 3;
+  FlowThermalProperties thermal_properties = 4;
+}
+
+message MassFlowOutletProperties
+{
+  QuantityType mass_flow_quantity_type = 1;
+  double mass_flow_quantity_value = 2;
+  int32 mass_flow_unit = 3;
+  FlowThermalProperties thermal_properties = 4;
+}
+
+message FlowThermalProperties
+{
+  bool is_thermal = 1;
+  QuantityType temperature_quantity_type = 2;
+  double temperature_quantity_value = 3;
+  int32 temperature_unit = 4;
+}
+
+// Flow condition definitions
+
+message FlowVelocityInletDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  VelocityInletProperties velocity_inlet = 6;
+}
+
+message FlowVelocityOutletDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  VelocityOutletProperties velocity_outlet = 6;
+}
+
+message FlowPressureInletDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  PressureInletProperties pressure_inlet = 6;
+}
+
+message FlowPressureOutletDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  PressureOutletProperties pressure_outlet = 6;
+}
+
+message FlowMassFlowInletDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MassFlowInletProperties mass_flow_inlet = 6;
+}
+
+message FlowMassFlowOutletDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MassFlowOutletProperties mass_flow_outlet = 6;
+}
+
+enum FlowDirectionDefinition {
+  IN = 0;
+  OUT = 1;
+}
+
+enum FlowSpecificationDefinition {
+  VELOCITY = 0;
+  MASSFLOW = 1;
+  PRESSURE = 2;
+}
+
+// Wall condition definitions
+// Porous condition definition
+// Fan condition definition
+
+//
+// Structural conditions
+//
+
+
+
+// Quantity Data
 
 message Quantity {
   QuantityType quantity_type = 1;
