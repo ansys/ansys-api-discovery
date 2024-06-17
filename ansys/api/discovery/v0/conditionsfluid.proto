@@ -1,0 +1,276 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.conditionsfluid;
+
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions.ConditionsFluid";
+
+service ConditionsFluid
+{
+  //Fluid flow methods
+  rpc CreateFlowVelocityInlet(FlowVelocityInletCreationRequest) returns (FlowVelocityInletCreationResponse);  
+
+  rpc CreateFlowVelocityOutlet(FlowVelocityOutletCreationRequest) returns (FlowVelocityOutletCreationResponse);
+
+  rpc CreateFlowPressureInlet(FlowPressureInletCreationRequest) returns (FlowPressureInletCreationResponse);
+
+  rpc CreateFlowPressureOutlet(FlowPressureOutletCreationRequest) returns (FlowPressureOutletCreationResponse);
+
+  rpc CreateFlowMassFlowInlet(FlowMassFlowInletCreationRequest) returns (FlowMassFlowInletCreationResponse);
+
+  rpc CreateFlowMassFlowOutlet(FlowMassFlowOutletCreationRequest) returns (FlowMassFlowOutletCreationResponse);
+
+  rpc ChangeFlowLocation(ChangeLocationRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeFlowVelocityInletMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeFlowVelocityOutletMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeFlowPressureInletMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeFlowPressureOutletMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeFlowMassFlowInletMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeFlowMassFlowOutletMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeFlowTemperatureInputEnabled(ChangeBooleanRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeFlowTemperatureMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeFlowSwirlingInputEnabled(ChangeBooleanRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeFlowSwirlingMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeFlowSpecification(ChangeFlowSpecificationRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeFlowDirection(ChangeFlowDirectionRequest) returns (ConditionChangedResponse);
+}
+
+// Command Requests and Responses
+
+// Velocity In
+message FlowVelocityInletCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  VelocityInletProperties velocity_inlet = 4;
+}
+
+message FlowVelocityInletCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  FlowVelocityInletDefinition condition_data = 2;
+}
+
+// Velocity Out
+message FlowVelocityOutletCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  VelocityOutletProperties velocity_outlet = 4;
+}
+
+message FlowVelocityOutletCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  FlowVelocityOutletDefinition condition_data = 2;
+}
+
+// Pressure In
+message FlowPressureInletCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  PressureInletProperties pressure_inlet = 4;
+}
+
+message FlowPressureInletCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  FlowPressureInletDefinition condition_data = 2;
+}
+
+// Pressure Out
+message FlowPressureOutletCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  PressureOutletProperties pressure_outlet = 4;
+}
+message FlowPressureOutletCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  FlowPressureOutletDefinition condition_data = 2;
+}
+
+// Mass Flow In
+message FlowMassFlowInletCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  MassFlowInletProperties mass_flow_inlet = 4;
+}
+
+message FlowMassFlowInletCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  FlowMassFlowInletDefinition condition_data = 2;
+}
+
+// Mass Flow Out
+message FlowMassFlowOutletCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  MassFlowOutletProperties mass_flow_outlet = 4;
+}
+
+message FlowMassFlowOutletCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  FlowMassFlowOutletDefinition condition_data = 2;
+}
+
+message ChangeFlowSpecificationRequest{
+  string object_id = 1;
+  FlowSpecificationDefinition specification = 2;
+}
+
+message ChangeFlowDirectionRequest{
+  string object_id = 1;
+  FlowDirectionDefinition direction = 2;
+  bool reset_to_default_subtype = 3;
+}
+
+// fluid enumerations
+
+enum FlowDirectionDefinition {
+  IN = 0;
+  OUT = 1;
+}
+
+enum FlowSpecificationDefinition {
+  VELOCITY = 0;
+  MASSFLOW = 1;
+  PRESSURE = 2;
+}
+
+// Fluid conditions properties
+
+message VelocityInletProperties
+{
+  QuantityType speed_quantity_type = 1;
+  double speed_quantity_value = 2;
+  int32 speed_unit = 3;
+  FlowThermalProperties thermal_properties = 4;
+  bool is_swirling = 5;
+  QuantityType rotation_quantity_type = 6;
+  double rotation_quantity_value = 7;
+  int32 rotation_unit = 8;
+}
+
+message VelocityOutletProperties
+{
+  QuantityType speed_quantity_type = 1;
+  double speed_quantity_value = 2;
+  int32 speed_unit = 3;
+  FlowThermalProperties thermal_properties = 4;
+}
+
+message PressureInletProperties
+{
+  QuantityType pressure_quantity_type = 1;
+  double pressure_quantity_value = 2;
+  int32 pressure_unit = 3;
+  FlowThermalProperties thermal_properties = 4;
+}
+
+message PressureOutletProperties
+{
+  QuantityType pressure_quantity_type = 1;
+  double pressure_quantity_value = 2;
+  int32 pressure_unit = 3;
+  FlowThermalProperties thermal_properties = 4;
+}
+
+message MassFlowInletProperties
+{
+  QuantityType mass_flow_quantity_type = 1;
+  double mass_flow_quantity_value = 2;
+  int32 mass_flow_unit = 3;
+  FlowThermalProperties thermal_properties = 4;
+}
+
+message MassFlowOutletProperties
+{
+  QuantityType mass_flow_quantity_type = 1;
+  double mass_flow_quantity_value = 2;
+  int32 mass_flow_unit = 3;
+  FlowThermalProperties thermal_properties = 4;
+}
+
+message FlowThermalProperties
+{
+  bool is_thermal = 1;
+  QuantityType temperature_quantity_type = 2;
+  double temperature_quantity_value = 3;
+  int32 temperature_unit = 4;
+}
+
+// Fluid conditions definitions
+
+message FlowVelocityInletDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  VelocityInletProperties velocity_inlet = 6;
+}
+
+message FlowVelocityOutletDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  VelocityOutletProperties velocity_outlet = 6;
+}
+
+message FlowPressureInletDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  PressureInletProperties pressure_inlet = 6;
+}
+
+message FlowPressureOutletDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  PressureOutletProperties pressure_outlet = 6;
+}
+
+message FlowMassFlowInletDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MassFlowInletProperties mass_flow_inlet = 6;
+}
+
+message FlowMassFlowOutletDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MassFlowOutletProperties mass_flow_outlet = 6;
+}
+
+
+
+// Wall condition definitions
+// Porous condition definition
+// Fan condition definition
