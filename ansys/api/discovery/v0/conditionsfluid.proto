@@ -155,62 +155,46 @@ enum FlowSpecificationDefinition {
 
 message VelocityInletProperties
 {
-  QuantityType speed_quantity_type = 1;
-  double speed_quantity_value = 2;
-  int32 speed_unit = 3;
-  FlowThermalProperties thermal_properties = 4;
-  bool is_swirling = 5;
-  QuantityType rotation_quantity_type = 6;
-  double rotation_quantity_value = 7;
-  int32 rotation_unit = 8;
+  Quantity speed = 1;
+  FlowThermalProperties thermal_properties = 2;
+  bool is_swirling = 3;
+  Quantity rotational_speed = 4;
 }
 
 message VelocityOutletProperties
 {
-  QuantityType speed_quantity_type = 1;
-  double speed_quantity_value = 2;
-  int32 speed_unit = 3;
-  FlowThermalProperties thermal_properties = 4;
+  Quantity speed = 1;
+  FlowThermalProperties thermal_properties = 2;
 }
 
 message PressureInletProperties
 {
-  QuantityType pressure_quantity_type = 1;
-  double pressure_quantity_value = 2;
-  int32 pressure_unit = 3;
-  FlowThermalProperties thermal_properties = 4;
+  Quantity pressure = 1;
+  FlowThermalProperties thermal_properties = 2;
 }
 
 message PressureOutletProperties
 {
-  QuantityType pressure_quantity_type = 1;
-  double pressure_quantity_value = 2;
-  int32 pressure_unit = 3;
-  FlowThermalProperties thermal_properties = 4;
+  Quantity pressure = 1;
+  FlowThermalProperties thermal_properties = 2;
 }
 
 message MassFlowInletProperties
 {
-  QuantityType mass_flow_quantity_type = 1;
-  double mass_flow_quantity_value = 2;
-  int32 mass_flow_unit = 3;
-  FlowThermalProperties thermal_properties = 4;
+  Quantity mass_flow = 1;
+  FlowThermalProperties thermal_properties = 2;
 }
 
 message MassFlowOutletProperties
 {
-  QuantityType mass_flow_quantity_type = 1;
-  double mass_flow_quantity_value = 2;
-  int32 mass_flow_unit = 3;
-  FlowThermalProperties thermal_properties = 4;
+  Quantity mass_flow = 1;
+  FlowThermalProperties thermal_properties = 2;
 }
 
 message FlowThermalProperties
 {
   bool is_thermal = 1;
-  QuantityType temperature_quantity_type = 2;
-  double temperature_quantity_value = 3;
-  int32 temperature_unit = 4;
+  Quantity temperature = 2;
 }
 
 // Fluid conditions definitions

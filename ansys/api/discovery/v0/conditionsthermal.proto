@@ -55,7 +55,7 @@ message HeatCreationRequest{
   string object_id = 1;
   string simulation_id = 2;
   repeated string locations = 4;
-  Quantity quantity = 6;
+  Quantity heat = 5;
 }
 
 message HeatTotalCreationResponse{
@@ -77,11 +77,8 @@ message HeatSurfaceDistributedCreationResponse{
 message TemperatureCreationRequest{
   string object_id = 1;
   string simulation_id = 2;
-  LocationSpecification location_specification = 3;
-  repeated string locations = 4;
-  QuantityType quantity_type = 5;
-  double quantity_value = 6;
-  int32 unit = 7;
+  repeated string locations = 3;
+  Quantity temperature = 4;
 }
 
 message TemperatureCreationResponse{
