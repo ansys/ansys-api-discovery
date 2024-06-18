@@ -108,9 +108,7 @@ message ChangeLocationExtendedRequest
 
 message ChangeQuantityRequest{
   string object_id = 1;
-  QuantityType quantity_type = 2;
-  double quantity_value = 3;
-  int32 unit = 4;
+  Quantity quantity = 2;
 }
 
 message ChangeBooleanRequest{
@@ -137,12 +135,12 @@ enum LocationSpecification {
 }
 
 // Quantity Data
-
 message Quantity {
-  QuantityType quantity_type = 1;
+  QuantityType quantity_type = 1; //not required in cases where the usage context defines the quantity type
   double quantity_value = 2;
   int32 unit = 3;
-  string unit_abbreviation = 4;
+  string unit_abbreviation = 4; //not required in cases where the usage context defines the abbreviation
+  string as_string = 5; //Optional, but if not empty, all other properties will be defaulted from it.
 }
 
 // Represents the quantity type for a physics parameter.
