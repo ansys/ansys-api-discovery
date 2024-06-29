@@ -1,0 +1,189 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.conditionsstructural;
+
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions.ConditionsStructural";
+
+service ConditionsStructural
+{
+  //Support condition methods
+  rpc CreateSupportFixed(SupportFixedCreationRequest) returns (SupportFixedCreationResponse);
+
+  rpc ChangeSupportLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+
+  //Force condition methods
+
+  rpc CreateForceDistributedTotal(ForceDistributedTotalCreationRequest) returns (ForceDistributedTotalCreationResponse);
+
+  rpc CreateForceDistributedArea(ForceDistributedAreaCreationRequest) returns (ForceDistributedAreaCreationResponse); 
+
+  rpc CreateForceTorque(ForceTorqueCreationRequest) returns (ForceTorqueCreationResponse); 
+    
+  rpc ChangeForceLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+  
+  rpc ChangeForceSpecification(ChangeForceSpecificationRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceMagnitudeDefinition(ChangeForceMagnitudeDefinitionRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceByReversingDirection(ChangeCommandRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeForceDefinedByComponentEnabled(ChangeBooleanRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeForceDistributedTotalMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceDistributedTotalX(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceDistributedTotalY(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceDistributedTotalZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeForceDistributedAreaMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceDistributedAreaX(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceDistributedAreaY(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceDistributedAreaZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeForceUseRemoteForceEnabled(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceDistributedRemotePositionX(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceDistributedRemotePositionY(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceDistributedRemotePositionZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeForceTorqueMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceTorqueX(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceTorqueY(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceTorqueZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+}
+
+
+// Command requests and responses
+
+// Support
+message ChangeSupportSpecificationRequest{
+  string object_id = 1;
+  SupportSpecification support_specification = 2;
+}
+
+message SupportFixedCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 4;
+}
+
+message SupportFixedCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  SupportFixedDefinition condition_data = 2;
+}
+
+// Force
+message ChangeForceSpecificationRequest{
+  string object_id = 1;
+  ForceSpecification force_specification = 2;
+}
+
+message ChangeForceMagnitudeDefinitionRequest{
+  string object_id = 1;
+  ForceMagnitudeDefinition force_magnitude_definition = 2;
+}
+
+message ForceDistributedTotalCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  ForceDistributedProperties force_properties = 4;
+}
+
+message ForceDistributedTotalCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  ForceDistributedDefinition condition_data = 2;
+}
+
+message ForceDistributedAreaCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  ForceDistributedProperties force_properties = 4;
+}
+
+message ForceDistributedAreaCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  ForceDistributedDefinition condition_data = 2;
+}
+
+message ForceTorqueCreationRequest{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+  ForceTorqueProperties force_properties = 4;
+}
+
+message ForceTorqueCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  ForceTorqueDefinition condition_data = 2;
+}
+
+// Support enumerations
+
+enum SupportSpecification {
+  FIXED = 0;
+  SLIDING = 1;
+}
+
+// Support condition definitions
+
+message SupportFixedDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+}
+
+// force enumerations
+
+enum ForceMagnitudeDefinition {
+  TOTALFORCE = 0;
+  FORCEPERAREA = 1;
+}
+
+enum ForceSpecification {
+  DISTRIBUTED = 0;
+  TORQUE = 1;
+}
+
+// force condition definitions
+
+message ForceDistributedDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  ForceDistributedProperties force_distributed = 6;
+}
+
+message ForceDistributedProperties {
+  Quantity force = 1;
+  OptionalVector force_components = 2;
+  OptionalVector remote_point = 3;
+}
+
+message ForceTorqueDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  ForceTorqueProperties force_torque = 6;
+}
+
+message ForceTorqueProperties {
+  Quantity force = 1;
+  OptionalVector force_components = 2;
+}
+
+message OptionalVector {
+  bool is_enabled = 1;
+  QuantityVector vector = 2;
+}
+
+message QuantityVector {
+  Quantity x = 1;
+  Quantity y = 2;
+  Quantity z = 3;
+}
