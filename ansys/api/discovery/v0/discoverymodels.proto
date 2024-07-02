@@ -116,6 +116,10 @@ message ChangeBooleanRequest{
   bool boolean_value = 2;
 }
 
+message ChangeCommandRequest{
+  string object_id = 1;
+}
+
 // General Responses
 
 message ConditionChangedResponse{
