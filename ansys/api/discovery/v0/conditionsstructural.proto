@@ -177,13 +177,3 @@ message ForceTorqueProperties {
   OptionalVector force_components = 2;
 }
 
-message OptionalVector {
-  bool is_enabled = 1;
-  QuantityVector vector = 2;
-}
-
-message QuantityVector {
-  Quantity x = 1;
-  Quantity y = 2;
-  Quantity z = 3;
-}
