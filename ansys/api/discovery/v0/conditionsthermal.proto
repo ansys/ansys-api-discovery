@@ -52,10 +52,8 @@ message ChangeHeatSpecificationRequest{
 }
 
 message HeatCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 4;
-  Quantity heat = 5;
+  ScopedConditionCreationData creation_data = 1;
+  Quantity heat = 2;
 }
 
 message HeatTotalCreationResponse{
@@ -75,10 +73,8 @@ message HeatSurfaceDistributedCreationResponse{
 
 // Temperature
 message TemperatureCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 3;
-  Quantity temperature = 4;
+  ScopedConditionCreationData creation_data = 1;
+  Quantity temperature = 2;
 }
 
 message TemperatureCreationResponse{
@@ -88,9 +84,7 @@ message TemperatureCreationResponse{
 
 // Insulated
 message InsulatedCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 3;
+  ScopedConditionCreationData creation_data = 1;
 }
 
 message InsulatedCreationResponse{

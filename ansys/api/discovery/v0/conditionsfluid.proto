@@ -52,9 +52,7 @@ service ConditionsFluid
 
 // Velocity In
 message FlowVelocityInletCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 3;
+  ScopedConditionCreationData creation_data = 2;
   VelocityInletProperties velocity_inlet = 4;
 }
 
@@ -65,10 +63,8 @@ message FlowVelocityInletCreationResponse{
 
 // Velocity Out
 message FlowVelocityOutletCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 3;
-  VelocityOutletProperties velocity_outlet = 4;
+  ScopedConditionCreationData creation_data = 1;
+  VelocityOutletProperties velocity_outlet = 2;
 }
 
 message FlowVelocityOutletCreationResponse{
@@ -78,10 +74,8 @@ message FlowVelocityOutletCreationResponse{
 
 // Pressure In
 message FlowPressureInletCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 3;
-  PressureInletProperties pressure_inlet = 4;
+  ScopedConditionCreationData creation_data = 1;
+  PressureInletProperties pressure_inlet = 2;
 }
 
 message FlowPressureInletCreationResponse{
@@ -91,10 +85,8 @@ message FlowPressureInletCreationResponse{
 
 // Pressure Out
 message FlowPressureOutletCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 3;
-  PressureOutletProperties pressure_outlet = 4;
+  ScopedConditionCreationData creation_data = 1;
+  PressureOutletProperties pressure_outlet = 2;
 }
 message FlowPressureOutletCreationResponse{
   ConditionCreationResponse condition_response = 1;
@@ -103,10 +95,8 @@ message FlowPressureOutletCreationResponse{
 
 // Mass Flow In
 message FlowMassFlowInletCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 3;
-  MassFlowInletProperties mass_flow_inlet = 4;
+  ScopedConditionCreationData creation_data = 1;
+  MassFlowInletProperties mass_flow_inlet = 2;
 }
 
 message FlowMassFlowInletCreationResponse{
@@ -116,10 +106,8 @@ message FlowMassFlowInletCreationResponse{
 
 // Mass Flow Out
 message FlowMassFlowOutletCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 3;
-  MassFlowOutletProperties mass_flow_outlet = 4;
+  ScopedConditionCreationData creation_data = 1;
+  MassFlowOutletProperties mass_flow_outlet = 2;
 }
 
 message FlowMassFlowOutletCreationResponse{

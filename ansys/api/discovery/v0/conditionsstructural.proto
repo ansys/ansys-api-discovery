@@ -60,9 +60,7 @@ message ChangeSupportSpecificationRequest{
 }
 
 message SupportFixedCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 4;
+  ScopedConditionCreationData creation_data = 1;
 }
 
 message SupportFixedCreationResponse{
@@ -82,10 +80,8 @@ message ChangeForceMagnitudeDefinitionRequest{
 }
 
 message ForceDistributedTotalCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 3;
-  ForceDistributedProperties force_properties = 4;
+  ScopedConditionCreationData creation_data = 1;
+  ForceDistributedProperties force_properties = 2;
 }
 
 message ForceDistributedTotalCreationResponse{
@@ -94,10 +90,8 @@ message ForceDistributedTotalCreationResponse{
 }
 
 message ForceDistributedAreaCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 3;
-  ForceDistributedProperties force_properties = 4;
+  ScopedConditionCreationData creation_data = 1;
+  ForceDistributedProperties force_properties = 2;
 }
 
 message ForceDistributedAreaCreationResponse{
@@ -106,10 +100,8 @@ message ForceDistributedAreaCreationResponse{
 }
 
 message ForceTorqueCreationRequest{
-  string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 3;
-  ForceTorqueProperties force_properties = 4;
+  ScopedConditionCreationData creation_data = 1;
+  ForceTorqueProperties force_properties = 2;
 }
 
 message ForceTorqueCreationResponse{
