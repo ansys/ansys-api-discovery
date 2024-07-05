@@ -120,6 +120,12 @@ message ChangeCommandRequest{
   string object_id = 1;
 }
 
+message ScopedConditionCreationData{
+  string object_id = 1;
+  string simulation_id = 2;
+  repeated string locations = 3;
+}
+
 // General Responses
 
 message ConditionChangedResponse{
