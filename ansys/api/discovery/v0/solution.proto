@@ -10,6 +10,7 @@ service Solution
 {
   rpc GetSolverFidelity(SimulationStageRequest) returns (SolverFidelityResponse);
   rpc SetSolverFidelity(SolverFidelityRequest) returns (google.protobuf.Empty);
+  rpc Solve(SolveExecutionRequest) returns (google.protobuf.Empty);
 }
 
 message SolverFidelityRequest{
@@ -17,6 +18,7 @@ message SolverFidelityRequest{
   double value = 2;
 }
 
+//TODO Replace string with Enum
 message SimulationStageRequest{
   string simulation = 1;
   string stage = 2;
@@ -24,4 +26,14 @@ message SimulationStageRequest{
 
 message SolverFidelityResponse{
   double value = 1;
+}
+
+message SolveExecutionRequest{
+  string simulation = 1;
+  SolverType solver_type = 2;
+}
+
+enum SolverType {
+  EXPLORE = 0;
+  REFINE = 1;
 }
