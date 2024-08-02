@@ -121,7 +121,7 @@ message ChangeCommandRequest{
 }
 
 message ScopedConditionCreationData{
-  string object_id = 1;
+  optional string object_id = 1;
   string simulation_id = 2;
   repeated string locations = 3;
 }

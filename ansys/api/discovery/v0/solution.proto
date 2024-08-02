@@ -10,7 +10,7 @@ service Solution
 {
   rpc GetSolverFidelity(SimulationStageRequest) returns (SolverFidelityResponse);
   rpc SetSolverFidelity(SolverFidelityRequest) returns (google.protobuf.Empty);
-  rpc Solve(SolveExecutionRequest) returns (google.protobuf.Empty);
+  rpc Solve(SolveExecutionRequest) returns (SolveExecutionResponse);
 }
 
 message SolverFidelityRequest{
@@ -29,11 +29,16 @@ message SolverFidelityResponse{
 }
 
 message SolveExecutionRequest{
-  string simulation = 1;
-  SolverType solver_type = 2;
+  string simulation_id = 1;
+  Stage stage = 2;
 }
 
-enum SolverType {
+message SolveExecutionResponse{
+  bool success = 1;
+  string message = 2;
+}
+
+enum Stage {
   EXPLORE = 0;
   REFINE = 1;
 }
