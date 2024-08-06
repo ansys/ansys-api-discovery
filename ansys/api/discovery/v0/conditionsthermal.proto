@@ -40,6 +40,15 @@ service ConditionsThermal
   rpc CreateInsulated(InsulatedCreationRequest) returns (InsulatedCreationResponse);
 
   rpc ChangeInsulatedLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+
+  // Convection condition methods
+  rpc CreateConvection(ConvectionCreationRequest) returns (ConvectionCreationResponse);
+
+  rpc ChangeConvectionLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+
+  rpc ChangeConvectionCoefficientMagnitude(ChangeQuantityRequest) returns(ConditionChangedResponse);
+  
+  rpc ChangeConvectionTemperatureMagnitude(ChangeQuantityRequest) returns(ConditionChangedResponse);
   
 }
 
@@ -90,6 +99,19 @@ message InsulatedCreationRequest{
 message InsulatedCreationResponse{
   ConditionCreationResponse condition_response = 1;
   InsulatedDefinition condition_data = 2;
+}
+
+// Convection
+message ConvectionCreationRequest{
+  ScopedConditionCreationData creation_data = 1;
+  Quantity coefficient = 2;
+  Quantity temperature = 3;
+
+}
+
+message ConvectionCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  ConvectionDefinition condition_data = 2;
 }
 
 
@@ -144,4 +166,14 @@ message InsulatedDefinition {
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
+}
+
+message ConvectionDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  Quantity coefficient = 6;
+  Quantity temperature = 7;
 }
