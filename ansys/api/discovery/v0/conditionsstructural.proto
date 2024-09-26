@@ -9,9 +9,31 @@ option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions.ConditionsStructura
 service ConditionsStructural
 {
   //Support condition methods
-  rpc CreateSupportFixed(SupportFixedCreationRequest) returns (SupportFixedCreationResponse);
+  rpc CreateSupportFixed(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
+  rpc CreateSupportHinged(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
+  rpc CreateSupportSliding(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
+  rpc CreateSupportBall(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
+  rpc CreateSupportDisplaced(SupportDisplacedCreationRequest) returns (SupportDisplacedCreationResponse);
 
   rpc ChangeSupportLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+
+  rpc ChangeSupportSpecification(ChangeSupportSpecificationRequest) returns(ConditionChangedResponse);
+
+  rpc ChangeSupportDisplacedOrientation(ChangeDirectionRequest) returns(ConditionChangedResponse);
+  
+  rpc ChangeSupportDisplacedDX(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeSupportDisplacedDY(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeSupportDisplacedDZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeSupportDisplacedRX(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeSupportDisplacedRY(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeSupportDisplacedRZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeSupportDisplacedIsFixedDX(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeSupportDisplacedIsFixedDY(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeSupportDisplacedIsFixedDZ(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeSupportDisplacedIsFixedRX(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeSupportDisplacedIsFixedRY(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeSupportDisplacedIsFixedRZ(ChangeBooleanRequest) returns (ConditionChangedResponse);
 
   //Force condition methods
 
@@ -48,6 +70,66 @@ service ConditionsStructural
   rpc ChangeForceTorqueX(ChangeQuantityRequest) returns (ConditionChangedResponse);
   rpc ChangeForceTorqueY(ChangeQuantityRequest) returns (ConditionChangedResponse);
   rpc ChangeForceTorqueZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  //Pressure condition methods
+  rpc CreatePressure(PressureCreationRequest) returns (PressureCreationResponse);
+
+  rpc ChangePressureLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+
+  rpc ChangePressureMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+
+  //Displacement condition methods
+  rpc CreateDisplacementTranslation(DisplacementTranslationCreationRequest) returns (DisplacementCreationResponse);
+  rpc CreateDisplacementRotation(DisplacementRotationCreationRequest) returns (DisplacementCreationResponse);
+  rpc CreateDisplacementCombined(DisplacementCombinedCreationRequest) returns (DisplacementCreationResponse);
+
+  rpc ChangeDisplacementLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+
+  rpc ChangeDisplacementSpecification(ChangeDisplacementSpecificationRequest) returns(ConditionChangedResponse);
+  rpc ChangeDisplacementOrientation(ChangeDirectionRequest) returns(ConditionChangedResponse);
+  
+  rpc ChangeDisplacementDX(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementDY(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementDZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementTranslationalMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeDisplacementRX(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementRY(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementRZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementRotationalMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeDisplacementIsFixedDX(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementIsFixedDY(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementIsFixedDZ(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  
+  rpc ChangeDisplacementIsFixedRX(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementIsFixedRY(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementIsFixedRZ(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  
+  rpc ChangeDisplacementUseRemotePointEnabled(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementDistributedRemotePositionX(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementDistributedRemotePositionY(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementDistributedRemotePositionZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+
+  //Moment condition methods
+  rpc CreateMomentLocal(MomentCreationRequest) returns (MomentCreationResponse);
+  rpc CreateMomentGlobal(MomentCreationRequest) returns (MomentCreationResponse);
+
+  rpc ChangeMomentLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+
+  rpc ChangeMomentSpecification(ChangeMomentSpecificationRequest) returns(ConditionChangedResponse);
+  rpc ChangeMomentOrientation(ChangeDirectionRequest) returns(ConditionChangedResponse);
+
+  rpc ChangeMomentLocalX(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeMomentLocalY(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeMomentLocalZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
+  rpc ChangeMomentGlobalX(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeMomentGlobalY(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeMomentGlobalZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+
 }
 
 
@@ -59,14 +141,25 @@ message ChangeSupportSpecificationRequest{
   SupportSpecification support_specification = 2;
 }
 
-message SupportFixedCreationRequest{
+message SupportGeneralCreationRequest{
   ScopedConditionCreationData creation_data = 1;
 }
 
-message SupportFixedCreationResponse{
+message SupportGeneralCreationResponse{
   ConditionCreationResponse condition_response = 1;
-  SupportFixedDefinition condition_data = 2;
+  SupportGeneralDefinition condition_data = 2;
 }
+
+message SupportDisplacedCreationRequest{
+  ScopedConditionCreationData creation_data = 1;
+  SupportDisplacedProperties support_displaced = 2;
+}
+
+message SupportDisplacedCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  SupportDisplacedDefinition condition_data = 2;
+}
+
 
 // Force
 message ChangeForceSpecificationRequest{
@@ -109,21 +202,93 @@ message ForceTorqueCreationResponse{
   ForceTorqueDefinition condition_data = 2;
 }
 
+// Pressure
+message PressureCreationRequest{
+  ScopedConditionCreationData creation_data = 1;
+  PressureProperties pressure_properties = 2;
+}
+
+message PressureCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  PressureDefinition condition_data = 2;
+}
+
+// Displacement
+message DisplacementTranslationCreationRequest{
+  ScopedConditionCreationData creation_data = 1;
+  DisplacementTranslationProperties displacement_properties = 2;
+}
+
+message DisplacementRotationCreationRequest{
+  ScopedConditionCreationData creation_data = 1;
+  DisplacementRotationProperties displacement_properties = 2;
+}
+
+message DisplacementCombinedCreationRequest{
+  ScopedConditionCreationData creation_data = 1;
+  DisplacementCombinedProperties displacement_properties = 2;
+}
+
+message DisplacementCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  DisplacementDefinition condition_data = 2;
+}
+
+message ChangeDisplacementSpecificationRequest{
+  string object_id = 1;
+  DisplacementSpecification displacement_specification = 2;
+}
+
+// Moment
+message MomentCreationRequest{
+  ScopedConditionCreationData creation_data = 1;
+  MomentProperties moment_properties = 2;
+}
+
+message MomentCreationResponse{
+  ConditionCreationResponse condition_response = 1;
+  MomentDefinition condition_data = 2;
+}
+
+message ChangeMomentSpecificationRequest{
+  string object_id = 1;
+  MomentSpecification moment_specification = 2;
+}
+
+
 // Support enumerations
 
 enum SupportSpecification {
   FIXED = 0;
   SLIDING = 1;
+  HINGED = 2;
+  BALL = 3;
+  DISPLACED = 4;
 }
 
 // Support condition definitions
 
-message SupportFixedDefinition {
+message SupportGeneralDefinition {
   string id = 1;
   string parent_id = 2;
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
+  SupportSpecification support_type = 6;
+}
+
+message SupportDisplacedDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  SupportSpecification support_type = 6;
+  TensorOfOptionalQuantities displacement = 7;
+}
+
+message SupportDisplacedProperties {
+  TensorOfOptionalQuantities displacement = 1;
 }
 
 // force enumerations
@@ -169,3 +334,74 @@ message ForceTorqueProperties {
   OptionalVector force_components = 2;
 }
 
+// Pressure condition definitions
+message PressureProperties {
+  Quantity pressure_magnitude = 1;
+}
+
+message PressureDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  PressureProperties pressure = 6;
+}
+
+// Displacement enumerations
+
+enum DisplacementSpecification {
+  TRANSLATION = 0;
+  ROTATION = 1;
+  COMBINED = 2;
+}
+
+// Displacement condition definitions
+
+message DisplacementTranslationProperties {
+  VectorOfOptionalQuantities displacement = 1;
+  OptionalVector remote_point = 2;
+}
+
+message DisplacementRotationProperties {
+  VectorOfOptionalQuantities rotation = 1;
+  OptionalVector remote_point = 2;
+}
+
+message DisplacementCombinedProperties {
+  VectorOfOptionalQuantities displacement = 1;
+  VectorOfOptionalQuantities rotation = 2;
+  OptionalVector remote_point = 3;
+}
+
+message DisplacementDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  DisplacementCombinedProperties displacement = 6;
+}
+
+// Displacement enumerations
+
+enum MomentSpecification {
+  GLOBAL = 0;
+  LOCAL = 1;
+}
+
+// Displacement condition definitions
+
+message MomentProperties {
+  QuantityVector moment = 1;
+}
+
+message MomentDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MomentProperties local = 6;
+  MomentProperties global = 7;
+}

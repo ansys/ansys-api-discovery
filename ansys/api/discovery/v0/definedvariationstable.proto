@@ -42,6 +42,12 @@ service DefinedVariationsTable{
   // Get a variation output table's column
   rpc GetOutputColumn(GetOutputColumnRequest) returns(GetOutputColumnResponse);
     
+  // Get the current variation from the design table
+  rpc GetCurrentVariation(google.protobuf.Empty) returns(GetCurrentVariationResponse);
+
+  // Set the current variation from the design table
+  rpc SetCurrentVariation(ansys.api.dbu.v0.EntityIdentifier) returns(MessageResponse);
+
   // Set a star status for a variations list.
   rpc SetStarredStatus(SetStarredStatusRequest) returns(google.protobuf.Empty) ;
     
@@ -119,6 +125,12 @@ message SetStarredStatusRequest{
   repeated string variations_monikers = 1;
   // The starred status
   bool starred = 2;
+}
+
+message GetCurrentVariationResponse{
+  // The variation's moniker.
+  string variation_moniker = 1;
+  string message = 2;
 }
 
 ///UPDATES
