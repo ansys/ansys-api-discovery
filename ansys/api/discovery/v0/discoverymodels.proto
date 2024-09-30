@@ -3,6 +3,7 @@ syntax = "proto3";
 package ansys.api.discovery.v0;
 
 import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/geometry/v0/models.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V0";
 
@@ -116,6 +117,11 @@ message ChangeBooleanRequest{
   bool boolean_value = 2;
 }
 
+message ChangeDirectionRequest{
+  string object_id = 1;
+  ansys.api.geometry.v0.Direction direction = 2;
+}
+
 message ChangeCommandRequest{
   string object_id = 1;
 }
@@ -136,6 +142,10 @@ message ConditionChangedResponse{
 message ConditionCreationResponse{
   bool success = 1;
   string message = 2;
+}
+
+message MessageResponse{
+  string message = 1;
 }
 
 // Defines the type of location, some conditions support application to either bodies and faces
@@ -160,9 +170,30 @@ message QuantityVector {
 }
 
 message OptionalVector {
-  bool is_enabled = 1;
+  bool is_defined = 1;
   QuantityVector vector = 2;
 }
+
+message OptionalQuantity{
+  bool is_defined = 1;
+  Quantity quantity = 2;
+}
+
+message TensorOfOptionalQuantities{
+  OptionalQuantity dx = 1;
+  OptionalQuantity dy = 2;
+  OptionalQuantity dz = 3;
+  OptionalQuantity rx = 4;
+  OptionalQuantity ry = 5;
+  OptionalQuantity rz = 6;
+}
+
+message VectorOfOptionalQuantities{
+  OptionalQuantity x = 1;
+  OptionalQuantity y = 2;
+  OptionalQuantity z = 3;
+}
+
 
 // Represents the quantity type for a physics parameter.
 enum QuantityType {
