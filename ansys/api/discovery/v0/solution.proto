@@ -30,8 +30,9 @@ message SolverFidelityResponse{
 
 message SolveExecutionRequest{
   string simulation_id = 1;
-  Stage stage = 2;
+  SolverManager solver_manager = 2;
   bool execute_remotely =3;
+  repeated string variation_id_list = 4;
 }
 
 message SolveExecutionResponse{
@@ -39,7 +40,7 @@ message SolveExecutionResponse{
   string message = 2;
 }
 
-enum Stage {
-  EXPLORE = 0;
-  REFINE = 1;
+enum SolverManager {
+  ARTEMIS= 0;
+  APOLLO = 1;
 }
