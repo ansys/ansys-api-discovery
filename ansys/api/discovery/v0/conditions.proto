@@ -9,11 +9,11 @@ option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
 service Conditions
 {
   //General condition methods
-  rpc DeleteCondition(DeleteConditionRequest) returns (ConditionChangedResponse);
+  rpc DeleteCondition(DeleteConditionRequest) returns (ChangeResponse);
 
-  rpc ChangeConditionSuppressionState(ChangeConditionSuppressionStateRequest) returns (ConditionChangedResponse);
+  rpc ChangeConditionSuppressionState(ChangeConditionSuppressionStateRequest) returns (ChangeResponse);
 
-  rpc ChangeConditionName(ChangeConditionNameRequest) returns (ConditionChangedResponse);
+  rpc ChangeConditionName(ChangeConditionNameRequest) returns (ChangeResponse);
 }
 
 //General Requests
