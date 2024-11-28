@@ -17,38 +17,38 @@ service ConditionsThermal
 
   rpc CreateHeatSurfaceDistributed(HeatCreationRequest) returns (HeatSurfaceDistributedCreationResponse);
 
-  rpc ChangeHeatLocation(ChangeLocationExtendedRequest) returns(ConditionChangedResponse);
+  rpc ChangeHeatLocation(ChangeLocationExtendedRequest) returns(ChangeResponse);
 
-  rpc ChangeTotalHeat(ChangeQuantityRequest) returns(ConditionChangedResponse);
+  rpc ChangeTotalHeat(ChangeQuantityRequest) returns(ChangeResponse);
 
-  rpc ChangeHeatPerUnitVolume(ChangeQuantityRequest) returns(ConditionChangedResponse);
+  rpc ChangeHeatPerUnitVolume(ChangeQuantityRequest) returns(ChangeResponse);
 
-  rpc ChangeHeatPerUnitArea(ChangeQuantityRequest) returns(ConditionChangedResponse);
+  rpc ChangeHeatPerUnitArea(ChangeQuantityRequest) returns(ChangeResponse);
 
-  rpc ChangeHeatSpecification(ChangeHeatSpecificationRequest) returns(ConditionChangedResponse);
+  rpc ChangeHeatSpecification(ChangeHeatSpecificationRequest) returns(ChangeResponse);
 
   //Temperature condition methods
   rpc CreateTemperatureVolumetric(TemperatureCreationRequest) returns (TemperatureCreationResponse);
 
   rpc CreateTemperatureSurface(TemperatureCreationRequest) returns (TemperatureCreationResponse);
 
-  rpc ChangeTemperatureLocation(ChangeLocationExtendedRequest) returns(ConditionChangedResponse);
+  rpc ChangeTemperatureLocation(ChangeLocationExtendedRequest) returns(ChangeResponse);
 
-  rpc ChangeTemperatureMagnitude(ChangeQuantityRequest) returns(ConditionChangedResponse);
+  rpc ChangeTemperatureMagnitude(ChangeQuantityRequest) returns(ChangeResponse);
 
   //Insulated condition methods
   rpc CreateInsulated(InsulatedCreationRequest) returns (InsulatedCreationResponse);
 
-  rpc ChangeInsulatedLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+  rpc ChangeInsulatedLocation(ChangeLocationRequest) returns(ChangeResponse);
 
   // Convection condition methods
   rpc CreateConvection(ConvectionCreationRequest) returns (ConvectionCreationResponse);
 
-  rpc ChangeConvectionLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+  rpc ChangeConvectionLocation(ChangeLocationRequest) returns(ChangeResponse);
 
-  rpc ChangeConvectionCoefficientMagnitude(ChangeQuantityRequest) returns(ConditionChangedResponse);
+  rpc ChangeConvectionCoefficientMagnitude(ChangeQuantityRequest) returns(ChangeResponse);
   
-  rpc ChangeConvectionTemperatureMagnitude(ChangeQuantityRequest) returns(ConditionChangedResponse);
+  rpc ChangeConvectionTemperatureMagnitude(ChangeQuantityRequest) returns(ChangeResponse);
   
 }
 
@@ -61,56 +61,56 @@ message ChangeHeatSpecificationRequest{
 }
 
 message HeatCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   Quantity heat = 2;
 }
 
 message HeatTotalCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   HeatTotalDefinition condition_data = 2;
 }
 
 message HeatVolumetricDistributedCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   HeatPerVolumeDefinition condition_data = 2;
 }
 
 message HeatSurfaceDistributedCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   HeatPerAreaDefinition condition_data = 2;
 }
 
 // Temperature
 message TemperatureCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   Quantity temperature = 2;
 }
 
 message TemperatureCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   TemperatureDefinition condition_data = 2;
 }
 
 // Insulated
 message InsulatedCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
 }
 
 message InsulatedCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   InsulatedDefinition condition_data = 2;
 }
 
 // Convection
 message ConvectionCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   Quantity coefficient = 2;
   Quantity temperature = 3;
 
 }
 
 message ConvectionCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   ConvectionDefinition condition_data = 2;
 }
 

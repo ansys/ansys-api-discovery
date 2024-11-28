@@ -126,7 +126,7 @@ message ChangeCommandRequest{
   string object_id = 1;
 }
 
-message ScopedConditionCreationData{
+message ScopedCreationData{
   optional string object_id = 1;
   string simulation_id = 2;
   repeated string locations = 3;
@@ -134,12 +134,12 @@ message ScopedConditionCreationData{
 
 // General Responses
 
-message ConditionChangedResponse{
+message ChangeResponse{
   bool success = 1;
   string message = 2;
 }
 
-message ConditionCreationResponse{
+message CreationResponse{
   bool success = 1;
   string message = 2;
 }

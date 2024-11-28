@@ -15,25 +15,25 @@ service ConditionsStructural
   rpc CreateSupportBall(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
   rpc CreateSupportDisplaced(SupportDisplacedCreationRequest) returns (SupportDisplacedCreationResponse);
 
-  rpc ChangeSupportLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+  rpc ChangeSupportLocation(ChangeLocationRequest) returns(ChangeResponse);
 
-  rpc ChangeSupportSpecification(ChangeSupportSpecificationRequest) returns(ConditionChangedResponse);
+  rpc ChangeSupportSpecification(ChangeSupportSpecificationRequest) returns(ChangeResponse);
 
-  rpc ChangeSupportDisplacedOrientation(ChangeDirectionRequest) returns(ConditionChangedResponse);
+  rpc ChangeSupportDisplacedOrientation(ChangeDirectionRequest) returns(ChangeResponse);
   
-  rpc ChangeSupportDisplacedDX(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeSupportDisplacedDY(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeSupportDisplacedDZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeSupportDisplacedRX(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeSupportDisplacedRY(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeSupportDisplacedRZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeSupportDisplacedDX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedDY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedDZ(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedRX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedRY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedRZ(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeSupportDisplacedIsFixedDX(ChangeBooleanRequest) returns (ConditionChangedResponse);
-  rpc ChangeSupportDisplacedIsFixedDY(ChangeBooleanRequest) returns (ConditionChangedResponse);
-  rpc ChangeSupportDisplacedIsFixedDZ(ChangeBooleanRequest) returns (ConditionChangedResponse);
-  rpc ChangeSupportDisplacedIsFixedRX(ChangeBooleanRequest) returns (ConditionChangedResponse);
-  rpc ChangeSupportDisplacedIsFixedRY(ChangeBooleanRequest) returns (ConditionChangedResponse);
-  rpc ChangeSupportDisplacedIsFixedRZ(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeSupportDisplacedIsFixedDX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedIsFixedDY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedIsFixedDZ(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedIsFixedRX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedIsFixedRY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedIsFixedRZ(ChangeBooleanRequest) returns (ChangeResponse);
 
   //Force condition methods
 
@@ -43,40 +43,40 @@ service ConditionsStructural
 
   rpc CreateForceTorque(ForceTorqueCreationRequest) returns (ForceTorqueCreationResponse); 
     
-  rpc ChangeForceLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+  rpc ChangeForceLocation(ChangeLocationRequest) returns(ChangeResponse);
   
-  rpc ChangeForceSpecification(ChangeForceSpecificationRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceMagnitudeDefinition(ChangeForceMagnitudeDefinitionRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceByReversingDirection(ChangeCommandRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceSpecification(ChangeForceSpecificationRequest) returns (ChangeResponse);
+  rpc ChangeForceMagnitudeDefinition(ChangeForceMagnitudeDefinitionRequest) returns (ChangeResponse);
+  rpc ChangeForceByReversingDirection(ChangeCommandRequest) returns (ChangeResponse);
 
-  rpc ChangeForceDefinedByComponentEnabled(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceDefinedByComponentEnabled(ChangeBooleanRequest) returns (ChangeResponse);
 
-  rpc ChangeForceDistributedTotalMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceDistributedTotalX(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceDistributedTotalY(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceDistributedTotalZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceDistributedTotalMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedTotalX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedTotalY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedTotalZ(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeForceDistributedAreaMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceDistributedAreaX(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceDistributedAreaY(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceDistributedAreaZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceDistributedAreaMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedAreaX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedAreaY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedAreaZ(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeForceUseRemoteForceEnabled(ChangeBooleanRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceDistributedRemotePositionX(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceDistributedRemotePositionY(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceDistributedRemotePositionZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceUseRemoteForceEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedRemotePositionX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedRemotePositionY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedRemotePositionZ(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeForceTorqueMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceTorqueX(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceTorqueY(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeForceTorqueZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeForceTorqueMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceTorqueX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceTorqueY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceTorqueZ(ChangeQuantityRequest) returns (ChangeResponse);
 
   //Pressure condition methods
   rpc CreatePressure(PressureCreationRequest) returns (PressureCreationResponse);
 
-  rpc ChangePressureLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+  rpc ChangePressureLocation(ChangeLocationRequest) returns(ChangeResponse);
 
-  rpc ChangePressureMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangePressureMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
 
 
   //Displacement condition methods
@@ -84,51 +84,51 @@ service ConditionsStructural
   rpc CreateDisplacementRotation(DisplacementRotationCreationRequest) returns (DisplacementCreationResponse);
   rpc CreateDisplacementCombined(DisplacementCombinedCreationRequest) returns (DisplacementCreationResponse);
 
-  rpc ChangeDisplacementLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+  rpc ChangeDisplacementLocation(ChangeLocationRequest) returns(ChangeResponse);
 
-  rpc ChangeDisplacementSpecification(ChangeDisplacementSpecificationRequest) returns(ConditionChangedResponse);
-  rpc ChangeDisplacementOrientation(ChangeDirectionRequest) returns(ConditionChangedResponse);
+  rpc ChangeDisplacementSpecification(ChangeDisplacementSpecificationRequest) returns(ChangeResponse);
+  rpc ChangeDisplacementOrientation(ChangeDirectionRequest) returns(ChangeResponse);
   
-  rpc ChangeDisplacementDX(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementDY(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementDZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementTranslationalMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementDX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementDY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementDZ(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementTranslationalMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeDisplacementRX(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementRY(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementRZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementRotationalMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementRX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementRY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementRZ(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementRotationalMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeDisplacementIsFixedDX(ChangeBooleanRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementIsFixedDY(ChangeBooleanRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementIsFixedDZ(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementIsFixedDX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementIsFixedDY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementIsFixedDZ(ChangeBooleanRequest) returns (ChangeResponse);
   
-  rpc ChangeDisplacementIsFixedRX(ChangeBooleanRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementIsFixedRY(ChangeBooleanRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementIsFixedRZ(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementIsFixedRX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementIsFixedRY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementIsFixedRZ(ChangeBooleanRequest) returns (ChangeResponse);
   
-  rpc ChangeDisplacementUseRemotePointEnabled(ChangeBooleanRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementDistributedRemotePositionX(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementDistributedRemotePositionY(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeDisplacementDistributedRemotePositionZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeDisplacementUseRemotePointEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementDistributedRemotePositionX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementDistributedRemotePositionY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementDistributedRemotePositionZ(ChangeQuantityRequest) returns (ChangeResponse);
 
 
   //Moment condition methods
   rpc CreateMomentLocal(MomentCreationRequest) returns (MomentCreationResponse);
   rpc CreateMomentGlobal(MomentCreationRequest) returns (MomentCreationResponse);
 
-  rpc ChangeMomentLocation(ChangeLocationRequest) returns(ConditionChangedResponse);
+  rpc ChangeMomentLocation(ChangeLocationRequest) returns(ChangeResponse);
 
-  rpc ChangeMomentSpecification(ChangeMomentSpecificationRequest) returns(ConditionChangedResponse);
-  rpc ChangeMomentOrientation(ChangeDirectionRequest) returns(ConditionChangedResponse);
+  rpc ChangeMomentSpecification(ChangeMomentSpecificationRequest) returns(ChangeResponse);
+  rpc ChangeMomentOrientation(ChangeDirectionRequest) returns(ChangeResponse);
 
-  rpc ChangeMomentLocalX(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeMomentLocalY(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeMomentLocalZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeMomentLocalX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMomentLocalY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMomentLocalZ(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeMomentGlobalX(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeMomentGlobalY(ChangeQuantityRequest) returns (ConditionChangedResponse);
-  rpc ChangeMomentGlobalZ(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeMomentGlobalX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMomentGlobalY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMomentGlobalZ(ChangeQuantityRequest) returns (ChangeResponse);
 
 }
 
@@ -142,21 +142,21 @@ message ChangeSupportSpecificationRequest{
 }
 
 message SupportGeneralCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
 }
 
 message SupportGeneralCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   SupportGeneralDefinition condition_data = 2;
 }
 
 message SupportDisplacedCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   SupportDisplacedProperties support_displaced = 2;
 }
 
 message SupportDisplacedCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   SupportDisplacedDefinition condition_data = 2;
 }
 
@@ -173,64 +173,64 @@ message ChangeForceMagnitudeDefinitionRequest{
 }
 
 message ForceDistributedTotalCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   ForceDistributedProperties force_properties = 2;
 }
 
 message ForceDistributedTotalCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   ForceDistributedDefinition condition_data = 2;
 }
 
 message ForceDistributedAreaCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   ForceDistributedProperties force_properties = 2;
 }
 
 message ForceDistributedAreaCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   ForceDistributedDefinition condition_data = 2;
 }
 
 message ForceTorqueCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   ForceTorqueProperties force_properties = 2;
 }
 
 message ForceTorqueCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   ForceTorqueDefinition condition_data = 2;
 }
 
 // Pressure
 message PressureCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   PressureProperties pressure_properties = 2;
 }
 
 message PressureCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   PressureDefinition condition_data = 2;
 }
 
 // Displacement
 message DisplacementTranslationCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   DisplacementTranslationProperties displacement_properties = 2;
 }
 
 message DisplacementRotationCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   DisplacementRotationProperties displacement_properties = 2;
 }
 
 message DisplacementCombinedCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   DisplacementCombinedProperties displacement_properties = 2;
 }
 
 message DisplacementCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   DisplacementDefinition condition_data = 2;
 }
 
@@ -241,12 +241,12 @@ message ChangeDisplacementSpecificationRequest{
 
 // Moment
 message MomentCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   MomentProperties moment_properties = 2;
 }
 
 message MomentCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   MomentDefinition condition_data = 2;
 }
 

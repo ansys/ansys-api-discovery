@@ -21,97 +21,97 @@ service ConditionsFluid
 
   rpc CreateFlowMassFlowOutlet(FlowMassFlowOutletCreationRequest) returns (FlowMassFlowOutletCreationResponse);
 
-  rpc ChangeFlowLocation(ChangeLocationRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowLocation(ChangeLocationRequest) returns (ChangeResponse);
 
-  rpc ChangeFlowVelocityInletMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowVelocityInletMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeFlowVelocityOutletMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowVelocityOutletMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeFlowPressureInletMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowPressureInletMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeFlowPressureOutletMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowPressureOutletMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeFlowMassFlowInletMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowMassFlowInletMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeFlowMassFlowOutletMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowMassFlowOutletMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeFlowTemperatureInputEnabled(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowTemperatureInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
 
-  rpc ChangeFlowTemperatureMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowTemperatureMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeFlowSwirlingInputEnabled(ChangeBooleanRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowSwirlingInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
 
-  rpc ChangeFlowSwirlingMagnitude(ChangeQuantityRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowSwirlingMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc ChangeFlowSpecification(ChangeFlowSpecificationRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowSpecification(ChangeFlowSpecificationRequest) returns (ChangeResponse);
 
-  rpc ChangeFlowDirection(ChangeFlowDirectionRequest) returns (ConditionChangedResponse);
+  rpc ChangeFlowDirection(ChangeFlowDirectionRequest) returns (ChangeResponse);
 }
 
 // Command Requests and Responses
 
 // Velocity In
 message FlowVelocityInletCreationRequest{
-  ScopedConditionCreationData creation_data = 2;
+  ScopedCreationData creation_data = 2;
   VelocityInletProperties velocity_inlet = 4;
 }
 
 message FlowVelocityInletCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   FlowVelocityInletDefinition condition_data = 2;
 }
 
 // Velocity Out
 message FlowVelocityOutletCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   VelocityOutletProperties velocity_outlet = 2;
 }
 
 message FlowVelocityOutletCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   FlowVelocityOutletDefinition condition_data = 2;
 }
 
 // Pressure In
 message FlowPressureInletCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   PressureInletProperties pressure_inlet = 2;
 }
 
 message FlowPressureInletCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   FlowPressureInletDefinition condition_data = 2;
 }
 
 // Pressure Out
 message FlowPressureOutletCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   PressureOutletProperties pressure_outlet = 2;
 }
 message FlowPressureOutletCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   FlowPressureOutletDefinition condition_data = 2;
 }
 
 // Mass Flow In
 message FlowMassFlowInletCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   MassFlowInletProperties mass_flow_inlet = 2;
 }
 
 message FlowMassFlowInletCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   FlowMassFlowInletDefinition condition_data = 2;
 }
 
 // Mass Flow Out
 message FlowMassFlowOutletCreationRequest{
-  ScopedConditionCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   MassFlowOutletProperties mass_flow_outlet = 2;
 }
 
 message FlowMassFlowOutletCreationResponse{
-  ConditionCreationResponse condition_response = 1;
+  CreationResponse condition_response = 1;
   FlowMassFlowOutletDefinition condition_data = 2;
 }
 
