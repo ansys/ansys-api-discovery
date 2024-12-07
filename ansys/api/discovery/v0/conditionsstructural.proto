@@ -130,6 +130,75 @@ service ConditionsStructural
   rpc ChangeMomentGlobalY(ChangeQuantityRequest) returns (ChangeResponse);
   rpc ChangeMomentGlobalZ(ChangeQuantityRequest) returns (ChangeResponse);
 
+  //Mass condition methods
+  rpc CreateMass(MassCreationRequest) returns (MassCreationResponse);
+
+  rpc ChangeMassLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeMassMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeMassUseRemotePointEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeMassRemotePositionX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMassRemotePositionY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMassRemotePositionZ(ChangeQuantityRequest) returns (ChangeResponse);
+
+  //Velocity condition methods
+  rpc CreateVelocity(VelocityCreationRequest) returns (VelocityCreationResponse);
+
+  rpc ChangeVelocityLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeVelocityOrientation(ChangeDirectionRequest) returns(ChangeResponse);
+
+  rpc ChangeVelocityRX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRZ(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRotationalMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeVelocityIsFixedRX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeVelocityIsFixedRY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeVelocityIsFixedRZ(ChangeBooleanRequest) returns (ChangeResponse);
+
+  rpc ChangeVelocityUseRemotePointEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRemotePositionX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRemotePositionY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRemotePositionZ(ChangeQuantityRequest) returns (ChangeResponse);
+
+  //Acceleration condition methods
+  rpc CreateAcceleration(AccelerationCreationRequest) returns (AccelerationCreationResponse);
+
+  rpc ChangeAccelerationLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeAccelerationOrientation(ChangeDirectionRequest) returns(ChangeResponse);
+
+  rpc ChangeAccelerationDX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeAccelerationDY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeAccelerationDZ(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeAccelerationTranslationalMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeAccelerationIsFixedDX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeAccelerationIsFixedDY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeAccelerationIsFixedDZ(ChangeBooleanRequest) returns (ChangeResponse);
+
+  //Gravity condition methods
+  //No create for gravity, it's done automatically, and always applied to all bodies
+  rpc ChangeGravityOrientation(ChangeDirectionRequest) returns(ChangeResponse);
+
+  rpc ChangeGravityDX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeGravityDY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeGravityDZ(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeGravityTranslationalMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeGravityUseBuoyancyEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeGravityIncludeSelfWeightEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+
+  //Bearing condition methods
+  rpc CreateBearing(BearingCreationRequest) returns (BearingCreationResponse);
+
+  rpc ChangeBearingLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeBearingRadialForce(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeBearingThrustForce(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeBearingAngle(ChangeQuantityRequest) returns (ChangeResponse);
 }
 
 
@@ -255,6 +324,49 @@ message ChangeMomentSpecificationRequest{
   MomentSpecification moment_specification = 2;
 }
 
+// Mass
+message MassCreationRequest{
+  ScopedCreationData creation_data = 1;
+  MassProperties mass_properties = 2;
+}
+
+message MassCreationResponse{
+  CreationResponse condition_response = 1;
+  MassDefinition condition_data = 2;
+}
+
+//Velocity
+message VelocityCreationRequest{
+  ScopedCreationData creation_data = 1;
+  VelocityProperties velocity_properties = 2;
+}
+
+message VelocityCreationResponse{
+  CreationResponse condition_response = 1;
+  VelocityDefinition condition_data = 2;
+}
+
+//Acceleration
+message AccelerationCreationRequest{
+  ScopedCreationData creation_data = 1;
+  AccelerationProperties acceleration_properties = 2;
+}
+
+message AccelerationCreationResponse{
+  CreationResponse condition_response = 1;
+  AccelerationDefinition condition_data = 2;
+}
+
+//Bearing
+message BearingCreationRequest{
+  ScopedCreationData creation_data = 1;
+  BearingProperties bearing_properties = 2;
+}
+
+message BearingCreationResponse{
+  CreationResponse condition_response = 1;
+  BearingDefinition condition_data = 2;
+}
 
 // Support enumerations
 
@@ -383,7 +495,7 @@ message DisplacementDefinition {
   DisplacementCombinedProperties displacement = 6;
 }
 
-// Displacement enumerations
+// Moment enumerations
 
 enum MomentSpecification {
   GLOBAL = 0;
@@ -404,4 +516,80 @@ message MomentDefinition {
   bool suppressed = 5;
   MomentProperties local = 6;
   MomentProperties global = 7;
+}
+
+// Mass condition definitions
+message MassProperties {
+  Quantity mass_magnitude = 1;
+  OptionalVector remote_point = 2;
+}
+
+message MassDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MassProperties mass = 6;
+}
+
+// Velocity condition definitions
+message VelocityProperties {
+  VectorOfOptionalQuantities velocity = 1;
+  OptionalVector remote_point = 2;
+}
+
+message VelocityDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  VelocityProperties velocity = 6;
+}
+
+// Acceleration condition definitions
+message AccelerationProperties {
+  VectorOfOptionalQuantities acceleration = 1;
+}
+
+message AccelerationDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  AccelerationProperties acceleration = 6;
+}
+
+// Gravity condition definitions
+message GravityProperties {
+  VectorOfOptionalQuantities acceleration = 1;
+  bool include_buoyancy = 2;
+  bool include_self_weight = 3;
+}
+
+message GravityDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  GravityProperties gravity = 6;
+}
+
+// Bearing condition definitions
+message BearingProperties {
+  Quantity radial_force = 1;
+  Quantity thrust_force = 2;
+  Quantity angle = 3;
+}
+
+message BearingDefinition {
+  string id = 1;
+  string parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  BearingProperties bearing = 6;
 }
