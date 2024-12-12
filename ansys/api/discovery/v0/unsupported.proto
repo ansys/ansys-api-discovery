@@ -16,6 +16,11 @@ service Unsupported {
 
   // Exports Live results to file.
   rpc ExportResultsToOpenVDBFile(VariableExportRequestToFile) returns(ansys.api.dbu.v0.RequestResult);
+
+  // Gets max and min value from the legend
+  rpc GetLegendMaximumValue(google.protobuf.Empty) returns(DoubleValueResponse);
+  rpc GetLegendMinimumValue(google.protobuf.Empty) returns(DoubleValueResponse);
+
 }
 
 message VariableExportRequest {
@@ -29,5 +34,10 @@ message VariableExportRequestToFile {
 
 message ByteArrayResponse {
   bytes bytes = 1;
+  bool success = 2;
+}
+
+message DoubleValueResponse {
+  double value = 1;
   bool success = 2;
 }
