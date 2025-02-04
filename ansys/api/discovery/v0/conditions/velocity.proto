@@ -1,0 +1,58 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.velocity;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Velocity
+{
+  //Velocity condition methods
+  rpc CreateVelocity(VelocityCreationRequest) returns (VelocityCreationResponse);
+
+  rpc ChangeVelocityLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeVelocityOrientation(ChangeDirectionRequest) returns(ChangeResponse);
+
+  rpc ChangeVelocityRX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRZ(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRotationalMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeVelocityIsFixedRX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeVelocityIsFixedRY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeVelocityIsFixedRZ(ChangeBooleanRequest) returns (ChangeResponse);
+
+  rpc ChangeVelocityUseRemotePointEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRemotePositionX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRemotePositionY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRemotePositionZ(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+//Velocity
+message VelocityCreationRequest{
+  ScopedCreationData creation_data = 1;
+  VelocityProperties velocity_properties = 2;
+}
+
+message VelocityCreationResponse{
+  CreationResponse condition_response = 1;
+  VelocityDefinition condition_data = 2;
+}
+
+// Velocity condition definitions
+message VelocityProperties {
+  VectorOfOptionalQuantities velocity = 1;
+  OptionalVector remote_point = 2;
+}
+
+message VelocityDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  VelocityProperties velocity = 6;
+}

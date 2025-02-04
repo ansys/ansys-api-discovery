@@ -1,12 +1,13 @@
 // Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v0.conditions.conditionsfluid;
+package ansys.api.discovery.v0.conditions.flow;
 
+import "ansys/api/dbu/v0/dbumodels.proto";
 import "ansys/api/discovery/v0/discoverymodels.proto";
 
-option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions.ConditionsFluid";
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
 
-service ConditionsFluid
+service Flow
 {
   //Fluid flow methods
   rpc CreateFlowVelocityInlet(FlowVelocityInletCreationRequest) returns (FlowVelocityInletCreationResponse);  
@@ -116,12 +117,12 @@ message FlowMassFlowOutletCreationResponse{
 }
 
 message ChangeFlowSpecificationRequest{
-  string object_id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   FlowSpecificationDefinition specification = 2;
 }
 
 message ChangeFlowDirectionRequest{
-  string object_id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   FlowDirectionDefinition direction = 2;
   bool reset_to_default_subtype = 3;
 }
@@ -186,8 +187,8 @@ message FlowThermalProperties
 // Fluid conditions definitions
 
 message FlowVelocityInletDefinition {
-  string id = 1;
-  string parent_id = 2;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
@@ -195,8 +196,8 @@ message FlowVelocityInletDefinition {
 }
 
 message FlowVelocityOutletDefinition {
-  string id = 1;
-  string parent_id = 2;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
@@ -204,8 +205,8 @@ message FlowVelocityOutletDefinition {
 }
 
 message FlowPressureInletDefinition {
-  string id = 1;
-  string parent_id = 2;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
@@ -213,8 +214,8 @@ message FlowPressureInletDefinition {
 }
 
 message FlowPressureOutletDefinition {
-  string id = 1;
-  string parent_id = 2;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
@@ -222,8 +223,8 @@ message FlowPressureOutletDefinition {
 }
 
 message FlowMassFlowInletDefinition {
-  string id = 1;
-  string parent_id = 2;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
@@ -231,16 +232,10 @@ message FlowMassFlowInletDefinition {
 }
 
 message FlowMassFlowOutletDefinition {
-  string id = 1;
-  string parent_id = 2;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
   MassFlowOutletProperties mass_flow_outlet = 6;
 }
-
-
-
-// Wall condition definitions
-// Porous condition definition
-// Fan condition definition

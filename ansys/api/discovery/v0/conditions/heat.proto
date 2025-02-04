@@ -1,0 +1,90 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.gravity;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Heat
+{
+  //Heat condition methods
+  rpc CreateHeatVolumetricTotal(HeatCreationRequest) returns (HeatTotalCreationResponse);
+
+  rpc CreateHeatVolumetricDistributed(HeatCreationRequest) returns (HeatVolumetricDistributedCreationResponse);
+
+  rpc CreateHeatSurfaceTotal(HeatCreationRequest) returns (HeatTotalCreationResponse);
+
+  rpc CreateHeatSurfaceDistributed(HeatCreationRequest) returns (HeatSurfaceDistributedCreationResponse);
+
+  rpc ChangeHeatLocation(ChangeLocationExtendedRequest) returns(ChangeResponse);
+
+  rpc ChangeTotalHeat(ChangeQuantityRequest) returns(ChangeResponse);
+
+  rpc ChangeHeatPerUnitVolume(ChangeQuantityRequest) returns(ChangeResponse);
+
+  rpc ChangeHeatPerUnitArea(ChangeQuantityRequest) returns(ChangeResponse);
+
+  rpc ChangeHeatSpecification(ChangeHeatSpecificationRequest) returns(ChangeResponse);
+}
+
+// Requests and responses
+message ChangeHeatSpecificationRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  HeatSpecification heat_specification = 2;
+}
+
+message HeatCreationRequest{
+  ScopedCreationData creation_data = 1;
+  Quantity heat = 2;
+}
+
+message HeatTotalCreationResponse{
+  CreationResponse condition_response = 1;
+  HeatTotalDefinition condition_data = 2;
+}
+
+message HeatVolumetricDistributedCreationResponse{
+  CreationResponse condition_response = 1;
+  HeatPerVolumeDefinition condition_data = 2;
+}
+
+message HeatSurfaceDistributedCreationResponse{
+  CreationResponse condition_response = 1;
+  HeatPerAreaDefinition condition_data = 2;
+}
+
+//Enumerations
+enum HeatSpecification {
+  TOTALHEAT = 0;
+  HEATPERUNITVOLUMEORAREA = 1;
+}
+
+//Definitions
+message HeatTotalDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  Quantity total_heat = 7;
+}
+
+message HeatPerAreaDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  Quantity heat_per_unitarea = 6;
+}
+
+message HeatPerVolumeDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  Quantity heat_per_unitvolume = 6;
+}

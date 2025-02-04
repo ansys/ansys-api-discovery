@@ -1,0 +1,40 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.assignments.boltassignment;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+import "ansys/api/discovery/v0/engineeringdata/boltdata.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Assignments";
+
+service BoltAssignment
+{
+  //BoltAssignment condition methods
+  rpc CreateBoltAssignment(BoltAssignmentCreationRequest) returns (BoltAssignmentCreationResponse);
+}
+
+//BoltAssignment
+message BoltAssignmentCreationRequest{
+  ScopedCreationData creation_data = 1;
+  BoltAssignmentProperties bolt_assignment_properties = 2;
+}
+
+message BoltAssignmentCreationResponse{
+  CreationResponse condition_response = 1;
+  BoltAssignmentDefinition condition_data = 2;
+}
+
+//BoltAssignment condition definitions
+message BoltAssignmentProperties {
+  ansys.api.discovery.v0.engineeringdata.boltdata.BoltDataDefinition definition = 1;
+}
+
+message BoltAssignmentDefinition {
+  ansys.api.dbu.v0.EntityIdentifier id = 1;
+  ansys.api.dbu.v0.EntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  BoltAssignmentProperties bolt = 6;
+}
