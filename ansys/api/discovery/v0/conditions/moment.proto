@@ -1,0 +1,67 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.moment;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Moment
+{
+  //Moment condition methods
+  rpc CreateMomentLocal(MomentCreationRequest) returns (MomentCreationResponse);
+  rpc CreateMomentGlobal(MomentCreationRequest) returns (MomentCreationResponse);
+
+  rpc ChangeMomentLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeMomentSpecification(ChangeMomentSpecificationRequest) returns(ChangeResponse);
+  rpc ChangeMomentOrientation(ChangeDirectionRequest) returns(ChangeResponse);
+
+  rpc ChangeMomentLocalX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMomentLocalY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMomentLocalZ(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeMomentGlobalX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMomentGlobalY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMomentGlobalZ(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+// Moment
+message MomentCreationRequest{
+  ScopedCreationData creation_data = 1;
+  MomentProperties moment_properties = 2;
+}
+
+message MomentCreationResponse{
+  CreationResponse condition_response = 1;
+  MomentDefinition condition_data = 2;
+}
+
+message ChangeMomentSpecificationRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  MomentSpecification moment_specification = 2;
+}
+
+// Moment enumerations
+
+enum MomentSpecification {
+  GLOBAL = 0;
+  LOCAL = 1;
+}
+
+// Moment condition definitions
+
+message MomentProperties {
+  QuantityVector moment = 1;
+}
+
+message MomentDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MomentProperties local = 6;
+  MomentProperties global = 7;
+}

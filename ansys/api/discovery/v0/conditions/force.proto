@@ -1,0 +1,131 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.force;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Force
+{
+  //Force condition methods
+
+  rpc CreateForceDistributedTotal(ForceDistributedTotalCreationRequest) returns (ForceDistributedTotalCreationResponse);
+
+  rpc CreateForceDistributedArea(ForceDistributedAreaCreationRequest) returns (ForceDistributedAreaCreationResponse); 
+
+  rpc CreateForceTorque(ForceTorqueCreationRequest) returns (ForceTorqueCreationResponse); 
+    
+  rpc ChangeForceLocation(ChangeLocationRequest) returns(ChangeResponse);
+  
+  rpc ChangeForceSpecification(ChangeForceSpecificationRequest) returns (ChangeResponse);
+  rpc ChangeForceMagnitudeDefinition(ChangeForceMagnitudeDefinitionRequest) returns (ChangeResponse);
+  rpc ChangeForceByReversingDirection(ChangeCommandRequest) returns (ChangeResponse);
+
+  rpc ChangeForceDefinedByComponentEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+
+  rpc ChangeForceDistributedTotalMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedTotalX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedTotalY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedTotalZ(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeForceDistributedAreaMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedAreaX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedAreaY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedAreaZ(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeForceUseRemoteForceEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedRemotePositionX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedRemotePositionY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceDistributedRemotePositionZ(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeForceTorqueMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceTorqueX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceTorqueY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeForceTorqueZ(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+// Force
+message ChangeForceSpecificationRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  ForceSpecification force_specification = 2;
+}
+
+message ChangeForceMagnitudeDefinitionRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  ForceMagnitudeDefinition force_magnitude_definition = 2;
+}
+
+message ForceDistributedTotalCreationRequest{
+  ScopedCreationData creation_data = 1;
+  ForceDistributedProperties force_properties = 2;
+}
+
+message ForceDistributedTotalCreationResponse{
+  CreationResponse condition_response = 1;
+  ForceDistributedDefinition condition_data = 2;
+}
+
+message ForceDistributedAreaCreationRequest{
+  ScopedCreationData creation_data = 1;
+  ForceDistributedProperties force_properties = 2;
+}
+
+message ForceDistributedAreaCreationResponse{
+  CreationResponse condition_response = 1;
+  ForceDistributedDefinition condition_data = 2;
+}
+
+message ForceTorqueCreationRequest{
+  ScopedCreationData creation_data = 1;
+  ForceTorqueProperties force_properties = 2;
+}
+
+message ForceTorqueCreationResponse{
+  CreationResponse condition_response = 1;
+  ForceTorqueDefinition condition_data = 2;
+}
+
+// force enumerations
+
+enum ForceMagnitudeDefinition {
+  TOTALFORCE = 0;
+  FORCEPERAREA = 1;
+}
+
+enum ForceSpecification {
+  DISTRIBUTED = 0;
+  TORQUE = 1;
+}
+
+// force condition definitions
+
+message ForceDistributedDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  ForceDistributedProperties force_distributed = 6;
+}
+
+message ForceDistributedProperties {
+  Quantity force = 1;
+  OptionalVector force_components = 2;
+  OptionalVector remote_point = 3;
+}
+
+message ForceTorqueDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  ForceTorqueProperties force_torque = 6;
+}
+
+message ForceTorqueProperties {
+  Quantity force = 1;
+  OptionalVector force_components = 2;
+}

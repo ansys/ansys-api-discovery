@@ -1,0 +1,52 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.acceleration;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Acceleration
+{
+  //Acceleration condition methods
+  rpc CreateAcceleration(AccelerationCreationRequest) returns (AccelerationCreationResponse);
+
+  rpc ChangeAccelerationLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeAccelerationOrientation(ChangeDirectionRequest) returns(ChangeResponse);
+
+  rpc ChangeAccelerationDX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeAccelerationDY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeAccelerationDZ(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeAccelerationTranslationalMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeAccelerationIsFixedDX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeAccelerationIsFixedDY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeAccelerationIsFixedDZ(ChangeBooleanRequest) returns (ChangeResponse);
+}
+
+//Acceleration
+message AccelerationCreationRequest{
+  ScopedCreationData creation_data = 1;
+  AccelerationProperties acceleration_properties = 2;
+}
+
+message AccelerationCreationResponse{
+  CreationResponse condition_response = 1;
+  AccelerationDefinition condition_data = 2;
+}
+
+// Acceleration condition definitions
+message AccelerationProperties {
+  VectorOfOptionalQuantities acceleration = 1;
+}
+
+message AccelerationDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  AccelerationProperties acceleration = 6;
+}

@@ -1,0 +1,93 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.boltpreload;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service BoltPreload
+{
+  //Bolt prestress condition methods
+  rpc CreateBoltPreloadClampForce(BoltPreloadClampForceCreationRequest) returns (BoltPreloadCreationResponse);
+  rpc CreateBoltPreloadGripLength(BoltPreloadGripLengthCreationRequest) returns (BoltPreloadCreationResponse);
+  rpc CreateBoltPreloadTorque(BoltPreloadTorqueCreationRequest) returns (BoltPreloadCreationResponse);
+
+  rpc ChangeBoltPreloadSide1Location(ChangeLocationExtendedRequest) returns(ChangeResponse);
+  rpc ChangeBoltPreloadSide2Location(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeBoltPreloadSpecification(ChangeBoltPreloadSpecificationRequest) returns(ChangeResponse);
+
+  rpc ChangeBoltPreloadClampForce(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeBoltPreloadGripLength(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeBoltPreloadTorque(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeBoltPreloadTorqueCoefficient(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeBoltPreloadSpecifyBoltDiameter(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeBoltPreloadShankDiameter(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+//Creation
+message BoltPreloadClampForceCreationRequest{
+  DoubleSidedScopedCreationData creation_data = 1;
+  BoltPreloadClampForceProperties clamp_force_properties = 2;
+}
+
+message BoltPreloadGripLengthCreationRequest{
+  DoubleSidedScopedCreationData creation_data = 1;
+  BoltPreloadGripLengthProperties grip_length_properties = 2;
+}
+
+message BoltPreloadTorqueCreationRequest{
+  DoubleSidedScopedCreationData creation_data = 1;
+  BoltPreloadTorqueProperties torque_properties = 2;
+}
+
+message BoltPreloadCreationResponse{
+  CreationResponse condition_response = 1;
+  BoltPreloadDefinition condition_data = 2;
+}
+
+//Other requests
+
+message ChangeBoltPreloadSpecificationRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  BoltPreloadSpecification specification = 2;
+}
+
+// Enumerations
+
+enum BoltPreloadSpecification {
+  CLAMPFORCE = 0;
+  GRIPLENGTH = 1;
+  TORQUE = 2;
+}
+
+// Condition definitions
+
+message BoltPreloadClampForceProperties {
+  Quantity clamp_force = 1;
+}
+
+message BoltPreloadGripLengthProperties {
+  Quantity grip_length = 1;
+}
+
+message BoltPreloadTorqueProperties {
+  Quantity torque = 1;
+  double torque_coefficient = 2;
+  OptionalQuantity boltdiameter = 3;
+}
+
+message BoltPreloadDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  BoltPreloadSpecification specification = 6; 
+  BoltPreloadClampForceProperties clamp_force_properties = 7;
+  BoltPreloadGripLengthProperties grip_length_properties = 8;
+  BoltPreloadTorqueProperties torque_properties = 9;
+}
