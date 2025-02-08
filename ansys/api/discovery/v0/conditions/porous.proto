@@ -1,0 +1,116 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.porous;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Porous
+{
+  //wall creation methods
+  rpc CreatePorous(PorousCreationRequest) returns (PorousCreationResponse);  
+
+  // properties
+  rpc ChangePorousDirectionality(ChangePorousDirectionalityRequest) returns (ChangeResponse);
+
+  rpc ChangePorousLocation(ChangeLocationRequest) returns (ChangeResponse);
+
+  rpc ChangePorousDirection(ChangeDirectionRequest) returns (ChangeResponse);
+
+
+  // Resistance coeffiecient quantities
+  rpc ChangePorousViscousStreamwiseMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangePorousInertialStreamwiseMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangePorousViscousCrossflowPrimaryMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangePorousInertialCrossflowPrimaryMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangePorousViscousCrossflowSecondaryMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangePorousInertialCrossflowSecondaryMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+
+  //Solid quantities
+
+  rpc ChangePorouseThermalInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  
+  rpc ChangePorousSolidPorosity(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangePorousSolidDensity(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangePorousSolidIsotropicThermalConductivity(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangePorousSolidSpecificHeat(ChangeQuantityRequest) returns (ChangeResponse);
+  
+}
+
+// Command Requests and Responses
+
+// Create Free Slip
+message PorousCreationRequest{
+  ScopedCreationData creation_data = 2;
+  PorousProperties porous_properties = 4;
+}
+
+message PorousCreationResponse{
+  CreationResponse condition_response = 1;
+  PorousDefinition condition_data = 2;
+}
+
+// enum commands
+message ChangePorousDirectionalityRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  PorousDirectionality porous_directionality = 2;
+}
+
+// enumerations
+
+enum PorousDirectionality {
+  ISOTROPIC = 0;
+  BIDIRECTIONAL = 1;
+  ORTHOTROPIC = 2;
+}
+
+// Conditions properties
+
+message PorousProperties
+{
+  PorousDirectionality directionality = 1;
+  QuantityVector direction = 2;
+  ResistanceCoeffients coefficients = 3;
+  SolidProperties solid_properties = 4;
+}
+
+message SolidProperties
+{
+  Quantity porosity = 1;
+  Quantity density = 2;
+  Quantity isotropic_therma_conductivity = 3;
+  Quantity specific_heat = 4;
+}
+
+message ResistanceCoeffients
+{
+  Quantity viscous_streamwise = 1;
+  Quantity inertial_streamwise = 2;
+  optional Quantity viscous_primary = 3;
+  optional Quantity inertial_primary = 4;
+  optional Quantity viscous_secondary = 5;
+  optional Quantity inertial_secondary = 6;
+}
+
+
+// conditions definitions
+
+message PorousDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  PorousProperties porous_properties = 6;
+}

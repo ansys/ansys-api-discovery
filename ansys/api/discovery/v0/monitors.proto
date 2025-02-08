@@ -16,7 +16,7 @@ service Monitors
 
 message CreateMonitorRequest{
   // The monitor id
-  ScopedCreationData creation_data = 1;
+  DoubleSidedScopedCreationData creation_data = 1;
   MonitorProperties monitor = 2;
 }
 
@@ -31,12 +31,12 @@ message MonitorProperties{
   ansys.api.discovery.v0.results.ResultVariable result_variable = 1;
   ansys.api.discovery.v0.results.ResultFunction result_function = 2;
   optional ansys.api.discovery.v0.results.ResultComponent result_component = 3;
-  repeated string locations_secondary = 4;
 }
 
 message MonitorDefinition{
   string id = 1;
   string label = 2;
-  repeated string locations = 3;
-  MonitorProperties monitor = 4;
+  repeated string side1_locations = 3;
+  repeated string side2_locations = 4;
+  MonitorProperties monitor = 5;
 }

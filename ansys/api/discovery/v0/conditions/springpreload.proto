@@ -95,10 +95,11 @@ message SpringPreloadDefinition {
   ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
   ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
   string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  SpringPreloadSpecification specification = 6; 
-  SpringPreloadLongitudinalStiffnessProperties longitudinal_stiffness_properties = 7;
-  SpringPreloadTorsionalStiffnessProperties torsional_stiffness_properties = 8;
-  SpringPreloadProperties preload_properties = 9;
+  repeated string side1_locations = 4;
+  repeated string side2_locations = 5;
+  bool suppressed = 6;
+  SpringPreloadSpecification specification = 7;
+  SpringPreloadLongitudinalStiffnessProperties longitudinal_stiffness_properties = 8;
+  SpringPreloadTorsionalStiffnessProperties torsional_stiffness_properties = 9;
+  SpringPreloadProperties preload_properties = 10;
 }

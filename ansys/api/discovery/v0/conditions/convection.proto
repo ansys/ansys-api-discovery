@@ -1,6 +1,6 @@
 // Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v0.conditions.gravity;
+package ansys.api.discovery.v0.conditions.convection;
 
 import "ansys/api/dbu/v0/dbumodels.proto";
 import "ansys/api/discovery/v0/discoverymodels.proto";

@@ -1,0 +1,209 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.wall;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Wall
+{
+  //wall creation methods
+  rpc CreateWallFreeSlip(WallFreeSlipCreationRequest) returns (WallFreeSlipCreationResponse);  
+
+  rpc CreateWallStationary(WallStationaryCreationRequest) returns (WallStationaryCreationResponse);
+
+  rpc CreateWallRotating(WallTranslationCreationRequest) returns (WallTranslationCreationResponse);
+
+  rpc CreateWallTranslating(WallRotationCreationRequest) returns (WallRotationCreationResponse);
+
+  // Wall properties
+  rpc ChangeWallSpecification(ChangeWallSpecificationRequest) returns (ChangeResponse);
+
+  rpc ChangeWallLocation(ChangeLocationRequest) returns (ChangeResponse);
+
+
+  // Motion quantities
+  rpc ChangeWallRotationalVelocityMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeWallTranslationalVelocityMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+
+  //Thermal quantities
+
+  rpc ChangeWallThermalInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  
+  rpc ChangeWallThermalOption(ChangeWallThermalOptionRequest) returns (ChangeResponse);
+
+  rpc ChangeWallRadiationInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  
+  rpc ChangeWallInternalEmissivity(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeWallExternalTemperature(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeWallConvectionCoefficient(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeWallHeatFlux(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeWallHeatFlow(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeWallTemperature(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeWallExternalEmissivity(ChangeQuantityRequest) returns (ChangeResponse);
+  
+}
+
+// Command Requests and Responses
+
+// Create Free Slip
+message WallFreeSlipCreationRequest{
+  ScopedCreationData creation_data = 2;
+  FreeSlipProperties freeslip_properties = 4;
+}
+
+message WallFreeSlipCreationResponse{
+  CreationResponse condition_response = 1;
+  WallFreeSlipDefinition condition_data = 2;
+}
+
+// Create Stationary
+message WallStationaryCreationRequest{
+  ScopedCreationData creation_data = 2;
+  StationaryProperties stationary_properties = 4;
+}
+
+message WallStationaryCreationResponse{
+  CreationResponse condition_response = 1;
+  WallStationaryDefinition condition_data = 2;
+}
+
+// Create Translating
+message WallTranslationCreationRequest{
+  ScopedCreationData creation_data = 2;
+  TranslationProperties translating_properties = 4;
+}
+
+message WallTranslationCreationResponse{
+  CreationResponse condition_response = 1;
+  WallTranslationDefinition condition_data = 2;
+}
+
+// Create Rotating
+message WallRotationCreationRequest{
+  ScopedCreationData creation_data = 2;
+  RotationProperties rotating_properties = 4;
+}
+
+message WallRotationCreationResponse{
+  CreationResponse condition_response = 1;
+  WallRotationDefinition condition_data = 2;
+}
+
+// enum commands
+message ChangeWallSpecificationRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  WallSpecification wall_specification = 2;
+}
+
+message ChangeWallThermalOptionRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  WallThermalOption wall_thermal_option = 2;
+}
+
+// wall enumerations
+
+enum WallThermalOption {
+  INSULATED = 0;
+  CONVECTION = 1;
+  HEATFLUX = 2;
+  HEATFLOW = 3;
+  TEMPERATURE = 4;
+  RADIATION = 5;
+}
+
+enum WallSpecification {
+  FREESLIP = 0;
+  STATIONARY = 1;
+  TRANSLATING = 2;
+  ROTATING = 3;
+}
+
+// Wall conditions properties
+
+message FreeSlipProperties
+{
+  bool wall_thermal_option_enabled = 1;
+  optional WallThermalProperties wall_thermal_properties = 2;
+}
+
+message StationaryProperties
+{
+  bool wall_thermal_option_enabled = 1;
+  optional WallThermalProperties wall_thermal_properties = 2;
+}
+
+message RotationProperties
+{
+  Quantity rotational_velocity = 1;
+  bool wall_thermal_option_enabled = 2;
+  optional WallThermalProperties wall_thermal_properties = 3;
+}
+
+message TranslationProperties
+{
+  bool wall_thermal_option_enabled = 1;
+  QuantityVector translational_velocity = 2;
+  optional WallThermalProperties wall_thermal_properties = 3;
+}
+
+message WallThermalProperties
+{
+  WallThermalOption wall_thermal_option = 1;
+  OptionalQuantity internal_radiation = 2;
+  optional Quantity external_temperature = 3;
+  optional Quantity convection_coefficient = 4;
+  optional Quantity heatflux = 5;
+  optional Quantity heatflow = 6;
+  optional Quantity temperature = 7;
+  optional Quantity external_emissivity = 8;
+}
+
+
+// Fluid conditions definitions
+
+message WallFreeSlipDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  FreeSlipProperties free_slip_properties = 6;
+}
+
+message WallStationaryDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  StationaryProperties stationary_properties = 6;
+}
+
+message WallRotationDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  RotationProperties rotation_properties = 6;
+}
+
+message WallTranslationDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  TranslationProperties translation_properties = 6;
+}
