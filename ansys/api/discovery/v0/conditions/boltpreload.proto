@@ -84,10 +84,11 @@ message BoltPreloadDefinition {
   ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
   ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
   string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  BoltPreloadSpecification specification = 6; 
-  BoltPreloadClampForceProperties clamp_force_properties = 7;
-  BoltPreloadGripLengthProperties grip_length_properties = 8;
-  BoltPreloadTorqueProperties torque_properties = 9;
+  repeated string side1_locations = 4;
+  repeated string side2_locations = 5;
+  bool suppressed = 6;
+  BoltPreloadSpecification specification = 7;
+  BoltPreloadClampForceProperties clamp_force_properties = 8;
+  BoltPreloadGripLengthProperties grip_length_properties = 9;
+  BoltPreloadTorqueProperties torque_properties = 10;
 }

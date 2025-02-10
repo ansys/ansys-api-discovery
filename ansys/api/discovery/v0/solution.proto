@@ -2,6 +2,8 @@
 syntax = "proto3";
 package ansys.api.discovery.v0.solution;
 
+
+import "ansys/api/dbu/v0/dbumodels.proto";
 import "google/protobuf/empty.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V0.Solution";
@@ -18,9 +20,8 @@ message SolverFidelityRequest{
   double value = 2;
 }
 
-//TODO Replace string with Enum
 message SimulationStageRequest{
-  string simulation = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier simulation_id = 1;
   string stage = 2;
 }
 
@@ -29,7 +30,7 @@ message SolverFidelityResponse{
 }
 
 message SolveExecutionRequest{
-  string simulation_id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier simulation_id = 1;
   SolverManager solver_manager = 2;
   bool execute_remotely =3;
   repeated string variation_id_list = 4;
