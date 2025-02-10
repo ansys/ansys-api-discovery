@@ -89,47 +89,70 @@ message ScriptParameter {
 // SIMULATIONS PROTOS
 //
 message Simulation {
-  string id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   string label = 2;
 }
 
 // General Requests
 
 message ChangeLocationRequest{
-  string object_id = 1;
-  repeated string locations = 2;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  repeated string location_ids = 2;
 }
 
 //enables the type of location to be changed as well as the scope.  Only supported for specific condition types
 message ChangeLocationExtendedRequest
 {
   ChangeLocationRequest change_location_request = 1;
-  LocationSpecification location_specification = 2;
+  ansys.api.dbu.v0.LocationType location_type = 2;
 }
 
 message ChangeQuantityRequest{
-  string object_id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   Quantity quantity = 2;
 }
 
 message ChangeBooleanRequest{
-  string object_id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   bool boolean_value = 2;
 }
 
+message ChangeDoubleRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  double value = 2;
+}
+
+message ChangeEmptyRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+}
+
 message ChangeDirectionRequest{
-  string object_id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   ansys.api.geometry.v0.Direction direction = 2;
 }
 
 message ChangeCommandRequest{
-  string object_id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
 }
 
+//location data definitions
+
 message ScopedCreationData{
-  optional string object_id = 1;
-  string simulation_id = 2;
-  repeated string locations = 3;
+  optional ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier simulation_id = 2;
+  LocationIdentifier locations = 3;
+}
+
+message DoubleSidedScopedCreationData{
+  optional ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier simulation_id = 2;
+  LocationIdentifier side1_locations = 3;
+  LocationIdentifier side2_locations = 4;
+}
+
+message LocationIdentifier{
+  repeated string location_ids = 1;
+  optional ansys.api.dbu.v0.LocationType location_type = 2;
 }
 
 // General Responses
@@ -146,12 +169,6 @@ message CreationResponse{
 
 message MessageResponse{
   string message = 1;
-}
-
-// Defines the type of location, some conditions support application to either bodies and faces
-enum LocationSpecification {
-  FACELOCATIONS = 0;
-  BODYLOCATIONS = 1;
 }
 
 // Quantity Data

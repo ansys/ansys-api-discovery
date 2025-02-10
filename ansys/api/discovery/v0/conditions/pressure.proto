@@ -1,0 +1,43 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.pressure;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Pressure
+{
+  //Pressure condition methods
+  rpc CreatePressure(PressureCreationRequest) returns (PressureCreationResponse);
+
+  rpc ChangePressureLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangePressureMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+// Pressure
+message PressureCreationRequest{
+  ScopedCreationData creation_data = 1;
+  PressureProperties pressure_properties = 2;
+}
+
+message PressureCreationResponse{
+  CreationResponse condition_response = 1;
+  PressureDefinition condition_data = 2;
+}
+
+// Pressure condition definitions
+message PressureProperties {
+  Quantity pressure_magnitude = 1;
+}
+
+message PressureDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  PressureProperties pressure = 6;
+}

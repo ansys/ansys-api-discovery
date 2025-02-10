@@ -1,0 +1,105 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.displacement;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Displacement
+{
+  //Displacement condition methods
+  rpc CreateDisplacementTranslation(DisplacementTranslationCreationRequest) returns (DisplacementCreationResponse);
+  rpc CreateDisplacementRotation(DisplacementRotationCreationRequest) returns (DisplacementCreationResponse);
+  rpc CreateDisplacementCombined(DisplacementCombinedCreationRequest) returns (DisplacementCreationResponse);
+
+  rpc ChangeDisplacementLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeDisplacementSpecification(ChangeDisplacementSpecificationRequest) returns(ChangeResponse);
+  rpc ChangeDisplacementOrientation(ChangeDirectionRequest) returns(ChangeResponse);
+  
+  rpc ChangeDisplacementDX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementDY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementDZ(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementTranslationalMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeDisplacementRX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementRY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementRZ(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementRotationalMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeDisplacementIsFixedDX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementIsFixedDY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementIsFixedDZ(ChangeBooleanRequest) returns (ChangeResponse);
+  
+  rpc ChangeDisplacementIsFixedRX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementIsFixedRY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementIsFixedRZ(ChangeBooleanRequest) returns (ChangeResponse);
+  
+  rpc ChangeDisplacementUseRemotePointEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementDistributedRemotePositionX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementDistributedRemotePositionY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeDisplacementDistributedRemotePositionZ(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+// Displacement
+message DisplacementTranslationCreationRequest{
+  ScopedCreationData creation_data = 1;
+  DisplacementTranslationProperties displacement_properties = 2;
+}
+
+message DisplacementRotationCreationRequest{
+  ScopedCreationData creation_data = 1;
+  DisplacementRotationProperties displacement_properties = 2;
+}
+
+message DisplacementCombinedCreationRequest{
+  ScopedCreationData creation_data = 1;
+  DisplacementCombinedProperties displacement_properties = 2;
+}
+
+message DisplacementCreationResponse{
+  CreationResponse condition_response = 1;
+  DisplacementDefinition condition_data = 2;
+}
+
+message ChangeDisplacementSpecificationRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  DisplacementSpecification displacement_specification = 2;
+}
+
+// Displacement enumerations
+
+enum DisplacementSpecification {
+  TRANSLATION = 0;
+  ROTATION = 1;
+  COMBINED = 2;
+}
+
+// Displacement condition definitions
+
+message DisplacementTranslationProperties {
+  VectorOfOptionalQuantities displacement = 1;
+  OptionalVector remote_point = 2;
+}
+
+message DisplacementRotationProperties {
+  VectorOfOptionalQuantities rotation = 1;
+  OptionalVector remote_point = 2;
+}
+
+message DisplacementCombinedProperties {
+  VectorOfOptionalQuantities displacement = 1;
+  VectorOfOptionalQuantities rotation = 2;
+  OptionalVector remote_point = 3;
+}
+
+message DisplacementDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  DisplacementCombinedProperties displacement = 6;
+}

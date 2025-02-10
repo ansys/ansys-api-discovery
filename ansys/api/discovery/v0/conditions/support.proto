@@ -1,0 +1,98 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.support;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Support
+{
+  //Support condition methods
+  rpc CreateSupportFixed(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
+  rpc CreateSupportHinged(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
+  rpc CreateSupportSliding(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
+  rpc CreateSupportBall(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
+  rpc CreateSupportDisplaced(SupportDisplacedCreationRequest) returns (SupportDisplacedCreationResponse);
+
+  rpc ChangeSupportLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeSupportSpecification(ChangeSupportSpecificationRequest) returns(ChangeResponse);
+
+  rpc ChangeSupportDisplacedOrientation(ChangeDirectionRequest) returns(ChangeResponse);
+  
+  rpc ChangeSupportDisplacedDX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedDY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedDZ(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedRX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedRY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedRZ(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeSupportDisplacedIsFixedDX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedIsFixedDY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedIsFixedDZ(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedIsFixedRX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedIsFixedRY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeSupportDisplacedIsFixedRZ(ChangeBooleanRequest) returns (ChangeResponse);
+}
+
+//Support
+message ChangeSupportSpecificationRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  SupportSpecification support_specification = 2;
+}
+
+message SupportGeneralCreationRequest{
+  ScopedCreationData creation_data = 1;
+}
+
+message SupportGeneralCreationResponse{
+  CreationResponse condition_response = 1;
+  SupportGeneralDefinition condition_data = 2;
+}
+
+message SupportDisplacedCreationRequest{
+  ScopedCreationData creation_data = 1;
+  SupportDisplacedProperties support_displaced = 2;
+}
+
+message SupportDisplacedCreationResponse{
+  CreationResponse condition_response = 1;
+  SupportDisplacedDefinition condition_data = 2;
+}
+
+// Support enumerations
+
+enum SupportSpecification {
+  FIXED = 0;
+  SLIDING = 1;
+  HINGED = 2;
+  BALL = 3;
+  DISPLACED = 4;
+}
+
+// Support condition definitions
+
+message SupportGeneralDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  SupportSpecification support_type = 6;
+}
+
+message SupportDisplacedDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  SupportSpecification support_type = 6;
+  TensorOfOptionalQuantities displacement = 7;
+}
+
+message SupportDisplacedProperties {
+  TensorOfOptionalQuantities displacement = 1;
+}

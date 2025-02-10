@@ -1,0 +1,105 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.springpreload;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service SpringPreload
+{
+  //spring preload condition methods
+  rpc CreateSpringPreloadLongitudinal(SpringPreloadLongitudinalCreationRequest) returns (SpringPreloadCreationResponse);
+  rpc CreateSpringPreloadTorsional(SpringPreloadTorsionalCreationRequest) returns (SpringPreloadCreationResponse);
+
+  rpc ChangeSpringPreloadSide1Location(ChangeLocationExtendedRequest) returns (ChangeResponse);
+  rpc ChangeSpringPreloadSide2Location(ChangeLocationRequest) returns (ChangeResponse);
+
+  rpc ChangeSpringPreloadSpecification(ChangeSpringPreloadSpecificationRequest) returns (ChangeResponse);
+
+  rpc ChangeSpringPreloadLongitudinalStiffness(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSpringPreloadTorsionalStiffness(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeSpringPreloadtype(ChangeSpringPreloadTypeRequest) returns (ChangeResponse);
+  rpc ChangeSpringPreloadForce(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSpringPreloadTorque(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSpringPreloadLength(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeSpringPreloadRotation(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+//Creation
+message SpringPreloadLongitudinalCreationRequest {
+  DoubleSidedScopedCreationData creation_data = 1;
+  SpringPreloadLongitudinalStiffnessProperties longitudinal_stiffness_properties = 3;
+  SpringPreloadProperties preload_properties = 4;
+}
+
+message SpringPreloadTorsionalCreationRequest {
+  DoubleSidedScopedCreationData creation_data = 1;
+  SpringPreloadTorsionalStiffnessProperties torsional_stiffness_properties = 3;
+  SpringPreloadProperties preload_properties = 4;
+}
+
+message SpringPreloadCreationResponse {
+  CreationResponse condition_response = 1;
+  SpringPreloadDefinition condition_data = 2;
+}
+
+//Other requests
+message ChangeSpringPreloadSpecificationRequest {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  SpringPreloadSpecification specification = 2;
+}
+
+message ChangeSpringPreloadTypeRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  SpringPreloadType type = 2;
+}
+
+// Enumerations
+
+enum SpringPreloadSpecification {
+  LONGITUDINAL = 0;
+  TORSIONAL = 1;
+}
+
+enum SpringPreloadType{
+  NONE = 0;
+  LOAD = 1;
+  LENGTH = 2;
+  TORQUE = 3;
+  ROTATION = 4;
+}
+
+// Condition definitions
+
+message SpringPreloadLongitudinalStiffnessProperties {
+  Quantity longitudinal_stiffness = 1;
+}
+
+message SpringPreloadTorsionalStiffnessProperties {
+  Quantity torsional_stiffness = 1;
+}
+
+message SpringPreloadProperties {
+  SpringPreloadType type = 1;
+  Quantity preload_force = 2;
+  Quantity preload_length = 3;
+  Quantity preload_torque = 4;
+  Quantity preload_rotation = 5;
+}
+
+message SpringPreloadDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string side1_locations = 4;
+  repeated string side2_locations = 5;
+  bool suppressed = 6;
+  SpringPreloadSpecification specification = 7;
+  SpringPreloadLongitudinalStiffnessProperties longitudinal_stiffness_properties = 8;
+  SpringPreloadTorsionalStiffnessProperties torsional_stiffness_properties = 9;
+  SpringPreloadProperties preload_properties = 10;
+}
