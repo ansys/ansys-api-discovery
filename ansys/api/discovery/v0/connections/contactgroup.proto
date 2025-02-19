@@ -1,8 +1,9 @@
-// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v0.connections.contactgroup;
 
 import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/conditions/condition.proto";
 import "ansys/api/discovery/v0/connections/contact.proto";
 import "ansys/api/discovery/v0/discoverymodels.proto";
 
@@ -37,6 +38,7 @@ service ContactGroup
   rpc ChangeElectricConductanceThickness(ChangeQuantityRequest) returns (ChangeResponse);
   rpc ChangeDetectionDistanceLow(ChangeQuantityRequest) returns (ChangeResponse);
   rpc ChangeDetectionDistanceHigh(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc GetByLabel(ansys.api.discovery.v0.conditions.GetByLabelRequest) returns (ContactGroupDefinition);
 }
 
 message ConvertContactGroupChangeRequest{

@@ -1,4 +1,4 @@
-// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v0.conditions;
 
@@ -30,4 +30,8 @@ message ChangeConditionSuppressionStateRequest{
 message ChangeConditionNameRequest{
   ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   string new_name = 2;
+}
+
+message GetByLabelRequest{
+  string label = 1;
 }
