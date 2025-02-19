@@ -1,4 +1,4 @@
-// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.discovery.v0.results;
 
@@ -54,7 +54,7 @@ enum ResultVariable{
   RESULT_VARIABLE_TORSIONAL_MOMENT = 43;
   RESULT_VARIABLE_SHEAR_FORCE = 44;
   RESULT_VARIABLE_ANTENNA_PARAMETERS = 45;
-  RESULT_VARIABLE_OPERATING_PRESSURE = 46;
+  RESULT_VARIABLE_FAN_PRESSURE_RISE = 46;
   RESULT_VARIABLE_RADIATIVE_HEAT_FLUX = 47;
   RESULT_VARIABLE_VOLTAGE = 48;
   RESULT_VARIABLE_CURRENT_DENSITY = 49;
