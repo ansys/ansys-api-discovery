@@ -4,7 +4,6 @@ package ansys.api.discovery.v0.monitors;
 
 import "ansys/api/discovery/v0/discoverymodels.proto";
 import "ansys/api/discovery/v0/results.proto";
-import "google/protobuf/empty.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V0.Monitors";
 
