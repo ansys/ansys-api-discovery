@@ -20,7 +20,7 @@ service Unsupported {
   // Gets max and min value from the legend
   rpc GetLegendMaximumValue(google.protobuf.Empty) returns(DoubleValueResponse);
   rpc GetLegendMinimumValue(google.protobuf.Empty) returns(DoubleValueResponse);
-
+  
 }
 
 message VariableExportRequest {

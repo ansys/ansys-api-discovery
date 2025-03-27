@@ -10,13 +10,13 @@ option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
 service Wall
 {
   //wall creation methods
-  rpc CreateWallFreeSlip(WallFreeSlipCreationRequest) returns (WallFreeSlipCreationResponse);  
+  rpc CreateWallFreeSlip(WallFreeSlipCreationRequest) returns (WallFreeSlipCreationResponse);
 
   rpc CreateWallStationary(WallStationaryCreationRequest) returns (WallStationaryCreationResponse);
 
-  rpc CreateWallRotating(WallTranslationCreationRequest) returns (WallTranslationCreationResponse);
+  rpc CreateWallTranslating(WallTranslationCreationRequest) returns (WallTranslationCreationResponse);
 
-  rpc CreateWallTranslating(WallRotationCreationRequest) returns (WallRotationCreationResponse);
+  rpc CreateWallRotating(WallRotationCreationRequest) returns (WallRotationCreationResponse);
 
   // Wall properties
   rpc ChangeWallSpecification(ChangeWallSpecificationRequest) returns (ChangeResponse);
@@ -29,6 +29,10 @@ service Wall
 
   rpc ChangeWallTranslationalVelocityMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
 
+  rpc ChangeWallTranslationalVelocityX(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeWallTranslationalVelocityY(ChangeQuantityRequest) returns (ChangeResponse);
+
 
   //Thermal quantities
 
@@ -36,7 +40,9 @@ service Wall
   
   rpc ChangeWallThermalOption(ChangeWallThermalOptionRequest) returns (ChangeResponse);
 
-  rpc ChangeWallRadiationInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeWallInternalRadiationInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+
+  rpc ChangeWallExternalRadiationInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
   
   rpc ChangeWallInternalEmissivity(ChangeQuantityRequest) returns (ChangeResponse);
 
@@ -109,6 +115,7 @@ message ChangeWallSpecificationRequest{
 message ChangeWallThermalOptionRequest{
   ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   WallThermalOption wall_thermal_option = 2;
+  bool is_external_radiation_enabled = 3;
 }
 
 // wall enumerations
@@ -160,13 +167,13 @@ message TranslationProperties
 message WallThermalProperties
 {
   WallThermalOption wall_thermal_option = 1;
-  OptionalQuantity internal_radiation = 2;
+  OptionalQuantity internal_emissivity = 2;
   optional Quantity external_temperature = 3;
   optional Quantity convection_coefficient = 4;
   optional Quantity heatflux = 5;
   optional Quantity heatflow = 6;
   optional Quantity temperature = 7;
-  optional Quantity external_emissivity = 8;
+  optional OptionalQuantity external_emissivity = 8;
 }
 
 

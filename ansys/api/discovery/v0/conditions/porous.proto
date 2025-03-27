@@ -10,14 +10,16 @@ option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
 service Porous
 {
   //wall creation methods
-  rpc CreatePorous(PorousCreationRequest) returns (PorousCreationResponse);  
+  rpc CreatePorousCartesian(PorousCartesianCreationRequest) returns (PorousCreationResponse);
+
+  rpc CreatePorousConical(PorousConicalCreationRequest) returns (PorousCreationResponse);
 
   // properties
-  rpc ChangePorousDirectionality(ChangePorousDirectionalityRequest) returns (ChangeResponse);
+  rpc ChangePorousSpecification(ChangePorousSpecificationRequest) returns (ChangeResponse);
 
   rpc ChangePorousLocation(ChangeLocationRequest) returns (ChangeResponse);
 
-  rpc ChangePorousDirection(ChangeDirectionRequest) returns (ChangeResponse);
+  rpc ChangePorousStreamwiseFlowFace(ChangeLocationRequest) returns (ChangeResponse);
 
 
   // Resistance coeffiecient quantities
@@ -36,7 +38,7 @@ service Porous
 
   //Solid quantities
 
-  rpc ChangePorouseThermalInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangePorousThermalInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
   
   rpc ChangePorousSolidPorosity(ChangeQuantityRequest) returns (ChangeResponse);
 
@@ -51,9 +53,16 @@ service Porous
 // Command Requests and Responses
 
 // Create Free Slip
-message PorousCreationRequest{
-  ScopedCreationData creation_data = 2;
-  PorousProperties porous_properties = 4;
+message PorousCartesianCreationRequest{
+  ScopedCreationData creation_data = 1;
+  PorousProperties porous_properties = 2;
+  optional string flow_normal_face_id = 3;
+}
+
+message PorousConicalCreationRequest{
+  ScopedCreationData creation_data = 1;
+  PorousProperties porous_properties = 2;
+  optional string conical_flow_normal_face_id = 3;
 }
 
 message PorousCreationResponse{
@@ -62,14 +71,14 @@ message PorousCreationResponse{
 }
 
 // enum commands
-message ChangePorousDirectionalityRequest{
+message ChangePorousSpecificationRequest{
   ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
-  PorousDirectionality porous_directionality = 2;
+  PorousSpecification specification = 2;
 }
 
 // enumerations
 
-enum PorousDirectionality {
+enum PorousSpecification {
   ISOTROPIC = 0;
   BIDIRECTIONAL = 1;
   ORTHOTROPIC = 2;
@@ -79,17 +88,17 @@ enum PorousDirectionality {
 
 message PorousProperties
 {
-  PorousDirectionality directionality = 1;
-  QuantityVector direction = 2;
+  PorousSpecification specification = 1;
+  string flow_normal_face_id = 2;
   ResistanceCoeffients coefficients = 3;
   SolidProperties solid_properties = 4;
 }
 
 message SolidProperties
 {
-  Quantity porosity = 1;
+  double porosity = 1;
   Quantity density = 2;
-  Quantity isotropic_therma_conductivity = 3;
+  Quantity isotropic_thermal_conductivity = 3;
   Quantity specific_heat = 4;
 }
 
@@ -102,7 +111,6 @@ message ResistanceCoeffients
   optional Quantity viscous_secondary = 5;
   optional Quantity inertial_secondary = 6;
 }
-
 
 // conditions definitions
 
