@@ -1,0 +1,12 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.operatingpressure;
+
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service OperatingPressure
+{
+  rpc ChangePressureMagnitude(ChangeQuantityRequest) returns(ChangeResponse);
+}

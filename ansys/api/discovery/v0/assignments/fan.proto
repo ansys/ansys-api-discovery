@@ -1,0 +1,104 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.assignments.fanassignment;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+import "ansys/api/discovery/v0/engineeringdata/fandata.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Assignments";
+
+service Fan
+{
+  rpc CreateInternalFanAssignment(InternalFanAssignmentCreationRequest) returns (InternalFanAssignmentCreationResponse);
+
+  rpc CreateExternalFanAssignment(ExternalFanAssignmentCreationRequest) returns (ExternalFanAssignmentCreationResponse);
+
+  rpc ChangeFanAssignment(ChangeAssignmentRequest) returns (ChangeResponse);
+
+  rpc ChangeExternalFanSpecification(ChangeExternalFanSpecificationRequest) returns (ChangeResponse);
+
+  rpc ChangeFanLocation(ChangeLocationExtendedRequest) returns (ChangeResponse);
+
+  rpc ChangeExternalFanGaugePressure(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeInternalFanInletFace(ChangeLocationRequest) returns (ChangeResponse);
+
+  rpc ChangeInternalFanIsShrouded(ChangeBooleanRequest) returns (ChangeResponse);
+
+  rpc ChangeInternalFanHubRadius(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeInternalFanTipRadius(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeInternalFanTotalHeat(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeInternalFanSpecifyTotalHeat(ChangeBooleanRequest) returns (ChangeResponse);
+}
+
+message InternalFanAssignmentCreationRequest{
+  DoubleSidedScopedCreationData creation_data = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier fan_id = 2;
+  InternalFanAssignmentProperties internal_fan_assignment_properties = 3;
+}
+
+message ExternalFanAssignmentCreationRequest{
+  ScopedCreationData creation_data = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier fan_id = 2;
+  ExternalFanAssignmentProperties external_fan_assignment_properties = 3;
+}
+
+message InternalFanAssignmentCreationResponse{
+  CreationResponse condition_response = 1;
+  InternalFanAssignmentDefinition condition_data = 2;
+}
+
+message ExternalFanAssignmentCreationResponse{
+  CreationResponse condition_response = 1;
+  ExternalFanAssignmentDefinition condition_data = 2;
+}
+
+message ChangeExternalFanSpecificationRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  ExternalFanSpecification specification = 2;
+}
+
+message ExternalFanAssignmentProperties {
+  ExternalFanSpecification specification = 1;
+  Quantity gauge_pressure = 2;
+  bool is_swirling = 3;
+}
+
+message InternalFanAssignmentProperties {
+  bool is_shrouded = 1;
+  OptionalQuantity specify_total_heat = 2;
+  Quantity hub_radius = 3;
+  Quantity tip_radius = 4;
+  bool is_swirling = 5;
+}
+
+enum ExternalFanSpecification
+{
+  INTAKE = 0;
+  EXHAUST = 1;
+}
+
+// Return definitions
+message InternalFanAssignmentDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  ExternalFanAssignmentProperties assignment_properties = 6;
+  ansys.api.discovery.v0.engineeringdata.fandata.FanDataProperties fan_properties = 7;
+}
+
+message ExternalFanAssignmentDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  InternalFanAssignmentProperties assignment_properties = 6;
+  ansys.api.discovery.v0.engineeringdata.fandata.FanDataProperties fan_properties = 7;
+}
