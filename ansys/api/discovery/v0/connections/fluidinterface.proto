@@ -1,0 +1,62 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.connections.fluidinterface;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/conditions/condition.proto";
+import "ansys/api/discovery/v0/connections/contact.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Connections";
+
+service FluidInterface
+{
+  rpc ChangeFSInterfaceType(ChangeFSInterfaceTypeRequest) returns (ChangeResponse);
+  rpc ChangeFSInterfaceFaceGroupingMethod(ChangeFSInterfaceFaceGroupingMethodRequest) returns (ChangeResponse);
+  rpc ChangeFSInterfaceSpecifyConductanceMethod(ChangeFSInterfaceConductanceMethod) returns (ChangeResponse);
+
+  rpc ChangeFSInterfaceThermalMaterialAssignment(ChangeAssignmentRequest) returns (ChangeResponse);
+  rpc ChangeFSInterfaceThermalConductance(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeFSInterfaceThermalConductivity(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeFSInterfaceThermalThickness(ChangeQuantityRequest) returns (ChangeResponse);
+            
+  rpc ChangeFSInterfaceDetectionDistanceHigh(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeFSInterfaceFaceOverlapAllowance(ChangeQuantityRequest) returns (ChangeResponse);
+            
+  rpc ChangeFSInterfaceInternalRadiationInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeFSInterfaceInternalEmissivity(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+message ChangeFSInterfaceTypeRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  FluidSolidInterfaceType interface_type = 2;
+}
+
+// Contact group condition definitions
+enum FluidSolidInterfaceType {
+  CONDUCTING = 0;
+  EXCLUDE = 1;
+}
+
+message ChangeFSInterfaceFaceGroupingMethodRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  FluidInterfaceFaceGroupingMethod face_grouping_method = 2;
+}
+
+enum FluidInterfaceFaceGroupingMethod {
+  GROUPBYBODY = 0;
+  GROUPTANGENTFACES = 1;
+  NOGROUPING = 2;
+}
+
+message ChangeFSInterfaceConductanceMethod{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  FluidInterfaceFaceThermalConductanceMethod thermal_conductivity_method = 2;
+}
+
+enum FluidInterfaceFaceThermalConductanceMethod {
+  INSULATED = 0;
+  THERMALCONDUCTANCE = 1;
+  THICKNESSANDCONDUCTIVITY = 2;
+  THICKNESSANDMATERIAL = 3;
+}
