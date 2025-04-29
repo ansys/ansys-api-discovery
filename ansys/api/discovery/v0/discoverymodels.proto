@@ -56,6 +56,8 @@ message InputParameter {
   string unit_abbreviation=7;
   InputParameterType input_type=8;
   string parent_object_id = 9;
+  string material_id = 10;
+  string material_label = 11;
 }
 
 enum InputParameterType{
