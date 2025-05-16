@@ -1,0 +1,43 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.voltage;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Voltage
+{
+  //Voltage condition methods
+  rpc CreateVoltage(VoltageCreationRequest) returns (VoltageCreationResponse);
+
+  rpc ChangeVoltageLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeVoltageMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+// Voltage
+message VoltageCreationRequest{
+  ScopedCreationData creation_data = 1;
+  VoltageProperties voltage_properties = 2;
+}
+
+message VoltageCreationResponse{
+  CreationResponse condition_response = 1;
+  VoltageDefinition condition_data = 2;
+}
+
+// Voltage condition definitions
+message VoltageProperties {
+  Quantity voltage_magnitude = 1;
+}
+
+message VoltageDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  VoltageProperties voltage = 6;
+}

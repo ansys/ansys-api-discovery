@@ -1,0 +1,43 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.current;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service Current
+{
+  //Current condition methods
+  rpc CreateCurrent(CurrentCreationRequest) returns (CurrentCreationResponse);
+
+  rpc ChangeCurrentLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeCurrentMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+// Current
+message CurrentCreationRequest{
+  ScopedCreationData creation_data = 1;
+  CurrentProperties current_properties = 2;
+}
+
+message CurrentCreationResponse{
+  CreationResponse condition_response = 1;
+  CurrentDefinition condition_data = 2;
+}
+
+// Current condition definitions
+message CurrentProperties {
+  Quantity current_magnitude = 1;
+}
+
+message CurrentDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  CurrentProperties current = 6;
+}
