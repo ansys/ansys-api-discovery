@@ -1,0 +1,43 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.conditions.localfidelity;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/discovery/v0/discoverymodels.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
+
+service LocalFidelity
+{
+  //LocalFidelity condition methods
+  rpc CreateLocalFidelity(LocalFidelityCreationRequest) returns (LocalFidelityCreationResponse);
+
+  rpc ChangeLocalFidelityLocation(ChangeLocationExtendedRequest) returns(ChangeResponse);
+
+  rpc ChangeLocalFidelityMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+// LocalFidelity
+message LocalFidelityCreationRequest{
+  ScopedCreationData creation_data = 1;
+  LocalFidelityProperties local_fidelity_properties = 2;
+}
+
+message LocalFidelityCreationResponse{
+  CreationResponse condition_response = 1;
+  LocalFidelityDefinition condition_data = 2;
+}
+
+// LocalFidelity condition definitions
+message LocalFidelityProperties {
+  Quantity local_fidelity_magnitude = 1;
+}
+
+message LocalFidelityDefinition {
+  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  LocalFidelityProperties local_fidelity = 6;
+}
