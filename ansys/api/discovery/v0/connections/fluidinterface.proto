@@ -11,34 +11,34 @@ option csharp_namespace = "Ansys.Api.Discovery.V0.Connections";
 
 service FluidInterface
 {
-  rpc ChangeFSInterfaceType(ChangeFSInterfaceTypeRequest) returns (ChangeResponse);
-  rpc ChangeFSInterfaceFaceGroupingMethod(ChangeFSInterfaceFaceGroupingMethodRequest) returns (ChangeResponse);
-  rpc ChangeFSInterfaceSpecifyConductanceMethod(ChangeFSInterfaceConductanceMethod) returns (ChangeResponse);
+  rpc ChangeFluidInterfaceType(ChangeFluidInterfaceTypeRequest) returns (ChangeResponse);
+  rpc ChangeFluidInterfaceFaceGroupingMethod(ChangeFluidInterfaceFaceGroupingMethodRequest) returns (ChangeResponse);
+  rpc ChangeFluidInterfaceSpecifyConductanceMethod(ChangeFluidInterfaceConductanceMethod) returns (ChangeResponse);
 
-  rpc ChangeFSInterfaceThermalMaterialAssignment(ChangeAssignmentRequest) returns (ChangeResponse);
-  rpc ChangeFSInterfaceThermalConductance(ChangeQuantityRequest) returns (ChangeResponse);
-  rpc ChangeFSInterfaceThermalConductivity(ChangeQuantityRequest) returns (ChangeResponse);
-  rpc ChangeFSInterfaceThermalThickness(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeFluidInterfaceThermalMaterialAssignment(ChangeAssignmentRequest) returns (ChangeResponse);
+  rpc ChangeFluidInterfaceThermalConductance(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeFluidInterfaceThermalConductivity(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeFluidInterfaceThermalThickness(ChangeQuantityRequest) returns (ChangeResponse);
             
-  rpc ChangeFSInterfaceDetectionDistanceHigh(ChangeQuantityRequest) returns (ChangeResponse);
-  rpc ChangeFSInterfaceFaceOverlapAllowance(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeFluidInterfaceDetectionDistanceHigh(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeFluidInterfaceFaceOverlapAllowance(ChangeQuantityRequest) returns (ChangeResponse);
             
   rpc ChangeFSInterfaceInternalRadiationInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
   rpc ChangeFSInterfaceInternalEmissivity(ChangeQuantityRequest) returns (ChangeResponse);
 }
 
-message ChangeFSInterfaceTypeRequest{
+message ChangeFluidInterfaceTypeRequest{
   ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
-  FluidSolidInterfaceType interface_type = 2;
+  FluidInterfaceType interface_type = 2;
 }
 
 // Contact group condition definitions
-enum FluidSolidInterfaceType {
+enum FluidInterfaceType {
   CONDUCTING = 0;
   EXCLUDE = 1;
 }
 
-message ChangeFSInterfaceFaceGroupingMethodRequest{
+message ChangeFluidInterfaceFaceGroupingMethodRequest{
   ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   FluidInterfaceFaceGroupingMethod face_grouping_method = 2;
 }
@@ -49,7 +49,7 @@ enum FluidInterfaceFaceGroupingMethod {
   NOGROUPING = 2;
 }
 
-message ChangeFSInterfaceConductanceMethod{
+message ChangeFluidInterfaceConductanceMethod{
   ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   FluidInterfaceFaceThermalConductanceMethod thermal_conductivity_method = 2;
 }
