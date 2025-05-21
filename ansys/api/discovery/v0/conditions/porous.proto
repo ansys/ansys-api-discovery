@@ -10,9 +10,17 @@ option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
 service Porous
 {
   //wall creation methods
-  rpc CreatePorousCartesian(PorousCartesianCreationRequest) returns (PorousCreationResponse);
+  rpc CreatePorousIsotropicCartesian(PorousCreationRequest) returns (PorousCreationResponse);
 
-  rpc CreatePorousConical(PorousConicalCreationRequest) returns (PorousCreationResponse);
+  rpc CreatePorousIsotropicConical(PorousCreationRequest) returns (PorousCreationResponse);
+
+  rpc CreatePorousBidirectionalCartesian(PorousCreationRequest) returns (PorousCreationResponse);
+
+  rpc CreatePorousBidirectionalConical(PorousCreationRequest) returns (PorousCreationResponse);
+
+  rpc CreatePorousOrthotropicCartesian(PorousCreationRequest) returns (PorousCreationResponse);
+
+  rpc CreatePorousOrthotropicConical(PorousCreationRequest) returns (PorousCreationResponse);
 
   // properties
   rpc ChangePorousSpecification(ChangePorousSpecificationRequest) returns (ChangeResponse);
@@ -52,17 +60,10 @@ service Porous
 
 // Command Requests and Responses
 
-// Create Free Slip
-message PorousCartesianCreationRequest{
+message PorousCreationRequest{
   ScopedCreationData creation_data = 1;
   PorousProperties porous_properties = 2;
   optional string flow_normal_face_id = 3;
-}
-
-message PorousConicalCreationRequest{
-  ScopedCreationData creation_data = 1;
-  PorousProperties porous_properties = 2;
-  optional string conical_flow_normal_face_id = 3;
 }
 
 message PorousCreationResponse{
@@ -88,11 +89,11 @@ enum PorousSpecification {
 
 message PorousProperties
 {
-  PorousSpecification specification = 1;
-  string flow_normal_face_id = 2;
-  ResistanceCoeffients coefficients = 3;
-  SolidProperties solid_properties = 4;
+  string flow_normal_face_id = 1;
+  ResistanceCoeffients coefficients = 2;
+  SolidProperties solid_properties = 3;
 }
+
 
 message SolidProperties
 {
@@ -121,4 +122,5 @@ message PorousDefinition {
   repeated string locations = 4;
   bool suppressed = 5;
   PorousProperties porous_properties = 6;
+  PorousSpecification porous_specification = 7;
 }
