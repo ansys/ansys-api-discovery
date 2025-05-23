@@ -10,24 +10,18 @@ option csharp_namespace = "Ansys.Api.Discovery.V0.Conditions";
 service Porous
 {
   //wall creation methods
-  rpc CreatePorousIsotropicCartesian(PorousCreationRequest) returns (PorousCreationResponse);
+  rpc CreatePorousIsotropic(PorousCreationRequest) returns (PorousCreationResponse);
 
-  rpc CreatePorousIsotropicConical(PorousCreationRequest) returns (PorousCreationResponse);
+  rpc CreatePorousBidirectional(PorousCreationRequest) returns (PorousCreationResponse);
 
-  rpc CreatePorousBidirectionalCartesian(PorousCreationRequest) returns (PorousCreationResponse);
-
-  rpc CreatePorousBidirectionalConical(PorousCreationRequest) returns (PorousCreationResponse);
-
-  rpc CreatePorousOrthotropicCartesian(PorousCreationRequest) returns (PorousCreationResponse);
-
-  rpc CreatePorousOrthotropicConical(PorousCreationRequest) returns (PorousCreationResponse);
+  rpc CreatePorousOrthotropic(PorousCreationRequest) returns (PorousCreationResponse);
 
   // properties
   rpc ChangePorousSpecification(ChangePorousSpecificationRequest) returns (ChangeResponse);
 
   rpc ChangePorousLocation(ChangeLocationRequest) returns (ChangeResponse);
 
-  rpc ChangePorousStreamwiseFlowFace(ChangeLocationRequest) returns (ChangeResponse);
+  rpc ChangePorousStreamwiseFlowDirectionReference(ChangeLocationExtendedRequest) returns (ChangeResponse);
 
 
   // Resistance coeffiecient quantities
@@ -63,7 +57,7 @@ service Porous
 message PorousCreationRequest{
   ScopedCreationData creation_data = 1;
   PorousProperties porous_properties = 2;
-  optional string flow_normal_face_id = 3;
+  optional LocationIdentifier streamwise_flow_direction_reference = 3;
 }
 
 message PorousCreationResponse{
@@ -89,9 +83,8 @@ enum PorousSpecification {
 
 message PorousProperties
 {
-  string flow_normal_face_id = 1;
-  ResistanceCoeffients coefficients = 2;
-  SolidProperties solid_properties = 3;
+  ResistanceCoeffients coefficients = 1;
+  SolidProperties solid_properties = 2;
 }
 
 
@@ -123,4 +116,5 @@ message PorousDefinition {
   bool suppressed = 5;
   PorousProperties porous_properties = 6;
   PorousSpecification porous_specification = 7;
+  optional LocationIdentifier streamwise_flow_direction_reference = 8;
 }
