@@ -29,8 +29,7 @@ service Contact
   rpc ChangeAdjustGapOrOverlap(ChangeBooleanRequest) returns (ChangeResponse);
   rpc ChangeMakeJustTouching(ChangeBooleanRequest) returns (ChangeResponse);
   rpc ChangeIdealize(ChangeBooleanRequest) returns (ChangeResponse);
-  rpc ChangeSpecifyThermalConductance(ChangeBooleanRequest) returns (ChangeResponse);
-  rpc ChangeSpecifyThermalConductanceFromThicknessAndMaterial(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeSpecifyThermalConductance(ChangeSpecifyThermalConductanceRequest) returns (ChangeResponse);
   rpc ChangeSpecifyElectricConductance(ChangeBooleanRequest) returns (ChangeResponse);
   rpc ChangeSpecifyElectricConductanceFromThicknessAndMaterial(ChangeBooleanRequest) returns (ChangeResponse);
   rpc ChangeThermalContactConductance(ChangeQuantityRequest) returns (ChangeResponse);
@@ -89,14 +88,15 @@ message ContactProperties {
   bool adjust_gap_or_overlap = 10;
   bool make_just_touching = 11;
   bool idealize = 12;
-  bool specify_thermal_conductance = 13;
-  bool specify_thermal_conductance_from_thickness_and_material = 14;
+  bool specify_thermal_conductance = 13;								 // OBSOLETE FROM VERSION 2026.1 ONWARDS
+  bool specify_thermal_conductance_from_thickness_and_material = 14;	 // OBSOLETE FROM VERSION 2026.1 ONWARDS
   bool specify_electric_conductance = 15;
   bool specify_electric_conductance_from_thickness_and_material = 16;
   Quantity thermal_contact_conductance = 17;
   Quantity thermal_conductance_thickness = 18;
   Quantity electrical_contact_conductance = 19;
   Quantity electrical_conductance_thickness = 20;
+  ThermalConductanceOptionType thermal_conductance_option = 21;
 }
 
 message ContactDefinition {
