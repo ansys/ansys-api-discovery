@@ -41,7 +41,7 @@ message RotatingFluidZoneCreationResponse{
 
 message RotatingFluidZoneProperties
 {
-  Quantity translational_velocity = 1;
+  Quantity rotational_velocity = 1;
 }
 
 
