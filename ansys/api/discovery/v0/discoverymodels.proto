@@ -125,7 +125,7 @@ message ChangeDoubleRequest{
 }
 
 message ChangeAssignmentRequest{
-  ansys.api.dbu.v0.PhysicsEntityIdentifier assigner_object_id = 1;
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   ansys.api.dbu.v0.PhysicsEntityIdentifier referenced_object_id = 2;
 }
 
@@ -333,4 +333,18 @@ enum QuantityType {
   QUANTITY_TYPE_WARPING_MOMENT_OF_INERTIA=79;
   QUANTITY_TYPE_NONE=80;
   QUANTITY_TYPE_UNKNOWN = 81;
+}
+
+enum ThermalConductanceOptionType {
+  THERMALCONDUCTANCEOPTIONTYPE_PERFECT_CONDUCTOR = 0;
+  THERMALCONDUCTANCEOPTIONTYPE_PERFECT_INSULATOR = 1;
+  THERMALCONDUCTANCEOPTIONTYPE_VALUE = 2;
+  THERMALCONDUCTANCEOPTIONTYPE_THICKNESS_AND_MATERIAL = 3;
+  THERMALCONDUCTANCEOPTIONTYPE_THICKNESS_AND_CONDUCTIVITY = 4;
+}
+
+message ChangeSpecifyThermalConductanceRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  bool legacy_request_data = 2;
+  ThermalConductanceOptionType conductance_type = 3;
 }
