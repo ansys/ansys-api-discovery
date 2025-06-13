@@ -13,7 +13,7 @@ service FluidInterface
 {
   rpc ChangeFluidInterfaceType(ChangeFluidInterfaceTypeRequest) returns (ChangeResponse);
   rpc ChangeFluidInterfaceFaceGroupingMethod(ChangeFluidInterfaceFaceGroupingMethodRequest) returns (ChangeResponse);
-  rpc ChangeFluidInterfaceSpecifyConductanceMethod(ChangeFluidInterfaceConductanceMethod) returns (ChangeResponse);
+  rpc ChangeFluidInterfaceConductanceMethod(ChangeFluidInterfaceConductanceMethodRequest) returns(ChangeResponse);
 
   rpc ChangeFluidInterfaceThermalMaterialAssignment(ChangeAssignmentRequest) returns (ChangeResponse);
   rpc ChangeFluidInterfaceThermalConductance(ChangeQuantityRequest) returns (ChangeResponse);
@@ -49,9 +49,10 @@ enum FluidInterfaceFaceGroupingMethod {
   NOGROUPING = 2;
 }
 
-message ChangeFluidInterfaceConductanceMethod{
+message ChangeFluidInterfaceConductanceMethodRequest{
   ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   FluidInterfaceFaceThermalConductanceMethod thermal_conductivity_method = 2;
+  ThermalConductanceOptionType thermal_conductance_option = 3;
 }
 
 enum FluidInterfaceFaceThermalConductanceMethod {
@@ -59,4 +60,5 @@ enum FluidInterfaceFaceThermalConductanceMethod {
   THERMALCONDUCTANCE = 1;
   THICKNESSANDCONDUCTIVITY = 2;
   THICKNESSANDMATERIAL = 3;
+  CONDUCTOR = 4;
 }

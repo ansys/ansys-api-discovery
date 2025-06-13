@@ -36,7 +36,7 @@ service Fan
 }
 
 message InternalFanAssignmentCreationRequest{
-  DoubleSidedScopedCreationData creation_data = 1;
+  ScopedCreationData creation_data = 1;
   ansys.api.dbu.v0.PhysicsEntityIdentifier fan_id = 2;
   InternalFanAssignmentProperties internal_fan_assignment_properties = 3;
 }
@@ -74,6 +74,7 @@ message InternalFanAssignmentProperties {
   Quantity hub_radius = 3;
   Quantity tip_radius = 4;
   bool is_swirling = 5;
+  optional ansys.api.dbu.v0.EntityIdentifier inlet_face = 6;
 }
 
 enum ExternalFanSpecification
