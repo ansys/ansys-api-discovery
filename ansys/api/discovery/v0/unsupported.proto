@@ -4,8 +4,8 @@ syntax = "proto3";
 package ansys.api.discovery.v0.unsupported;
 
 import "ansys/api/dbu/v0/dbumodels.proto";
-import "ansys/api/discovery/v0/discoverymodels.proto";
 import "ansys/api/discovery/v0/results.proto";
+import "ansys/api/geometry/v0/models.proto";
 import "google/protobuf/empty.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V0.Unsupported";
@@ -47,7 +47,7 @@ message DoubleValueResponse {
 }
 
 message CreateFacetedBodiesRequest{
-  map<string, Tessellation> tessellation_data=1;
+  map<string, ansys.api.geometry.v0.Tessellation> tessellation_data=1;
 }
 
 message CreateFacetedBodiesResponse{

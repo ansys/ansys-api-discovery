@@ -387,9 +387,3 @@ message ChangeSpecifyConductanceRequest{
   ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
   ConductanceOptionType conductance_type = 2;
 }
-
-message Tessellation {
-  repeated double vertices = 1;
-  repeated int32 faces = 2;
-  int32 facecolor = 3;
-}
