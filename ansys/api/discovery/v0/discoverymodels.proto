@@ -248,6 +248,46 @@ message QuantityPair{
   Quantity dependant_data = 2;
 }
 
+enum ContactType {
+  BONDED_CONTACT = 0;
+  SLIDING_CONTACT = 1;
+  PREVENTED_CONTACT = 2;
+}
+
+message ContactPairs {
+  repeated ContactPair contact_pair = 1;
+}
+
+message ContactPair {
+  repeated string item1 = 1;
+  repeated string item2 = 2;
+}
+
+message ContactProperties {
+  ContactType contact_type = 1;
+  ContactPairs contact_pairs = 2;
+
+  double friction_coefficient = 3;
+  double stiffness_factor = 4;
+  double detection_radius_factor = 5;
+  Quantity offset = 6;
+  Quantity shear_strenght = 7;
+  Quantity tensile_strength = 8;
+  bool are_strength_limits_set = 9;
+  bool adjust_gap_or_overlap = 10;
+  bool make_just_touching = 11;
+  bool idealize = 12;
+  bool specify_thermal_conductance = 13;
+  bool specify_electric_conductance = 14;
+  Quantity thermal_contact_conductance = 15;
+  Quantity thermal_contact_conductivity = 16;
+  Quantity thermal_conductance_thickness = 17;
+  Quantity electrical_contact_conductance = 18;
+  Quantity electrical_contact_conductivity = 19;
+  Quantity electrical_conductance_thickness = 20;
+  ConductanceOptionType thermal_conductance_option = 21;
+  ConductanceOptionType electric_conductance_option = 22;
+}
 
 // Represents the quantity type for a physics parameter.
 enum QuantityType {
@@ -335,16 +375,21 @@ enum QuantityType {
   QUANTITY_TYPE_UNKNOWN = 81;
 }
 
-enum ThermalConductanceOptionType {
-  THERMALCONDUCTANCEOPTIONTYPE_PERFECT_CONDUCTOR = 0;
-  THERMALCONDUCTANCEOPTIONTYPE_PERFECT_INSULATOR = 1;
-  THERMALCONDUCTANCEOPTIONTYPE_VALUE = 2;
-  THERMALCONDUCTANCEOPTIONTYPE_THICKNESS_AND_MATERIAL = 3;
-  THERMALCONDUCTANCEOPTIONTYPE_THICKNESS_AND_CONDUCTIVITY = 4;
+enum ConductanceOptionType {
+  CONDUCTANCEOPTIONTYPE_PERFECT_CONDUCTOR = 0;
+  CONDUCTANCEOPTIONTYPE_PERFECT_INSULATOR = 1;
+  CONDUCTANCEOPTIONTYPE_VALUE = 2;
+  CONDUCTANCEOPTIONTYPE_THICKNESS_AND_MATERIAL = 3;
+  CONDUCTANCEOPTIONTYPE_THICKNESS_AND_CONDUCTIVITY = 4;
 }
 
-message ChangeSpecifyThermalConductanceRequest{
+message ChangeSpecifyConductanceRequest{
   ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
-  bool legacy_request_data = 2;
-  ThermalConductanceOptionType conductance_type = 3;
+  ConductanceOptionType conductance_type = 2;
+}
+
+message Tessellation {
+  repeated double vertices = 1;
+  repeated int32 faces = 2;
+  int32 facecolor = 3;
 }

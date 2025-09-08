@@ -11,6 +11,11 @@ service Monitors
 {
   // Creates a new monitor
   rpc CreateMonitor(CreateMonitorRequest) returns (MonitorCreationResponse);
+  
+  rpc GetAllMonitors(GetAllMonitorsRequest) returns (GetAllMonitorsResponse);
+  
+  rpc GetMonitorValues(GetMonitorValuesRequest) returns (GetMonitorValuesResponse);
+
 }
 
 message CreateMonitorRequest{
@@ -24,6 +29,21 @@ message MonitorCreationResponse{
   CreationResponse monitor_response = 1;
   // Monitor definition
   MonitorDefinition monitor = 2;
+}
+
+message GetAllMonitorsRequest{ 
+}
+
+message GetAllMonitorsResponse{
+  repeated MonitorDefinition monitor_definitions = 1;
+}
+
+message GetMonitorValuesRequest{
+  string monitor_id = 1;
+}
+
+message GetMonitorValuesResponse{
+  repeated Quantity monitor_values = 1;
 }
 
 message MonitorProperties{

@@ -3,8 +3,6 @@ syntax = "proto3";
 package ansys.api.discovery.v0.connections.fluidinterface;
 
 import "ansys/api/dbu/v0/dbumodels.proto";
-import "ansys/api/discovery/v0/conditions/condition.proto";
-import "ansys/api/discovery/v0/connections/contact.proto";
 import "ansys/api/discovery/v0/discoverymodels.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V0.Connections";
@@ -13,7 +11,7 @@ service FluidInterface
 {
   rpc ChangeFluidInterfaceType(ChangeFluidInterfaceTypeRequest) returns (ChangeResponse);
   rpc ChangeFluidInterfaceFaceGroupingMethod(ChangeFluidInterfaceFaceGroupingMethodRequest) returns (ChangeResponse);
-  rpc ChangeFluidInterfaceConductanceMethod(ChangeFluidInterfaceConductanceMethodRequest) returns(ChangeResponse);
+  rpc ChangeFluidInterfaceConductanceMethod(ChangeSpecifyConductanceRequest) returns(ChangeResponse);
 
   rpc ChangeFluidInterfaceThermalMaterialAssignment(ChangeAssignmentRequest) returns (ChangeResponse);
   rpc ChangeFluidInterfaceThermalConductance(ChangeQuantityRequest) returns (ChangeResponse);
@@ -49,16 +47,4 @@ enum FluidInterfaceFaceGroupingMethod {
   NOGROUPING = 2;
 }
 
-message ChangeFluidInterfaceConductanceMethodRequest{
-  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
-  FluidInterfaceFaceThermalConductanceMethod thermal_conductivity_method = 2;
-  ThermalConductanceOptionType thermal_conductance_option = 3;
-}
 
-enum FluidInterfaceFaceThermalConductanceMethod {
-  INSULATED = 0;
-  THERMALCONDUCTANCE = 1;
-  THICKNESSANDCONDUCTIVITY = 2;
-  THICKNESSANDMATERIAL = 3;
-  CONDUCTOR = 4;
-}

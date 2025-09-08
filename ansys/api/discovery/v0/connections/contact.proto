@@ -17,25 +17,26 @@ service Contact
 
   rpc ChangeContactType(ChangeContactTypeRequest) returns (ChangeResponse);
   rpc ChangeContactPairs(ChangeContactPairRequest) returns (ChangeResponse);
-  rpc Split(ChangeEmptyRequest) returns (ChangeResponse);
+  rpc SplitContact(ChangeEmptyRequest) returns (ChangeResponse);
 
-  rpc ChangeFrictionCoefficient(ChangeDoubleRequest) returns (ChangeResponse);
-  rpc ChangeStiffnessFactor(ChangeDoubleRequest) returns (ChangeResponse);
-  rpc ChangeDetectionRadiusFactor(ChangeDoubleRequest) returns (ChangeResponse);
-  rpc ChangeOffset(ChangeQuantityRequest) returns (ChangeResponse);
-  rpc ChangeShearStrength(ChangeQuantityRequest) returns (ChangeResponse);
-  rpc ChangeTensileStrength(ChangeQuantityRequest) returns (ChangeResponse);
-  rpc ChangeAreStrengthLimitsSet(ChangeBooleanRequest) returns (ChangeResponse);
-  rpc ChangeAdjustGapOrOverlap(ChangeBooleanRequest) returns (ChangeResponse);
-  rpc ChangeMakeJustTouching(ChangeBooleanRequest) returns (ChangeResponse);
-  rpc ChangeIdealize(ChangeBooleanRequest) returns (ChangeResponse);
-  rpc ChangeSpecifyThermalConductance(ChangeSpecifyThermalConductanceRequest) returns (ChangeResponse);
-  rpc ChangeSpecifyElectricConductance(ChangeBooleanRequest) returns (ChangeResponse);
-  rpc ChangeSpecifyElectricConductanceFromThicknessAndMaterial(ChangeBooleanRequest) returns (ChangeResponse);
-  rpc ChangeThermalContactConductance(ChangeQuantityRequest) returns (ChangeResponse);
-  rpc ChangeThermalConductanceThickness(ChangeQuantityRequest) returns (ChangeResponse);
-  rpc ChangeElectricContactConductance(ChangeQuantityRequest) returns (ChangeResponse);
-  rpc ChangeElectricConductanceThickness(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactFrictionCoefficient(ChangeDoubleRequest) returns (ChangeResponse);
+  rpc ChangeContactStiffnessFactor(ChangeDoubleRequest) returns (ChangeResponse);
+  rpc ChangeContactDetectionRadiusFactor(ChangeDoubleRequest) returns (ChangeResponse);
+  rpc ChangeContactOffset(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactShearStrength(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactTensileStrength(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactAreStrengthLimitsSet(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeContactAdjustGapOrOverlap(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeContactMakeJustTouching(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeContactIdealize(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeContactSpecifyThermalConductance(ChangeSpecifyConductanceRequest) returns (ChangeResponse);
+  rpc ChangeContactSpecifyElectricConductance(ChangeSpecifyConductanceRequest) returns (ChangeResponse);
+  rpc ChangeContactConductanceThickness(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactConductanceMaterial(ChangeAssignmentRequest) returns (ChangeResponse);
+  rpc ChangeContactThermalContactConductivity(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactElectricContactConductivity(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactThermalContactConductance(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactElectricContactConductance(ChangeQuantityRequest) returns (ChangeResponse);
 }
 
 message ContactCreationRequest{
@@ -60,44 +61,7 @@ message ChangeContactPairRequest{
 
 // Contact condition definitions
 
-enum ContactType {
-  BONDED_CONTACT = 0;
-  SLIDING_CONTACT = 1;
-  PREVENTED_CONTACT = 2;
-}
 
-message ContactPairs {
-  repeated ContactPair contact_pair = 1;
-}
-
-message ContactPair {
-  repeated string item1 = 1;
-  repeated string item2 = 2;
-}
-
-message ContactProperties {
-  ContactType contact_type = 1;
-  ContactPairs contact_pairs = 2;
-  double friction_coefficient = 3;
-  double stiffness_factor = 4;
-  double detection_radius_factor = 5;
-  Quantity offset = 6;
-  Quantity shear_strenght = 7;
-  Quantity tensile_strength = 8;
-  bool are_strength_limits_set = 9;
-  bool adjust_gap_or_overlap = 10;
-  bool make_just_touching = 11;
-  bool idealize = 12;
-  bool specify_thermal_conductance = 13;								 // OBSOLETE FROM VERSION 2026.1 ONWARDS
-  bool specify_thermal_conductance_from_thickness_and_material = 14;	 // OBSOLETE FROM VERSION 2026.1 ONWARDS
-  bool specify_electric_conductance = 15;
-  bool specify_electric_conductance_from_thickness_and_material = 16;
-  Quantity thermal_contact_conductance = 17;
-  Quantity thermal_conductance_thickness = 18;
-  Quantity electrical_contact_conductance = 19;
-  Quantity electrical_conductance_thickness = 20;
-  ThermalConductanceOptionType thermal_conductance_option = 21;
-}
 
 message ContactDefinition {
   ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
