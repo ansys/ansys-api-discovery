@@ -1,0 +1,240 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.flow;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Flow";
+
+service Flow
+{
+  //Fluid flow methods
+  rpc CreateFlowVelocityInlet(FlowVelocityInletCreationRequest) returns (FlowVelocityInletCreationResponse);  
+
+  rpc CreateFlowVelocityOutlet(FlowVelocityOutletCreationRequest) returns (FlowVelocityOutletCreationResponse);
+
+  rpc CreateFlowPressureInlet(FlowPressureInletCreationRequest) returns (FlowPressureInletCreationResponse);
+
+  rpc CreateFlowPressureOutlet(FlowPressureOutletCreationRequest) returns (FlowPressureOutletCreationResponse);
+
+  rpc CreateFlowMassFlowInlet(FlowMassFlowInletCreationRequest) returns (FlowMassFlowInletCreationResponse);
+
+  rpc CreateFlowMassFlowOutlet(FlowMassFlowOutletCreationRequest) returns (FlowMassFlowOutletCreationResponse);
+
+  rpc ChangeFlowLocation(ChangeLocationRequest) returns (ChangeResponse);
+
+  rpc ChangeFlowVelocityInletMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeFlowVelocityOutletMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeFlowPressureInletMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeFlowPressureOutletMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeFlowMassFlowInletMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeFlowMassFlowOutletMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeFlowTemperatureInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+
+  rpc ChangeFlowTemperatureMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeFlowSwirlingInputEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+
+  rpc ChangeFlowSwirlingMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeFlowSpecification(ChangeFlowSpecificationRequest) returns (ChangeResponse);
+
+  rpc ChangeFlowDirection(ChangeFlowDirectionRequest) returns (ChangeResponse);
+}
+
+// Command Requests and Responses
+
+// Velocity In
+message FlowVelocityInletCreationRequest{
+  ScopedCreationData creation_data = 2;
+  VelocityInletProperties velocity_inlet = 4;
+}
+
+message FlowVelocityInletCreationResponse{
+  CreationResponse condition_response = 1;
+  FlowVelocityInletDefinition condition_data = 2;
+}
+
+// Velocity Out
+message FlowVelocityOutletCreationRequest{
+  ScopedCreationData creation_data = 1;
+  VelocityOutletProperties velocity_outlet = 2;
+}
+
+message FlowVelocityOutletCreationResponse{
+  CreationResponse condition_response = 1;
+  FlowVelocityOutletDefinition condition_data = 2;
+}
+
+// Pressure In
+message FlowPressureInletCreationRequest{
+  ScopedCreationData creation_data = 1;
+  PressureInletProperties pressure_inlet = 2;
+}
+
+message FlowPressureInletCreationResponse{
+  CreationResponse condition_response = 1;
+  FlowPressureInletDefinition condition_data = 2;
+}
+
+// Pressure Out
+message FlowPressureOutletCreationRequest{
+  ScopedCreationData creation_data = 1;
+  PressureOutletProperties pressure_outlet = 2;
+}
+message FlowPressureOutletCreationResponse{
+  CreationResponse condition_response = 1;
+  FlowPressureOutletDefinition condition_data = 2;
+}
+
+// Mass Flow In
+message FlowMassFlowInletCreationRequest{
+  ScopedCreationData creation_data = 1;
+  MassFlowInletProperties mass_flow_inlet = 2;
+}
+
+message FlowMassFlowInletCreationResponse{
+  CreationResponse condition_response = 1;
+  FlowMassFlowInletDefinition condition_data = 2;
+}
+
+// Mass Flow Out
+message FlowMassFlowOutletCreationRequest{
+  ScopedCreationData creation_data = 1;
+  MassFlowOutletProperties mass_flow_outlet = 2;
+}
+
+message FlowMassFlowOutletCreationResponse{
+  CreationResponse condition_response = 1;
+  FlowMassFlowOutletDefinition condition_data = 2;
+}
+
+message ChangeFlowSpecificationRequest{
+  ansys.api.discovery.v1.PhysicsEntityIdentifier object_id = 1;
+  FlowSpecificationDefinition specification = 2;
+}
+
+message ChangeFlowDirectionRequest{
+  ansys.api.discovery.v1.PhysicsEntityIdentifier object_id = 1;
+  FlowDirectionDefinition direction = 2;
+  bool reset_to_default_subtype = 3;
+}
+
+// fluid enumerations
+
+enum FlowDirectionDefinition {
+  IN = 0;
+  OUT = 1;
+}
+
+enum FlowSpecificationDefinition {
+  VELOCITY = 0;
+  MASSFLOW = 1;
+  PRESSURE = 2;
+}
+
+// Fluid conditions properties
+
+message VelocityInletProperties
+{
+  Quantity speed = 1;
+  FlowThermalProperties thermal_properties = 2;
+  bool is_swirling = 3;
+  Quantity rotational_speed = 4;
+}
+
+message VelocityOutletProperties
+{
+  Quantity speed = 1;
+}
+
+message PressureInletProperties
+{
+  Quantity pressure = 1;
+  FlowThermalProperties thermal_properties = 2;
+}
+
+message PressureOutletProperties
+{
+  Quantity pressure = 1;
+  FlowThermalProperties thermal_properties = 2;
+}
+
+message MassFlowInletProperties
+{
+  Quantity mass_flow = 1;
+  FlowThermalProperties thermal_properties = 2;
+}
+
+message MassFlowOutletProperties
+{
+  Quantity mass_flow = 1;
+}
+
+message FlowThermalProperties
+{
+  bool is_thermal = 1;
+  Quantity temperature = 2;
+}
+
+// Fluid conditions definitions
+
+message FlowVelocityInletDefinition {
+  ansys.api.discovery.v1.PhysicsEntityIdentifier id = 1;
+  ansys.api.discovery.v1.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  VelocityInletProperties velocity_inlet = 6;
+}
+
+message FlowVelocityOutletDefinition {
+  ansys.api.discovery.v1.PhysicsEntityIdentifier id = 1;
+  ansys.api.discovery.v1.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  VelocityOutletProperties velocity_outlet = 6;
+}
+
+message FlowPressureInletDefinition {
+  ansys.api.discovery.v1.PhysicsEntityIdentifier id = 1;
+  ansys.api.discovery.v1.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  PressureInletProperties pressure_inlet = 6;
+}
+
+message FlowPressureOutletDefinition {
+  ansys.api.discovery.v1.PhysicsEntityIdentifier id = 1;
+  ansys.api.discovery.v1.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  PressureOutletProperties pressure_outlet = 6;
+}
+
+message FlowMassFlowInletDefinition {
+  ansys.api.discovery.v1.PhysicsEntityIdentifier id = 1;
+  ansys.api.discovery.v1.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MassFlowInletProperties mass_flow_inlet = 6;
+}
+
+message FlowMassFlowOutletDefinition {
+  ansys.api.discovery.v1.PhysicsEntityIdentifier id = 1;
+  ansys.api.discovery.v1.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MassFlowOutletProperties mass_flow_outlet = 6;
+}

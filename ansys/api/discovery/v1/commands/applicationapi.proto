@@ -1,0 +1,44 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.commands.applicationapi;
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.ApplicationApi";
+
+// Api
+//
+service ApplicationApi{
+  // Sets the current scripting version.
+  rpc SetVersion(SetVersionRequest) returns(SetVersionResponse) ;
+
+  // Sets the current scripting version.
+  rpc GetVersion(GetVersionRequest) returns(GetVersionResponse) ;
+}
+
+message GetVersionRequest{
+}
+
+message GetVersionResponse{
+  ApiVersion version = 1;
+}
+
+message SetVersionRequest{
+  // The set api operation being requested.
+  ApiVersion version = 1;
+}
+
+message SetVersionResponse{
+  string result = 1;
+}
+
+enum ApiVersion {
+  INVALID = 0;
+  V_21 = 21; //OBSOLETE
+  V_22 = 22; //OBSOLETE
+  V_231 = 231; //OBSOLETE
+  V_232 = 232; //OBSOLETE
+  V_241 = 241; //OBSOLETE
+  V_242 = 242; //OBSOLETE
+  V_251 = 251; //OBSOLETE
+  V_252 = 252;
+  V_261 = 261;
+}

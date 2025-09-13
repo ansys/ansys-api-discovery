@@ -1,0 +1,133 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.assignments.beams;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Assignments.Beams";
+
+service Beams
+{
+  rpc CreateBeamCircularProfile(CreateBeamCircularProfileRequest) returns(CreateBeamCircularProfileResponse);
+   
+  rpc CreateBeamSegments(CreateBeamSegmentsRequest) returns (CreateBeamSegmentsResponse);
+
+  rpc CreateDescriptiveBeamSegments(CreateDescriptiveBeamSegmentsRequest) returns (CreateDescriptiveBeamSegmentsResponse);
+
+  rpc Delete(MultipleEntitiesRequest) returns (DeleteResponse);
+
+  rpc DeleteProfile(MultipleEntitiesRequest) returns (DeleteResponse);
+
+  rpc GetBeamProfileName(GetBeamProfileNameRequest) returns (GetBeamProfileNameResponse);
+    
+  rpc GetBeamProfileParts(GetBeamProfilePartsRequest) returns (GetBeamProfilePartsResponse);
+
+  rpc GetBeamProperties(GetBeamPropertiesRequest) returns (GetBeamPropertiesResponse);
+
+  rpc GetBeamCrossSectionInfo(GetBeamCrossSectionInfoRequest) returns (GetBeamCrossSectionInfoResponse);
+}
+
+message CreateBeamCircularProfileRequestData{
+  Plane plane=1;
+  double radius=2;
+  Point origin=3;
+  string name=4;
+}
+
+message CreateBeamCircularProfileRequest {
+  repeated CreateBeamCircularProfileRequestData request_data=1;
+}
+
+message CreateBeamCircularProfileResponse {
+  repeated EntityIdentifier ids =1;
+}
+
+message CreateBeamSegmentsRequestData{
+  EntityIdentifier profile=1;
+  
+  repeated Line lines=2;
+  repeated Arc arcs=3;
+  repeated Circle circles=4;
+
+  repeated Plane planes= 5;
+  EntityIdentifier parent=7;
+}
+
+message CreateBeamSegmentsRequest{
+  repeated CreateBeamSegmentsRequestData request_data=1;
+}
+
+message CreateDescriptiveBeamSegmentsRequestData{
+  EntityIdentifier profile=1;
+  
+  repeated Line lines=2;
+  repeated Arc arcs=3;
+  repeated Circle circles=4;
+
+  repeated Plane planes= 5;
+  EntityIdentifier parent=7;
+}
+
+message CreateDescriptiveBeamSegmentsRequest{
+  repeated CreateDescriptiveBeamSegmentsRequestData request_data=1;
+}
+
+message CreateBeamSegmentsResponseData {
+  EntityIdentifier profile=1;
+  repeated EntityIdentifier beams = 2;
+}
+
+message CreateBeamSegmentsResponse {
+  repeated CreateBeamSegmentsResponseData response_data = 1;
+}
+
+message CreateDescriptiveBeamSegmentsResponseData{
+  EntityIdentifier profile=1;
+  repeated Beam beams = 2;
+}
+
+message CreateDescriptiveBeamSegmentsResponse{
+  repeated CreateDescriptiveBeamSegmentsResponseData response_data=1;
+}
+
+message GetBeamProfilePartsRequest{
+}
+
+message GetBeamProfilePartsResponse {
+  repeated Part parts = 1;
+}
+
+message GetBeamProfileNameRequest{
+  EntityIdentifier id = 1;
+}
+
+message GetBeamProfileNameResponse{
+  string name = 1;
+}
+
+message GetBeamPropertiesRequest {
+  repeated EntityIdentifier ids = 1;
+}
+
+message GetBeamPropertiesResponseData{
+  BeamProperties properties = 1;
+  EntityIdentifier id = 2;
+}
+
+message GetBeamPropertiesResponse{
+  repeated GetBeamPropertiesResponseData response_data = 1;
+}
+
+message GetBeamCrossSectionInfoRequest{
+  repeated EntityIdentifier ids = 1;
+}
+
+message GetBeamCrossSectionInfoResponseData{
+  BeamCrossSectionInfo cross_section_info = 1;
+  EntityIdentifier id = 2;
+}
+
+message GetBeamCrossSectionInfoResponse{
+  repeated GetBeamCrossSectionInfoResponseData response_data = 1;
+}

@@ -1,0 +1,108 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v1.commands.unsupported;
+
+import "ansys/api/discovery/v1/models.proto";
+import "ansys/api/discovery/v1/results.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.Unsupported";
+
+service Unsupported {
+  rpc ExportResultsToOpenVDBFile(ExportResultsToOpenVDBFileRequest) returns(ExportResultsToOpenVDBFileResponse);  
+  
+  rpc ExportResultsToOpenVDBMemory(ExportResultsToOpenVDBMemoryRequest) returns(ExportResultsToOpenVDBMemoryResponse);  
+  
+  rpc GetFacetedBodies(GetFacetedBodiesRequest) returns(GetFacetedBodiesResponse);  
+  
+  rpc GetFacetedBodiesStream(GetFacetedBodiesRequest) returns(stream GetFacetedBodiesResponse);  
+  
+  rpc GetImportIdMap(GetImportIdMapRequest) returns (GetImportIdMapResponse);  
+  
+  rpc GetLegendMaximumValue(GetLegendMaximumValueRequest) returns(GetLegendMaximumValueResonse);  
+  
+  rpc GetLegendMinimumValue(GetLegendMinimumValueRequest) returns(GetLegendMinimumValueResponse);  
+  
+  rpc SetExportId(SetExportIdRequest) returns (SetExportIdResponse);
+  
+  rpc SetSoundEnabled(SoundEnabledRequest) returns(SetSoundEnabledResponse);
+}
+
+message SoundEnabledRequest {
+  bool enabled = 1;
+}
+
+message SetSoundEnabledResponse{
+  bool success = 1;
+}
+
+message GetImportIdMapRequest{
+  ansys.api.discovery.v1.PersistentIdType type = 1;
+}
+
+message GetImportIdMapResponse{
+  map<string, EntityIdentifier> id_map = 1;
+}
+
+message SetExportIdData{
+  EntityIdentifier moniker = 1;
+  string id = 2;
+  ansys.api.discovery.v1.PersistentIdType type = 3;
+}
+
+message SetExportIdResponse{
+}
+
+message SetExportIdRequest{
+  repeated SetExportIdData export_data = 1;
+}
+
+message GetFacetedBodiesRequest
+{
+  repeated EntityIdentifier parts_ids = 1;
+}
+
+message GetFacetedBodiesResponse{
+  map<string, Tessellation> faceted_bodies=1;
+}
+
+message ExportResultsToOpenVDBMemoryRequest {
+  repeated ResultVariable result_variables = 1;
+}
+
+message ExportResultsToOpenVDBMemoryResponse{
+  ByteArrayResponse response = 1;
+}
+
+message ExportResultsToOpenVDBFileRequest {
+  repeated ResultVariable result_variables = 1;
+  string file_path = 2;
+}
+
+message ExportResultsToOpenVDBFileResponse{
+  bool success = 1;
+}
+
+message ByteArrayResponse {
+  bytes bytes = 1;
+  bool success = 2;
+}
+
+message GetLegendMaximumValueRequest{
+}
+
+message GetLegendMinimumValueRequest{
+}
+
+message DoubleValueResponse {
+  double value = 1;
+  bool success = 2;
+}
+
+message GetLegendMaximumValueResonse{
+  DoubleValueResponse response = 1;
+}
+
+message GetLegendMinimumValueResponse{
+  DoubleValueResponse response = 1;
+}

@@ -1,0 +1,69 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.connections.contact;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Connections.Contact";
+
+service Contact
+{
+  //Contact condition methods
+  rpc CreateContact(ContactCreationRequest) returns (ContactCreationResponse);
+
+  rpc ChangeContactSide1Location(ChangeLocationRequest) returns(ChangeResponse);
+  rpc ChangeContactSide2Location(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeContactType(ChangeContactTypeRequest) returns (ChangeResponse);
+  rpc ChangeContactPairs(ChangeContactPairRequest) returns (ChangeResponse);
+  rpc SplitContact(ChangeEmptyRequest) returns (ChangeResponse);
+
+  rpc ChangeContactFrictionCoefficient(ChangeDoubleRequest) returns (ChangeResponse);
+  rpc ChangeContactStiffnessFactor(ChangeDoubleRequest) returns (ChangeResponse);
+  rpc ChangeContactDetectionRadiusFactor(ChangeDoubleRequest) returns (ChangeResponse);
+  rpc ChangeContactOffset(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactShearStrength(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactTensileStrength(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactAreStrengthLimitsSet(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeContactAdjustGapOrOverlap(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeContactMakeJustTouching(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeContactIdealize(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeContactSpecifyThermalConductance(ChangeSpecifyConductanceRequest) returns (ChangeResponse);
+  rpc ChangeContactSpecifyElectricConductance(ChangeSpecifyConductanceRequest) returns (ChangeResponse);
+  rpc ChangeContactConductanceThickness(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactConductanceMaterial(ChangeAssignmentRequest) returns (ChangeResponse);
+  rpc ChangeContactThermalContactConductivity(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactElectricContactConductivity(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactThermalContactConductance(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeContactElectricContactConductance(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+message ContactCreationRequest{
+  DoubleSidedScopedCreationData creation_data = 1;
+  ContactProperties contact_properties = 2;
+}
+
+message ContactCreationResponse{
+  CreationResponse condition_response = 1;
+  ContactDefinition condition_data = 2;
+}
+
+message ChangeContactPairRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  ContactPairs contact_pairs = 2;
+}
+
+// Contact condition definitions
+
+
+
+message ContactDefinition {
+  PhysicsEntityIdentifier id = 1;
+  PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string side1_locations = 4;
+  repeated string side2_locations = 5;
+  bool suppressed = 6;
+  ContactProperties contact = 7;
+}

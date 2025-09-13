@@ -1,0 +1,159 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v1.geometricentities.patterns;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.GeometricEntities.Patterns";
+
+service Patterns
+{
+  rpc CreateCircularPattern(CreateCircularPatternRequest) returns (CreateCircularPatternResponse);
+  
+  rpc CreateFillPattern(CreateFillPatternRequest) returns (CreateFillPatternResponse);
+  
+  rpc CreateLinearPattern(CreateLinearPatternRequest) returns (CreateLinearPatternResponse);
+  
+  rpc ModifyCircularPattern(ModifyCircularPatternRequest) returns (ModifyCircularPatternResponse);
+  
+  rpc ModifyLinearPattern(ModifyLinearPatternRequest) returns (ModifyLinearPatternResponse);
+
+  rpc RemovePatterns(RemovePatternsRequest) returns (RemovePatternsResponse);
+
+  rpc RemovePatternMember(RemovePatternMemberRequest) returns (RemovePatternMemberResponse);
+
+  rpc SetPatternValue(SetPatternValueRequest) returns (SetPatternValueResponse);
+  
+  rpc UpdateFillPattern(UpdateFillPatternRequest) returns (UpdateFillPatternResponse);
+}
+
+message CreateLinearPatternRequestData {
+  repeated EntityIdentifier selection = 1;
+  bool two_dimensional = 2;
+  EntityIdentifier linear_direction = 3;
+  int32 count_x = 4;
+  int32 count_y = 5;
+  double pitch_x = 6;
+  double pitch_y = 7;  
+}
+
+message CreateLinearPatternRequest {
+  repeated CreateLinearPatternRequestData request_data = 1;
+}
+
+message ModifyLinearPatternRequestData {
+  repeated EntityIdentifier selection = 1;
+  int32 count_x = 2;
+  int32 count_y = 3;
+  double pitch_x = 4;
+  double pitch_y = 5;
+  int32 new_seed_index = 6;
+  int32 old_seed_index = 7;
+}
+
+message ModifyLinearPatternRequest {
+  repeated ModifyLinearPatternRequestData request_data = 1;
+}
+
+message ModifyCircularPatternRequestData {
+  repeated EntityIdentifier selection = 1;
+  int32 circular_count = 2;
+  int32 linear_count = 3;
+  double step_angle = 4;
+  double step_linear = 5;
+}
+
+message ModifyCircularPatternRequest {
+  repeated ModifyCircularPatternRequestData request_data = 1;
+}
+
+message CreateCircularPatternRequestData {
+  repeated EntityIdentifier selection = 1;
+  double circular_angle = 2;
+  EntityIdentifier circular_axis = 3;
+  int32 circular_count = 4;
+  int32 linear_count = 5;
+  double linear_pitch = 6;
+  bool two_dimensional = 7;
+  Direction radial_direction = 8;
+}
+
+message CreateCircularPatternRequest {
+  repeated CreateCircularPatternRequestData request_data = 1;
+}
+
+message CreateFillPatternRequestData {
+  repeated EntityIdentifier selection = 1;
+  double column_x_offset = 2;
+  double column_y_offset = 3;
+  FillPatternType fill_pattern_type= 4;
+  EntityIdentifier linear_direction = 5;
+  double margin = 6;
+  double row_x_offset = 7;
+  double row_y_offset = 8;
+  double x_spacing = 9;
+  double y_spacing = 10;
+}
+
+message CreateFillPatternRequest {
+  repeated CreateFillPatternRequestData request_data = 1;
+}
+
+message SetPatternValueRequestData {
+  repeated EntityIdentifier selection = 1;
+  PatternModificationType modification_type = 2;
+  double value = 3;
+}
+
+message SetPatternValueRequest {
+  repeated SetPatternValueRequestData request_data = 1;
+}
+
+message UpdateFillPatternRequest{
+  repeated EntityIdentifier ids = 1;
+}
+
+message RemovePatternsRequest{
+  repeated EntityIdentifier ids = 1;
+}
+
+message RemovePatternMemberRequest{
+  repeated EntityIdentifier ids = 1;
+}
+
+message CreateCircularPatternResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message CreateFillPatternResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message CreateLinearPatternResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message ModifyCircularPatternResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message ModifyLinearPatternResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message RemovePatternsResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message RemovePatternMemberResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message SetPatternValueResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message UpdateFillPatternResponse{
+  TrackerCommandResponse response_data = 1;
+}

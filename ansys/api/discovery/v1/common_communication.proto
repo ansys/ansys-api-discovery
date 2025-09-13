@@ -1,0 +1,176 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1";
+
+message EntityRequest{
+  EntityIdentifier id = 1;
+}
+
+message ParentEntityRequest{
+  EntityIdentifier parent = 1;
+}
+
+message MultipleEntitiesRequest{
+  repeated EntityIdentifier ids = 1;
+}
+
+message SetObjectNameRequestData{
+  EntityIdentifier id = 1;
+  string name = 2;
+  EntityType type = 3;
+}
+
+message SetObjectsNameRequest{
+  repeated SetObjectNameRequestData request_data = 1;
+}
+
+message SetObjectNameResponse {  
+  repeated EntityIdentifier successfully_set = 1;  
+} 
+
+
+message GetUpdateStateResponse{
+  map<string,UpdateState> update_states = 1;
+}
+
+message GetBoundingBoxResponseData{
+  EntityIdentifier id = 1;
+  Box box = 2;
+}
+
+message GetBoundingBoxResponse {
+  repeated GetBoundingBoxResponseData response_data = 1;
+}
+
+message GetColorResponse {
+  map<string,string> colors = 1;
+}
+
+message SetColorRequestData{
+  EntityIdentifier id = 1;
+  string color = 2;
+}
+
+message SetColorRequest {
+  repeated SetColorRequestData request_data=1;
+}
+
+message SetColorResponse {
+  repeated EntityIdentifier successfully_set =1;
+}
+
+message DeleteResponse{
+  repeated EntityIdentifier deleted_objects_ids=1;
+}
+
+message GetIsDeletedResponse{
+  map<string, bool> deleted=1;
+}
+
+message MirrorRequestData{
+  repeated EntityIdentifier ids = 1;
+  Plane mirror_plane = 2;
+  EntityIdentifier mirror_plane_id = 3;
+}
+
+message MirrorRequest {
+  repeated MirrorRequestData request_data = 1;
+}
+
+message MirrorResponse {
+  repeated EntityIdentifier successfully_set = 1;
+  TrackerCommandResponse response_data = 2;
+}
+
+message CommandResponse {
+  bool success = 1;
+  repeated Body created_bodies = 2;
+  repeated Body modified_bodies = 3;
+  repeated EntityIdentifier deleted_bodies = 4;
+  repeated EntityIdentifier created_faces = 5;
+  repeated EntityIdentifier modified_faces = 6;
+  repeated EntityIdentifier deleted_faces = 7;
+  repeated EntityIdentifier created_edges = 8;
+  repeated EntityIdentifier modified_edges = 9;
+  repeated EntityIdentifier deleted_edges = 10;
+  repeated EntityIdentifier created_components = 11;
+  repeated EntityIdentifier modified_components = 12;
+  repeated EntityIdentifier deleted_components = 13;
+  RequestResult result = 14;
+}
+
+message RotateOptions{
+  double angle = 1;
+  Point axis_origin = 2;
+  Direction axis_direction = 3;
+}
+
+message RotateRequestData{
+  EntityIdentifier id = 1;
+  RotateOptions options = 2;
+}
+
+message RotateRequest {
+  repeated RotateRequestData request_data = 1;
+}
+
+message RotateResponse{
+  repeated EntityIdentifier successfully_set = 1;
+}
+
+message ScaleObjectRequestData{
+  EntityIdentifier id = 1;
+  double scale = 2;
+}
+
+message ScaleObjectRequest{
+  repeated ScaleObjectRequestData request_data = 1;
+}
+
+message ScaleObjectResponse{
+  repeated EntityIdentifier successfully_set = 1;
+  CommandResponse command_response = 2;
+}
+
+message PlacementData{
+  Direction translation = 2;  
+  Point rotation_axis_origin = 3;  
+  Direction rotation_axis_direction = 4;  
+  double rotation_angle = 5;  
+}
+
+message MapRequestData{
+  EntityIdentifier id = 1;
+  Frame frame = 2;
+}
+
+message MapRequest {
+  repeated MapRequestData request_data = 1;
+}
+
+message MapResponse {  
+  repeated EntityIdentifier successfully_set = 1;
+}
+
+message TranslateRequestData{
+  EntityIdentifier id = 1;
+  Direction translation = 2;
+  float distance = 3;
+}
+
+message TranslateRequest{
+  repeated TranslateRequestData request_data=1;
+}
+
+message TranslateResponse{
+  repeated EntityIdentifier successfully_set = 1;
+}
+
+message ChangeSpecifyConductanceRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  ConductanceOptionType conductance_type = 2;
+}

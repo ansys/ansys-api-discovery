@@ -1,0 +1,41 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.geometricentities.coordinatesystems;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.GeometricEntities.CoordinateSystems";
+
+service CoordinateSystems{
+
+  rpc Create(CreateRequest) returns(CreateResponse);
+
+  rpc Delete(MultipleEntitiesRequest) returns(DeleteResponse);
+  
+  rpc Get(EntityRequest) returns(GetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+}
+
+message GetResponse{
+  CoordinateSystem coordinate_system = 1;
+}
+
+message GetAllResponse{
+  repeated CoordinateSystem coordinate_systems = 1;
+}
+
+message CreateRequestData{
+  EntityIdentifier parent = 1;
+  string name = 2;
+  Frame frame = 3;
+}
+
+message CreateRequest{
+  repeated CreateRequestData request_data = 1;
+}
+
+message CreateResponse{
+  repeated CoordinateSystem coordinate_systems =1;
+}

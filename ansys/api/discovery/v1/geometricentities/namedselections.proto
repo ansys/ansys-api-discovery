@@ -1,0 +1,52 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.geometricentities.namedselections;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.GeometricEntities.NamedSelections";
+
+// Named Selections
+//
+service NamedSelections{
+  rpc Create(CreateRequest) returns(CreateResponse);  
+  
+  rpc Delete(MultipleEntitiesRequest) returns(DeleteResponse);  
+  
+  rpc DeleteByName(DeleteByNameRequest) returns(DeleteByNameResponse);  
+  
+  rpc Get(EntityRequest) returns(GetResponse);  
+  
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);  
+}
+
+message GetResponse{
+  NamedSelection named_selection = 1;
+}
+
+message CreateResponse{
+  repeated NamedSelection named_selections = 1;
+}
+
+message CreateRequestData{
+  string name = 1;
+  repeated EntityIdentifier members = 2;
+  EntityIdentifier parent = 3;
+}
+
+message CreateRequest{
+  repeated CreateRequestData request_data = 1;
+}
+
+message GetAllResponse{
+  repeated NamedSelection named_selections = 1;
+}
+
+message DeleteByNameRequest{
+  string name = 1;
+}
+
+message DeleteByNameResponse{
+  bool success = 1;
+}

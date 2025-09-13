@@ -1,0 +1,15 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+
+syntax = "proto3";
+
+package ansys.api.discovery.v1.geometry.commands;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Geometry.Commands";
+
+service Commands{
+  rpc SetObjectsName(SetObjectsNameRequest) returns (SetObjectNameResponse);
+
+  rpc DeleteObjects(MultipleEntitiesRequest) returns (DeleteResponse);
+}

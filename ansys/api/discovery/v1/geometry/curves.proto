@@ -1,0 +1,110 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.geometry.curves;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Geometry.Curves";
+
+service Curves{
+  rpc CreateCurvesFromProfile(CreateCurvesFromProfileRequest) returns (CreateCurvesFromProfileResponse);
+
+  rpc Delete(MultipleEntitiesRequest) returns(DeleteResponse);
+
+  rpc Get(EntityRequest) returns(GetResponse) ;
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse) ;
+    
+  rpc IntersectCurves(IntersectCurvesRequest) returns (IntersectCurvesResponse);
+
+  rpc OffsetFaceCurves(OffsetFaceCurvesRequest) returns (OffsetFaceCurvesResponse);
+
+  rpc PullCurvePoint(PullCurvePointRequest) returns (PullCurvePointResponse);
+
+  rpc RevolveCurves(RevolveCurvesRequest) returns (RevolveCurvesResponse);
+}
+
+message GetResponse{
+  Curve curve = 1;
+}
+
+message GetAllResponse{
+  repeated Curve curves = 1;
+}
+
+message CreateCurvesFromProfileRequestData {
+  Geometries geometries=1;
+  EntityIdentifier parent=2;
+  Plane plane=3;
+}
+
+message CreateCurvesFromProfileRequest {
+  repeated CreateCurvesFromProfileRequestData request_data = 1 ;
+}
+
+message CreateCurvesFromProfileResponse {
+  repeated EntityIdentifier created_curves=1;
+}
+
+message IntersectCurvesRequestData {
+  TrimmedCurve first = 1;
+  TrimmedCurve second = 2;
+}
+
+message IntersectCurvesRequest {
+  repeated IntersectCurvesRequestData request_data = 1;
+}
+
+message IntersectCurvesResponseData {
+  repeated Point points = 1;
+  bool intersect = 2;
+}
+
+message IntersectCurvesResponse {
+  repeated IntersectCurvesResponseData response_data = 1;
+}
+
+message RevolveCurvesRequestData {
+  repeated TrimmedCurve curves = 1;
+  Line axis = 2;
+  double angle = 3;
+  bool symmetric = 4;
+}
+
+message RevolveCurvesRequest {
+  repeated RevolveCurvesRequestData request_data = 1;
+}
+
+message RevolveCurvesResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message PullCurvePointRequestData {
+  repeated EntityIdentifier selection = 1;
+  double distance = 2;
+  bool linear = 3;
+  bool reversed = 4;
+}
+
+message PullCurvePointRequest {
+  repeated PullCurvePointRequestData request_data = 1;
+}
+
+message PullCurvePointResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message OffsetFaceCurvesRequestData {
+  repeated EntityIdentifier ids = 1;
+  double offset = 2;
+}
+
+message OffsetFaceCurvesRequest {
+  repeated OffsetFaceCurvesRequestData request_data = 1;
+}
+
+message OffsetFaceCurvesResponse {
+  RequestResult result = 1;
+  repeated Curve created_curves = 2;
+}

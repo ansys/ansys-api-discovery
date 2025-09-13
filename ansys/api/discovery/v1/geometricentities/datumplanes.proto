@@ -1,0 +1,44 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.geometricentities.datumplanes;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.GeometricEntities.DatumPlanes";
+
+service DatumPlanes{
+
+  rpc CreatePlane(CreatePlaneRequest) returns (CreatePlaneResponse);
+
+  rpc Delete(MultipleEntitiesRequest) returns (DeleteResponse);
+
+  rpc Get(EntityRequest) returns(GetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+
+  rpc GetIsDeleted(MultipleEntitiesRequest) returns(GetIsDeletedResponse);
+
+  rpc GetUpdateState(MultipleEntitiesRequest) returns (GetUpdateStateResponse);
+}
+
+
+message CreatePlaneRequest {
+  repeated EntityIdentifier selection = 1;
+}
+
+message CreatePlaneResponse {
+  repeated DatumPlane planes = 1;
+}
+
+message GetResponse{
+  DatumPlane plane = 1;
+}
+
+message GetAllResponse{
+  repeated DatumPlane planes = 1;
+}
+
+message UpdateStateResponse{
+  map<string, UpdateState> update_states = 1;
+}

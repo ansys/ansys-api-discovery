@@ -1,0 +1,22 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.geometry.meshes;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Geometry.Meshes";
+
+service Meshes{
+  rpc Get(EntityRequest) returns(GetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+}
+
+message GetResponse{
+  Mesh mesh = 1;
+}
+
+message GetAllResponse{
+  repeated Mesh meshes = 1;
+}

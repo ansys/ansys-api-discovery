@@ -1,0 +1,66 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.automation.historytrackparameters;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Automation.HistoryTrackParameters";
+
+// History track parameters servicer.
+//
+service HistoryTrackParameters{
+  rpc Get(EntityRequest) returns(GetResponse);  
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);  
+
+  rpc GetRecordingStatus(GetRecordingStatusRequest) returns(GetRecordingStatusResponse);  
+
+  rpc Replay(ReplayRequest) returns(ReplayResponse);  
+
+  rpc SetRecordingStatus(SetRecordingStatusRequest) returns(SetRecordingStatusResponse);  
+
+  rpc Update(UpdateRequest) returns(UpdateResponse);
+}
+
+message GetResponse{
+  HistoryTrackParameter history_track_parameter = 1;
+}
+
+message GetAllResponse{
+  repeated HistoryTrackParameter history_track_parameters = 1;
+}
+
+message UpdateRequest{
+  repeated HistoryTrackParameter request_data = 1;
+}
+
+message UpdateResponse{
+  repeated HistoryTrackParameter response_data = 1;
+}
+
+message ReplayRequest{
+}
+
+message ReplayResponse{
+  string result = 1;
+}
+
+enum RecordingStatus{
+  OFF=0;
+  ON=1;
+}
+
+message GetRecordingStatusRequest{
+}
+
+message GetRecordingStatusResponse{
+  RecordingStatus status=1;
+}
+
+message SetRecordingStatusRequest{
+  RecordingStatus status=1;
+}
+
+message SetRecordingStatusResponse{
+}

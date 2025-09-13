@@ -1,0 +1,1484 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1;
+
+import "google/protobuf/struct.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1";
+
+//
+// The type of curve.
+enum CurveType {
+  CURVETYPE_UNKNOWN = 0;
+  CURVETYPE_LINE = 1;
+  CURVETYPE_CIRCLE = 2;
+  CURVETYPE_ELLIPSE = 3;
+  CURVETYPE_NURBS = 4;
+  CURVETYPE_PROCEDURAL = 5;
+}
+
+//
+// The type of surface.
+enum SurfaceType {
+  SURFACETYPE_UNKNOWN = 0;
+  SURFACETYPE_PLANE = 1;
+  SURFACETYPE_CYLINDER = 2;
+  SURFACETYPE_CONE = 3;
+  SURFACETYPE_TORUS = 4;
+  SURFACETYPE_SPHERE = 5;
+  SURFACETYPE_NURBS = 6;
+  SURFACETYPE_PROCEDURAL = 7;
+}
+
+//
+// The type of collision.
+enum CollisionType { 
+  COLLISIONTYPE_NONE=0;
+  COLLISIONTYPE_TOUCH=1;
+  COLLISIONTYPE_INTERSECT=2;
+  COLLISIONTYPE_CONTAINED=3;
+  COLLISIONTYPE_CONTAINEDTOUCH=4;
+}
+
+//
+// The fill style type for a body.
+enum BodyFillStyle { 
+  BODYFILLSTYLE_DEFAULT=0;
+  BODYFILLSTYLE_OPAQUE=1;
+  BODYFILLSTYLE_TRANSPARENT=2;
+}
+
+//
+// The beam type for a Beam
+enum BeamType {
+  BEAMTYPE_BEAM=0;
+  BEAMTYPE_SPRING=1;
+  BEAMTYPE_LINK_TRUSS=2;
+  BEAMTYPE_CABLE=3;
+  BEAMTYPE_PIPE=4;
+  BEAMTYPE_THERMALFLUID=5;
+  BEAMTYPE_UNKNOWN=6; 
+}
+
+//
+// A design curve.
+message Curve{
+  EntityIdentifier id = 1;
+  string owner_name = 2;
+  double length = 3;
+  repeated Point points = 4;
+}
+
+message CurveGeometry {
+  Point origin = 1;
+  double radius = 2;
+  double major_radius = 3;
+  double minor_radius = 4;
+  Direction direction = 5;
+  Direction reference = 6;
+  Direction axis = 7;
+  NurbsCurve nurbs_curve = 8;
+}
+
+message TrimmedCurve {
+  CurveGeometry curve = 1;
+  Point start = 2;
+  Point end = 3;
+  double interval_start = 4;
+  double interval_end = 5;
+  double length = 6;
+}
+
+//
+// A edge.
+message Edge{
+  EntityIdentifier id = 1;
+  Body parent = 2;
+  CurveType curve_type = 10;
+  string owner_name = 11;
+  string export_id = 12;
+  double length = 13;
+  string owner_id = 14;
+  bool is_reversed = 15;
+}
+
+//
+// A face.
+message Face{
+  EntityIdentifier id = 1;
+  Body parent = 2;
+  SurfaceType surface_type = 10;
+  string owner_name = 11;
+  string export_id = 12;
+  double area = 13;
+  bool is_reversed = 14;
+  EntityIdentifier parent_id = 15;
+}
+//
+// A mesh.
+message Mesh{
+  EntityIdentifier id = 1;
+  string name=2;
+}
+
+//
+// A body.
+message Body{
+  EntityIdentifier id = 1;
+  string name = 2;
+  bool can_suppress = 3;
+  bool is_deleted = 4;
+  bool is_suppressed = 5;
+  Matrix transform_to_master = 6;
+  BodyMasterNullable master = 7;
+  EntityIdentifier master_id = 8;
+  EntityIdentifier parent_id = 9;
+  bool is_surface = 10;
+}
+
+//
+// A nullable body master.
+message BodyMasterNullable{
+  oneof kind 
+  {
+    google.protobuf.NullValue null = 1;
+    BodyMaster props = 2;
+  }
+}
+
+//
+// A body master.
+message BodyMaster {
+  string update_state = 6;
+  map< string, string > text_attributes = 7;
+  map< string, double > number_attributes = 8;
+  Material material = 9;
+  Material surface_material = 10;
+  Shape shape = 11;
+}
+
+//
+// The shape.
+message Shape {
+  bool is_surface_body = 1;
+  double surface_area = 2;
+  double volume = 3;
+  Direction bounding_box_size = 4;
+}
+
+//
+// A component.
+message Component{
+  EntityIdentifier id = 1;
+  string name = 2;
+  Part part_occurrence = 3;
+  Matrix placement =4;
+  EntityIdentifier master_id=5;
+  EntityIdentifier parent_id=6;
+  Part part_master=7;
+  string display_name=8;
+  string instance_name=9;
+  EntityIdentifier template = 10;
+}
+
+//
+// A part.
+message Part{
+  EntityIdentifier id = 1;
+  string name = 2;
+}
+
+//
+// A named selection.
+message NamedSelection {
+  EntityIdentifier id = 1;
+  string name = 2;
+  repeated EntityIdentifier selection=3;
+  repeated Body bodies = 4;
+  repeated Face faces = 5;
+  repeated Edge edges = 6;
+  repeated Beam beams = 7;
+  repeated Curve design_points = 8;
+  repeated Vertex vertices = 9;
+  repeated Component components = 10;
+}
+
+//
+// A 3D coordinate system.
+message CoordinateSystem{
+  EntityIdentifier id=1;
+  string name=2;
+  Frame frame = 3;
+}
+
+//
+// A 3D point.
+message Point {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+//
+// A 3D direction.
+message Direction {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+
+//
+// A 3D box.
+message Box {
+  Point min = 1;
+  Point max = 2;
+  Point center = 3;
+}
+
+//
+// A homogeneous 3D transformation matrix.
+// The matrix is a pre-multiplication transformation. 
+// The rotation is in m00->m22 and contains no scaling in its leading diagonal.
+// The translation is m03/m33, m13/m33, m23/m33.
+// The uniform scale is 1/m33.
+message Matrix{
+  double m00 = 1;
+  double m01 = 2;
+  double m02 = 3;
+  double m03 = 4;
+  double m10 = 5;
+  double m11 = 6;
+  double m12 = 7;
+  double m13 = 8;
+  double m20 = 9;
+  double m21 = 10;
+  double m22 = 11;
+  double m23 = 12;
+  double m30 = 13;
+  double m31 = 14;
+  double m32 = 15;
+  double m33 = 16;
+}
+
+//
+// ShrinkWrapOptions is used to specify ShrinkWrap method in the Facet Tools. 
+message ShrinkWrapOptions {
+  double size =2;
+  bool keep_original_bodies =3;
+  bool preserve_features =4;
+  double angle_tolerance =5;
+  bool secondary_size_enabled =6;
+  double secondary_size = 7;
+  bool max_size_enabled =8;
+  double max_size = 9;
+  double curvature_angle =10;
+}
+
+message FixInterferenceProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier body_monikers = 2;
+}
+
+message SplitEdgeProblemArea {
+  int32 id = 1;    
+  repeated EntityIdentifier edge_monikers  = 2;
+}
+
+message FixSplitEdgeOptions {
+  double max_edge_length  = 1;
+  double min_edge_angle  = 2;
+}
+
+message ExtraEdgeProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier edge_monikers = 2;
+}
+
+message InexactEdgeProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier edge_monikers = 2;
+}
+
+message ShortEdgeProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier edge_monikers = 2;
+}
+
+message DuplicateFaceProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier face_monikers = 2;
+}
+
+message MissingFaceProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier edge_monikers = 2;
+}
+
+message SmallFaceProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier face_monikers = 2;
+}
+
+message StitchFaceProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier body_monikers = 2;
+}
+
+message CurveGapProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier curve_point_monikers = 2;
+}
+
+message DuplicateCurveProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier curve_point_monikers = 2;
+}
+
+message SmallCurveProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier curve_monikers = 2;
+}
+
+message AdjustSimplifyProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier body_monikers = 2;
+}
+
+message GapProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier edge_monikers = 2;
+}
+
+message GenericProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier monikers = 2;
+}
+
+message RepairToolMessage {
+  bool success = 1;
+  repeated EntityIdentifier created_bodies_monikers = 2;
+  repeated EntityIdentifier modified_bodies_monikers = 3;
+  repeated EntityIdentifier deleted_bodies_monikers = 4;
+  TrackerCommandResponse complete_command_response = 5;// this should become the only response in protos v1
+}
+
+message EnhancedRepairToolMessage {
+  bool success = 1;
+  int32 found = 2;
+  int32 repaired = 3;
+  repeated EntityIdentifier created_bodies_monikers = 4;
+  repeated EntityIdentifier modified_bodies_monikers = 5;
+  repeated EntityIdentifier deleted_bodies_monikers = 6;
+  TrackerCommandResponse complete_command_response = 7; // this should become the only response in protos v1
+}
+
+message Material{
+  string name=1;
+  repeated MaterialProperty material_properties=2;
+}
+
+message MaterialProperty {
+  EntityIdentifier id=1;
+  string display_name=2;
+  double value=3;
+  string units=4;
+}
+
+
+message Frame {
+  Point origin = 1;
+  Direction dir_x = 2;
+  Direction dir_y = 3;
+  Direction dir_z = 4;
+}
+
+message Plane {
+  Frame frame = 1;
+}
+
+message DatumPlane {
+  EntityIdentifier id = 1;
+  Plane plane = 2;
+  string name = 3;
+  bool is_suppressed = 4;
+  bool is_deleted = 5;
+  bool can_suppress = 6;
+  EntityIdentifier master_id = 7;
+  EntityIdentifier parent_id = 8;
+  repeated Curve curves = 9;
+}
+
+message Line {
+  Point start=1;
+  Point end=2;
+}
+
+message Circle {
+  Point center=1;
+  double radius=2;
+}
+
+message Arc {
+  Point center=1;
+  Point start=2;
+  Point end=3;
+  Direction axis=4;
+}
+
+message Ellipse {
+  Point center=1;
+  double majorradius=2;
+  double minorradius=3;
+  double angle=4;
+}
+
+message Polygon {
+  Point center=1;
+  double radius=2;
+  int32 numberofsides=3;
+  double angle=4;
+}
+
+message Geometries {
+  repeated Point points = 1;
+  repeated Line lines = 2;
+  repeated Arc arcs = 3;
+  repeated Circle circles = 4;
+  repeated Ellipse ellipses = 5;
+  repeated Polygon polygons = 6;
+  repeated NurbsCurve nurbs_curves = 7;
+}
+
+message Loop {
+  string type=1;
+  double length=2;
+  Box bounding_box=3;
+  repeated string edges=4;
+}
+
+enum ShareType {
+  SHARETYPE_NONE=0;
+  SHARETYPE_SHARE=1;
+  SHARETYPE_MERGE=2;
+  SHARETYPE_GROUPS=3;
+}
+
+enum MidSurfaceOffsetType {
+  MIDSURFACEOFFSETTYPE_MIDDLE=0;
+  MIDSURFACEOFFSETTYPE_TOP=1;
+  MIDSURFACEOFFSETTYPE_BOTTOM=2;
+  MIDSURFACEOFFSETTYPE_VARIABLE=3;
+  MIDSURFACEOFFSETTYPE_CUSTOM=4;
+}
+
+enum OffsetMode {
+  OFFSETMODE_IGNORE_RELATIONSHIPS=0;
+  OFFSETMODE_MOVE_FACES_TOGETHER=1;
+  OFFSETMODE_MOVE_FACES_APART=2;
+}
+
+enum ExtrudeType {
+  EXTRUDETYPE_NONE = 0;
+  EXTRUDETYPE_ADD = 1;
+  EXTRUDETYPE_CUT = 2;
+  EXTRUDETYPE_FORCE_ADD = 3;
+  EXTRUDETYPE_FORCE_CUT = 4;
+  EXTRUDETYPE_FORCE_INDEPENDENT = 5;
+  EXTRUDETYPE_FORCE_NEW_SURFACE = 6;
+}
+
+//
+// Object type descriptor
+enum EntityType{
+  ENTITYTYPE_PART = 0;
+  ENTITYTYPE_COMPONENT = 1;
+  ENTITYTYPE_BODY = 2;
+  ENTITYTYPE_NAMED_SELECTION = 3;
+  ENTITYTYPE_EDGE = 4;
+  ENTITYTYPE_FACE = 5;
+}
+
+message EntitiesCollection{
+  repeated Curve curves=1;
+  repeated Edge edges=2;
+  repeated Face faces=3;
+  repeated Body bodies=4;
+}
+
+message Tessellation {
+  repeated double vertices = 1;
+  repeated int32 faces = 2;
+  int32 facecolor = 3;
+}
+
+//
+// The type of segment.
+enum SegmentType {
+  SURFACETYPE_LINE = 0;
+  SURFACETYPE_ARC = 1;
+  SURFACETYPE_CIRCLE = 2;
+}
+
+message UpdateState {
+  int32 state=1;
+}
+
+message Vertex {
+  Point position = 1;
+  repeated Edge edges = 2;
+  EntityIdentifier id = 3;
+}
+message TrimmedCurveList {
+  repeated TrimmedCurve curves = 1;
+}
+
+message SpotWeld {
+  map<string, Point> weld_points = 1;
+}
+
+message Weld {
+  repeated TrimmedCurveList geometry = 1;
+  string display_name = 2;
+  double length = 3;
+  double volume = 4;
+  double mass = 5;
+  double time = 6;
+  double rod_length = 7;
+  bool is_intermittent = 8;
+  int32 sequence_id = 9;
+  double size1 = 10;
+  double size2 = 11;
+
+  // This data only exists if the weld is intermittent
+  bool is_angular = 12;
+  bool is_at_center = 13;
+  double intermittent_length = 14;
+  int32 number_of_welds = 15;
+  double pitch = 16;
+}
+
+message BeamProperties {
+  double area = 1;
+  double centroid_x = 2;
+  double centroid_y = 3;
+  double warping_constant = 4;
+  double ixx = 5;
+  double ixy = 6;
+  double iyy = 7;
+  double torsional_constant = 8;
+  double shear_center_x = 9;
+  double shear_center_y = 10;
+}
+
+message BeamCrossSectionInfo {
+  int32 section_anchor = 1;
+  double section_angle = 2;
+  Frame section_frame = 3;
+  repeated TrimmedCurveList section_profile = 4;
+}
+
+message Beam {
+  string name = 1;
+  bool can_suppress = 2;
+  bool is_deleted = 3;
+  bool is_reversed = 4;
+  bool is_rigid = 5;
+  Material material = 6;
+  EntityIdentifier id = 7;
+  Part parent = 8;
+  BeamCrossSectionInfo cross_section = 9;
+  BeamProperties properties = 10;
+  TrimmedCurve shape = 11;
+  BeamType type = 12;
+}
+
+message CurveEvaluation {
+  double curvature = 1;
+  Direction derivative = 2;
+  Direction derivative2 = 3;
+  double param = 4;
+  Point point = 5;
+  Direction tangent = 6;
+}
+
+message SurfaceEvaluation {
+  Direction derivative_u = 1;
+  Direction derivative_uu = 2;
+  Direction derivative_uv = 3;
+  Direction derivative_v = 4;
+  Direction derivative_vv = 5;
+  double max_curvature = 6;
+  Direction max_curvature_direction = 7;
+  double min_curvature = 8;
+  Direction min_curvature_direction = 9;
+  Direction normal = 10;
+  double param_u = 11;
+  double param_v = 12;
+  Point point = 13;
+}
+
+message Surface {
+  Point origin = 1;
+  double radius = 2;
+  double half_angle = 3;
+  double major_radius = 4;
+  double minor_radius = 5;
+  Direction reference = 6;
+  Direction axis = 7;
+}
+
+message TrimmedSurface {
+  Surface surface = 1;
+  SurfaceType type = 2;
+  double u_min = 3;
+  double u_max = 4;
+  double v_min = 5;
+  double v_max = 6;
+}
+
+message Gap {
+  double distance = 1;
+}
+
+message NurbsCurve {
+  repeated ControlPoint control_points = 1;
+  NurbsData nurbs_data = 2;
+  bool is_rational = 3;
+  Parameterization parameterization = 4;
+}
+
+message NurbsData{
+  int32 degree = 1;
+  bool is_closed = 2;
+  bool is_periodic = 3;
+  repeated Knot knots = 4;
+  int32 order = 5;
+}
+
+message Knot{
+  int32 multiplicity = 1;
+  double parameter = 2;
+}
+
+message ControlPoint {
+  Point position = 1;
+  double weight = 2;
+}
+
+message Parameterization{
+  ParameterizationBounds bounds = 1;
+  ParameterizationForm form = 2;
+}
+
+message ParameterizationBounds {
+  bool infinite_start = 1;
+  double start = 2;
+  bool infinite_end = 3;
+  double end = 4;
+}
+
+enum ParameterizationForm {
+  OPEN = 0;
+  CLOSED = 1;
+  PERIODIC = 2;
+}
+
+enum DraftSide {
+  DRAFTSIDE_NO_SPLIT = 0;
+  DRAFTSIDE_THIS = 1;
+  DRAFTSIDE_OTHER = 2;
+  DRAFTSIDE_BOTH = 3;
+}
+
+//
+// The type of a fill pattern.
+enum FillPatternType { 
+  FILLPATTERNTYPE_GRID = 0;
+  FILLPATTERNTYPE_OFFSET = 1;
+  FILLPATTERNTYPE_SKEWED = 2;
+}
+
+//
+// The type of a pattern modification.
+enum PatternModificationType {
+  PATTERNMODIFICATIONTYPE_PRIMARY_COUNT_PRESERVE_SPACING = 0;
+  PATTERNMODIFICATIONTYPE_PRIMARY_COUNT_PRESERVE_OVERALL = 1;
+  PATTERNMODIFICATIONTYPE_PRIMARY_COUNT_PLUS_PRESERVE_SPACING = 2;
+  PATTERNMODIFICATIONTYPE_PRIMARY_COUNT_PLUS_PRESERVE_OVERALL = 3;
+  PATTERNMODIFICATIONTYPE_PRIMARY_COUNT_MINUS_PRESERVE_SPACING = 4;
+  PATTERNMODIFICATIONTYPE_PRIMARY_COUNT_MINUS_PRESERVE_OVERALL = 5;
+  PATTERNMODIFICATIONTYPE_PRIMARY_OVERALL_DIMENSION = 6;
+  PATTERNMODIFICATIONTYPE_PRIMARY_SPACING_DIMENSION = 7;
+  PATTERNMODIFICATIONTYPE_SECONDARY_COUNT_PRESERVE_SPACING = 8;
+  PATTERNMODIFICATIONTYPE_SECONDARY_COUNT_PRESERVE_OVERALL = 9;
+  PATTERNMODIFICATIONTYPE_SECONDARY_COUNT_PLUS_PRESERVE_SPACING = 10;
+  PATTERNMODIFICATIONTYPE_SECONDARY_COUNT_PLUS_PRESERVE_OVERALL =11;
+  PATTERNMODIFICATIONTYPE_SECONDARY_COUNT_MINUS_PRESERVE_SPACING = 12;
+  PATTERNMODIFICATIONTYPE_SECONDARY_COUNT_MINUS_PRESERVE_OVERALL = 13;
+  PATTERNMODIFICATIONTYPE_SECONDARY_OVERALL_DIMENSION = 14;
+  PATTERNMODIFICATIONTYPE_SECONDARY_SPACING_DIMENSION = 15;
+  PATTERNMODIFICATIONTYPE_CIRCULAR_RADIUS = 16;
+}
+
+enum InspectGeometryMessageType {
+  INSPECT_GEOMETRY_UNKNOWN = 0;
+  INSPECT_GEOMETRY_INFORMATION = 1;
+  INSPECT_GEOMETRY_WARNING = 2;
+  INSPECT_GEOMETRY_ERROR = 3;
+}
+
+enum InspectGeometryLevel {
+  COMPLETE = 0;
+  VALIDATE = 1;
+  SANITY = 2;
+}
+
+enum InspectGeometryMessageId {
+  INSPECT_GEOMETRY_ID_UNKNOWN= 0;
+  NONE= 1;
+  NOERROR= 2;
+  ERROR_BODYTOPOLOGY= 3;
+  ERROR_INSIDEOUTBODY= 4;
+  ERROR_GENERALBODY= 5;
+  ERROR_FACETOPOLOGY= 6;
+  ERROR_FACELOOP= 7;
+  ERROR_FACEGEOMETRY= 8;
+  ERROR_FACEEDGEGEOMETRY= 9;
+  ERROR_EDGEGEOMETRY= 10;
+  ERROR_EDGENONMANIFOLD= 11;
+  ERROR_EDGETOPOLOGY= 12;
+  ERROR_VERTEX= 13;
+  ERROR_VERTEXNONMANIFOLD= 14;
+  ERROR_MESHSELFINTERSECTS= 15;
+  WARNING_MULTIPLESHELLS= 16;
+  ERROR_MESHISOPEN= 17;
+  ERROR_MESHISNONMANIFOLD= 18;
+  UNKNOWN_FACE_ERROR= 19;
+  UNKNOWN_EDGE_ERROR= 20;
+  INTERNAL_ERROR= 21;
+  ERROR_FACEDISPLAY= 22;
+  INFO_SLIVERFACE= 23;
+  INFO_SLIVEREDGE= 24;
+  ERROR_FACEINTERSECTION= 25;
+  ERROR_FACESELFINTERSECTINGTOPOLOGY= 26;
+  ERROR_FACEFACEINTERSECTION= 27;
+  ERROR_EDGEOFFINEXACT= 28;
+  ERROR_EDGESELFINTERSECTINGTOPOLOGY= 29;
+  ERROR_MESHINCONSISTENTORIENTATION= 30;
+  WARNING_GEOMETRYNONG1= 31;
+  WARNING_GEOMETRYSELFINTERSECTS= 32;
+  WARNING_GEOMETRYCOLLAPSED= 33;
+  WARNING_LOOPISNOTCLOSEDPROPERLY= 34;
+  WARNING_CURVEISNOTCLOSEDPROPERLY= 35;
+  WARNING_SURFACEISNOTCLOSEDPROPERLY= 36;
+  WARNING_MESHHASFOLDOVERS= 37;
+  ERROR_MESH= 38;
+  ERROR_NOGEOMETRY= 39;
+  VERTEXOVERLAP = 40;
+}
+
+message InspectGeometryOptions {
+  InspectGeometryLevel level = 1;
+  int32 max_number_of_issues = 2;
+  bool check_self_intersections = 3;
+  bool find_g1_discontinuities = 4;
+  double sliver_edge_tolerance = 5;
+  double sliver_face_tolerance = 6;
+}
+
+message InspectGeometryResultIssue
+{
+  InspectGeometryMessageType message_type = 1;
+  InspectGeometryMessageId message_id = 2;
+  repeated Face faces = 3;
+  repeated Edge edges = 4;
+  string message = 5;
+  optional double scalar_value = 6;
+}
+
+message InspectGeometryResult {
+  Body body = 1;
+  repeated InspectGeometryResultIssue issues = 2;
+}
+
+message Separation {
+  double distance = 1;
+  Point point_a = 2;
+  Point point_b = 3;
+}
+
+message FindLogoOptions {
+  optional double min_height = 1;
+  optional double max_height = 2;
+  optional double max_fillet_radio_as_sharp = 3;
+  optional double fit_error = 4;
+}
+
+message TrackerCommandResponse{
+  bool success = 1;
+  repeated Body created_bodies = 2;
+  repeated Body modified_bodies = 3;
+  repeated EntityIdentifier deleted_bodies = 4;
+  repeated EntityIdentifier created_faces = 5;
+  repeated EntityIdentifier modified_faces = 6;
+  repeated EntityIdentifier deleted_faces = 7;
+  repeated EntityIdentifier created_edges = 8;
+  repeated EntityIdentifier modified_edges = 9;
+  repeated EntityIdentifier deleted_edges = 10;
+  repeated EntityIdentifier created_components = 11;
+  repeated EntityIdentifier modified_components = 12;
+  repeated EntityIdentifier deleted_components = 13;
+}
+
+//
+// The automatic tracking states.
+enum AutomaticTrackingState {
+  AUTOMATICTRACKINGSTATE_ON = 0;
+  AUTOMATICTRACKINGSTATE_OFF = 1;
+}
+
+message TrackerDefinition{
+  EntityIdentifier design_id = 1;
+}
+
+message TessellationOptions{
+  double surface_deviation = 1;
+  double angle_deviation = 2;
+  double maximum_aspect_ratio = 3;
+  double maximum_edge_length = 4;
+  bool watertight = 5;
+  double curve_deviation = 6;
+}
+
+message EntityIdentifier{
+  string id=1;
+}
+
+message PhysicsEntityIdentifier{
+  string guid_as_string = 1;
+}
+
+// Defines the type of location, some conditions support application to either bodies and faces
+enum LocationType {
+  LOCATIONTYPE_FACE = 0;
+  LOCATIONTYPE_BODY = 1;
+  LOCATIONTYPE_BOLT = 2;
+  LOCATIONTYPE_SPRING = 3;
+  LOCATIONTYPE_BEAM = 4;
+  LOCATIONTYPE_WELD = 5;
+  LOCATIONTYPE_EDGE = 6;
+  LOCATIONTYPE_AXIS = 7;
+}
+
+//
+// A driving dimension.
+message DrivingDimension {
+  EntityIdentifier id = 1;
+  string name = 2;
+  DimensionType dimension_type = 3;
+  double dimension_value = 4;
+}
+
+message ImportOptionDefinition
+{
+  oneof option{
+    bool bool_option = 1;
+    string string_option =2;
+  }
+}
+
+//
+// A design document.
+message Design{
+  EntityIdentifier id = 1;
+  bool is_complete=2 ;  
+  bool is_locked=3  ;   
+  bool is_modified=4;   
+  bool is_removed = 5;  
+  EntityIdentifier main_part=6;   
+  bool main_part_displays_file_name=7; 
+  string path = 10;
+  string name=11;
+}
+
+//
+// The type of dimension.
+enum DimensionType {
+  DIMENSIONTYPE_UNKNOWN = 0;
+  DIMENSIONTYPE_LINEAR = 1;
+  DIMENSIONTYPE_DIAMETRIC = 2;
+  DIMENSIONTYPE_RADIAL = 3;
+  DIMENSIONTYPE_ARC = 4;
+  DIMENSIONTYPE_AREA = 5;
+  DIMENSIONTYPE_VOLUME = 6;
+  DIMENSIONTYPE_MASS = 7;
+  DIMENSIONTYPE_ANGULAR = 8;
+  DIMENSIONTYPE_COUNT = 9;
+  DIMENSIONTYPE_UNITLESS = 10;
+}
+
+enum ImageFormat {
+  IMAGEFORMAT_PNG = 0;
+  IMAGEFORMAT_JPEG = 1;
+}
+
+enum WindowView {
+  WINDOWVIEW_TOP = 0;
+  WINDOWVIEW_BOTTOM = 1;
+  WINDOWVIEW_LEFT = 2;
+  WINDOWVIEW_RIGHT = 3;
+  WINDOWVIEW_FRONT = 4;
+  WINDOWVIEW_BACK = 5;
+  WINDOWVIEW_ISOMETRIC = 6;
+  WINDOWVIEW_TRIMETRIC = 7;
+  WINDOWVIEW_FIT = 8;
+}
+
+enum PartExportFormat {
+  PARTEXPORTFORMAT_ACIS_TEXT = 0;
+  PARTEXPORTFORMAT_ACIS_BINARY = 1;
+  PARTEXPORTFORMAT_PARASOLID_TEXT = 2;
+  PARTEXPORTFORMAT_PARASOLID_BINARY = 3;
+  PARTEXPORTFORMAT_STEP = 4;
+  PARTEXPORTFORMAT_FMD = 5;
+  PARTEXPORTFORMAT_IGES = 6;
+  PARTEXPORTFORMAT_PMDB = 7;
+  PARTEXPORTFORMAT_DISCO = 8;
+  PARTEXPORTFORMAT_STRIDE = 9;
+  PARTEXPORTFORMAT_SCDOC = 10;
+  PARTEXPORTFORMAT_SCDOCX = 11;
+  PARTEXPORTFORMAT_JT_OPEN = 12;
+  PARTEXPORTFORMAT_VDA = 13;
+  PARTEXPORTFORMAT_RHINO = 14;
+  PARTEXPORTFORMAT_SKETCH_UP = 15;
+  PARTEXPORTFORMAT_PDF_GEOMETRY = 16;
+  PARTEXPORTFORMAT_PDF_FACETS = 17;
+}
+
+message RequestResult{
+  bool success = 1;
+  string error_message = 2;
+  string internal_error = 3;
+}
+
+message VersionIdentifier
+{
+  int32 major_release = 1;
+  int32 minor_release = 2;
+  int32 service_pack = 3;
+}
+
+enum MonikerCompressionMethod {
+  MONIKERCOMPRESSIONMETHOD_FULL = 0;
+  MONIKERCOMPRESSIONMETHOD_COMPRESSED = 1;
+  MONIKERCOMPRESSIONMETHOD_OBJECT_PATH = 2;
+}
+
+enum PersistentIdType {
+  PERSISTENTIDTYPE_PNAME = 0;
+  PERSISTENTIDTYPE_PRIME_ID = 700;
+}
+
+enum BodyExportFormat {
+  BODYEXPORTFORMAT_PARASOLID_TEXT = 0;
+  BODYEXPORTFORMAT_PARASOLID_BINARY = 1;
+}
+
+//
+// A Variation (represents a row into the variation table)
+message Variation {
+  EntityIdentifier id = 1;
+  string name = 2;
+  bool starred = 3;
+  repeated InputParameter inputs = 4;
+  repeated OutputParameter outputs = 5;
+}
+
+//
+// An input column (represents the same input parameter across all the variations )
+message InputColumn {
+  EntityIdentifier id = 1;
+  string name = 2;
+  string range = 3;
+  repeated InputParameter parameter_variations= 4;
+}
+
+//
+// An output column (represents the same output parameter across all the variations )
+message OutputColumn {
+  EntityIdentifier id = 1;
+  string name = 2;
+  string range = 3;
+  repeated OutputParameter parameter_variations= 4;
+}
+
+//
+// An history track parameter
+message HistoryTrackParameter {
+  EntityIdentifier id = 1;
+  string name=2;
+  DimensionType dimension_type=3;
+  double dimension_value=4;
+}
+
+//
+// An input parameter
+message InputParameter {
+  EntityIdentifier id = 1;
+  EntityIdentifier parent_id=2;
+  string name=3;
+  QuantityType quantity_type=4;
+  double quantity_value=5;
+  int32 unit=6;
+  string unit_abbreviation=7;
+  InputParameterType input_type=8;
+  EntityIdentifier parent_object_id = 9;
+  EntityIdentifier material_id = 10;
+  string material_label = 11;
+}
+
+enum InputParameterType{
+  PHYSICS=0;
+  DRIVING_DIMENSION=1;
+  HISTORY_TRACK=2;
+  UNKNOWN=3;
+}
+
+//
+// An output parameter
+message OutputParameter {
+  EntityIdentifier id = 1;
+  EntityIdentifier parent_id = 2;
+  string name = 3;
+  QuantityType quantity_type = 4;
+  double quantity_value = 5;
+  int32 unit = 6;
+  string unit_abbreviation = 7;
+}
+
+//
+// A script parameter
+message ScriptParameter {
+  EntityIdentifier id = 1;
+  string name = 2;
+  DimensionType dimension_type = 3;
+  double dimension_value = 4;
+}
+// 
+// SIMULATIONS PROTOS
+//
+message Simulation {
+  PhysicsEntityIdentifier object_id = 1;
+  string label = 2;
+}
+
+// General Requests
+
+message ChangeLocationRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  repeated EntityIdentifier location_ids = 2;
+}
+
+//enables the type of location to be changed as well as the scope.  Only supported for specific condition types
+message ChangeLocationExtendedRequest
+{
+  ChangeLocationRequest change_location_request = 1;
+  LocationType location_type = 2;
+}
+
+message ChangeQuantityRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  Quantity quantity = 2;
+}
+
+message ChangeBooleanRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  bool boolean_value = 2;
+}
+
+message ChangeDoubleRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  double value = 2;
+}
+
+message ChangeAssignmentRequest{
+  PhysicsEntityIdentifier parent_object_id = 1;
+  PhysicsEntityIdentifier referenced_object_id = 2;
+  optional PhysicsEntityIdentifier referenced_library_id = 3;
+}
+
+message ChangeEmptyRequest{
+  PhysicsEntityIdentifier object_id = 1;
+}
+
+message ChangeDirectionRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  Direction direction = 2;
+}
+
+message ChangeStringRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  string text_value = 2;
+}
+
+message ChangeCommandRequest{
+  PhysicsEntityIdentifier object_id = 1;
+}
+
+message GetByLabelRequest{
+  string label = 1;
+}
+
+message ChangeContactTypeRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  ContactType contact_type = 2;
+}
+
+//location data definitions
+
+message ScopedCreationData{
+  optional PhysicsEntityIdentifier object_id = 1;
+  PhysicsEntityIdentifier simulation_id = 2;
+  LocationIdentifier locations = 3;
+}
+
+message DoubleSidedScopedCreationData{
+  optional PhysicsEntityIdentifier object_id = 1;
+  PhysicsEntityIdentifier simulation_id = 2;
+  LocationIdentifier side1_locations = 3;
+  LocationIdentifier side2_locations = 4;
+}
+
+message LocationIdentifier{
+  repeated EntityIdentifier location_ids = 1;
+  optional LocationType location_type = 2;
+}
+
+// General Responses
+
+message ChangeResponse{
+  bool success = 1;
+  string message = 2;
+}
+
+message CreationResponse{
+  bool success = 1;
+  string message = 2;
+}
+
+message MessageResponse{
+  string message = 1;
+}
+
+// Quantity Data
+message Quantity {
+  QuantityType quantity_type = 1; //not required in cases where the usage context defines the quantity type
+  double quantity_value = 2;
+  int32 unit = 3;
+  string unit_abbreviation = 4; //not required in cases where the usage context defines the abbreviation
+  string as_string = 5; //Optional, but if not empty, all other properties will be defaulted from it.
+}
+
+message QuantityVector {
+  Quantity x = 1;
+  Quantity y = 2;
+  Quantity z = 3;
+}
+
+message OptionalVector {
+  bool is_defined = 1;
+  QuantityVector vector = 2;
+}
+
+message OptionalQuantity{
+  bool is_defined = 1;
+  Quantity quantity = 2;
+}
+
+message TensorOfOptionalQuantities{
+  OptionalQuantity dx = 1;
+  OptionalQuantity dy = 2;
+  OptionalQuantity dz = 3;
+  OptionalQuantity rx = 4;
+  OptionalQuantity ry = 5;
+  OptionalQuantity rz = 6;
+}
+
+message VectorOfOptionalQuantities{
+  OptionalQuantity x = 1;
+  OptionalQuantity y = 2;
+  OptionalQuantity z = 3;
+}
+
+message TableHeader{
+  string table_name = 1;  //e.g. displacement
+  repeated string column_headers = 2;  //e.g. xx, yy, zz, xy, yz, xz
+  int32 number_of_data_rows = 3;
+}
+
+message QuantityGenericTable{
+  TableHeader header = 1;
+  repeated QuantityGenericTableRow row_data = 2;  //matches number_of_data_rows
+}
+
+message QuantityGenericTableRow{
+  repeated Quantity row_cells = 1; //should match number of column_headers
+}
+
+message QuantityVectorTable{
+  TableHeader header = 1;
+  repeated QuantityVector row_data = 2; //hence columns: x, y, z and optionally computed magnitude
+}
+
+message QuantityPairTable{
+  TableHeader header = 1;
+  repeated QuantityPair row_data = 2; //2 quantities, e.g. for fan data, or temperature dependant material data
+}
+
+message QuantityPair{
+  Quantity independant_data = 1;
+  Quantity dependant_data = 2;
+}
+
+message ChangeQuantityPairRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  QuantityPair value = 2;
+}
+
+message EditTableQuantityPairRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  QuantityPair value = 2;
+  int32 row_index = 3;
+}
+
+message AddTableQuantityPairRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  QuantityPair value = 2;
+}
+
+message RemoveTableRowRequest{
+  PhysicsEntityIdentifier object_id = 1;
+  int32 row_index = 2;
+}
+
+// Represents the quantity type for a physics parameter.
+enum QuantityType {
+  QUANTITY_TYPE_ACCELERATION=0;
+  QUANTITY_TYPE_ANGLE=1;
+  QUANTITY_TYPE_AREA=2;
+  QUANTITY_TYPE_AREA_DENSITY=3;
+  QUANTITY_TYPE_AREA_MOMENT_OF_INERTIA=4;
+  QUANTITY_TYPE_CAPACITANCE=5;
+  QUANTITY_TYPE_COEFFICIENT_OF_THERMAL_EXPANSION=6;
+  QUANTITY_TYPE_DENSITY=7;
+  QUANTITY_TYPE_DYNAMIC_VISCOSITY=8;
+  QUANTITY_TYPE_ELECTRIC_ADMITTANCE=9;
+  QUANTITY_TYPE_ELECTRIC_CHARGE=10;
+  QUANTITY_TYPE_ELECTRIC_CHARGE_DENSITY=11;
+  QUANTITY_TYPE_ELECTRIC_CONDUCTANCE=12;
+  QUANTITY_TYPE_ELECTRIC_CONDUCTIVITY=13;
+  QUANTITY_TYPE_ELECTRIC_CURRENT=14;
+  QUANTITY_TYPE_ELECTRIC_CURRENT_DENSITY=15;
+  QUANTITY_TYPE_ELECTRIC_CURRENT_GRADIENT=16;
+  QUANTITY_TYPE_ELECTRIC_FIELD=17;
+  QUANTITY_TYPE_ELECTRIC_INDUCTANCE=18;
+  QUANTITY_TYPE_ELECTRIC_POTENTIAL=19;
+  QUANTITY_TYPE_ELECTRIC_POTENTIAL_AC=20;
+  QUANTITY_TYPE_ELECTRIC_POTENTIAL_CHANGE_RATE=21;
+  QUANTITY_TYPE_ELECTRIC_POTENTIAL_DC=22;
+  QUANTITY_TYPE_ELECTRIC_RESISTANCE=23;
+  QUANTITY_TYPE_ELECTRIC_RESISTIVITY=24;
+  QUANTITY_TYPE_ELECTRIC_SURFACE_CHARGE_DENSITY=25;
+  QUANTITY_TYPE_ENERGY=26;
+  QUANTITY_TYPE_ENTROPY=27;
+  QUANTITY_TYPE_FORCE=28;
+  QUANTITY_TYPE_FORCE_CHANGE_RATE=29;
+  QUANTITY_TYPE_FORCE_PER_LENGTH=30;
+  QUANTITY_TYPE_FREQUENCY=31;
+  QUANTITY_TYPE_HEAT_FLUX=32;
+  QUANTITY_TYPE_HEAT_TRANSFER_COEFFICIENT=33;
+  QUANTITY_TYPE_INVERSE_AREA=34;
+  QUANTITY_TYPE_INVERSE_LENGTH=35;
+  QUANTITY_TYPE_KINEMATIC_VISCOSITY=36;
+  QUANTITY_TYPE_LENGTH=37;
+  QUANTITY_TYPE_MAGNETIC_FIELD=38;
+  QUANTITY_TYPE_MASS=39;
+  QUANTITY_TYPE_MASS_CONCENTRATION=40;
+  QUANTITY_TYPE_MASS_FLOW=41;
+  QUANTITY_TYPE_MASS_FLUX=42;
+  QUANTITY_TYPE_MASS_FRACTION=43;
+  QUANTITY_TYPE_MASS_MOMENT_OF_INERTIA=44;
+  QUANTITY_TYPE_MOLARITY=45;
+  QUANTITY_TYPE_MOLAR_MASS=46;
+  QUANTITY_TYPE_PERMEABILITY=47;
+  QUANTITY_TYPE_PERMITTIVITY=48;
+  QUANTITY_TYPE_POWER=49;
+  QUANTITY_TYPE_POWER_DENSITY=50;
+  QUANTITY_TYPE_POWER_RATIO=51;
+  QUANTITY_TYPE_PRESSURE=52;
+  QUANTITY_TYPE_RATIO=53;
+  QUANTITY_TYPE_RATIO_CHANGE_RATE=54;
+  QUANTITY_TYPE_REACTIVE_ENERGY=55;
+  QUANTITY_TYPE_REACTIVE_POWER=56;
+  QUANTITY_TYPE_ROTATIONAL_ACCELERATION=57;
+  QUANTITY_TYPE_ROTATIONAL_SPEED=58;
+  QUANTITY_TYPE_ROTATIONAL_STIFFNESS=59;
+  QUANTITY_TYPE_ROTATIONAL_STIFFNESS_PER_LENGTH=60;
+  QUANTITY_TYPE_SOLID_ANGLE=61;
+  QUANTITY_TYPE_SPECIFIC_ENERGY=62;
+  QUANTITY_TYPE_SPECIFIC_ENTROPY=63;
+  QUANTITY_TYPE_SPECIFIC_VOLUME=64;
+  QUANTITY_TYPE_SPECIFIC_WEIGHT=65;
+  QUANTITY_TYPE_SPEED=66;
+  QUANTITY_TYPE_TEMPERATURE=67;
+  QUANTITY_TYPE_TEMPERATURE_CHANGE_RATE=68;
+  QUANTITY_TYPE_TEMPERATURE_DELTA=69;
+  QUANTITY_TYPE_THERMAL_CONDUCTIVITY=70;
+  QUANTITY_TYPE_THERMAL_RESISTANCE=71;
+  QUANTITY_TYPE_TIME=72;
+  QUANTITY_TYPE_TORQUE=73;
+  QUANTITY_TYPE_TORQUE_PER_LENGTH=74;
+  QUANTITY_TYPE_VOLUME=75;
+  QUANTITY_TYPE_VOLUME_CONCENTRATION=76;
+  QUANTITY_TYPE_VOLUME_FLOW=77;
+  QUANTITY_TYPE_VOLUME_PER_LENGTH=78;
+  QUANTITY_TYPE_WARPING_MOMENT_OF_INERTIA=79;
+  QUANTITY_TYPE_NONE=80;
+  QUANTITY_TYPE_UNKNOWN = 81;
+}
+
+enum BodyType{
+  BODYTYPE_NONE = 0;
+  BODYTYPE_MASTER = 1;
+  BODYTYPE_ORIGINAL = 2;
+  BODYTYPE_PARENT=3;
+}
+
+
+enum LogsTarget{
+  LOGSTARGET_CLIENT = 0;
+  LOGSTARGET_PATH = 1;
+}
+
+enum LogsPeriodType{
+  LOGSPERIODTIME_CURRENT = 0;
+  LOGSPERIODTIME_PAST = 1;
+  LOGSPERIODTIME_ALL = 2;
+}
+
+enum BackendType{
+  BACKENDTYPE_DISCOVERY = 0;
+  BACKENDTYPE_SPACECLAIM = 1;
+  BACKENDTYPE_WINDOWS_DMS = 2;
+  BACKENDTYPE_LINUX_DMS = 3;
+  BACKENDTYPE_CORE_SERVICE_WINDOWS = 4;
+  BACKENDTYPE_CORE_SERVICE_LINUX = 5;
+  BACKENDTYPE_DISCOVERY_HEADLESS = 6;
+}
+
+enum ContactType {
+  BONDED_CONTACT = 0;
+  SLIDING_CONTACT = 1;
+  PREVENTED_CONTACT = 2;
+}
+
+message ContactPairs {
+  repeated ContactPair contact_pair = 1;
+}
+
+message ContactPair {
+  repeated EntityIdentifier item1 = 1;
+  repeated EntityIdentifier item2 = 2;
+}
+
+message ContactProperties {
+  ContactType contact_type = 1;
+  ContactPairs contact_pairs = 2;
+
+  double friction_coefficient = 3;
+  double stiffness_factor = 4;
+  double detection_radius_factor = 5;
+  Quantity offset = 6;
+  Quantity shear_strenght = 7;
+  Quantity tensile_strength = 8;
+  bool are_strength_limits_set = 9;
+  bool adjust_gap_or_overlap = 10;
+  bool make_just_touching = 11;
+  bool idealize = 12;
+  bool specify_thermal_conductance = 13;
+  bool specify_electric_conductance = 14;
+  Quantity thermal_contact_conductance = 15;
+  Quantity thermal_contact_conductivity = 16;
+  Quantity thermal_conductance_thickness = 17;
+  Quantity electrical_contact_conductance = 18;
+  Quantity electrical_contact_conductivity = 19;
+  Quantity electrical_conductance_thickness = 20;
+  ConductanceOptionType thermal_conductance_option = 21;
+  ConductanceOptionType electric_conductance_option = 22;
+}
+
+enum ConductanceOptionType {
+  CONDUCTANCEOPTIONTYPE_PERFECT_CONDUCTOR = 0;
+  CONDUCTANCEOPTIONTYPE_PERFECT_INSULATOR = 1;
+  CONDUCTANCEOPTIONTYPE_VALUE = 2;
+  CONDUCTANCEOPTIONTYPE_THICKNESS_AND_MATERIAL = 3;
+  CONDUCTANCEOPTIONTYPE_THICKNESS_AND_CONDUCTIVITY = 4;
+}
+
+message MatingCondition {
+  EntityIdentifier id = 1;
+  bool is_deleted = 2;
+  bool is_enabled = 3;
+  bool is_satisfied = 4;
+}
+
+message AlignCondition {
+  MatingCondition condition = 1;
+  double offset = 2;
+  bool is_reversed = 3;
+  bool is_valid = 4;
+}
+
+message TangentCondition {
+  MatingCondition condition = 1;
+  double offset = 2;
+  bool is_reversed = 3;
+  bool is_valid = 4;
+}
+
+message OrientCondition {
+  MatingCondition condition = 1;
+  double offset = 2;
+  bool is_reversed = 3;
+  bool is_valid = 4;
+}
+
+message RigidCondition {
+  MatingCondition condition = 1;
+  Component component_a = 2;
+  Component component_b = 3;
+}
+
+message AnchorCondition {
+  MatingCondition condition = 1;
+  Component component = 2;
+}
+
+message GearCondition {
+  MatingCondition condition = 1;
+  bool is_belt = 2;
+  bool is_reversed = 3;
+  bool is_valid = 4;
+}
+
+// moved from individual protos
+
+message GetFacesResponseData{
+  EntityIdentifier associated_id = 1;
+  repeated Face faces = 2;
+}
+
+message GetFacesResponse {
+  repeated GetFacesResponseData response_data = 1;
+}
