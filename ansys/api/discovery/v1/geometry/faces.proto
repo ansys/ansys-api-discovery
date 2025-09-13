@@ -1,0 +1,521 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.geometry.faces;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Geometry.Faces";
+
+service Faces
+{
+  rpc AssignMidSurfaceOffsetType(AssignMidSurfaceOffsetTypeRequest) returns (AssignMidSurfaceOffsetTypeResponse);
+
+  rpc AssignMidSurfaceThickness(AssignMidSurfaceThicknessRequest) returns (AssignMidSurfaceThicknessResponse);
+
+  rpc CreateIsoParamCurves(CreateIsoParamCurvesRequest) returns (CreateIsoParamCurvesResponse);
+
+  rpc DetachFaces(DetachFacesRequest) returns (DetachFacesResponse);
+
+  rpc DraftFaces(DraftFacesRequest) returns (DraftFacesResponse);
+  
+  rpc Evaluate(EvaluateRequest) returns(EvaluateResponse);  
+  
+  rpc ExtrudeFaces(ExtrudeFacesRequest) returns (ExtrudeFacesResponse);
+
+  rpc ExtrudeFacesUpTo(ExtrudeFacesUpToRequest) returns (ExtrudeFacesUpToResponse);
+    
+  rpc FaceOffset(FaceOffsetRequest) returns (FaceOffsetResponse);
+
+  rpc FillFaces(FillFacesRequest) returns (FillFacesResponse);
+  
+  rpc Get(EntityRequest) returns(GetResponse);
+  
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+  
+  rpc GetArea(MultipleEntitiesRequest) returns(GetAreaResponse);
+  
+  rpc GetBoundingBox(MultipleEntitiesRequest) returns (GetBoundingBoxResponse);
+  
+  rpc GetBoxUV(MultipleEntitiesRequest) returns (GetBoxUVResponse);
+  
+  rpc GetClosestSeparation(GetClosestSeparationRequest) returns (GetClosestSeparationResponse);
+  
+  rpc GetColor(MultipleEntitiesRequest) returns (GetColorResponse);
+  
+  rpc GetEdges(MultipleEntitiesRequest) returns(GetEdgesResponse);
+  
+  rpc GetExternalEdges(MultipleEntitiesRequest) returns(GetExternalEdgesResponse);
+  
+  rpc GetInternalEdges(MultipleEntitiesRequest) returns(GetInternalEdgesResponse);
+
+  rpc GetIsDeleted(MultipleEntitiesRequest) returns(GetIsDeletedResponse);
+  
+  rpc GetLoops(MultipleEntitiesRequest) returns (GetLoopsResponse);
+  
+  rpc GetNormal(GetNormalRequest) returns(GetNormalResponse);
+    
+  rpc GetRoundInfo(MultipleEntitiesRequest) returns (GetRoundInfoResponse);
+
+  rpc GetSurface(MultipleEntitiesRequest) returns (GetSurfaceResponse);
+  
+  rpc GetUpdateState(MultipleEntitiesRequest) returns (GetUpdateStateResponse);
+  
+  rpc GetVertices(MultipleEntitiesRequest) returns (GetVerticesResponse);
+  
+  rpc OffsetFacesSetRadius(OffsetFacesSetRadiusRequest) returns (OffsetFacesSetRadiusResponse);
+  
+  rpc RemoveFaces(RemoveFacesRequest) returns (RemoveFacesResponse);  
+    
+  rpc ReplaceFace(ReplaceFaceRequest) returns (ReplaceFaceResponse);  
+
+  rpc RevolveFaces(RevolveFacesRequest) returns (RevolveFacesResponse);
+
+  rpc RevolveFacesByHelix(RevolveFacesByHelixRequest) returns (RevolveFacesByHelixResponse);
+  
+  rpc RevolveFacesUpTo(RevolveFacesUpToRequest) returns (RevolveFacesUpToResponse);
+  
+  rpc SetColor(SetColorRequest) returns (SetColorResponse);
+      
+  rpc SplitFace(SplitFaceRequest) returns(SplitFaceResponse);
+
+  rpc SweepFaces(SweepFacesRequest) returns (SweepFacesResponse);
+
+  rpc ThickenFaces(ThickenFacesRequest) returns (ThickenFacesResponse);
+}
+
+message GetResponse{
+  Face face = 1;
+}
+
+message GetAllResponse{
+  repeated Face faces = 1;
+}
+
+message GetAreaResponseData {
+  EntityIdentifier id = 1;
+  double area = 2;
+}
+
+message GetAreaResponse {
+  repeated GetAreaResponseData response_data = 1;
+}
+
+message GetBoxUVResponseData {
+  EntityIdentifier id = 1;
+  double start_u = 2;
+  double end_u = 3;
+  double start_v = 4;
+  double end_v = 5;
+}
+
+message GetBoxUVResponse {
+  repeated GetBoxUVResponseData response_data = 1;
+}
+
+message GetEdgesResponseData{
+  EntityIdentifier id = 1;
+  repeated Edge edges = 2;
+}
+
+message GetEdgesResponse{
+  repeated GetEdgesResponseData response_data = 1;
+}
+
+message GetSurfaceResponseData{
+  EntityIdentifier id = 1;
+  Surface surface = 2;
+}
+
+message GetSurfaceResponse{
+  repeated GetSurfaceResponseData response_data = 1;
+}
+
+message CreateIsoParamCurvesRequestData {
+  EntityIdentifier id = 1;
+  bool u_dir_curve = 2;
+  double proportion = 3;
+}
+
+message CreateIsoParamCurvesRequest {
+  repeated CreateIsoParamCurvesRequestData request_data = 1;
+}
+
+message CreateIsoParamCurvesResponseData {
+  EntityIdentifier id = 1;
+  repeated TrimmedCurve curves = 2;
+}
+
+message CreateIsoParamCurvesResponse {
+  repeated CreateIsoParamCurvesResponseData response_data = 1;
+}
+
+message GetNormalRequestData {
+  EntityIdentifier id=1;
+  double u=2;
+  double v=3;
+}
+
+message GetNormalRequest {
+  repeated GetNormalRequestData request_data=1;
+}
+
+message GetNormalResponseData {
+  EntityIdentifier id = 1;
+  Direction direction = 2;
+}
+
+message GetNormalResponse {
+  repeated GetNormalResponseData response_data = 1;
+}
+
+message EvaluateRequestData {
+  EntityIdentifier id=1;
+  double u=2;
+  double v=3;
+}
+
+message EvaluateRequest {
+  repeated EvaluateRequestData request_data = 1;
+}
+
+message EvaluateResponseData {
+  EntityIdentifier id = 1;
+  Point point = 2;
+}
+
+message EvaluateResponse {
+  repeated EvaluateResponseData response_data = 1;
+}
+
+message GetExternalEdgesResponseData{
+  EntityIdentifier id = 1;
+  repeated Edge edges = 2;
+}
+
+message GetExternalEdgesResponse{
+  repeated GetExternalEdgesResponseData response_data = 1;
+}
+
+message GetInternalEdgesResponseData{
+  EntityIdentifier id = 1;
+  repeated Edge edges = 2;
+}
+
+message GetInternalEdgesResponse{
+  repeated GetInternalEdgesResponseData response_data = 1;
+}
+
+message GetLoopsResponseData {
+  EntityIdentifier id = 1;
+  repeated Loop loops = 2;
+}
+
+message GetLoopsResponse {
+  repeated GetLoopsResponseData response_data = 1;
+}
+
+message GetClosestSeparationRequestData {
+  EntityIdentifier face_1 = 2;
+  EntityIdentifier face_2 = 3;
+}
+
+message GetClosestSeparationRequest {
+  repeated GetClosestSeparationRequestData request_data = 1;
+}
+
+message GetClosestSeparationResponseData{
+  EntityIdentifier face_1 = 1;
+  EntityIdentifier face_2 = 2;
+  Separation separation = 3;
+}
+
+message GetClosestSeparationResponse{
+  repeated GetClosestSeparationResponseData response_data = 1;
+}
+
+message FillFacesRequest {
+  repeated EntityIdentifier ids=1;
+}
+
+message FillFacesResponse{
+  repeated EntityIdentifier successfully_set=1;
+}
+
+message AssignMidSurfaceThicknessRequestData {
+  repeated EntityIdentifier ids=1;
+  double thickness=2;
+}
+
+message AssignMidSurfaceThicknessRequest {
+  repeated AssignMidSurfaceThicknessRequestData request_data=1;
+}
+
+message AssignMidSurfaceThicknessResponse {
+  repeated EntityIdentifier successfully_set=1;
+}
+
+message AssignMidSurfaceOffsetTypeRequestData {
+  repeated EntityIdentifier faces=1;
+  MidSurfaceOffsetType offset_type=2;
+}
+
+message AssignMidSurfaceOffsetTypeRequest {
+  repeated AssignMidSurfaceOffsetTypeRequestData request_data=1;
+}
+
+message AssignMidSurfaceOffsetTypeResponse {
+  repeated EntityIdentifier successfully_set=1;
+}
+
+message OffsetFacesSetRadiusRequestData {
+  EntityIdentifier id = 1;
+  double radius = 2;
+  bool copy = 3;
+  OffsetMode offset_mode = 4;
+  ExtrudeType extrude_type = 5;
+  repeated EntityIdentifier faces_ids = 6;
+}
+
+message OffsetFacesSetRadiusRequest {
+  repeated OffsetFacesSetRadiusRequestData request_data = 1;
+}
+
+message OffsetFacesSetRadiusResponse {
+  TrackerCommandResponse response_data = 1;
+}
+
+message FaceOffsetRequestData {
+  EntityIdentifier id1 = 1;
+  EntityIdentifier id2 = 2;
+  bool set_baselines = 3;
+  bool process_adjacent_faces = 4;
+}
+
+message FaceOffsetRequest {
+  repeated FaceOffsetRequestData request_data = 1;
+}
+
+message FaceOffsetResponse {
+  TrackerCommandResponse response_data = 1;
+}
+
+message ThickenFacesRequestData {
+  repeated EntityIdentifier ids = 1;
+  Direction direction = 2;
+  double value = 3;
+  ExtrudeType extrude_type = 4;
+  bool pull_symmetric = 5;
+  bool select_direction = 6;
+}
+
+message ThickenFacesRequest {
+  repeated ThickenFacesRequestData request_data = 1;
+}
+
+message ThickenFacesResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message DraftFacesRequestData {
+  repeated EntityIdentifier ids = 1;
+  repeated EntityIdentifier reference_ids = 2;
+  DraftSide draft_side = 3;
+  double draft_angle = 4;
+  ExtrudeType extrude_type = 5;
+}
+
+message DraftFacesRequest {
+  repeated DraftFacesRequestData request_data = 1;
+}
+
+message DraftFacesResponse {
+  repeated Face created_faces = 1;
+}
+
+message ExtrudeFacesRequestData {
+  repeated EntityIdentifier ids = 1;
+  double distance = 2;
+  Direction direction = 3;
+  ExtrudeType extrude_type = 4;
+  bool pull_symmetric = 5;
+  OffsetMode offset_mode = 6;
+  bool copy = 7;
+  bool force_do_as_extrude = 8;
+}
+
+message ExtrudeFacesRequest {
+  repeated ExtrudeFacesRequestData request_data = 1;
+}
+
+message ExtrudeFacesUpToRequestData {
+  repeated EntityIdentifier ids = 1;
+  EntityIdentifier up_to_selection = 2;
+  Direction direction = 3;
+  ExtrudeType extrude_type = 4;
+  bool pull_symmetric = 5;
+  OffsetMode offset_mode = 6;
+  bool copy = 7;
+  bool force_do_as_extrude = 8;
+  Point seed_point = 9;
+}
+
+message ExtrudeFacesUpToRequest {
+  repeated ExtrudeFacesUpToRequestData request_data = 1;
+}
+
+message GetRoundInfoResponseData {
+  EntityIdentifier id = 1;
+  bool along_u = 2;
+  double radius = 3;
+}
+
+message GetRoundInfoResponse {
+  repeated GetRoundInfoResponseData response_data= 1;
+}
+
+message RevolveFacesRequestData {
+  repeated EntityIdentifier selection = 1;
+  Line axis = 2;
+  double angle = 3;
+  repeated EntityIdentifier alternate_axis = 4;
+  Direction alternate_direction = 5;
+  ExtrudeType extrude_type = 6;
+}
+
+message RevolveFacesRequest {
+  repeated RevolveFacesRequestData request_data = 1;
+}
+
+message RevolveFacesUpToRequestData {
+  repeated EntityIdentifier selection = 1;
+  EntityIdentifier up_to_selection = 2;
+  Direction direction = 3;
+  Line axis = 4;
+  ExtrudeType extrude_type = 5;
+}
+
+message RevolveFacesUpToRequest {
+  repeated RevolveFacesUpToRequestData request_data = 1;
+}
+
+message RevolveFacesByHelixRequestData {
+  repeated EntityIdentifier selection = 1;
+  Direction direction = 2;
+  Line axis = 3;
+  double height = 4;
+  double pitch = 5;
+  double taper_angle = 6;
+  bool right_handed = 7;
+  bool both_sides = 8;
+  ExtrudeType extrude_type = 9;
+}
+
+message RevolveFacesByHelixRequest {
+  repeated RevolveFacesByHelixRequestData request_data = 1;
+}
+
+message SweepFacesRequestData {
+  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier trajectories = 2;
+  double optional_distance = 3;
+}
+
+message SweepFacesRequest {
+  repeated SweepFacesRequestData request_data = 1;
+}
+
+message DetachFacesRequest {
+  repeated EntityIdentifier selection = 1;
+}
+
+message ReplaceFaceRequest {
+  repeated EntityIdentifier target_selection = 1;
+  repeated EntityIdentifier replacement_selection = 2;
+}
+
+message RemoveFacesRequestData {
+  repeated EntityIdentifier selection = 1;
+  double offset = 2;
+}
+
+message RemoveFacesRequest {
+  repeated RemoveFacesRequestData request_data = 1;
+  double offset = 2;
+}
+
+enum SplitFaceType{
+  SPLITFACE_BY_PARAMETER=0;
+  SPLITFACE_BY_TWO_POINTS=1;
+  SPLITFACE_BY_CURVES=2;
+  SPLITFACE_BY_CUTTER=3;
+}
+
+enum SplitFaceParameterType{
+  SPLITFACEPARAMETER_UV=0;
+  SPLITFACEPARAMETER_PERPENDICULAR=1;
+}
+
+message SplitFaceRequestData{
+  EntityIdentifier selection=1;
+  Point split_parameter=2;
+  Point split_start=3;
+  Point split_end=4;
+  EntityIdentifier face_cutter=5;
+  repeated TrimmedCurve split_curves=6;
+  SplitFaceType split_type=7;
+  SplitFaceParameterType parameter_type=8;
+}
+
+message SplitFaceRequest{
+  repeated SplitFaceRequestData request_data =1;
+}
+
+message DetachFacesResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message ReplaceFaceResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message RemoveFacesResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message RevolveFacesResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message RevolveFacesUpToResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message RevolveFacesByHelixResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message SplitFaceResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message SweepFacesResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message ExtrudeFacesResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message ExtrudeFacesUpToResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message GetVerticesResponseData {
+  EntityIdentifier id = 1;
+  repeated Vertex vertices = 2;
+}
+
+message GetVerticesResponse{
+  repeated GetVerticesResponse response_data = 1;
+}

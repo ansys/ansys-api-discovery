@@ -1,20 +1,18 @@
 // Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v0.connections.contactgroup;
+package ansys.api.discovery.v1.physics.connections.contactgroup;
 
-import "ansys/api/dbu/v0/dbumodels.proto";
-import "ansys/api/discovery/v0/conditions/condition.proto";
-import "ansys/api/discovery/v0/connections/contact.proto";
-import "ansys/api/discovery/v0/discoverymodels.proto";
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
 
-option csharp_namespace = "Ansys.Api.Discovery.V0.Connections";
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Connections.ContactGroup";
 
 service ContactGroup
 {
   rpc ChangeContactGroupSide1Location(ChangeLocationRequest) returns(ChangeResponse);
   rpc ChangeContactGroupSide2Location(ChangeLocationRequest) returns(ChangeResponse);
 
-  rpc ChangeContactGroupContactType(ansys.api.discovery.v0.connections.contact.ChangeContactTypeRequest) returns (ChangeResponse);
+  rpc ChangeContactGroupContactType(ChangeContactTypeRequest) returns (ChangeResponse);
   rpc SplitContactGroup(ChangeEmptyRequest) returns (ChangeResponse);
   rpc ConvertContactGroup(ConvertContactGroupChangeRequest) returns (ChangeResponse);
 
@@ -41,13 +39,13 @@ service ContactGroup
   rpc ChangeContactGroupThermalContactConductance(ChangeQuantityRequest) returns (ChangeResponse);
   rpc ChangeContactGroupElectricContactConductance(ChangeQuantityRequest) returns (ChangeResponse);
 
-  rpc GetByLabel(ansys.api.discovery.v0.conditions.GetByLabelRequest) returns (ContactGroupDefinition);
+  rpc GetByLabel(GetByLabelRequest) returns (ContactGroupDefinition);
 }
 
 message ConvertContactGroupChangeRequest{
-  ansys.api.dbu.v0.PhysicsEntityIdentifier object_id = 1;
+  PhysicsEntityIdentifier object_id = 1;
   ContactGoupConversionType contact_group_type = 2;
-  ansys.api.discovery.v0.ContactPairs contact_pairs = 3;
+  ContactPairs contact_pairs = 3;
   optional bool idealize = 4;
   optional double friction_coefficient = 5;
 }
@@ -61,8 +59,8 @@ enum ContactGoupConversionType {
 }
 
 message ContactGroupDefinition {
-  ansys.api.dbu.v0.PhysicsEntityIdentifier id = 1;
-  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 2;
+  PhysicsEntityIdentifier id = 1;
+  PhysicsEntityIdentifier parent_id = 2;
   string label = 3;
   repeated string side1_locations = 4;
   repeated string side2_locations = 5;

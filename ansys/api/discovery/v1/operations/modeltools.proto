@@ -1,0 +1,235 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.operations.modeltools;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Operations.ModelTools";
+
+service ModelTools
+{
+  rpc Chamfer(ChamferRequest) returns (ChamferResponse);
+  
+  rpc CreateSketchLine(CreateSketchLineRequest) returns (CreateSketchLineResponse);
+  
+  rpc CreateSphere(CreateSphereRequest) returns (CreateSphereResponse);
+
+  rpc CreateTorus(CreateTorusRequest) returns (CreateTorusResponse);
+  
+  rpc Fillet(FilletRequest) returns (FilletResponse);
+
+  rpc FullFillet(FullFilletRequest) returns (FullFilletResposne);
+  
+  rpc GetAllCADWelds(GetAllCADWeldsRequest) returns (GetAllCADWeldsResponse);
+  
+  rpc GetAllSpotWelds(GetAllSpotWeldsRequest) returns (GetAllSpotWeldsResponse);
+
+  rpc Mirror(MirrorRequest) returns (MirrorResponse);
+  
+  rpc MoveRotate(MoveRotateRequest) returns (MoveRotateResponse);
+  
+  rpc MoveTranslate(MoveTranslateRequest) returns (MoveTranslateResponse);
+
+  rpc ProjectPoint(ProjectPointRequest) returns (ProjectPointResponse);
+
+  rpc ProjectToSolid(ProjectToSolidRequest) returns (ProjectToSolidResponse);
+  
+  rpc Scale(ScaleRequest) returns (ScaleResponse);
+
+  rpc ScaleNonUniform(ScaleNonUniformRequest) returns (ScaleNonUniformResponse);
+}
+
+message MoveTranslateRequestData{
+  repeated EntityIdentifier selection = 1;
+  Direction direction = 2;
+  double distance = 3;
+  EntityIdentifier named_selection = 4;
+}
+
+message MoveTranslateRequest{
+  repeated MoveTranslateRequestData request_data = 1;
+}
+
+message MoveTranslateResponse {
+  TrackerCommandResponse response_data = 1;
+}
+
+message MoveRotateRequestData{
+  repeated EntityIdentifier selection = 1;
+  Line axis = 2;
+  double angle = 3;
+}
+
+message MoveRotateRequest{
+  repeated MoveRotateRequestData request_data = 1;
+}
+
+message ProjectPointRequestData {
+  NurbsCurve curve = 1; 
+  Point point = 2;
+}
+
+message ProjectPointRequest {
+  repeated ProjectPointRequestData request_data = 1;
+}
+
+message ProjectToSolidRequestData {
+  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier target_faces = 2;
+  EntityIdentifier direction_selection = 3;
+}
+
+message ProjectToSolidRequest {
+  repeated ProjectToSolidRequestData request_data = 1;
+}
+
+message ScaleRequestData {
+  repeated EntityIdentifier objects = 1;
+  Point point = 2;
+  Direction optional_direction = 3;
+  double scale = 4;
+  bool keep_holes = 5;
+}
+
+message ScaleRequest {
+  repeated ScaleRequestData request_data = 1;
+}
+
+message ScaleResponse
+{
+  repeated EntityIdentifier successfully_set = 1;
+}
+
+message ScaleNonUniformRequestData {
+  repeated EntityIdentifier objects = 1;
+  Frame frame= 2;
+  Direction scale_vector = 3;
+  bool keep_holes = 4;
+}
+
+message ScaleNonUniformRequest {
+  repeated ScaleNonUniformRequestData request_data = 1;
+}
+
+message ChamferRequestData {
+  repeated EntityIdentifier ids = 1;
+  double distance = 2;
+}
+
+message ChamferRequest {
+  repeated ChamferRequestData request_data = 1;
+}
+
+message ChamferResponseData {
+  bool success = 1;
+  repeated Face created_faces = 2;
+  repeated Edge created_edges = 3;
+  repeated Body created_surfaces = 4;
+  EntityIdentifier ids = 5;
+}
+
+message ChamferResponse {
+  repeated ChamferResponseData response_data = 1;
+}
+
+message CreateSketchLineRequestData{
+  Point point1 = 1;
+  Point point2 = 2;
+}
+
+message CreateSketchLineRequest{
+  repeated CreateSketchLineRequestData request_data = 1;
+}
+
+message CreateSketchLineResponse{
+  int32 successfully_set = 1;
+}
+
+message FullFilletRequest {
+  repeated EntityIdentifier faces = 1;
+}
+
+message FullFilletResposne{
+  TrackerCommandResponse response_data = 1;
+}
+
+message FilletRequestData {
+  repeated EntityIdentifier ids = 1;
+  double radius = 2;
+}
+
+message FilletRequest {
+  repeated FilletRequestData request_data = 1;
+}
+
+message FilletResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message GetAllSpotWeldsRequest{
+}
+
+message GetAllSpotWeldsResponse {
+  repeated SpotWeld welds = 1;
+}
+
+message GetAllCADWeldsRequest{
+}
+
+message GetAllCADWeldsResponse {
+  repeated Weld welds = 1;
+}
+
+message CreateSphereRequestData {
+  string name=1;
+  EntityIdentifier parent=2;
+  Point point=3;
+  double radius=4;
+}
+
+
+message CreateSphereRequest {
+  repeated CreateSphereRequestData request_data=1;
+}
+
+message CreateSphereResponse {
+  repeated EntityIdentifier response_data = 1;
+}
+
+message CreateTorusRequestData {
+  string name=1;
+  EntityIdentifier parent=2;
+  double major_radius=3;
+  double minor_radius=4;
+  Frame frame=5;
+}
+
+message CreateTorusRequest {
+  repeated CreateTorusRequestData request_data = 1;
+}
+
+message CreateTorusResponse {
+  repeated EntityIdentifier response_data=1;
+}
+
+message MoveRotateResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message ProjectPointResponseData{
+  Point point = 1;
+  CurveEvaluation evaluation = 2;
+}
+
+message ProjectPointResponse{
+  repeated ProjectPointResponseData response_data = 1;
+}
+
+message ProjectToSolidResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message ScaleNonUniformResponse{
+  TrackerCommandResponse response_data = 1;
+}

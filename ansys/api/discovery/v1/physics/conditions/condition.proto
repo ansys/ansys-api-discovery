@@ -1,0 +1,32 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions";
+
+service Condition
+{
+  //General condition methods
+  rpc DeleteCondition(DeleteConditionRequest) returns (ChangeResponse);
+
+  rpc ChangeConditionSuppressionState(ChangeConditionSuppressionStateRequest) returns (ChangeResponse);
+
+  rpc ChangeConditionName(ChangeConditionNameRequest) returns (ChangeResponse);
+}
+
+//General Requests
+message DeleteConditionRequest{
+  ansys.api.discovery.v1.PhysicsEntityIdentifier object_id = 1;
+}
+
+message ChangeConditionSuppressionStateRequest{
+  ansys.api.discovery.v1.PhysicsEntityIdentifier object_id = 1;
+  bool is_suppressed = 2;
+}
+
+message ChangeConditionNameRequest{
+  ansys.api.discovery.v1.PhysicsEntityIdentifier object_id = 1;
+  string new_name = 2;
+}

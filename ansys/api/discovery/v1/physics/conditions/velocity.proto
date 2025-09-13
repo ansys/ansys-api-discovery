@@ -1,0 +1,57 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.velocity;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Velocity";
+
+service Velocity
+{
+  //Velocity condition methods
+  rpc CreateVelocity(VelocityCreationRequest) returns (VelocityCreationResponse);
+
+  rpc ChangeVelocityLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeVelocityOrientation(ChangeDirectionRequest) returns(ChangeResponse);
+
+  rpc ChangeVelocityRX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRZ(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRotationalMagnitude(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeVelocityIsFixedRX(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeVelocityIsFixedRY(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeVelocityIsFixedRZ(ChangeBooleanRequest) returns (ChangeResponse);
+
+  rpc ChangeVelocityUseRemotePointEnabled(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRemotePositionX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRemotePositionY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeVelocityRemotePositionZ(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+//Velocity
+message VelocityCreationRequest{
+  ScopedCreationData creation_data = 1;
+  VelocityProperties velocity_properties = 2;
+}
+
+message VelocityCreationResponse{
+  CreationResponse condition_response = 1;
+  VelocityDefinition condition_data = 2;
+}
+
+// Velocity condition definitions
+message VelocityProperties {
+  VectorOfOptionalQuantities velocity = 1;
+  OptionalVector remote_point = 2;
+}
+
+message VelocityDefinition {
+  ansys.api.discovery.v1.PhysicsEntityIdentifier id = 1;
+  ansys.api.discovery.v1.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  VelocityProperties velocity = 6;
+}

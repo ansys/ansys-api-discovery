@@ -1,0 +1,43 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.automation.scriptparameters;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Automation.ScriptParameters";
+
+// script parameters servicer.
+//
+service ScriptParameters{
+  rpc Get(EntityRequest) returns(GetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse) ;
+
+  rpc Replay(ReplayRequest) returns(ReplayResponse) ;
+
+  rpc Update(UpdateRequest) returns(UpdateResponse) ;
+}
+
+message GetResponse{
+  ScriptParameter script_parameter = 1;
+}
+
+message GetAllResponse{
+  repeated ScriptParameter script_parameters = 1;
+}
+
+message UpdateRequest{
+  repeated ScriptParameter request_data = 1;
+}
+
+message UpdateResponse{
+  repeated ScriptParameter response_data = 1;
+}
+
+message ReplayRequest{
+}
+
+message ReplayResponse{
+  string result = 1;
+}

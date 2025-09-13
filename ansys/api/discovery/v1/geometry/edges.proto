@@ -1,0 +1,192 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.geometry.edges;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Geometry.Edges";
+
+service Edges {  
+  rpc Delete(MultipleEntitiesRequest) returns(DeleteResponse);  
+
+  rpc ExtrudeEdges(ExtrudeEdgesRequest) returns (ExtrudeEdgesResponse);
+
+  rpc ExtrudeEdgesUpTo(ExtrudeEdgesUpToRequest) returns (ExtrudeEdgesUpToResponse);
+
+  rpc Get(EntityRequest) returns(GetResponse);  
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);  
+
+  rpc GetBoundingBox(MultipleEntitiesRequest) returns(GetBoundingBoxResponse);  
+
+  rpc GetCurve(MultipleEntitiesRequest) returns(GetCurveResponse);  
+
+  rpc GetFaces(MultipleEntitiesRequest) returns(GetFacesResponse);  
+
+  rpc GetInterval(MultipleEntitiesRequest) returns(GetIntervalResponse);  
+
+  rpc GetIsDeleted(MultipleEntitiesRequest) returns(GetIsDeletedResponse);  
+
+  rpc GetLength(MultipleEntitiesRequest) returns(GetLengthResponse);  
+
+  rpc GetStartAndEndPoints(MultipleEntitiesRequest) returns(GetStartAndEndPointsResponse);  
+
+  rpc GetUpdateState(MultipleEntitiesRequest) returns(GetUpdateStateResponse);
+
+  rpc GetVertices(MultipleEntitiesRequest) returns(GetVerticesResponse);
+
+  rpc MoveImprintEdges(MoveImprintEdgesRequest) returns (MoveImprintEdgesResponse);
+  
+  rpc OffsetEdges(OffsetEdgesRequest) returns (OffsetEdgesResponse);
+
+  rpc SplitEdge(SplitEdgeRequest) returns (SplitEdgeResponse);
+}
+
+message GetResponse{
+  Edge edge = 1;
+}
+
+message GetCurveResponseData{
+  EntityIdentifier id = 1;
+  CurveGeometry curve = 2;
+}
+
+message GetCurveResponse{
+  repeated GetCurveResponseData response_data = 1;
+}
+
+message GetIntervalResponseData {
+  EntityIdentifier id = 1;
+  double start = 2;
+  double end = 3;
+}
+
+message GetIntervalResponse {
+  repeated GetIntervalResponseData response_data = 1;
+}
+
+message GetLengthResponseData{
+  EntityIdentifier id = 1;
+  double length = 2;
+}
+
+message GetLengthResponse{
+  repeated GetLengthResponseData response_data = 1;
+}
+
+message GetStartAndEndPointsResponseData {
+  EntityIdentifier id = 1;
+  Point start = 2;
+  Point end = 3;
+}
+
+message GetStartAndEndPointsResponse {
+  repeated GetStartAndEndPointsResponseData response_data = 1;
+}
+
+message GetAllResponse{
+  repeated Edge edges = 1;
+}
+
+message ExtrudeEdgesRequestData {
+  repeated EntityIdentifier edges = 1;
+  EntityIdentifier face = 2;
+  Point point = 3;
+  Direction direction = 4;
+  double distance= 5;
+  ExtrudeType extrude_type = 6;
+  bool pull_symmetric = 7;
+  bool copy = 8;
+  bool natural_extension = 9;
+}
+
+
+message ExtrudeEdgesRequest {
+  repeated ExtrudeEdgesRequestData request_data = 1;
+}
+
+message ExtrudeEdgesUpToRequestData {
+  repeated EntityIdentifier edges = 1;
+  EntityIdentifier up_to_selection = 2;
+  Point seed_point = 3;
+  Direction direction = 4;
+  ExtrudeType extrude_type = 5;
+}
+
+message ExtrudeEdgesUpToRequest {
+  repeated ExtrudeEdgesUpToRequestData request_data = 1;
+}
+
+enum SplitEdgeType{
+  SPLITEDGE_BY_PROPORTION=0;
+  SPLITEDGE_BY_POINT=1;
+  SPLITEDGE_BY_LENGTH=2;
+}
+
+enum SplitEdgeReference{
+  SPLITEDGE_REFERENCE_START=0;
+  SPLITEDGE_REFERENCE_END=1;
+}
+
+message SplitEdgeRequestData {
+  repeated EntityIdentifier selection = 1;
+  SplitEdgeType split_type = 2;
+  repeated double proportions = 3;
+  repeated Point points = 4;
+  repeated double lengths = 5;
+  SplitEdgeReference reference = 6;
+}
+
+message SplitEdgeRequest {
+  repeated SplitEdgeRequestData request_data = 1;
+}
+
+message SplitEdgeResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message MoveImprintEdgesRequestData {
+  repeated EntityIdentifier edges = 1;
+  Direction direction = 2;
+  double distance = 3;
+}
+
+message MoveImprintEdgesRequest {
+  repeated MoveImprintEdgesRequestData request_data = 1;
+}
+
+message MoveImprintEdgesResponse {
+  TrackerCommandResponse response_data = 1;
+}
+
+message OffsetEdgesRequestData {
+  repeated EntityIdentifier edges = 1;
+  double value = 2;
+}
+
+message OffsetEdgesRequest {
+  repeated OffsetEdgesRequestData request_data = 1;
+}
+
+message OffsetEdgesResponse {
+  TrackerCommandResponse response_data = 1;
+}
+
+message ExtrudeEdgesResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message ExtrudeEdgesUpToResponse{
+  TrackerCommandResponse response_data = 1;
+}
+
+message GetVerticesResponseData
+{
+  EntityIdentifier id = 1;
+  repeated Vertex vertices = 2;
+}
+
+message GetVerticesResponse{
+  repeated GetVerticesResponseData response_data=1;
+}

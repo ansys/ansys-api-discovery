@@ -1,0 +1,137 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.geometry.components;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+option csharp_namespace = "Ansys.Api.Discovery.V1.Geometry.Components";
+
+service Components{
+  rpc Create(CreateRequest) returns(CreateResponse);  
+
+  rpc Delete(MultipleEntitiesRequest) returns(DeleteResponse);  
+
+  rpc Get(EntityRequest) returns(GetResponse);  
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);  
+
+  rpc GetBeamBodies(MultipleEntitiesRequest) returns (GetBeamBodiesResponse);  
+
+  rpc GetBodies(MultipleEntitiesRequest) returns (GetBodiesResponse);  
+
+  rpc GetName(MultipleEntitiesRequest) returns (GetComponentNameResponse);  
+
+  rpc GetPart(MultipleEntitiesRequest) returns (GetPartResponse);  
+
+  rpc GetRootComponent(GetRootComponentRequest) returns (GetRootComponentResponse);  
+
+  rpc GetUpdateState(MultipleEntitiesRequest) returns (GetUpdateStateResponse);  
+
+  rpc SetName(SetObjectsNameRequest) returns (SetObjectNameResponse);  
+
+  rpc SetPlacement(SetPlacementRequest) returns (SetPlacementResponse);  
+
+  rpc SetSharedTopology(SetSharedTopologyRequest) returns (SetSharedTopologyResponse);
+
+  rpc MakeIndependent(MakeIndependentRequest) returns (MakeIndependentResponse);
+
+  rpc ImportGroups(ImportGroupsRequest) returns (ImportGroupsResponse);
+}
+
+message MakeIndependentResponse {
+
+}
+
+message ImportGroupsResponse {
+
+}
+
+message ImportGroupsRequest {
+  EntityIdentifier id = 1;
+}
+
+message MakeIndependentRequest {
+  repeated EntityIdentifier ids = 1;
+}
+
+message CreateComponentData{
+  string name = 1;  
+  EntityIdentifier parent = 2;  
+  EntityIdentifier template = 3;  
+  string instance_name = 4;  
+}
+
+message CreateRequest {  
+  repeated CreateComponentData components = 1;
+}  
+
+message CreateResponse {  
+  repeated Component components = 1;  
+}  
+
+message GetAllResponse {  
+  repeated Component components = 1;  
+}  
+
+message GetBeamBodiesRequest {  
+  repeated EntityIdentifier ids = 1;  
+}  
+
+message BeamBodies{
+  EntityIdentifier beam = 1;  
+  repeated EntityIdentifier bodies = 2;
+}
+
+message GetBeamBodiesResponse {  
+  repeated BeamBodies beam_bodies = 1;  
+}  
+
+message ComponentBodies{
+  EntityIdentifier component = 1;  
+  repeated Body bodies = 2;  
+}
+
+message GetBodiesResponse {  
+  repeated ComponentBodies bodies = 1;  
+}  
+
+message GetComponentNameResponse {  
+  map<string, string> names = 1;  
+}  
+
+message GetPartResponse {  
+  map<string, Part> parts = 1;  
+}  
+
+message GetResponse {  
+  Component component = 1;  
+}  
+
+message GetRootComponentRequest {  
+}  
+
+message GetRootComponentResponse {  
+  EntityIdentifier id = 1;  
+}  
+
+message SetPlacementRequest {  
+  repeated EntityIdentifier ids = 1;  
+  repeated PlacementData placements = 2;
+}  
+
+message SetPlacementResponse {  
+  map<string, Matrix> matrices = 1;  
+}
+
+message SharedTopologyData{
+  EntityIdentifier id = 1;  
+  ShareType share_type = 2;  
+}
+
+message SetSharedTopologyRequest {  
+  repeated SharedTopologyData shared_topologies = 1;
+}  
+
+message SetSharedTopologyResponse { 
+  map<string, bool> succesfully_applied = 1;
+}

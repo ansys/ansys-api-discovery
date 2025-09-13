@@ -1,0 +1,31 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.commands.windows;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.Windows";
+
+// Windows
+//
+service Windows{
+  rpc GetImage(GetImageRequest) returns(GetImageResponse);
+
+  rpc SetView(SetViewRequest) returns(SetViewResponse);
+}
+
+message GetImageRequest{
+  ImageFormat format = 1;
+}
+
+message GetImageResponse {  
+  bytes data=1;  
+}
+
+message SetViewRequest{
+  WindowView view = 1;
+}
+
+message SetViewResponse{
+}
+

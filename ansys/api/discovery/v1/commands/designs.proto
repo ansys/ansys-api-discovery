@@ -1,0 +1,206 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.commands.designs;
+
+import "ansys/api/discovery/v1/common_communication.proto";
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.Designs";
+
+service Designs{
+  rpc Close(CloseRequest) returns(CloseResponse);  
+  
+  rpc CopyReferencedDocuments(CopyReferencedDocumentsRequest) returns(CopyReferencedDocumentsResponse);  
+  
+  rpc DownloadExportFile(DownloadExportFileRequest) returns (DownloadExportFileResponse);  
+  
+  rpc Get(EntityRequest) returns(GetResponse);  
+  
+  rpc GetActive(GetActiveRequest) returns(GetActiveResponse);  
+  
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);  
+  
+  rpc GetAsJson(GetAsJsonRequest) returns(GetAsJsonResponse);  
+
+  rpc GetAssembly(GetAssemblyRequest) returns (GetAssemblyResponse);
+  
+  rpc Insert(InsertRequest) returns(InsertResponse);  
+  
+  rpc New(NewRequest) returns(NewResponse);  
+  
+  rpc Open(OpenRequest) returns(OpenResponse);  
+  
+  rpc OpenCloudFileFromUrl(OpenCloudFileFromUrlRequest) returns(OpenCloudFileFromUrlResponse);  
+  
+  rpc Save(SaveRequest) returns(SaveResponse);  
+  
+  rpc SaveAs(SaveAsRequest) returns(SaveAsResponse);  
+  
+  rpc SaveCloudFile(SaveCloudFileRequest) returns(SaveCloudFileResponse);  
+  
+  rpc SaveWithoutResults(SaveWithoutResultsRequest) returns (SaveWithoutResultsResponse);  
+  
+  rpc SetActive(SetActiveRequest) returns(SetActiveResponse);  
+  
+  rpc StreamDownloadExportFile(DownloadExportFileRequest) returns (stream DownloadExportFileResponse);
+  
+  rpc StreamUploadFile(stream UploadFileRequest) returns (UploadFileResponse);
+
+  rpc UploadFile(UploadFileRequest) returns (UploadFileResponse);
+}
+
+message CloseRequest{  
+  EntityIdentifier design_id = 1;  
+}  
+
+message CloseResponse{  
+}  
+
+message CopyReferencedDocumentsRequest {  
+  EntityIdentifier document_id = 1;  
+  string output_path=2;  
+}  
+
+message CopyReferencedDocumentsResponse{  
+  RequestResult result=1;  
+}  
+
+message DownloadExportFileRequest{  
+  PartExportFormat format = 1;  
+  bool write_body_facets = 2;
+}  
+
+message DownloadExportFileResponse {  
+  bytes data=1;  
+}  
+
+message GetActiveRequest{  
+}  
+
+message GetActiveResponse{  
+  Design design = 1;  
+}  
+
+message GetAllResponse{  
+  repeated Design designs = 1;  
+}  
+
+message GetAsJsonRequest {  
+  EntityIdentifier id=1;  
+}  
+
+message GetAsJsonResponse {  
+  string json=1;  
+}  
+
+message GetResponse{
+  Design design = 1;
+}
+
+message InsertRequest{  
+  string filepath = 1;  
+  bool import_named_selections = 2;
+}  
+
+message InsertResponse{  
+  EntityIdentifier design_id = 1;  
+}  
+
+message NewRequest{  
+  string name = 1;  
+}  
+
+message NewResponse{  
+  Design design = 1;  
+}  
+
+message OpenCloudFileFromUrlRequest{  
+  string url_filepath = 1;  
+}  
+
+message OpenCloudFileFromUrlResponse{  
+}  
+
+message OpenRequest{  
+  string filepath = 1;  
+  map<string,bool> import_options = 2;  
+  map <string,ImportOptionDefinition> import_options_definitions = 3;  
+}  
+
+message OpenResponse{  
+  Design design = 1;  
+}  
+
+message SaveAsRequest{  
+  string filepath = 1;
+  bool write_body_facets = 2;
+}  
+
+message SaveAsResponse{  
+  EntityIdentifier design_id = 1;  
+}  
+
+message SaveCloudFileRequest{  
+}  
+
+message SaveCloudFileResponse{  
+}  
+
+message SaveRequest{  
+  EntityIdentifier design_id = 1;
+  bool write_body_facets = 2;
+}  
+
+message SaveResponse{  
+}  
+
+message SaveWithoutResultsRequest{  
+}  
+
+message SaveWithoutResultsResponse{  
+}  
+
+message SetActiveRequest{  
+  EntityIdentifier design_id = 1;  
+}  
+
+message SetActiveResponse{  
+  Design design = 1;  
+}
+
+message UploadFileRequest {
+  bytes data=1;
+  string file_name=2;
+  bool open=3;
+  map<string,bool> import_options = 4;
+  map<string, ImportOptionDefinition> import_options_definitions = 5;
+}
+
+message UploadFileResponse {
+  string file_path=1;
+  EntityIdentifier document_id=2;
+}
+
+message GetAssemblyRequest{
+  EntityIdentifier id = 1;
+}
+
+message GetAssemblyResponse {
+  repeated Part parts=1;
+  repeated Component transformed_parts=2;
+  repeated Component components=3;
+  repeated Body bodies=4;
+  repeated Material materials=5;
+  repeated NamedSelection named_selections=6;
+  map <string, CoordinateSystemList> component_coord_systems=7;
+  map <string, int32> component_shared_topologies=8;
+  repeated Beam beams=9;
+}
+
+message CoordinateSystemList {
+  repeated CoordinateSystem coordinate_systems=1;
+}
+
+message ExportLargeSizeRequest{
+  PartExportFormat format = 1;  
+}

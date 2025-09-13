@@ -1,0 +1,21 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.geometry.nurbs;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Geometry.Nurbs";
+
+service Nurbs
+{  
+  rpc EvaluateNurbsCurve(EvaluateNurbsCurveRequest) returns (EvaluateNurbsCurveResponse);
+}
+
+message EvaluateNurbsCurveRequest{
+  NurbsCurve curve = 1;
+  double parameter = 2;
+}
+
+message EvaluateNurbsCurveResponse {
+  CurveEvaluation curve_evaluation = 1;
+}

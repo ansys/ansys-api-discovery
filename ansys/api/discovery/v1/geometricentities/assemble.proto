@@ -1,0 +1,134 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.geometricentities.assemblycontrols;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.GeometricEntities.AssemblyControls";
+
+service AssemblyControls{
+  rpc CreateAlignCondition(CreateAlignConditionRequest) returns (CreateAlignConditionResponse);
+
+  rpc CreateAnchorCondition(CreateAnchorConditionRequest) returns (CreateAnchorConditionResponse);
+
+  rpc CreateGearCondition(CreateGearConditionRequest) returns (CreateGearConditionResponse);
+
+  rpc CreateOrientCondition(CreateOrientConditionRequest) returns (CreateOrientConditionResponse);
+
+  rpc CreateRigidCondition(CreateRigidConditionRequest) returns (CreateRigidConditionResponse);
+
+  rpc CreateTangentCondition(CreateTangentConditionRequest) returns (CreateTangentConditionResponse);
+}
+
+message CreateAnchorConditionRequestData {
+  EntityIdentifier parent = 1;
+  EntityIdentifier component = 2;
+}
+
+message CreateAnchorConditionRequest{
+  repeated CreateAnchorConditionRequestData request_data = 1;
+}
+
+message CreateAnchorConditionResponseData{
+  EntityIdentifier parent = 1;
+  AnchorCondition anchor_condition = 2;
+}
+
+message CreateAnchorConditionResponse{
+  repeated CreateAnchorConditionResponseData response_data = 1;
+}
+
+message CreateRigidConditionRequestData {
+  EntityIdentifier parent = 1;
+  EntityIdentifier component_a = 2;
+  EntityIdentifier component_b = 3;
+}
+
+message CreateRigidConditionRequest{
+  repeated CreateRigidConditionRequestData request_data = 1;
+}
+
+message CreateRigidConditionResponseData{
+  EntityIdentifier parent = 1;
+  RigidCondition rigid_condition = 2;
+}
+
+message CreateRigidConditionResponse{
+  repeated CreateRigidConditionResponseData response_data = 1;
+}
+
+message CreateTangentConditionRequestData {
+  EntityIdentifier parent = 1;
+  EntityIdentifier geometric_a = 2;
+  EntityIdentifier geometric_b = 3;
+}
+
+message CreateTangentConditionRequest{
+  repeated CreateTangentConditionRequestData request_data = 1;
+}
+
+message CreateTangentConditionResponseData{
+  EntityIdentifier parent = 1;
+  TangentCondition tangent_condition = 2;
+}
+
+message CreateTangentConditionResponse{
+  repeated CreateTangentConditionResponseData response_data = 1;
+}
+
+message CreateAlignConditionRequestData {
+  EntityIdentifier parent = 1;
+  EntityIdentifier geometric_a = 2;
+  EntityIdentifier geometric_b = 3;
+}
+
+message CreateAlignConditionRequest{
+  repeated CreateAlignConditionRequestData request_data = 1;
+}
+
+message CreateAlignConditionResponseData{
+  EntityIdentifier parent = 1;
+  AlignCondition align_condition = 2;
+}
+
+message CreateAlignConditionResponse{
+  repeated CreateAlignConditionResponseData response_data = 1;
+}
+
+message CreateOrientConditionRequestData {
+  EntityIdentifier parent = 1;
+  EntityIdentifier geometric_a = 2;
+  EntityIdentifier geometric_b = 3;
+}
+
+message CreateOrientConditionRequest{
+  repeated CreateOrientConditionRequestData request_data = 1;
+}
+
+message CreateOrientConditionResponseData{
+  EntityIdentifier parent = 1;
+  OrientCondition orient_condition = 2;
+}
+
+message CreateOrientConditionResponse{
+  repeated CreateOrientConditionResponseData response_data = 1;
+}
+
+message CreateGearConditionRequestData {
+  EntityIdentifier parent = 1;
+  EntityIdentifier geometric_a = 2;
+  EntityIdentifier geometric_b = 3;
+}
+
+message CreateGearConditionRequest{
+  repeated CreateGearConditionRequestData request_data = 1;
+}
+
+message CreateGearConditionResponseData{
+  EntityIdentifier parent = 1;
+  GearCondition gear_condition = 2;
+}
+
+message CreateGearConditionResponse{
+  repeated CreateGearConditionResponseData response_data = 1;
+}

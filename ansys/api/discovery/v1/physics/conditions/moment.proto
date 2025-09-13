@@ -1,0 +1,66 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.moment;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Moment";
+
+service Moment
+{
+  //Moment condition methods
+  rpc CreateMomentLocal(MomentCreationRequest) returns (MomentCreationResponse);
+  rpc CreateMomentGlobal(MomentCreationRequest) returns (MomentCreationResponse);
+
+  rpc ChangeMomentLocation(ChangeLocationRequest) returns(ChangeResponse);
+
+  rpc ChangeMomentSpecification(ChangeMomentSpecificationRequest) returns(ChangeResponse);
+  rpc ChangeMomentOrientation(ChangeDirectionRequest) returns(ChangeResponse);
+
+  rpc ChangeMomentLocalX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMomentLocalY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMomentLocalZ(ChangeQuantityRequest) returns (ChangeResponse);
+
+  rpc ChangeMomentGlobalX(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMomentGlobalY(ChangeQuantityRequest) returns (ChangeResponse);
+  rpc ChangeMomentGlobalZ(ChangeQuantityRequest) returns (ChangeResponse);
+}
+
+// Moment
+message MomentCreationRequest{
+  ScopedCreationData creation_data = 1;
+  MomentProperties moment_properties = 2;
+}
+
+message MomentCreationResponse{
+  CreationResponse condition_response = 1;
+  MomentDefinition condition_data = 2;
+}
+
+message ChangeMomentSpecificationRequest{
+  ansys.api.discovery.v1.PhysicsEntityIdentifier object_id = 1;
+  MomentSpecification moment_specification = 2;
+}
+
+// Moment enumerations
+
+enum MomentSpecification {
+  GLOBAL = 0;
+  LOCAL = 1;
+}
+
+// Moment condition definitions
+
+message MomentProperties {
+  QuantityVector moment = 1;
+}
+
+message MomentDefinition {
+  ansys.api.discovery.v1.PhysicsEntityIdentifier id = 1;
+  ansys.api.discovery.v1.PhysicsEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MomentProperties local = 6;
+  MomentProperties global = 7;
+}

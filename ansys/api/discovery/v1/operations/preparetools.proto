@@ -1,0 +1,183 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.operations.preparetools;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Operations.PrepareTools";
+
+service PrepareTools{
+  rpc CreateEnclosureBox(CreateEnclosureBoxRequest) returns (CreateEnclosureResponse);
+
+  rpc EnhancedShareTopology(ShareTopologyRequest) returns (EnhancedShareTopologyResponse);
+
+  rpc ExtractVolumeFromEdgeLoops(ExtractVolumeFromEdgeLoopsRequest) returns (ExtractVolumeFromEdgeLoopsResponse);
+  
+  rpc ExtractVolumeFromFaces(ExtractVolumeFromFacesRequest) returns (ExtractVolumeFromFacesResponse);
+
+  rpc FindAndRemoveLogos(FindAndRemoveLogosRequest) returns (FindAndRemoveLogosResponse);
+
+  rpc FindLogos(FindLogosRequest) returns (FindLogosResponse);
+
+  rpc FixInterference(FixInterferenceRequest) returns (FixInterferenceResponse);
+
+  rpc FixShortEdges(FixShortEdgesRequest) returns (FixShortEdgesResponse);
+
+  rpc RemoveFaces(RemoveFacesRequest) returns (RemoveFacesResponse);
+
+  rpc RemoveLogo(RemoveLogoRequest) returns (RemoveLogoResponse);
+
+  rpc RemoveRounds(RemoveRoundsRequest) returns (RemoveRoundsResponse);
+
+  rpc ShareTopology(ShareTopologyRequest) returns (ShareTopologyResponse);
+
+  rpc UnshareTopology(UnshareTopologyRequest) returns (UnshareTopologyResponse);
+}
+
+message CreateEnclosureBoxRequest{
+  repeated EntityIdentifier bodies = 1;
+  double x_low = 2;
+  double x_high = 3;
+  double y_low = 4;
+  double y_high = 5;
+  double z_low = 6;
+  double z_high = 7;
+}
+
+message CreateEnclosureResponse{
+  // Whether the enclosure is successful.
+  bool success = 1;
+  // The bodies representing the enclosure.
+  repeated Body created_bodies = 2;
+  TrackerCommandResponse command_response = 3;
+}
+
+message FixInterferenceRequest{
+  repeated EntityIdentifier selection = 1;
+  // True if interfered body is removed from smaller body, false otherwise.
+  bool cut_smaller_body=2;
+}
+
+message FixInterferenceResponse{
+  bool result = 1;
+  TrackerCommandResponse changes = 2;
+}
+
+message FixShortEdgesRequest{
+  repeated EntityIdentifier selection = 1;
+  // The maximum edge length in mm to remove shorter edges.
+  double max_edge_length=2;
+}
+
+message FixShortEdgesResponse{
+  bool result = 1;
+  TrackerCommandResponse changes = 2;
+}
+
+message ShareTopologyRequest{
+  repeated EntityIdentifier selection = 1;
+  // Gets or sets the maximum distance between items to be considered intersecting in mm. 
+  double tolerance=2;
+  // Gets or sets the option for preserving the instancing. 
+  bool preserve_instances=3;
+}
+
+message ShareTopologyResponse{
+  bool result = 1;
+}
+
+message EnhancedShareTopologyResponse{
+  EnhancedRepairToolMessage response_data = 1;
+}
+
+message UnshareTopologyRequest{
+  // Gets or sets a value indicating whether to include groups. 
+  bool include_groups=1;
+  // Gets or sets a value indicating whether to unshare lower topology. 
+  bool unshare_lower_topology =2;
+}
+
+message UnshareTopologyResponse{
+  bool result = 1;
+}
+
+message RemoveRoundsRequest{
+  // The round faces to be removed.
+  repeated EntityIdentifier selection = 1;
+  // Auto-shrink fill area 
+  bool auto_shrink = 2;
+}
+
+message RemoveRoundsResponse{
+  bool result = 1;
+  TrackerCommandResponse changes = 2;
+}
+
+message RemoveFacesRequest{
+  // The faces to be removed.
+  repeated EntityIdentifier selection = 1;
+}
+
+message RemoveFacesResponse{
+  bool result = 1;
+  TrackerCommandResponse changes = 2;
+}
+
+message ExtractVolumeFromFacesRequest{
+  // The id of the faces that seal the volume to be extracted.
+  repeated EntityIdentifier sealing_faces = 1;
+  // The id of one or more faces inside the volume to be extracted.
+  repeated EntityIdentifier inside_faces = 2;
+}
+
+message ExtractVolumeFromEdgeLoopsRequest{
+  // The id of edge loops that seal the volume to be extracted.
+  repeated EntityIdentifier sealing_edges = 1;
+  // The id of one or more faces inside the volume to be extracted. Not needed for simple cases.
+  repeated EntityIdentifier inside_faces = 2;
+}
+
+message ExtractVolumeFromEdgeLoopsResponse{
+  // Whether the volume extraction is successful.
+  bool success = 1;
+  // The bodies created from the volume extraction.
+  repeated Body created_bodies = 2;
+  TrackerCommandResponse changes = 3;
+}
+
+message ExtractVolumeFromFacesResponse{
+  // Whether the volume extraction is successful.
+  bool success = 1;
+  // The bodies created from the volume extraction.
+  repeated Body created_bodies = 2;
+  TrackerCommandResponse changes = 3;
+}
+
+message FindLogosRequest{
+  repeated EntityIdentifier bodies = 1;
+  optional FindLogoOptions options = 2;
+}
+
+message FindAndRemoveLogosRequest{
+  repeated EntityIdentifier bodies = 1;
+  optional FindLogoOptions options = 2;
+}
+
+message FindLogosResponse{
+  EntityIdentifier id = 1;
+  repeated Face logo_faces = 2;
+}
+
+message FindAndRemoveLogosResponse{
+  EntityIdentifier id = 1;
+  repeated Face logo_faces = 2;
+  bool success = 3;
+}
+
+message RemoveLogoRequest{
+  repeated EntityIdentifier face_ids = 1;
+}
+
+message RemoveLogoResponse {
+  bool success = 1;
+}

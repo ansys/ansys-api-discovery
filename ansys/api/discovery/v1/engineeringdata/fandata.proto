@@ -1,0 +1,96 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.engineeringdata.fandata;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.EngineeringData";
+
+service FanData
+{
+  //Fan Data condition methods
+  rpc CreateFanData(FanDataCreationRequest) returns (FanDataCreationResponse);
+
+  rpc ConvertToUserFanData(FanDataConvertToUserRequest) returns (ChangeResponse);
+
+  // change fan name
+  rpc ChangeFanDataName(ChangeStringRequest) returns (ChangeResponse);
+
+  // change specification
+  rpc ChangeFanDataSpecification(ChangeFanDataSpecificationRequest) returns (ChangeResponse);
+
+  // set pressure rise
+  rpc ChangeFanDataPressureRise(ChangeQuantityRequest) returns (ChangeResponse);
+
+  // add row to VFR table
+  rpc ChangeFanDataVolumeFlowRateAdd(AddTableQuantityPairRequest) returns (ChangeResponse);
+
+  // edit a row in the VFR table
+  rpc ChangeFanDataVolumeFlowRateEdit(EditTableQuantityPairRequest) returns (ChangeResponse);
+
+  // remove row from VFR table
+  rpc ChangeFanDataVolumeFlowRateRemove(RemoveTableRowRequest) returns (ChangeResponse);
+
+
+  // add row to Vel table
+  rpc ChangeFanDataVelocityAdd(AddTableQuantityPairRequest) returns (ChangeResponse);
+
+  // edit a row in the Vel table
+  rpc ChangeFanDataVelocityEdit(EditTableQuantityPairRequest) returns (ChangeResponse);
+
+  // remove row from Vel table
+  rpc ChangeFanDataVelocityRemove(RemoveTableRowRequest) returns (ChangeResponse);
+}
+
+
+message FanDataCreationRequest{
+  FanDataProperties fan_data = 2;
+}
+
+message FanDataConvertToUserRequest{
+  ansys.api.discovery.v1.PhysicsEntityIdentifier object_id = 1;
+}
+
+message FanDataCreationResponse{
+  CreationResponse data_response = 1;
+  FanDataDefinition engineering_data = 2;
+}
+
+
+//FanData condition definitions
+message FanDataProperties {
+  ansys.api.discovery.v1.PhysicsEntityIdentifier data_id = 1;
+  string fan_name = 2;
+  FanSpecification fan_specification = 3;
+  Quantity constant_pressure_rise = 4;
+  QuantityPairTable volume_flow_rate_vs_pressure_table = 5;
+  QuantityPairTable velocity_vs_pressure_table = 6;
+  FanManufacturerData manufacturer_data = 7;
+}
+
+enum FanSpecification
+{
+  VOLUMEFLOWRATE = 0;
+  CONSTANTPRESSURERISE = 1;
+  VELOCITY = 2;
+}
+
+message FanManufacturerData{
+  string manufacturer = 1;
+  string model_number = 2;
+  Quantity outer_radius = 3;
+  Quantity inner_radius = 4;
+  string notes = 5;
+  string disclaimer = 6;
+  bool is_user_defined = 7;
+}
+
+
+message FanDataDefinition {
+  FanDataProperties fan_data = 1;
+}
+
+message ChangeFanDataSpecificationRequest{
+  ansys.api.discovery.v1.PhysicsEntityIdentifier object_id = 1;
+  FanSpecification fan_specification = 2;
+}

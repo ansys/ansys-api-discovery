@@ -1,0 +1,39 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.commands.materials;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.Materials";
+
+service Materials{
+
+  rpc GetAllNames(GetAllNamesRequest) returns(GetAllNamesResponse);
+
+  rpc AddToDocument(AddToDocumentRequest) returns (AddToDocumentResponse);
+
+  rpc RemoveFromDocument(RemoveFromDocumentRequest) returns (RemoveFromDocumentResponse);
+}
+
+message GetAllNamesRequest{
+}
+
+message GetAllNamesResponse{
+  repeated string materials=1;
+}
+
+message AddToDocumentRequest {
+  repeated Material request_data = 1;
+}
+
+message AddToDocumentResponse{
+  repeated string successfully_set = 1;
+}
+
+message RemoveFromDocumentRequest {
+  repeated Material request_data = 1;
+}
+
+message RemoveFromDocumentResponse {
+  repeated string successfully_removed = 1;
+}

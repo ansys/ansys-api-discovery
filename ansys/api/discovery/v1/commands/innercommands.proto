@@ -1,0 +1,71 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v1.commands.innercommands;
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.InnerCommands";
+
+service InnerCommands {
+
+  // Runs a script based on a file.
+  rpc RunScriptFile(RunScriptFileRequest) returns(RunScriptFileResponse);
+
+  // Runs a script based on a file without having it recorded by feature tracking.
+  // ATTENTION! Changing geometry within a not tracked would corrupt the feature's tracking state.
+  rpc RunNotTrackedScriptFile(RunScriptFileRequest) returns(RunScriptFileResponse);
+
+  // Runs a script based on a supplied string.
+  rpc RunScript(RunScriptRequest) returns(RunScriptResponse);
+
+  // Runs a command. A command can be exposed by Addin.
+  rpc RunCommand(RunCommandRequest) returns(RunCommandResponse);
+}
+
+message RunScriptFileRequest{
+  // Local path to the script to execute.
+  string script_path = 1;
+  // map of argument names to values.
+  map<string,string> script_args = 2;
+  // The api version to be used to run the script
+  int32 api_version = 3;  
+  // Set the type of run script file to called
+  RunScriptType script_type = 4;
+}
+
+message RunScriptFileResponse{
+  // Result of script execution. True means script executed successfully.
+  bool success = 1;
+  string message = 2;
+  map<string,string> values = 3;
+}
+
+message RunScriptRequest{
+  // Script source to execute.
+  string script = 1;
+  // The api version to be used to run the script
+  int32 api_version = 2;
+}
+
+message RunScriptResponse{
+  // Result of script execution. True means script executed successfully.
+  bool script_result = 1;
+}
+
+message RunCommandRequest{
+  // Command to execute.
+  string command = 1;
+  // Data to pass to command.
+  string data = 2;
+}
+
+message RunCommandResponse{
+  // Data returned from command.
+  string data = 1;
+}
+
+//
+// The kind of RunScriptFile to be called
+enum RunScriptType {
+  RUNSCRIPTTYPE_RUN = 0;
+  RUNSCRIPTTYPE_DEBUG = 1;
+}

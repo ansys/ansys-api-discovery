@@ -1,0 +1,92 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.geometricentities.points;
+
+import "ansys/api/discovery/v1/models.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.GeometricEntities.Points";
+
+service Points
+{
+  rpc CreateDesignPoints(CreateDesignPointsRequest) returns (CreateDesignPointsResponse);
+
+  rpc RevolvePoints(RevolvePointsRequest) returns (RevolvePointsResponse);
+
+  rpc RevolvePointsByHelix(RevolvePointsByHelixRequest) returns (RevolvePointsByHelixResponse);
+
+  rpc SweepPoints(SweepPointsRequest) returns (SweepPointsResponse);
+}
+
+message CreateDesignPointsRequestData {
+  repeated Point points = 1;
+  EntityIdentifier parent = 2;
+}
+
+message CreateDesignPointsRequest {
+  repeated CreateDesignPointsRequestData request_data=1;
+}
+
+message CreateDesignPointsResponse {
+  repeated EntityIdentifier ids =1;
+}
+
+message SweepPointsRequestData {
+  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier trajectories = 2;
+  double distance = 3;
+}
+
+message SweepPointsRequest {
+  repeated SweepPointsRequestData request_data=1;
+}
+
+message SweepPointsResponseData{
+  repeated EntityIdentifier selection = 1;
+  repeated Curve created_curves = 2;
+}
+
+message SweepPointsResponse{
+  repeated SweepPointsResponseData response_data = 1;
+}
+
+message RevolvePointsRequestData {
+  repeated EntityIdentifier selection = 1;
+  Line axis = 2;
+  double angle = 3;
+}
+
+message RevolvePointsRequest {
+  repeated RevolvePointsRequestData request_data=1;
+}
+
+message RevolvePointsResponseData{
+  repeated EntityIdentifier selection = 1;
+  repeated Curve created_curves = 2; 
+}
+
+message RevolvePointsResponse{
+  repeated RevolvePointsResponseData response_data = 1;
+}
+
+message RevolvePointsByHelixRequestData {
+  repeated EntityIdentifier selection = 1;
+  Line axis = 2;
+  double height = 3;
+  double pitch = 4;
+  double taper_angle = 5;
+  bool right_handed = 6;
+  bool pull_symmetric = 7;
+}
+
+message RevolvePointsByHelixRequest {
+  repeated RevolvePointsByHelixRequestData request_data=1;
+}
+
+message RevolvePointsByHelixResponseData{
+  repeated EntityIdentifier selection = 1;
+  repeated Curve created_curves = 2; 
+}
+
+message RevolvePointsByHelixResponse{
+  repeated RevolvePointsByHelixResponseData response_data = 1;
+}

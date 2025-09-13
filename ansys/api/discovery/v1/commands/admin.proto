@@ -1,0 +1,154 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.commands.admin;
+
+import "ansys/api/discovery/v1/models.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.Admin";
+
+service Admin{
+  rpc ApplicationStarted(ApplicationStartedRequest) returns(ApplicationStartedResponse);  
+  
+  rpc CloseApplication(CloseApplicationRequest) returns(CloseApplicationResponse);  
+
+  rpc DisposeTracker(DisposeTrackerRequest) returns (DisposeTrackerResponse);
+  
+  rpc GetBackend(GetBackendRequest) returns(GetBackendResponse);  
+  
+  rpc GetLogs(LogsRequest) returns(stream LogsResponse);  
+  
+  rpc GetMonikersCompressionMethod(GetMonikersCompressionMethodRequest) returns(MonikerCompressionMethodMessage);  
+  
+  rpc GetTracker(GetTrackerRequest) returns (GetTrackerResponse);
+
+  rpc GetTrackerChanges(GetTrackerChangesRequest) returns (GetTrackerChangesResponse);
+  
+  rpc Health(HealthRequest) returns(HealthResponse);  
+  
+  rpc SetApplicationTitle(SetApplicationTitleRequest) returns(SetApplicationTitleResponse);  
+  
+  rpc SetAutomaticTrackingState(SetAutomaticTrackingStateRequest) returns (SetAutomaticTrackingStateResponse);
+  
+  rpc SetMonikersCompressionMethod(MonikerCompressionMethodMessage) returns(SetMonikersCompressionMethodResponse);  
+  
+  rpc Shutdown(ShutdownRequest) returns(ShutdownResponse);  
+  
+  rpc StatusInfo(StatusInfoRequest) returns(StatusInfoResponse);  
+}
+
+message LogsRequest{
+
+  LogsTarget target = 1;
+  oneof path{
+    google.protobuf.NullValue null_path = 2;
+    string target_path =3;
+  }
+
+  LogsPeriodType period_type = 4;
+
+  oneof period {
+    google.protobuf.NullValue null_period = 5;
+    google.protobuf.Timestamp logs_period = 6;
+  }
+}
+
+message LogsResponse{
+  string relative_path = 1;
+  string log_name = 2;
+  bytes log_chunk = 3;
+}
+
+message HealthResponse{
+  string message = 1;
+}
+
+
+message SetApplicationTitleRequest{
+  string title =1;
+}
+
+message GetBackendRequest{
+}
+
+message GetBackendResponse{
+  BackendType type = 1;
+  VersionIdentifier version = 2;
+}
+
+message ApplicationStartedRequest{
+}
+
+message ApplicationStartedResponse{
+  bool is_startup_complete = 1;
+}
+
+message GetMonikersCompressionMethodRequest{
+}
+
+message MonikerCompressionMethodMessage{
+  MonikerCompressionMethod method = 1;
+}
+
+message SetMonikersCompressionMethodResponse{
+}
+
+message SetApplicationTitleResponse{
+}
+
+message CloseApplicationRequest{
+}
+
+message CloseApplicationResponse{
+}
+
+message HealthRequest{
+}
+
+message ShutdownRequest{
+}
+
+message ShutdownResponse{
+}
+
+message StatusInfoRequest{
+}
+
+message StatusInfoResponse{
+  string touch_time = 1  [json_name = "touch_time"];
+  string application_version = 2  [json_name = "application_version"];
+  string embedded_api_version = 3  [json_name = "embedded_api_version"];
+}
+
+message SetAutomaticTrackingStateRequest{
+  AutomaticTrackingState state = 1;
+}
+
+message SetAutomaticTrackingStateResponse{
+  bool success = 1;
+}
+
+message GetTrackerRequest{
+  EntityIdentifier design_id = 1;
+}
+
+message GetTrackerResponse{
+  TrackerDefinition tracker  = 1;
+}
+
+message GetTrackerChangesRequest{
+  EntityIdentifier design_id = 1;
+}
+
+message GetTrackerChangesResponse{
+  TrackerCommandResponse changes = 1;
+}
+
+message DisposeTrackerRequest{
+  EntityIdentifier design_id = 1;
+}
+
+message DisposeTrackerResponse{
+  bool success = 1;
+}
