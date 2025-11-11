@@ -1,0 +1,51 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.gravity;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Gravity";
+
+service Gravity
+{
+  //Gravity condition methods
+  //No create for gravity, it's done automatically, and always applied to all bodies
+  rpc SetOrientation(SetDirectionRequest) returns(SetResponse);
+
+  rpc SetDX(SetQuantityRequest) returns (SetResponse);
+  rpc SetDY(SetQuantityRequest) returns (SetResponse);
+  rpc SetDZ(SetQuantityRequest) returns (SetResponse);
+  rpc SetTranslationalMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetUseBuoyancyEnabled(SetBooleanRequest) returns (SetResponse);
+  rpc SetIncludeSelfWeightEnabled(SetBooleanRequest) returns (SetResponse);
+
+  rpc GetByLabel(GetByLabelRequest) returns (GravityDefinition);
+  
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+// Gravity condition definitions
+message GravityProperties {
+  VectorOfOptionalQuantities acceleration = 1;
+  bool include_buoyancy = 2;
+  bool include_self_weight = 3;
+}
+
+message GravityDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  GravityProperties gravity = 6;
+}
+
+// Response for GetAll
+message GetAllResponse {
+  repeated GravityDefinition gravity_conditions = 1; // usually 0 or 1 item
+  bool success = 2;
+  string message = 3;
+}
+

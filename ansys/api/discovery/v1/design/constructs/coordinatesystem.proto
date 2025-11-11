@@ -1,0 +1,48 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.constructs.coordinatesystem;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Constructs.CoordinateSystem";
+
+service CoordinateSystem{
+
+  rpc Create(CreateRequest) returns(CreateResponse);
+
+  rpc Delete(MultipleEntitiesRequest) returns(DeleteResponse);
+  
+  rpc Get(EntityRequest) returns(GetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+
+  //TODO: Enable frame inputs to be set.
+}
+
+message GetResponse{
+  CoordinateSystemEntity coordinate_system = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllResponse{
+  repeated CoordinateSystemEntity coordinate_systems = 1;
+  CommandResponse command_response = 2;
+}
+
+message CreateRequestData{
+  EntityIdentifier parent = 1;
+  string name = 2;
+  Frame frame = 3;
+}
+
+message CreateRequest{
+  repeated CreateRequestData request_data = 1;
+}
+
+message CreateResponse{
+  repeated CoordinateSystemEntity coordinate_systems =1;
+  CreationResponse creation_response = 2;
+}
+
+

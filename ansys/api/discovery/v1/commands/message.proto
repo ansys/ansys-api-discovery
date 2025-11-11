@@ -1,0 +1,29 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v1.Commands.Message;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.Message";
+
+// Messaging service for getting events out of Discovery
+//
+service Message{
+  rpc GetStream(GetMessageRequest) returns(stream MessageResponse);
+  rpc Clear(ClearRequest) returns(ClearResponse);
+}
+
+message GetMessageRequest{
+}
+
+message ClearRequest{
+}
+
+message ClearResponse{
+  CommandResponse command_response = 1; 
+}
+
+message MessageResponse{
+  string event_message = 1;
+}

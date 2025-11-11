@@ -1,0 +1,113 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.displacement;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Displacement";
+
+service Displacement
+{
+  //Displacement condition methods
+  rpc CreateTranslation(DisplacementTranslationCreationRequest) returns (DisplacementCreationResponse);
+  rpc CreateRotation(DisplacementRotationCreationRequest) returns (DisplacementCreationResponse);
+  rpc CreateCombined(DisplacementCombinedCreationRequest) returns (DisplacementCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetSpecification(ChangeDisplacementSpecificationRequest) returns(SetResponse);
+  rpc SetOrientation(SetDirectionRequest) returns(SetResponse);
+  
+  rpc SetDX(SetQuantityRequest) returns (SetResponse);
+  rpc SetDY(SetQuantityRequest) returns (SetResponse);
+  rpc SetDZ(SetQuantityRequest) returns (SetResponse);
+  rpc SetTranslationalMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetRX(SetQuantityRequest) returns (SetResponse);
+  rpc SetRY(SetQuantityRequest) returns (SetResponse);
+  rpc SetRZ(SetQuantityRequest) returns (SetResponse);
+  rpc SetRotationalMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetIsFixedDX(SetBooleanRequest) returns (SetResponse);
+  rpc SetIsFixedDY(SetBooleanRequest) returns (SetResponse);
+  rpc SetIsFixedDZ(SetBooleanRequest) returns (SetResponse);
+  
+  rpc SetIsFixedRX(SetBooleanRequest) returns (SetResponse);
+  rpc SetIsFixedRY(SetBooleanRequest) returns (SetResponse);
+  rpc SetIsFixedRZ(SetBooleanRequest) returns (SetResponse);
+  
+  rpc SetUseRemotePointEnabled(SetBooleanRequest) returns (SetResponse);
+  rpc SetDistributedRemotePositionX(SetQuantityRequest) returns (SetResponse);
+  rpc SetDistributedRemotePositionY(SetQuantityRequest) returns (SetResponse);
+  rpc SetDistributedRemotePositionZ(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+// Displacement
+message DisplacementTranslationCreationRequest{
+  ScopedCreationData creation_data = 1;
+  DisplacementTranslationProperties displacement_properties = 2;
+}
+
+message DisplacementRotationCreationRequest{
+  ScopedCreationData creation_data = 1;
+  DisplacementRotationProperties displacement_properties = 2;
+}
+
+message DisplacementCombinedCreationRequest{
+  ScopedCreationData creation_data = 1;
+  DisplacementCombinedProperties displacement_properties = 2;
+}
+
+message DisplacementCreationResponse{
+  CreationResponse condition_response = 1;
+  DisplacementDefinition condition_data = 2;
+}
+
+message ChangeDisplacementSpecificationRequest{
+  GuidEntityIdentifier object_id = 1;
+  DisplacementSpecification displacement_specification = 2;
+}
+
+// Displacement enumerations
+
+enum DisplacementSpecification {
+  TRANSLATION = 0;
+  ROTATION = 1;
+  COMBINED = 2;
+}
+
+// Displacement condition definitions
+
+message DisplacementTranslationProperties {
+  VectorOfOptionalQuantities displacement = 1;
+  OptionalVector remote_point = 2;
+}
+
+message DisplacementRotationProperties {
+  VectorOfOptionalQuantities rotation = 1;
+  OptionalVector remote_point = 2;
+}
+
+message DisplacementCombinedProperties {
+  VectorOfOptionalQuantities displacement = 1;
+  VectorOfOptionalQuantities rotation = 2;
+  OptionalVector remote_point = 3;
+}
+
+message DisplacementDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  DisplacementCombinedProperties displacement = 6;
+}
+
+message GetAllResponse {
+  repeated DisplacementDefinition displacements = 1;
+  bool success = 2;
+  string message = 3;
+}

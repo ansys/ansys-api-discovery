@@ -1,0 +1,70 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.connections.contact;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Connections.Contact";
+
+service Contact
+{
+  //Contact condition methods
+  rpc Create(ContactCreationRequest) returns (ContactCreationResponse);
+
+  rpc SetSide1Location(SetLocationRequest) returns(SetResponse);
+  rpc SetSide2Location(SetLocationRequest) returns(SetResponse);
+
+  rpc SetType(SetContactTypeRequest) returns (SetResponse);
+  rpc SetPairs(ChangeContactPairRequest) returns (SetResponse);
+
+  rpc SetFrictionCoefficient(SetUnitlessDoubleRequest) returns (SetResponse);
+  rpc SetStiffnessFactor(SetUnitlessDoubleRequest) returns (SetResponse);
+  rpc SetDetectionRadiusFactor(SetUnitlessDoubleRequest) returns (SetResponse);
+  rpc SetOffset(SetQuantityRequest) returns (SetResponse);
+  rpc SetShearStrength(SetQuantityRequest) returns (SetResponse);
+  rpc SetTensileStrength(SetQuantityRequest) returns (SetResponse);
+  rpc SetAreStrengthLimitsSetEnabled(SetBooleanRequest) returns (SetResponse);
+  rpc SetAdjustGapOrOverlapEnabled(SetBooleanRequest) returns (SetResponse);
+  rpc SetMakeJustTouchingEnabled(SetBooleanRequest) returns (SetResponse);
+  rpc SetIdealizeEnabled(SetBooleanRequest) returns (SetResponse);
+  rpc SetThermalConductanceMethod(SetConductanceMethodRequest) returns (SetResponse);
+  rpc SetElectricConductanceMethod(SetConductanceMethodRequest) returns (SetResponse);
+  rpc SetConductanceMaterialThickness(SetQuantityRequest) returns (SetResponse);
+  rpc SetConductanceMaterial(SetAssignmentRequest) returns (SetResponse);
+  rpc SetThermalContactConductivity(SetQuantityRequest) returns (SetResponse);
+  rpc SetElectricContactConductivity(SetQuantityRequest) returns (SetResponse);
+  rpc SetThermalContactConductance(SetQuantityRequest) returns (SetResponse);
+  rpc SetElectricContactConductance(SetQuantityRequest) returns (SetResponse);
+
+  rpc Split(CommandRequest) returns (SetResponse);
+}
+
+message ContactCreationRequest{
+  DoubleSidedScopedCreationData creation_data = 1;
+  ContactProperties contact_properties = 2;
+}
+
+message ContactCreationResponse{
+  CreationResponse condition_response = 1;
+  ContactDefinition condition_data = 2;
+}
+
+message ChangeContactPairRequest{
+  GuidEntityIdentifier object_id = 1;
+  ContactPairs contact_pairs = 2;
+}
+
+// Contact condition definitions
+
+
+
+message ContactDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string side1_locations = 4;
+  repeated string side2_locations = 5;
+  bool suppressed = 6;
+  ContactProperties contact = 7;
+}

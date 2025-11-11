@@ -1,0 +1,46 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.parameters.historytrack;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/geometryenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Parameters.HistoryTrack";
+
+// History track parameters servicer.
+//
+service HistoryTrack{
+  rpc Get(EntityRequest) returns(GetResponse);  
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);  
+
+  rpc Set(SetHistoryTrackRequest) returns(SetHistoryTrackResponse);
+}
+
+message GetResponse{
+  HistoryTrackParameterEntity history_track_parameter = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllResponse{
+  repeated HistoryTrackParameterEntity history_track_parameters = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetHistoryTrackRequest{
+  repeated HistoryTrackParameterEntity request_data = 1;
+}
+
+message SetHistoryTrackResponse{
+  repeated HistoryTrackParameterEntity response_data = 1;
+  SetResponse set_response = 2;
+}
+
+//
+// An history track parameter
+message HistoryTrackParameterEntity {
+  EntityIdentifier id = 1;
+  string name=2;
+  DimensionType dimension_type=3;
+  double dimension_value=4;
+}

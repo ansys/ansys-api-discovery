@@ -1,0 +1,51 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.convection;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Convection";
+
+service Convection
+{
+  rpc Create(ConvectionCreationRequest) returns (ConvectionCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetCoefficientMagnitude(SetQuantityRequest) returns(SetResponse);
+  
+  rpc SetTemperatureMagnitude(SetQuantityRequest) returns(SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+//Requests and responses
+message ConvectionCreationRequest{
+  ScopedCreationData creation_data = 1;
+  Quantity coefficient = 2;
+  Quantity temperature = 3;
+
+}
+
+message ConvectionCreationResponse{
+  CreationResponse condition_response = 1;
+  ConvectionDefinition condition_data = 2;
+}
+
+//Definitions
+message ConvectionDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  Quantity coefficient = 6;
+  Quantity temperature = 7;
+}
+
+message GetAllResponse{
+  repeated ConvectionDefinition convection_conditions = 1;
+  bool success = 2;
+  string message = 3;
+}

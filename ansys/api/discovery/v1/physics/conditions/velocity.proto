@@ -1,0 +1,66 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.velocity;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Velocity";
+
+service Velocity
+{
+  //Velocity condition methods
+  rpc Create(VelocityCreationRequest) returns (VelocityCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetOrientation(SetDirectionRequest) returns(SetResponse);
+
+  rpc SetRX(SetQuantityRequest) returns (SetResponse);
+  rpc SetRY(SetQuantityRequest) returns (SetResponse);
+  rpc SetRZ(SetQuantityRequest) returns (SetResponse);
+  rpc SetRotationalMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetIsFixedRX(SetBooleanRequest) returns (SetResponse);
+  rpc SetIsFixedRY(SetBooleanRequest) returns (SetResponse);
+  rpc SetIsFixedRZ(SetBooleanRequest) returns (SetResponse);
+
+  rpc SetUseRemotePointEnabled(SetBooleanRequest) returns (SetResponse);
+  rpc SetRemotePositionX(SetQuantityRequest) returns (SetResponse);
+  rpc SetRemotePositionY(SetQuantityRequest) returns (SetResponse);
+  rpc SetRemotePositionZ(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+//Velocity
+message VelocityCreationRequest{
+  ScopedCreationData creation_data = 1;
+  VelocityProperties velocity_properties = 2;
+}
+
+message VelocityCreationResponse{
+  CreationResponse condition_response = 1;
+  VelocityDefinition condition_data = 2;
+}
+
+// Velocity condition definitions
+message VelocityProperties {
+  VectorOfOptionalQuantities velocity = 1;
+  OptionalVector remote_point = 2;
+}
+
+message VelocityDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  VelocityProperties velocity = 6;
+}
+
+message GetAllResponse{
+  repeated VelocityDefinition velocity_conditions = 1;
+  bool success = 2;
+  string message = 3;
+}

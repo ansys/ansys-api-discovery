@@ -1,0 +1,29 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.extensions.bolt;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Extensions.Bolt";
+
+service Bolt
+{
+  rpc Delete(MultipleEntitiesRequest) returns (TrackedDeleteResponse);
+
+  rpc SetBolt(SetAssignmentRequest) returns (TrackedSetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+
+  rpc Get(EntityRequest) returns (GetResponse);
+}
+
+message GetAllResponse{
+  repeated BoltEntity bolt_entities = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetResponse{
+  BoltEntity bolt_data = 1;
+  CommandResponse command_response = 2;
+}

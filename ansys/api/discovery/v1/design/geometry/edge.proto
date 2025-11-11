@@ -1,0 +1,97 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.geometry.edges;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Geometry.Edge";
+
+service Edge {  
+  rpc Delete(MultipleEntitiesRequest) returns(TrackedDeleteResponse);  
+
+  rpc Get(EntityRequest) returns(GetResponse);  
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);  
+
+  rpc GetBoundingBox(MultipleEntitiesRequest) returns(GetBoundingBoxResponse);  
+
+  rpc GetCurve(MultipleEntitiesRequest) returns(GetCurveResponse);  
+
+  rpc GetFaces(MultipleEntitiesRequest) returns(GetFacesResponse);  
+
+  rpc GetInterval(MultipleEntitiesRequest) returns(GetIntervalResponse);  
+
+  rpc GetIsDeleted(MultipleEntitiesRequest) returns(GetIsDeletedResponse);  
+
+  rpc GetLength(MultipleEntitiesRequest) returns(GetLengthResponse);  
+
+  rpc GetStartAndEndPoints(MultipleEntitiesRequest) returns(GetStartAndEndPointsResponse);  
+
+  rpc GetUpdateState(MultipleEntitiesRequest) returns(GetUpdateStateResponse);
+
+  rpc GetVertices(MultipleEntitiesRequest) returns(GetVerticesResponse);
+}
+
+message GetResponse{
+  EdgeEntity edge = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetCurveResponseData{
+  EntityIdentifier id = 1;
+  CurveGeometry curve = 2;
+}
+
+message GetCurveResponse{
+  repeated GetCurveResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetIntervalResponseData {
+  EntityIdentifier id = 1;
+  double start = 2;
+  double end = 3;
+}
+
+message GetIntervalResponse {
+  repeated GetIntervalResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetLengthResponseData{
+  EntityIdentifier id = 1;
+  double length = 2;
+}
+
+message GetLengthResponse{
+  repeated GetLengthResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetStartAndEndPointsResponseData {
+  EntityIdentifier id = 1;
+  Point start = 2;
+  Point end = 3;
+}
+
+message GetStartAndEndPointsResponse {
+  repeated GetStartAndEndPointsResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllResponse{
+  repeated EdgeEntity edges = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetVerticesResponseData
+{
+  EntityIdentifier id = 1;
+  repeated Vertex vertices = 2;
+}
+
+message GetVerticesResponse{
+  repeated GetVerticesResponseData response_data=1;
+  CommandResponse command_response = 2;
+}

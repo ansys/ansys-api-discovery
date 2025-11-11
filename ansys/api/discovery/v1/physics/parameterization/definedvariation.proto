@@ -1,0 +1,131 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v1.physics.parameterization.definedvariationstable;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Parameterization.DefinedVariation";
+
+// Defined variations servicer.
+//
+service DefinedVariation{
+  // Create variation  
+  rpc Create(CreateRequest) returns(CreateResponse);
+
+  // Get all the variations for a given simulation
+  rpc GetAll(GetAllRequest) returns(GetAllResponse);  
+
+  // Get an input parameter for a given variation
+  rpc GetInput(GetInputRequest) returns(GetInputResponse);  
+
+  // Get an output parameter for a given variation   
+  rpc GetOutput(GetOutputRequest) returns(GetOutputResponse);
+
+  // Gets a whole row from the defined variations table  
+  rpc Get(GetRequest) returns(GetResponse);
+
+  // Asks if the solve is running  
+  rpc IsSolving(IsSolvingRequest) returns(IsSolvingResponse);    
+
+  // Set a star status for a variations list.  
+  rpc SetStarred(SetStarredRequest) returns(SetStarredResponse);
+
+  // Get the starred variations for the current simulation.
+  rpc GetStarred(GetStarredRequest) returns(GetStarredResponse);
+
+  // Set the given variation as the current one
+  rpc SetCurrent(SetCurrentRequest) returns(SetCurrentResponse);
+
+  // Get the current variation for the given simulation
+  rpc GetCurrent(GetCurrentRequest) returns(GetCurrentResponse);
+}
+
+message GetRequest{
+  GuidEntityIdentifier variation_id = 1;
+  GuidEntityIdentifier simulation_id = 2;
+}
+
+message GetResponse{
+  Variation variation = 1;
+}
+
+message GetAllRequest{
+  GuidEntityIdentifier simulation_id = 1;
+}
+
+message GetAllResponse{
+  repeated Variation defined_variations = 2;
+}
+
+message GetInputRequest{
+  GuidEntityIdentifier variation_id = 1;
+  GuidEntityIdentifier simulation_id = 2;
+  GuidEntityIdentifier input_parameter_id = 3;
+}
+
+message GetInputResponse{
+  InputParameter input = 1;
+}
+
+message CreateRequest{
+  GuidEntityIdentifier simulation_id = 1;
+}
+
+message CreateResponse{
+  Variation variation = 1;
+}
+
+message GetOutputRequest{
+  GuidEntityIdentifier variation_id = 1;
+  GuidEntityIdentifier simulation_id = 2;
+  GuidEntityIdentifier output_parameter_id = 3;
+}
+
+message GetOutputResponse{
+  OutputParameter output = 1;
+}
+
+message SetStarredRequest{
+  repeated GuidEntityIdentifier variation_ids = 1;
+  GuidEntityIdentifier simulation_id = 2;
+  bool starred = 3;
+}
+
+message SetStarredResponse{
+}
+
+message GetStarredRequest{
+  GuidEntityIdentifier simulation_id = 1;
+}
+
+message GetStarredResponse{
+  repeated Variation variations = 1;
+}
+
+message IsSolvingRequest{
+  GuidEntityIdentifier simulation_id = 1;
+}
+
+message IsSolvingResponse{
+  // The result
+  bool is_solving = 1;
+}
+
+message SetCurrentRequest {
+  GuidEntityIdentifier variation_id = 1;
+  GuidEntityIdentifier simulation_id = 2;
+}
+
+message SetCurrentResponse {
+  bool success = 1;
+}
+
+message GetCurrentRequest {
+  GuidEntityIdentifier simulation_id = 1;
+}
+
+message GetCurrentResponse {
+  Variation variation = 1;
+}

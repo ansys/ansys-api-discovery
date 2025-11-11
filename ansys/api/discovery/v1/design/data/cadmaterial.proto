@@ -1,0 +1,43 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.data.cadmaterial;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Data.CADMaterial";
+
+service CADMaterial{
+
+  rpc GetAllNames(GetAllNamesRequest) returns(GetAllNamesResponse);
+
+  rpc Create(CreateRequest) returns (CreateResponse);
+
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+}
+
+message GetAllNamesRequest{
+}
+
+message GetAllNamesResponse{
+  repeated string materials = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateRequest {
+  repeated MaterialEntity request_data = 1;
+}
+
+message CreateResponse{
+  repeated string successfully_set = 1;
+  CreationResponse creation_response = 2;
+}
+
+message DeleteRequest {
+  repeated MaterialEntity request_data = 1;
+}
+
+message DeleteResponse {
+  repeated string successfully_removed = 1;
+  DeleteResponse deletion_response = 2;
+}

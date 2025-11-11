@@ -1,0 +1,562 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.operations.Repair;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+import "ansys/api/discovery/v1/geometryenums.proto";
+import "google/protobuf/struct.proto";
+
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Operations.Repair";
+
+service Repair{   
+  rpc FindAdjustSimplify(FindAdjustSimplifyRequest) returns (FindAdjustSimplifyResponse);
+  
+  rpc FindAndFixExtraEdges(FindAndFixExtraEdgesRequest) returns (FindAndFixExtraEdgesResponse);
+  
+  rpc FindAndFixShortEdges(FindAndFixShortEdgesRequest) returns (FindAndFixShortEdgesResponse);
+  
+  rpc FindAndFixSplitEdges(FindAndFixSplitEdgesRequest) returns (FindAndFixSplitEdgesResponse);
+  
+  rpc FindAndFixStitchFaces(FindAndFixStitchFacesRequest) returns (FindAndFixStitchFacesResponse);
+  
+  rpc FindAndSimplify(FindAndSimplifyRequest) returns (FindAndSimplifyResponse);
+  
+  rpc FindCurveGaps(FindCurveGapsRequest) returns (FindCurveGapsResponse);
+  
+  rpc FindDuplicateCurves(FindDuplicateCurvesRequest) returns (FindDuplicateCurvesResponse);
+  
+  rpc FindDuplicateFaces(FindDuplicateFacesRequest) returns (FindDuplicateFacesResponse);
+  
+  rpc FindExtraEdges(FindExtraEdgesRequest) returns (FindExtraEdgesResponse);
+  
+  rpc FindGaps(FindGapsRequest) returns (FindGapsResponse);
+  
+  rpc FindInexactEdges(FindInexactEdgesRequest) returns (FindInexactEdgesResponse);
+  
+  rpc FindInterference(FindInterferenceRequest) returns (FindInterferenceResponse);
+  
+  rpc FindMissingFaces(FindMissingFacesRequest) returns (FindMissingFacesResponse);
+  
+  rpc FindShortEdges(FindShortEdgesRequest) returns (FindShortEdgesResponse);
+  
+  rpc FindSmallCurves(FindSmallCurvesRequest) returns (FindSmallCurvesResponse);
+  
+  rpc FindSmallFaces(FindSmallFacesRequest) returns (FindSmallFacesResponse);
+  
+  rpc FindSplitEdges(FindSplitEdgesRequest) returns (FindSplitEdgesResponse);
+  
+  rpc FindStitchFaces(FindStitchFacesRequest) returns (FindStitchFacesResponse);
+  
+  rpc FitCurves(FitCurvesRequest) returns (FitCurvesResponse);
+  
+  rpc FixAdjustSimplify(FixAdjustSimplifyRequest) returns (FixAdjustSimplifyResponse);
+  
+  rpc FixCurveGaps(FixCurveGapsRequest) returns (FixCurveGapsResponse);
+  
+  rpc FixDuplicateCurves(FixDuplicateCurvesRequest) returns (FixDuplicateCurvesResponse);
+  
+  rpc FixDuplicateFaces(FixDuplicateFacesRequest) returns (FixDuplicateFacesResponse);
+  
+  rpc FixExtraEdges(FixExtraEdgesRequest) returns (FixExtraEdgesResponse);
+  
+  rpc FixGaps(FixGapsRequest) returns (FixGapsResponse);
+  
+  rpc FixInexactEdges(FixInexactEdgesRequest) returns (FixInexactEdgesResponse);
+  
+  rpc FixInterference(FixInterferenceRequest) returns (FixInterferenceResponse);
+  
+  rpc FixMissingFaces(FixMissingFacesRequest) returns (FixMissingFacesResponse);
+  
+  rpc FixShortEdges(FixShortEdgesRequest) returns (FixShortEdgesResponse);
+  
+  rpc FixSmallCurves(FixSmallCurvesRequest) returns (FixSmallCurvesResponse);
+  
+  rpc FixSmallFaces(FixSmallFacesRequest) returns (FixSmallFacesResponse);
+  
+  rpc FixSplitEdges(FixSplitEdgesRequest) returns (FixSplitEdgesResponse);
+  
+  rpc FixStitchFaces(FixStitchFacesRequest) returns (FixStitchFacesResponse);
+  
+  rpc InspectGeometry(InspectGeometryRequest) returns (InspectGeometryResponse);
+  
+  rpc RepairGeometry(RepairGeometryRequest) returns (RepairGeometryResponse);  
+}
+
+message FindInterferenceRequest{
+  repeated EntityIdentifier bodies=1;
+  optional bool cut_smaller_body=2; // default: false
+}
+
+message FindInterferenceResponse{
+  repeated FixInterferenceProblemArea result=1;
+} 
+
+message FixInterferenceRequest{
+  int32 interference_problem_area_id=1;
+}
+
+message FixInterferenceResponse{
+  RepairToolMessage result=1;
+}
+
+message FindSplitEdgesRequest{
+  repeated EntityIdentifier bodies_or_faces=1;
+  double angle=2;
+  double distance = 3;
+  bool comprehensive = 4;
+}
+
+message FindSplitEdgesResponse{
+  repeated SplitEdgeProblemArea result = 1;
+}
+
+message FixSplitEdgesRequest{
+  int32 split_edge_problem_area_id=1;
+}
+
+message FixSplitEdgesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindExtraEdgesRequest{
+  repeated EntityIdentifier selection = 1;
+  bool comprehensive = 2;
+}
+
+message FindExtraEdgesResponse{
+  repeated ExtraEdgeProblemArea result = 1;
+}
+
+message FixExtraEdgesRequest{
+  int32 extra_edge_problem_area_id=1;
+}
+
+message FixExtraEdgesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindShortEdgesRequest{
+  repeated EntityIdentifier selection = 1;
+  double max_edge_length=2; 
+  bool comprehensive = 3;
+}
+
+message FindShortEdgesResponse{
+  repeated ShortEdgeProblemArea result = 1;
+}
+
+message FixShortEdgesRequest{
+  int32 short_edge_problem_area_id=1;
+}
+
+message FixShortEdgesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindInexactEdgesRequest{
+  repeated EntityIdentifier selection = 1;
+}
+
+message FindInexactEdgesResponse{
+  repeated InexactEdgeProblemArea result = 1;
+}
+
+message FixInexactEdgesRequest{
+  int32 inexact_edge_problem_area_id=1;
+}
+
+message FixInexactEdgesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindStitchFacesRequest{
+  repeated EntityIdentifier faces = 1;
+  double maximum_distance = 2; // default: 0.0001
+  bool check_for_coincidence = 3; // default: false
+  bool allow_multiple_bodies = 4; // default: false
+  bool maintain_components = 5; // default: false
+  bool comprehensive = 6;
+}
+
+message FindStitchFacesResponse{
+  repeated StitchFaceProblemArea result = 1;
+}
+
+message FixStitchFacesRequest{
+  int32 stitch_face_problem_area_id = 1;
+}
+
+message FixStitchFacesResponse{
+  RepairToolMessage result = 1;
+}
+
+enum SolidifyFixMethodType{
+  FILL = 0;
+  PATCH_BLEND = 1;
+  TRY_BOTH = 2;
+}
+
+message FindMissingFacesRequest{
+  repeated EntityIdentifier faces = 1;
+  double angle=2;
+  double distance = 3;
+  oneof method
+  {
+    google.protobuf.NullValue null = 4;
+    SolidifyFixMethodType  data =5;
+  }  
+  bool allow_multi_patch =6;
+}
+
+message FindMissingFacesResponse{
+  repeated MissingFaceProblemArea result = 1;
+}
+
+message FixMissingFacesRequest{
+  int32 missing_face_problem_area_id = 1;
+}
+
+message FixMissingFacesResponse{
+  RepairToolMessage result = 1;
+}
+
+message  FindDuplicateFacesRequest{
+  repeated EntityIdentifier faces = 1;
+  double max_gap = 2;
+}
+
+message FindDuplicateFacesResponse{
+  repeated DuplicateFaceProblemArea result = 1;
+}
+
+message  FixDuplicateFacesRequest{
+  int32 duplicate_face_problem_area_id = 1;
+}
+
+message FixDuplicateFacesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindSmallFacesRequest{
+  repeated EntityIdentifier selection = 1;
+  double area = 2;
+  double width = 3;
+}
+
+message FindSmallFacesResponse{
+  repeated SmallFaceProblemArea result = 1;
+}
+
+message FixSmallFacesRequest{
+  int32 small_face_problem_area_id = 1;
+}
+
+message FixSmallFacesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindGapsRequest{
+  repeated EntityIdentifier bodies = 1;
+  double angle=2;
+  double distance = 3;
+  optional SolidifyFixMethodType fix_method = 4;
+  bool allow_multi_patch = 5;
+}
+
+message FindGapsResponse{
+  repeated GapProblemArea result = 1;
+}
+
+message FixGapsRequest{
+  int32 gap_problem_area_id = 1;
+}
+
+message FixGapsResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindCurveGapsRequest{
+  double distance = 1;
+}
+
+message FindCurveGapsResponse{
+  repeated CurveGapProblemArea result = 1;
+}
+
+message FixCurveGapsRequest{
+  int32 curve_gap_problem_area_id = 1;
+  double distance = 2;
+}
+
+message FixCurveGapsResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindDuplicateCurvesResponse{
+  repeated DuplicateCurveProblemArea result = 1;
+}
+
+message FixDuplicateCurvesRequest{
+  int32 duplicate_curve_problem_area_id = 1;
+}
+
+message FixDuplicateCurvesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindSmallCurvesRequest{
+  repeated EntityIdentifier bodies = 1;
+  double  max_curve_length = 2;
+}
+
+message FindSmallCurvesResponse{
+  repeated SmallCurveProblemArea result = 1;
+}
+
+message FixSmallCurvesRequest{
+  int32 small_curve_problem_area_id = 1;
+}
+
+message FixSmallCurvesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindAdjustMergeFacesRequest{
+  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier tangent_faces = 2;
+  bool allow_multi_patch = 3;
+  bool fail_if_can_fill = 4;
+  bool enforce_closed_loop_check = 5;
+}
+
+message FindAdjustMergeFacesResponse{
+  repeated SplitEdgeProblemArea result = 1;
+}
+
+message AdjustMergeFacesRequest{
+  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier tangent_faces = 2;
+  bool allow_multi_patch = 3;
+  bool fail_if_can_fill = 4;
+  bool enforce_closed_loop_check = 5;
+}
+
+message AdjustMergeFacesResponse{
+  bool result = 1;
+}
+
+message FindAdjustSimplifyRequest{
+  repeated EntityIdentifier selection = 1;
+  bool comprehensive = 2;
+}
+
+message FindAdjustSimplifyResponse{
+  repeated AdjustSimplifyProblemArea result = 1;
+}
+
+message FixAdjustSimplifyRequest{
+  int32 adjust_simplify_problem_area_id = 1;
+}
+
+message FixAdjustSimplifyResponse{
+  RepairToolMessage result = 1;
+}
+
+message FitCurvesRequest{
+  EntityIdentifier selection = 1;
+  bool arcs = 2;
+  bool lines = 3;
+  bool splines = 4;
+  bool tangentize = 5;
+  double tolerance = 6;
+}
+
+message FitCurvesResponse{
+  RepairToolMessage result = 1;
+}
+
+message InspectGeometryRequest {
+  repeated EntityIdentifier bodies = 1;
+  optional InspectGeometryOptions options = 2;
+}
+
+message InspectGeometryResponse {
+  repeated InspectGeometryResult issues_by_body = 1;
+}
+
+message RepairGeometryRequest {
+  repeated EntityIdentifier bodies = 1;
+}
+
+message RepairGeometryResponse {
+  RepairToolMessage result = 1;
+}
+
+message FindDuplicateCurvesRequest{
+}
+
+message FindAndFixExtraEdgesResponse{
+  ansys.api.discovery.v1.design.EnhancedRepairToolMessage response_data = 1;
+}
+
+message FindAndFixShortEdgesResponse{
+  ansys.api.discovery.v1.design.EnhancedRepairToolMessage response_data = 1;
+}
+
+message FindAndFixSplitEdgesResponse{
+  ansys.api.discovery.v1.design.EnhancedRepairToolMessage response_data = 1;
+}
+
+message FindAndFixStitchFacesResponse{
+  ansys.api.discovery.v1.design.EnhancedRepairToolMessage response_data = 1;
+}
+
+message FindAndSimplifyResponse{
+  ansys.api.discovery.v1.design.EnhancedRepairToolMessage response_data = 1;
+}
+
+message FindAndSimplifyRequest{
+  repeated EntityIdentifier selection = 1;
+  bool comprehensive = 2;
+}
+
+message FindAndFixExtraEdgesRequest{
+  repeated EntityIdentifier selection = 1;
+  bool comprehensive = 2;
+}
+
+
+message FindAndFixSplitEdgesRequest{
+  repeated EntityIdentifier bodies_or_faces=1;
+  double angle=2;
+  double distance = 3;
+  bool comprehensive = 4;
+}
+
+message FindAndFixStitchFacesRequest{
+  repeated EntityIdentifier faces = 1;
+  double maximum_distance = 2; // default: 0.0001
+  bool check_for_coincidence = 3; // default: false
+  bool allow_multiple_bodies = 4; // default: false
+  bool maintain_components = 5; // default: false
+  bool comprehensive = 6;
+}
+
+message FindAndFixShortEdgesRequest{
+  repeated EntityIdentifier selection = 1;
+  double max_edge_length=2; 
+  bool comprehensive = 3;
+}
+
+
+
+message FixInterferenceProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier body_monikers = 2;
+}
+
+message SplitEdgeProblemArea {
+  int32 id = 1;    
+  repeated EntityIdentifier edge_monikers  = 2;
+}
+
+message FixSplitEdgeOptions {
+  double max_edge_length  = 1;
+  double min_edge_angle  = 2;
+}
+
+message ExtraEdgeProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier edge_monikers = 2;
+}
+
+message InexactEdgeProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier edge_monikers = 2;
+}
+
+message ShortEdgeProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier edge_monikers = 2;
+}
+
+message DuplicateFaceProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier face_monikers = 2;
+}
+
+message MissingFaceProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier edge_monikers = 2;
+}
+
+message SmallFaceProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier face_monikers = 2;
+}
+
+message StitchFaceProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier body_monikers = 2;
+}
+
+message CurveGapProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier curve_point_monikers = 2;
+}
+
+message DuplicateCurveProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier curve_point_monikers = 2;
+}
+
+message SmallCurveProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier curve_monikers = 2;
+}
+
+message AdjustSimplifyProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier body_monikers = 2;
+}
+
+message GapProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier edge_monikers = 2;
+}
+
+message GenericProblemArea {
+  int32 id = 1;
+  repeated EntityIdentifier monikers = 2;
+}
+
+message RepairToolMessage {
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 3;
+}
+
+message InspectGeometryOptions {
+  InspectGeometryLevel level = 1;
+  int32 max_number_of_issues = 2;
+  bool check_self_intersections = 3;
+  bool find_g1_discontinuities = 4;
+  double sliver_edge_tolerance = 5;
+  double sliver_face_tolerance = 6;
+}
+
+message InspectGeometryResultIssue
+{
+  InspectGeometryMessageType message_type = 1;
+  InspectGeometryMessageId message_id = 2;
+  repeated ansys.api.discovery.v1.design.FaceEntity faces = 3;
+  repeated ansys.api.discovery.v1.design.EdgeEntity edges = 4;
+  string message = 5;
+  optional double scalar_value = 6;
+}
+
+message InspectGeometryResult {
+  ansys.api.discovery.v1.design.BodyEntity body = 1;
+  repeated InspectGeometryResultIssue issues = 2;
+}
+

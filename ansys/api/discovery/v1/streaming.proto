@@ -1,0 +1,19 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1;
+option csharp_namespace = "Ansys.Api.Discovery.V1.Streaming";
+
+message StreamPackage{
+  // The type of content
+  string content_type = 1;
+  // The number of packages
+  int32 count = 2;
+  // The package index
+  int32 index = 3;
+  // The image total size
+  int32 total_size = 4;
+  // This package size
+  int32 package_size = 5;
+  // The package data 
+  bytes data =6;
+}

@@ -1,0 +1,128 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.porous;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Porous";
+
+service Porous
+{
+  //wall creation methods
+  rpc CreateIsotropic(PorousCreationRequest) returns (PorousCreationResponse);
+
+  rpc CreateBidirectional(PorousCreationRequest) returns (PorousCreationResponse);
+
+  rpc CreateOrthotropic(PorousCreationRequest) returns (PorousCreationResponse);
+
+  // properties
+  rpc SetSpecification(SetPorousSpecificationRequest) returns (SetResponse);
+
+  rpc SetLocation(SetLocationRequest) returns (SetResponse);
+
+  rpc SetStreamwiseFlowDirectionReference(SetLocationExtendedRequest) returns (SetResponse);
+
+
+  // Resistance coeffiecient quantities
+  rpc SetViscousStreamwiseMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetInertialStreamwiseMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetViscousCrossflowPrimaryMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetInertialCrossflowPrimaryMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetViscousCrossflowSecondaryMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetInertialCrossflowSecondaryMagnitude(SetQuantityRequest) returns (SetResponse);
+
+
+  //Solid quantities
+
+  rpc SetThermalInputEnabled(SetBooleanRequest) returns (SetResponse);
+  
+  rpc SetSolidPorosity(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetSolidDensity(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetSolidIsotropicThermalConductivity(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetSolidSpecificHeat(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+  
+}
+
+// Command Requests and Responses
+
+message PorousCreationRequest{
+  ScopedCreationData creation_data = 1;
+  PorousProperties porous_properties = 2;
+  optional LocationIdentifier streamwise_flow_direction_reference = 3;
+}
+
+message PorousCreationResponse{
+  CreationResponse condition_response = 1;
+  PorousDefinition condition_data = 2;
+}
+
+// enum commands
+message SetPorousSpecificationRequest{
+  GuidEntityIdentifier object_id = 1;
+  PorousSpecification specification = 2;
+}
+
+// enumerations
+
+enum PorousSpecification {
+  ISOTROPIC = 0;
+  BIDIRECTIONAL = 1;
+  ORTHOTROPIC = 2;
+}
+
+// Conditions properties
+
+message PorousProperties
+{
+  ResistanceCoeffients coefficients = 1;
+  SolidProperties solid_properties = 2;
+}
+
+
+message SolidProperties
+{
+  double porosity = 1;
+  Quantity density = 2;
+  Quantity isotropic_thermal_conductivity = 3;
+  Quantity specific_heat = 4;
+}
+
+message ResistanceCoeffients
+{
+  Quantity viscous_streamwise = 1;
+  Quantity inertial_streamwise = 2;
+  optional Quantity viscous_primary = 3;
+  optional Quantity inertial_primary = 4;
+  optional Quantity viscous_secondary = 5;
+  optional Quantity inertial_secondary = 6;
+}
+
+// conditions definitions
+
+message PorousDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  PorousProperties porous_properties = 6;
+  PorousSpecification porous_specification = 7;
+  optional LocationIdentifier streamwise_flow_direction_reference = 8;
+}
+
+message GetAllResponse{
+  repeated PorousDefinition porous_conditions = 1;
+  bool success = 2;
+  string message = 3;
+}

@@ -1,0 +1,32 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.physicsentity;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.PhysicsEntity";
+
+service PhysicsEntity
+{
+  //General condition methods
+  rpc Delete(DeleteRequest) returns (SetResponse);
+
+  rpc SetSuppressionState(SetSuppressionStateRequest) returns (SetResponse);
+
+  rpc SetName(SetNameRequest) returns (SetResponse);
+}
+
+//General Requests
+message DeleteRequest{
+  GuidEntityIdentifier object_id = 1;
+}
+
+message SetSuppressionStateRequest{
+  GuidEntityIdentifier object_id = 1;
+  bool is_suppressed = 2;
+}
+
+message SetNameRequest{
+  GuidEntityIdentifier object_id = 1;
+  string new_name = 2;
+}

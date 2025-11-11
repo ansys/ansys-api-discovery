@@ -1,0 +1,265 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1;
+
+import "ansys/api/discovery/v1/geometryenums.proto";
+import "ansys/api/discovery/v1/physicsenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1";
+
+////////////////////
+//Entity definitions
+////////////////////
+
+message EntityRequest{
+  EntityIdentifier id = 1;
+}
+
+message ParentEntityRequest{
+  EntityIdentifier parent = 1;
+}
+
+message MultipleEntitiesRequest{
+  repeated EntityIdentifier ids = 1;
+}
+
+message EntityIdentifier{
+  string id=1;
+}
+
+message GuidEntityIdentifier{
+  string guid_as_string = 1;
+}
+
+////////////////////
+// Common responses
+////////////////////
+
+message SetResponse{
+  bool success = 1;
+  string message = 2;
+}
+
+message CreationResponse{
+  bool success = 1;
+  string message = 2;
+}
+
+message DeleteResponse{
+  repeated EntityIdentifier deleted_objects_ids=1;
+  repeated EntityIdentifier failed_deletions = 2;
+  repeated string error_messages = 3;
+}
+
+message CommandResponse{
+  bool success = 1;
+  string message = 2;
+}
+
+////////////////////
+// General Requests
+////////////////////
+
+message SetLocationRequest{
+  GuidEntityIdentifier object_id = 1;
+  repeated EntityIdentifier location_ids = 2;
+}
+
+//enables the type of location to be changed as well as the scope.  Only supported for specific condition types
+message SetLocationExtendedRequest
+{
+  SetLocationRequest set_location_request = 1;
+  LocationType location_type = 2;
+}
+
+message SetQuantityRequest{
+  GuidEntityIdentifier object_id = 1;
+  repeated EntityIdentifier geometry_ids = 2;
+  Quantity quantity = 3;
+}
+
+message SetBooleanRequest{
+  GuidEntityIdentifier object_id = 1;
+  repeated EntityIdentifier geometry_ids = 2;
+  bool boolean_value = 3;
+}
+
+message SetUnitlessDoubleRequest{
+  GuidEntityIdentifier object_id = 1;
+  double value = 2;
+}
+
+// referring object id is the physics object containing the assignment, 
+// or the simulation id in the case of geoemtry level assignments
+message SetAssignmentRequest{
+  GuidEntityIdentifier referring_object_id = 1; 
+  repeated EntityIdentifier referring_geometry_ids = 2;
+  GuidEntityIdentifier referenced_engineering_data_id = 3;
+  optional GuidEntityIdentifier referenced_library_id = 4;
+}
+
+message SetStringRequest{
+  GuidEntityIdentifier object_id = 1;
+  string text_value = 2;
+}
+
+message GetByLabelRequest{
+  string label = 1;
+}
+
+////////////////////////////////
+//Standard geometry definitions
+////////////////////////////////
+
+message Direction {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+message Point {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+message Frame {
+  Point origin = 1;
+  Direction dir_x = 2;
+  Direction dir_y = 3;
+  Direction dir_z = 4;
+}
+
+message Plane {
+  Frame frame = 1;
+}
+
+message Line {
+  Point start=1;
+  Point end=2;
+}
+
+message Circle {
+  Point center=1;
+  double radius=2;
+}
+
+message Arc {
+  Point center=1;
+  Point start=2;
+  Point end=3;
+  Direction axis=4;
+}
+
+message Ellipse {
+  Point center=1;
+  double majorradius=2;
+  double minorradius=3;
+  double angle=4;
+}
+
+message Polygon {
+  Point center=1;
+  double radius=2;
+  int32 numberofsides=3;
+  double angle=4;
+}
+
+////////////////////
+// Quantity Data
+////////////////////
+
+message Quantity {
+  QuantityType quantity_type = 1; //not required in cases where the usage context defines the quantity type
+  double quantity_value = 2;
+  int32 unit = 3;
+  string unit_abbreviation = 4; //not required in cases where the usage context defines the abbreviation
+  string as_string = 5; //Optional, but if not empty, all other properties will be defaulted from it.
+}
+
+message QuantityVector {
+  Quantity x = 1;
+  Quantity y = 2;
+  Quantity z = 3;
+}
+
+message OptionalVector {
+  bool is_defined = 1;
+  QuantityVector vector = 2;
+}
+
+message OptionalQuantity{
+  bool is_defined = 1;
+  Quantity quantity = 2;
+}
+
+message OptionalInt{
+  bool is_defined = 1;
+  int32 number = 2;
+}
+
+message TensorOfOptionalQuantities{
+  OptionalQuantity dx = 1;
+  OptionalQuantity dy = 2;
+  OptionalQuantity dz = 3;
+  OptionalQuantity rx = 4;
+  OptionalQuantity ry = 5;
+  OptionalQuantity rz = 6;
+}
+
+message VectorOfOptionalQuantities{
+  OptionalQuantity x = 1;
+  OptionalQuantity y = 2;
+  OptionalQuantity z = 3;
+}
+
+message TableHeader{
+  string table_name = 1;  //e.g. displacement
+  repeated string column_headers = 2;  //e.g. xx, yy, zz, xy, yz, xz
+  int32 number_of_data_rows = 3;
+}
+
+message QuantityGenericTable{
+  TableHeader header = 1;
+  repeated QuantityGenericTableRow row_data = 2;  //matches number_of_data_rows
+}
+
+message QuantityGenericTableRow{
+  repeated Quantity row_cells = 1; //should match number of column_headers
+}
+
+message QuantityVectorTable{
+  TableHeader header = 1;
+  repeated QuantityVector row_data = 2; //hence columns: x, y, z and optionally computed magnitude
+}
+
+message QuantityPairTable{
+  TableHeader header = 1;
+  repeated QuantityPair row_data = 2; //2 quantities, e.g. for fan data, or temperature dependant material data
+}
+
+message QuantityPair{
+  Quantity independant_data = 1;
+  Quantity dependant_data = 2;
+}
+
+message ChangeQuantityPairRequest{
+  GuidEntityIdentifier object_id = 1;
+  QuantityPair value = 2;
+}
+
+message EditTableQuantityPairRequest{
+  GuidEntityIdentifier object_id = 1;
+  QuantityPair value = 2;
+  int32 row_index = 3;
+}
+
+message AddTableQuantityPairRequest{
+  GuidEntityIdentifier object_id = 1;
+  QuantityPair value = 2;
+}
+
+message RemoveTableRowRequest{
+  GuidEntityIdentifier object_id = 1;
+  int32 row_index = 2;
+}

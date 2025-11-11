@@ -1,0 +1,55 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.operations.Facet;
+
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Operations.Facet";
+
+service Facet{
+  rpc FacetAutoFix(FacetAutoFixRequest) returns (FacetAutoFixResponse);
+
+  rpc ShrinkWrapBody(ShrinkWrapBodyRequest) returns (ShrinkWrapBodyResponse);
+
+  rpc ShrinkWrapMesh(ShrinkWrapMeshRequest) returns (ShrinkWrapMeshResponse);
+}
+
+message ShrinkWrapBodyRequest{
+  repeated ansys.api.discovery.v1.design.BodyEntity selection = 1;
+  ShrinkWrapOptions options= 2;
+}
+
+message ShrinkWrapBodyResponse{
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
+}
+
+message ShrinkWrapMeshRequest{
+  repeated ansys.api.discovery.v1.design.MeshEntity selection = 1;
+  ShrinkWrapOptions options= 2;
+}
+
+message ShrinkWrapMeshResponse{
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
+}
+
+message FacetAutoFixRequest{
+  repeated ansys.api.discovery.v1.design.MeshEntity selection = 1;
+}
+
+message FacetAutoFixResponse{
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
+}
+
+//
+// ShrinkWrapOptions is used to specify ShrinkWrap method in the Facet Tools. 
+message ShrinkWrapOptions {
+  double size =2;
+  bool keep_original_bodies =3;
+  bool preserve_features =4;
+  double angle_tolerance =5;
+  bool secondary_size_enabled =6;
+  double secondary_size = 7;
+  bool max_size_enabled =8;
+  double max_size = 9;
+  double curvature_angle =10;
+}

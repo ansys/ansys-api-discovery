@@ -1,0 +1,47 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.commands.historytrack;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.HistoryTrack";
+
+// History track servicer
+//
+service HistoryTrack{
+
+  rpc GetRecordingStatus(GetRecordingStatusRequest) returns(GetRecordingStatusResponse);  
+
+  rpc Replay(ReplayRequest) returns(ReplayResponse);  
+
+  rpc SetRecordingStatus(SetRecordingStatusRequest) returns(SetRecordingStatusResponse);  
+}
+
+message ReplayRequest{
+}
+
+message ReplayResponse{
+  string result = 1;
+  CommandResponse command_response = 2;
+}
+
+enum RecordingStatus{
+  OFF=0;
+  ON=1;
+}
+
+message GetRecordingStatusRequest{
+}
+
+message GetRecordingStatusResponse{
+  RecordingStatus status = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetRecordingStatusRequest{
+  RecordingStatus status = 1;
+}
+
+message SetRecordingStatusResponse{
+  SetResponse set_response = 1;
+}

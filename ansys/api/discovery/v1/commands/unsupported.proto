@@ -1,0 +1,134 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v1.commands.unsupported;
+
+import "ansys/api/discovery/v1/commonenums.proto";
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+import "ansys/api/discovery/v1/resultenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.Unsupported";
+
+service Unsupported {
+
+  //Omniverse methods
+  rpc ExportResultsToOpenVDBFile(ExportResultsToOpenVDBFileRequest) returns(ExportResultsToOpenVDBFileResponse);
+  
+  rpc ExportResultsToOpenVDBMemory(ExportResultsToOpenVDBMemoryRequest) returns(ExportResultsToOpenVDBMemoryResponse);  
+  
+  rpc GetFacetedBodies(GetFacetedBodiesRequest) returns(GetFacetedBodiesResponse);  
+  
+  rpc GetFacetedBodiesStream(GetFacetedBodiesRequest) returns(stream GetFacetedBodiesResponse);  
+  
+  rpc GetImportIdMap(GetImportIdMapRequest) returns (GetImportIdMapResponse);
+  
+  rpc SetExportId(SetExportIdRequest) returns (SetExportIdResponse);
+
+  //Omniverse Legend requests
+  //Support properly in future (and depreciate these) once we have results API
+  rpc GetLegendMaximumValue(GetLegendMaximumValueRequest) returns(GetLegendMaximumValueResponse);
+  
+  rpc GetLegendMinimumValue(GetLegendMinimumValueRequest) returns(GetLegendMinimumValueResponse); 
+  
+
+  //oSl methods
+  rpc SetSoundEnabled(SoundEnabledRequest) returns(SetSoundEnabledResponse);
+
+
+  // Runs a command. A command can be exposed by Addin.
+  rpc RunCommand(RunCommandRequest) returns(RunCommandResponse);
+}
+
+message SoundEnabledRequest {
+  bool enabled = 1;
+}
+
+message SetSoundEnabledResponse{
+  bool success = 1;
+}
+
+message GetImportIdMapRequest{
+  PersistentIdType type = 1;
+}
+
+message GetImportIdMapResponse{
+  map<string, EntityIdentifier> id_map = 1;
+}
+
+message SetExportIdData{
+  EntityIdentifier moniker = 1;
+  string id = 2;
+  PersistentIdType type = 3;
+}
+
+message SetExportIdResponse{
+}
+
+message SetExportIdRequest{
+  repeated SetExportIdData export_data = 1;
+}
+
+message GetFacetedBodiesRequest
+{
+  repeated EntityIdentifier parts_ids = 1;
+}
+
+message GetFacetedBodiesResponse{
+  map<string, ansys.api.discovery.v1.design.Tessellation> faceted_bodies=1;
+}
+
+message ExportResultsToOpenVDBMemoryRequest {
+  repeated ResultVariable result_variables = 1;
+}
+
+message ExportResultsToOpenVDBMemoryResponse{
+  ByteArrayResponse response = 1;
+}
+
+message ExportResultsToOpenVDBFileRequest {
+  repeated ResultVariable result_variables = 1;
+  string file_path = 2;
+}
+
+message ExportResultsToOpenVDBFileResponse{
+  CommandResponse command_response = 2;
+}
+
+message ByteArrayResponse {
+  bytes bytes = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetLegendMaximumValueRequest{
+}
+
+message GetLegendMinimumValueRequest{
+}
+
+message DoubleValueResponse {
+  double value = 1;
+}
+
+message GetLegendMaximumValueResponse{
+  DoubleValueResponse response = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetLegendMinimumValueResponse{
+  DoubleValueResponse response = 1;
+  CommandResponse command_response = 2;
+}
+
+message RunCommandRequest{
+  // Command to execute.
+  string command = 1;
+  // Data to pass to command.
+  string data = 2;
+}
+
+message RunCommandResponse{
+  // Data returned from command.
+  string data = 1;
+  CommandResponse command_response = 2;
+}

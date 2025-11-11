@@ -1,0 +1,55 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.geometry.curves;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Geometry.Curve";
+
+service Curve{
+  rpc CreateFromProfile(CreateCurvesFromProfileRequest) returns (CreateCurvesFromProfileResponse);
+
+  rpc Delete(MultipleEntitiesRequest) returns(TrackedDeleteResponse);
+
+  rpc Get(EntityRequest) returns(GetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+
+  rpc EvaluateNurbsCurve(EvaluateNurbsCurveRequest) returns (EvaluateNurbsCurveResponse);
+}
+
+message GetResponse{
+  CurveEntity curve = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllResponse{
+  repeated CurveEntity curves = 1;
+  CommandResponse command_response = 2;
+}
+
+message CreateCurvesFromProfileRequestData {
+  Geometries geometries=1;
+  EntityIdentifier parent=2;
+  Plane plane=3;
+}
+
+message CreateCurvesFromProfileRequest {
+  repeated CreateCurvesFromProfileRequestData request_data = 1 ;
+}
+
+message CreateCurvesFromProfileResponse {
+  repeated EntityIdentifier created_curves=1;
+  CreationResponse creation_response = 2;
+}
+
+message EvaluateNurbsCurveRequest{
+  NurbsCurve curve = 1;
+  double parameter = 2;
+}
+
+message EvaluateNurbsCurveResponse {
+  CurveEvaluation curve_evaluation = 1;
+  CommandResponse command_response = 2;
+}

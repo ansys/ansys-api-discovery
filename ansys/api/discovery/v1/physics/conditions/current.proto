@@ -1,0 +1,52 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.current;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Current";
+
+service Current
+{
+  //Current condition methods
+  rpc Create(CurrentCreationRequest) returns (CurrentCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+// Current
+message CurrentCreationRequest{
+  ScopedCreationData creation_data = 1;
+  CurrentProperties current_properties = 2;
+}
+
+message CurrentCreationResponse{
+  CreationResponse condition_response = 1;
+  CurrentDefinition condition_data = 2;
+}
+
+// Current condition definitions
+message CurrentProperties {
+  Quantity current_magnitude = 1;
+}
+
+message CurrentDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  CurrentProperties current = 6;
+}
+
+message GetAllResponse{
+  repeated CurrentDefinition current_conditions = 1;
+  bool success = 2;
+  string message = 3;
+}
+

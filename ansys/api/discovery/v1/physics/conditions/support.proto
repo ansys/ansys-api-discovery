@@ -1,0 +1,109 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.support;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Support";
+
+service Support
+{
+  //Support condition methods
+  rpc CreateFixed(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
+  rpc CreateHinged(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
+  rpc CreateSliding(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
+  rpc CreateBall(SupportGeneralCreationRequest) returns (SupportGeneralCreationResponse);
+  rpc CreateDisplaced(SupportDisplacedCreationRequest) returns (SupportDisplacedCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetSpecification(SetSupportSpecificationRequest) returns(SetResponse);
+
+  rpc SetDisplacedOrientation(SetDirectionRequest) returns(SetResponse);
+  
+  rpc SetDisplacedDX(SetQuantityRequest) returns (SetResponse);
+  rpc SetDisplacedDY(SetQuantityRequest) returns (SetResponse);
+  rpc SetDisplacedDZ(SetQuantityRequest) returns (SetResponse);
+  rpc SetDisplacedRX(SetQuantityRequest) returns (SetResponse);
+  rpc SetDisplacedRY(SetQuantityRequest) returns (SetResponse);
+  rpc SetDisplacedRZ(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetDisplacedIsFixedDX(SetBooleanRequest) returns (SetResponse);
+  rpc SetDisplacedIsFixedDY(SetBooleanRequest) returns (SetResponse);
+  rpc SetDisplacedIsFixedDZ(SetBooleanRequest) returns (SetResponse);
+  rpc SetDisplacedIsFixedRX(SetBooleanRequest) returns (SetResponse);
+  rpc SetDisplacedIsFixedRY(SetBooleanRequest) returns (SetResponse);
+  rpc SetDisplacedIsFixedRZ(SetBooleanRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+
+}
+
+//Support
+message SetSupportSpecificationRequest{
+  GuidEntityIdentifier object_id = 1;
+  SupportSpecification support_specification = 2;
+}
+
+message SupportGeneralCreationRequest{
+  ScopedCreationData creation_data = 1;
+}
+
+message SupportGeneralCreationResponse{
+  CreationResponse condition_response = 1;
+  SupportGeneralDefinition condition_data = 2;
+}
+
+message SupportDisplacedCreationRequest{
+  ScopedCreationData creation_data = 1;
+  SupportDisplacedProperties support_displaced = 2;
+}
+
+message SupportDisplacedCreationResponse{
+  CreationResponse condition_response = 1;
+  SupportDisplacedDefinition condition_data = 2;
+}
+
+// Support enumerations
+
+enum SupportSpecification {
+  FIXED = 0;
+  SLIDING = 1;
+  HINGED = 2;
+  BALL = 3;
+  DISPLACED = 4;
+}
+
+// Support condition definitions
+
+message SupportGeneralDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  SupportSpecification support_type = 6;
+}
+
+message SupportDisplacedDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  SupportSpecification support_type = 6;
+  TensorOfOptionalQuantities displacement = 7;
+}
+
+message SupportDisplacedProperties {
+  TensorOfOptionalQuantities displacement = 1;
+}
+
+message GetAllResponse{
+  // The simulations in the study.
+  repeated SupportGeneralDefinition supports_general = 1;
+  repeated SupportDisplacedDefinition supports_displaced = 2;
+  bool success = 3;
+  string message = 4;
+}

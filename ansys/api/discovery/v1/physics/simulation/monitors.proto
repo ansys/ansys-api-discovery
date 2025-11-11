@@ -1,0 +1,62 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.simulation.monitors;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+import "ansys/api/discovery/v1/resultenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Simulation.Monitors";
+
+service Monitors
+{
+  // Creates a new monitor
+  rpc Create(CreateMonitorRequest) returns (MonitorCreationResponse);
+
+  rpc GetAll(GetAllMonitorsRequest) returns (GetAllMonitorsResponse);
+
+  rpc GetValues(GetMonitorValuesRequest) returns (GetMonitorValuesResponse);
+
+}
+
+message CreateMonitorRequest{
+  // The monitor id
+  DoubleSidedScopedCreationData creation_data = 1;
+  MonitorProperties monitor = 2;
+}
+
+message MonitorCreationResponse{
+  // Creation response
+  CreationResponse monitor_response = 1;
+  // Monitor definition
+  MonitorDefinition monitor = 2;
+}
+
+message GetAllMonitorsRequest{
+}
+
+message GetAllMonitorsResponse{
+  repeated MonitorDefinition monitor_definitions = 1;
+}
+
+message GetMonitorValuesRequest{
+  EntityIdentifier id = 1;
+}
+
+message GetMonitorValuesResponse{
+  repeated Quantity monitor_values = 1;
+}
+
+message MonitorProperties{
+  ResultVariable result_variable = 1;
+  ResultFunction result_function = 2;
+  optional ResultComponent result_component = 3;
+}
+
+message MonitorDefinition{
+  EntityIdentifier id = 1;
+  string label = 2;
+  repeated string side1_locations = 3;
+  repeated string side2_locations = 4;
+  MonitorProperties monitor = 5;
+}

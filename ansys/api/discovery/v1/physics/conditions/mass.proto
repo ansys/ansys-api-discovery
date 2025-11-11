@@ -1,0 +1,57 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.mass;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Mass";
+
+service Mass
+{
+  //Mass condition methods
+  rpc Create(MassCreationRequest) returns (MassCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetUseRemotePointEnabled(SetBooleanRequest) returns (SetResponse);
+  rpc SetRemotePositionX(SetQuantityRequest) returns (SetResponse);
+  rpc SetRemotePositionY(SetQuantityRequest) returns (SetResponse);
+  rpc SetRemotePositionZ(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+// Mass
+message MassCreationRequest{
+  ScopedCreationData creation_data = 1;
+  MassProperties mass_properties = 2;
+}
+
+message MassCreationResponse{
+  CreationResponse condition_response = 1;
+  MassDefinition condition_data = 2;
+}
+
+// Mass condition definitions
+message MassProperties {
+  Quantity mass_magnitude = 1;
+  OptionalVector remote_point = 2;
+}
+
+message MassDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MassProperties mass = 6;
+}
+
+message GetAllResponse{
+  repeated MassDefinition mass_conditions = 1;
+  bool success = 2;
+  string message = 3;
+}

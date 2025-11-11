@@ -1,0 +1,102 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.boltpreload;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.BoltPreload";
+
+service BoltPreload
+{
+  //Bolt prestress condition methods
+  rpc CreateClampForce(BoltPreloadClampForceCreationRequest) returns (BoltPreloadCreationResponse);
+  rpc CreateGripLength(BoltPreloadGripLengthCreationRequest) returns (BoltPreloadCreationResponse);
+  rpc CreateTorque(BoltPreloadTorqueCreationRequest) returns (BoltPreloadCreationResponse);
+
+  rpc SetSide1Location(SetLocationExtendedRequest) returns(SetResponse);
+  rpc SetSide2Location(SetLocationRequest) returns(SetResponse);
+
+  rpc SetSpecification(SetBoltPreloadSpecificationRequest) returns(SetResponse);
+
+  rpc SetClampForce(SetQuantityRequest) returns (SetResponse);
+  rpc SetGripLength(SetQuantityRequest) returns (SetResponse);
+  rpc SetTorque(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetTorqueCoefficient(SetQuantityRequest) returns (SetResponse);
+  rpc SetSpecifyBoltDiameter(SetBooleanRequest) returns (SetResponse);
+  rpc SetShankDiameter(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+//Creation
+message BoltPreloadClampForceCreationRequest{
+  DoubleSidedScopedCreationData creation_data = 1;
+  BoltPreloadClampForceProperties clamp_force_properties = 2;
+}
+
+message BoltPreloadGripLengthCreationRequest{
+  DoubleSidedScopedCreationData creation_data = 1;
+  BoltPreloadGripLengthProperties grip_length_properties = 2;
+}
+
+message BoltPreloadTorqueCreationRequest{
+  DoubleSidedScopedCreationData creation_data = 1;
+  BoltPreloadTorqueProperties torque_properties = 2;
+}
+
+message BoltPreloadCreationResponse{
+  CreationResponse condition_response = 1;
+  BoltPreloadDefinition condition_data = 2;
+}
+
+//Other requests
+
+message SetBoltPreloadSpecificationRequest{
+  GuidEntityIdentifier object_id = 1;
+  BoltPreloadSpecification specification = 2;
+}
+
+// Enumerations
+
+enum BoltPreloadSpecification {
+  CLAMPFORCE = 0;
+  GRIPLENGTH = 1;
+  TORQUE = 2;
+}
+
+// Condition definitions
+
+message BoltPreloadClampForceProperties {
+  Quantity clamp_force = 1;
+}
+
+message BoltPreloadGripLengthProperties {
+  Quantity grip_length = 1;
+}
+
+message BoltPreloadTorqueProperties {
+  Quantity torque = 1;
+  double torque_coefficient = 2;
+  OptionalQuantity boltdiameter = 3;
+}
+
+message BoltPreloadDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string side1_locations = 4;
+  repeated string side2_locations = 5;
+  bool suppressed = 6;
+  BoltPreloadSpecification specification = 7;
+  BoltPreloadClampForceProperties clamp_force_properties = 8;
+  BoltPreloadGripLengthProperties grip_length_properties = 9;
+  BoltPreloadTorqueProperties torque_properties = 10;
+}
+
+message GetAllResponse{
+  repeated BoltPreloadDefinition bolt_preloads = 1;
+  bool success = 2;
+  string message = 3;
+}

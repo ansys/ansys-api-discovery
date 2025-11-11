@@ -1,0 +1,161 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.geometry.components;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+import "ansys/api/discovery/v1/geometryenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Geometry.Component";
+
+service Component{
+  rpc Create(CreateRequest) returns(CreateResponse);
+
+
+  rpc Delete(MultipleEntitiesRequest) returns(TrackedDeleteResponse);  
+
+
+  rpc Get(EntityRequest) returns(GetResponse);  
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);  
+
+  rpc GetBeamBodies(MultipleEntitiesRequest) returns (GetBeamBodiesResponse);  //what about other physical geometric entities?
+
+  rpc GetBodies(MultipleEntitiesRequest) returns (GetBodiesResponse);  
+
+  rpc GetName(MultipleEntitiesRequest) returns (GetComponentNameResponse);  
+
+  rpc GetPart(MultipleEntitiesRequest) returns (GetPartResponse);  
+
+  rpc GetRootComponent(GetRootComponentRequest) returns (GetRootComponentResponse);  
+
+  rpc GetUpdateState(MultipleEntitiesRequest) returns (GetUpdateStateResponse);  
+
+
+  rpc SetName(SetDesignEntityNameRequest) returns (SetDesignEntityNameResponse);
+
+  //Specials:
+  rpc MakeIndependent(MakeIndependentRequest) returns (MakeIndependentResponse);
+
+  rpc ImportGroups(ImportGroupsRequest) returns (ImportGroupsResponse);
+
+  rpc SetPlacement(SetPlacementRequest) returns (SetPlacementResponse);  
+
+  rpc SetSharedTopology(SetSharedTopologyRequest) returns (SetSharedTopologyResponse);
+}
+
+message MakeIndependentResponse {
+  TrackedChanges tracked_changes = 1;
+}
+
+message ImportGroupsResponse {
+  TrackedChanges tracked_changes = 1;
+}
+
+message ImportGroupsRequest {
+  EntityIdentifier id = 1;
+}
+
+message MakeIndependentRequest {
+  repeated EntityIdentifier ids = 1;
+}
+
+message CreateComponentData{
+  string name = 1;  
+  EntityIdentifier parent = 2;  
+  EntityIdentifier template = 3;  
+  string instance_name = 4;  
+}
+
+message CreateRequest {  
+  repeated CreateComponentData components = 1;
+}  
+
+message CreateResponse {  
+  repeated ComponentEntity components = 1;
+  CreationResponse creation_response = 2;
+}  
+
+message GetAllResponse {  
+  repeated ComponentEntity components = 1;
+  CommandResponse command_response = 2;
+}  
+
+message GetBeamBodiesRequest {  
+  repeated EntityIdentifier ids = 1;
+  CommandResponse command_response = 2;
+}  
+
+message BeamBodies{
+  EntityIdentifier beam = 1;  
+  repeated EntityIdentifier bodies = 2;
+}
+
+message GetBeamBodiesResponse {  
+  repeated BeamBodies beam_bodies = 1;
+  CommandResponse command_response = 2;
+}  
+
+message ComponentBodies{
+  EntityIdentifier component = 1;  
+  repeated BodyEntity bodies = 2;  
+}
+
+message GetBodiesResponse {  
+  repeated ComponentBodies bodies = 1;
+  CommandResponse command_response = 2;
+}  
+
+message GetComponentNameResponse {  
+  map<string, string> names = 1;
+  CommandResponse command_response = 2;
+}  
+
+message GetPartResponse {  
+  map<string, PartEntity> parts = 1;
+  CommandResponse command_response = 2;
+}  
+
+message GetResponse {  
+  ComponentEntity component = 1;
+  CommandResponse command_response = 2;
+}  
+
+message GetRootComponentRequest {  
+}  
+
+message GetRootComponentResponse {  
+  EntityIdentifier id = 1;
+  CommandResponse command_response = 2;
+}  
+
+message SetPlacementRequest {  
+  repeated EntityIdentifier ids = 1;  
+  repeated PlacementData placements = 2;
+}  
+
+message SetPlacementResponse {  
+  map<string, Matrix> matrices = 1;
+  TrackedSetResponse tracked_set_response = 2;
+}
+
+message SharedTopologyData{
+  EntityIdentifier id = 1;  
+  ShareType share_type = 2;  
+}
+
+message SetSharedTopologyRequest {  
+  repeated SharedTopologyData shared_topologies = 1;
+}  
+
+message SetSharedTopologyResponse { 
+  map<string, bool> succesfully_applied = 1;
+  TrackedSetResponse tracked_set_response = 2;
+}
+
+message PlacementData{
+  Direction translation = 2;  
+  Point rotation_axis_origin = 3;  
+  Direction rotation_axis_direction = 4;  
+  double rotation_angle = 5;  
+}

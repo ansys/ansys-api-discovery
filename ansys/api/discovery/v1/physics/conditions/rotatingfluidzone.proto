@@ -1,0 +1,63 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.rotatingfluidzone;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.RotatingFluidZone";
+
+service RotatingFluidZone
+{
+  //creation methods
+  rpc Create(RotatingFluidZoneCreationRequest) returns (RotatingFluidZoneCreationResponse);  
+
+  
+  // properties commands
+  rpc SetLocation(SetLocationRequest) returns (SetResponse);
+
+
+  // Motion quantities
+  rpc SetRotationalVelocityMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+// Command Requests and Responses
+
+// Create RFZ
+message RotatingFluidZoneCreationRequest{
+  ScopedCreationData creation_data = 2;
+  RotatingFluidZoneProperties rotating_fluid_zone_properties = 4;
+}
+
+message RotatingFluidZoneCreationResponse{
+  CreationResponse condition_response = 1;
+  RotatingFluidZoneDefinition condition_data = 2;
+}
+
+
+// RFZ conditions properties
+
+message RotatingFluidZoneProperties
+{
+  Quantity rotational_velocity = 1;
+}
+
+
+// Fluid conditions definitions
+
+message RotatingFluidZoneDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  RotatingFluidZoneProperties rotating_fluid_zone_properties = 6;
+}
+
+message GetAllResponse{
+  repeated RotatingFluidZoneDefinition rotating_fluid_zone_conditions = 1;
+  bool success = 2;
+  string message = 3;
+}

@@ -1,0 +1,52 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.pressure;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Pressure";
+
+service Pressure
+{
+  //Pressure condition methods
+  rpc Create(PressureCreationRequest) returns (PressureCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+// Pressure
+message PressureCreationRequest{
+  ScopedCreationData creation_data = 1;
+  PressureProperties pressure_properties = 2;
+}
+
+message PressureCreationResponse{
+  CreationResponse condition_response = 1;
+  PressureDefinition condition_data = 2;
+}
+
+// Pressure condition definitions
+message PressureProperties {
+  Quantity pressure_magnitude = 1;
+}
+
+message PressureDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  PressureProperties pressure = 6;
+}
+
+// Response for GetAll
+message GetAllResponse {
+  repeated PressureDefinition pressure_conditions = 1;
+  bool success = 2;
+  string message = 3;
+}

@@ -1,0 +1,96 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.engineeringdata.fandata;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.EngineeringData.FanData";
+
+service FanData
+{
+  //Fan Data condition methods
+  rpc Create(FanDataCreationRequest) returns (FanDataCreationResponse);
+
+  rpc ConvertToUser(FanDataConvertToUserRequest) returns (SetResponse);
+
+  // change fan name
+  rpc SetName(SetStringRequest) returns (SetResponse);
+
+  // change specification
+  rpc SetSpecification(SetFanDataSpecificationRequest) returns (SetResponse);
+
+  // set pressure rise
+  rpc SetPressureRise(SetQuantityRequest) returns (SetResponse);
+
+  // add row to VFR table
+  rpc ChangeVolumeFlowRateAdd(AddTableQuantityPairRequest) returns (SetResponse);
+
+  // edit a row in the VFR table
+  rpc ChangeVolumeFlowRateEdit(EditTableQuantityPairRequest) returns (SetResponse);
+
+  // remove row from VFR table
+  rpc ChangeVolumeFlowRateRemove(RemoveTableRowRequest) returns (SetResponse);
+
+
+  // add row to Vel table
+  rpc ChangeVelocityAdd(AddTableQuantityPairRequest) returns (SetResponse);
+
+  // edit a row in the Vel table
+  rpc ChangeVelocityEdit(EditTableQuantityPairRequest) returns (SetResponse);
+
+  // remove row from Vel table
+  rpc ChangeVelocityRemove(RemoveTableRowRequest) returns (SetResponse);
+}
+
+
+message FanDataCreationRequest{
+  FanDataProperties fan_data = 2;
+}
+
+message FanDataConvertToUserRequest{
+  GuidEntityIdentifier object_id = 1;
+}
+
+message FanDataCreationResponse{
+  CreationResponse data_response = 1;
+  FanDataDefinition engineering_data = 2;
+}
+
+
+//FanData condition definitions
+message FanDataProperties {
+  GuidEntityIdentifier data_id = 1;
+  string fan_name = 2;
+  FanSpecification fan_specification = 3;
+  Quantity constant_pressure_rise = 4;
+  QuantityPairTable volume_flow_rate_vs_pressure_table = 5;
+  QuantityPairTable velocity_vs_pressure_table = 6;
+  FanManufacturerData manufacturer_data = 7;
+}
+
+enum FanSpecification
+{
+  VOLUMEFLOWRATE = 0;
+  CONSTANTPRESSURERISE = 1;
+  VELOCITY = 2;
+}
+
+message FanManufacturerData{
+  string manufacturer = 1;
+  string model_number = 2;
+  Quantity outer_radius = 3;
+  Quantity inner_radius = 4;
+  string notes = 5;
+  string disclaimer = 6;
+  bool is_user_defined = 7;
+}
+
+
+message FanDataDefinition {
+  FanDataProperties fan_data = 1;
+}
+
+message SetFanDataSpecificationRequest{
+  GuidEntityIdentifier object_id = 1;
+  FanSpecification fan_specification = 2;
+}

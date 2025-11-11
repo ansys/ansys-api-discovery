@@ -1,0 +1,56 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.connections.joint;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Connections.Joint";
+
+service Joint
+{
+  //Joint condition methods
+  rpc Create(JointCreationRequest) returns (JointCreationResponse);
+
+  rpc SetSide1Location(SetLocationRequest) returns(SetResponse);
+  rpc SetSide2Location(SetLocationRequest) returns(SetResponse);
+
+  rpc SetType(SetJointTypeRequest) returns (SetResponse);
+
+}
+
+message JointCreationRequest{
+  DoubleSidedScopedCreationData creation_data = 1;
+  JointProperties joint_properties = 2;
+}
+
+message SetJointTypeRequest{
+  EntityIdentifier object_id = 1;
+  JointType joint_type = 2;
+}
+
+message JointCreationResponse{
+  CreationResponse condition_response = 1;
+  JointDefinition condition_data = 2;
+}
+
+// Joint condition definitions
+enum JointType {
+  FIXED_JOINT = 0;
+  HINGED_JOINT = 1;
+  SPHERICAL_JOINT = 2;
+}
+
+message JointProperties {
+  JointType joint_type = 1;
+}
+
+message JointDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string side1_locations = 4;
+  repeated string side2_locations = 5;
+  bool suppressed = 6;
+  JointProperties joint = 7;
+}

@@ -1,0 +1,79 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.designdoc;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.DesignDoc";
+
+service DesignDoc{
+  rpc Get(EntityRequest) returns(GetResponse);
+  rpc GetAsJson(GetAsJsonRequest) returns(GetAsJsonResponse);  
+ 
+  rpc GetAssembly(GetAssemblyRequest) returns (GetAssemblyResponse); 
+
+  rpc StreamDesignTessellation(DesignTessellationRequest) returns (stream DesignTessellationResponse); 
+}
+
+message DesignTessellationRequest {
+  ansys.api.discovery.v1.design.TessellationOptions options = 1;
+  bool include_faces = 2;
+  bool include_edges = 3;
+}
+
+message DesignTessellationResponseData {
+  map<string, ansys.api.discovery.v1.design.Tessellation> face_tessellation = 1;
+  map<string, ansys.api.discovery.v1.design.EdgeTessellation> edge_tessellation = 2;
+}
+
+message DesignTessellationResponse {
+  map<string, DesignTessellationResponseData> body_tessellation = 1;
+}
+
+message GetResponse{
+  DesignDocEntity design = 1;
+}
+
+message GetAssemblyRequest{
+  EntityIdentifier id = 1;
+}
+
+message GetAssemblyResponse {
+  repeated ansys.api.discovery.v1.design.PartEntity parts=1;
+  repeated ansys.api.discovery.v1.design.ComponentEntity transformed_parts=2;
+  repeated ansys.api.discovery.v1.design.ComponentEntity components=3;
+  repeated ansys.api.discovery.v1.design.BodyEntity bodies=4;
+  repeated ansys.api.discovery.v1.design.MaterialEntity materials=5;
+  repeated ansys.api.discovery.v1.design.NamedSelectionEntity named_selections=6;
+  map <string, CoordinateSystemList> component_coord_systems=7;
+  map <string, int32> component_shared_topologies=8;
+  repeated ansys.api.discovery.v1.design.BeamEntity beams=9;
+}
+
+message CoordinateSystemList {
+  repeated ansys.api.discovery.v1.design.CoordinateSystemEntity coordinate_systems = 1;
+}
+
+message GetAsJsonResponse {  
+  string json=1;  
+}  
+
+
+message GetAsJsonRequest {  
+  EntityIdentifier id=1;  
+}  
+
+//
+// A design document.
+message DesignDocEntity{ //DesignDescription
+  EntityIdentifier id = 1;
+  bool is_complete=2 ;  
+  bool is_locked=3  ;   
+  bool is_modified=4;   
+  bool is_removed = 5;  
+  EntityIdentifier main_part=6;   
+  bool main_part_displays_file_name=7; 
+  string path = 10;
+  string name=11;
+}

@@ -1,0 +1,227 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.wall;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Wall";
+
+service Wall
+{
+  //wall creation methods
+  rpc CreateFreeSlip(WallFreeSlipCreationRequest) returns (WallFreeSlipCreationResponse);
+
+  rpc CreateStationary(WallStationaryCreationRequest) returns (WallStationaryCreationResponse);
+
+  rpc CreateTranslating(WallTranslationCreationRequest) returns (WallTranslationCreationResponse);
+
+  rpc CreateRotating(WallRotationCreationRequest) returns (WallRotationCreationResponse);
+
+  // Wall properties
+  rpc SetSpecification(SetWallSpecificationRequest) returns (SetResponse);
+
+  rpc SetLocation(SetLocationRequest) returns (SetResponse);
+
+
+  // Motion quantities
+  rpc SetRotationalVelocityMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetTranslationalVelocityMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetTranslationalVelocityX(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetTranslationalVelocityY(SetQuantityRequest) returns (SetResponse);
+
+
+  //Thermal quantities
+
+  rpc SetThermalInputEnabled(SetBooleanRequest) returns (SetResponse);
+  
+  rpc SetThermalOption(SetWallThermalOptionRequest) returns (SetResponse);
+
+  rpc SetInternalRadiationInputEnabled(SetBooleanRequest) returns (SetResponse);
+
+  rpc SetExternalRadiationInputEnabled(SetBooleanRequest) returns (SetResponse);
+  
+  rpc SetInternalEmissivity(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetExternalTemperature(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetConvectionCoefficient(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetHeatFlux(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetHeatFlow(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetTemperature(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetExternalEmissivity(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+  
+}
+
+// Command Requests and Responses
+
+// Create Free Slip
+message WallFreeSlipCreationRequest{
+  ScopedCreationData creation_data = 2;
+  FreeSlipProperties freeslip_properties = 4;
+}
+
+message WallFreeSlipCreationResponse{
+  CreationResponse condition_response = 1;
+  WallFreeSlipDefinition condition_data = 2;
+}
+
+// Create Stationary
+message WallStationaryCreationRequest{
+  ScopedCreationData creation_data = 2;
+  StationaryProperties stationary_properties = 4;
+}
+
+message WallStationaryCreationResponse{
+  CreationResponse condition_response = 1;
+  WallStationaryDefinition condition_data = 2;
+}
+
+// Create Translating
+message WallTranslationCreationRequest{
+  ScopedCreationData creation_data = 2;
+  TranslationProperties translating_properties = 4;
+}
+
+message WallTranslationCreationResponse{
+  CreationResponse condition_response = 1;
+  WallTranslationDefinition condition_data = 2;
+}
+
+// Create Rotating
+message WallRotationCreationRequest{
+  ScopedCreationData creation_data = 2;
+  RotationProperties rotating_properties = 4;
+}
+
+message WallRotationCreationResponse{
+  CreationResponse condition_response = 1;
+  WallRotationDefinition condition_data = 2;
+}
+
+// enum commands
+message SetWallSpecificationRequest{
+  GuidEntityIdentifier object_id = 1;
+  WallSpecification wall_specification = 2;
+}
+
+message SetWallThermalOptionRequest{
+  GuidEntityIdentifier object_id = 1;
+  WallThermalOption wall_thermal_option = 2;
+  bool is_external_radiation_enabled = 3;
+}
+
+// wall enumerations
+
+enum WallThermalOption {
+  INSULATED = 0;
+  CONVECTION = 1;
+  HEATFLUX = 2;
+  HEATFLOW = 3;
+  TEMPERATURE = 4;
+  RADIATION = 5;
+}
+
+enum WallSpecification {
+  FREESLIP = 0;
+  STATIONARY = 1;
+  TRANSLATING = 2;
+  ROTATING = 3;
+}
+
+// Wall conditions properties
+
+message FreeSlipProperties
+{
+  bool wall_thermal_option_enabled = 1;
+  optional WallThermalProperties wall_thermal_properties = 2;
+}
+
+message StationaryProperties
+{
+  bool wall_thermal_option_enabled = 1;
+  optional WallThermalProperties wall_thermal_properties = 2;
+}
+
+message RotationProperties
+{
+  Quantity rotational_velocity = 1;
+  bool wall_thermal_option_enabled = 2;
+  optional WallThermalProperties wall_thermal_properties = 3;
+}
+
+message TranslationProperties
+{
+  bool wall_thermal_option_enabled = 1;
+  QuantityVector translational_velocity = 2;
+  optional WallThermalProperties wall_thermal_properties = 3;
+}
+
+message WallThermalProperties
+{
+  WallThermalOption wall_thermal_option = 1;
+  OptionalQuantity internal_emissivity = 2;
+  optional Quantity external_temperature = 3;
+  optional Quantity convection_coefficient = 4;
+  optional Quantity heatflux = 5;
+  optional Quantity heatflow = 6;
+  optional Quantity temperature = 7;
+  optional OptionalQuantity external_emissivity = 8;
+}
+
+
+// Fluid conditions definitions
+
+message WallFreeSlipDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  FreeSlipProperties free_slip_properties = 6;
+}
+
+message WallStationaryDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  StationaryProperties stationary_properties = 6;
+}
+
+message WallRotationDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  RotationProperties rotation_properties = 6;
+}
+
+message WallTranslationDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  TranslationProperties translation_properties = 6;
+}
+
+message GetAllResponse{
+  repeated WallFreeSlipDefinition wall_free_slip_conditions = 1;
+  repeated WallStationaryDefinition wall_stationary_conditions = 2;
+  repeated WallRotationDefinition wall_rotation_conditions = 3;
+  repeated WallTranslationDefinition wall_translation_conditions = 4;
+  bool success = 5;
+  string message = 6;
+}

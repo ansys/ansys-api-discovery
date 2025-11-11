@@ -1,0 +1,37 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.geometry.part;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Geometry.Part";
+
+service Part
+{
+  rpc Get(EntityRequest) returns(GetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+
+  rpc GetBeams(MultipleEntitiesRequest) returns(GetBeamsResponse); //other geometric entity types?
+}
+
+message GetResponse{
+  PartEntity part = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllResponse{
+  repeated PartEntity parts = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetBeamsResponseData {
+  EntityIdentifier id = 1;
+  repeated BeamEntity beams = 2;
+}
+
+message GetBeamsResponse {
+  repeated GetBeamsResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}

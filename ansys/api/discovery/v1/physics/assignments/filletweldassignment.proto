@@ -1,0 +1,46 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.assignments.filletweldassignment;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/engineeringdata/welddata.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Assignments.FilletWeldAssignment";
+
+service FilletWeldAssignment
+{
+  //FilletWeldAssignment condition methods
+  rpc Create(FilletWeldAssignmentCreationRequest) returns (FilletWeldAssignmentCreationResponse);
+
+  rpc SetWeld(SetAssignmentRequest) returns (SetResponse);
+}
+
+//FilletWeldAssignment
+message FilletWeldAssignmentCreationRequest{
+  DoubleSidedScopedCreationData creation_data = 1;
+  FilletWeldAssignmentProperties fillet_weld_assignment_properties = 2;
+}
+
+message FilletWeldAssignmentCreationResponse{
+  CreationResponse condition_response = 1;
+  FilletWeldAssignmentDefinition condition_data = 2;
+}
+
+//Weld Assignment condition definitions
+message FilletWeldAssignmentProperties {
+  ansys.api.discovery.v1.engineeringdata.welddata.WeldDataDefinition definition = 1;
+  Quantity min_detection_distance = 2;
+  Quantity max_detection_distance = 3;
+}
+
+message FilletWeldAssignmentDefinition {
+  EntityIdentifier id = 1;
+  EntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  FilletWeldAssignmentProperties fillet_weld = 6;
+  double generated_pitch = 7;
+  int32 number_of_intermittent_welds = 8;
+}

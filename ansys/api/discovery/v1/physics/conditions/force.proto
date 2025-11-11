@@ -1,0 +1,146 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.force;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Force";
+
+service Force
+{
+  //Force condition methods
+
+  rpc CreateDistributedTotal(ForceDistributedTotalCreationRequest) returns (ForceDistributedTotalCreationResponse);
+
+  rpc CreateDistributedArea(ForceDistributedAreaCreationRequest) returns (ForceDistributedAreaCreationResponse); 
+
+  rpc CreateTorque(ForceTorqueCreationRequest) returns (ForceTorqueCreationResponse); 
+    
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+  
+  rpc SetSpecification(SetForceSpecificationRequest) returns (SetResponse);
+  rpc SetMagnitudeDefinition(SetForceMagnitudeDefinitionRequest) returns (SetResponse);
+
+  rpc ReverseDirection(CommandRequest) returns (SetResponse);
+
+  rpc SetDefinedByComponentEnabled(SetBooleanRequest) returns (SetResponse);
+
+  rpc SetDistributedTotalMagnitude(SetQuantityRequest) returns (SetResponse);
+  rpc SetDistributedTotalX(SetQuantityRequest) returns (SetResponse);
+  rpc SetDistributedTotalY(SetQuantityRequest) returns (SetResponse);
+  rpc SetDistributedTotalZ(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetDistributedAreaMagnitude(SetQuantityRequest) returns (SetResponse);
+  rpc SetDistributedAreaX(SetQuantityRequest) returns (SetResponse);
+  rpc SetDistributedAreaY(SetQuantityRequest) returns (SetResponse);
+  rpc SetDistributedAreaZ(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetUseRemoteForceEnabled(SetBooleanRequest) returns (SetResponse);
+  rpc SetDistributedRemotePositionX(SetQuantityRequest) returns (SetResponse);
+  rpc SetDistributedRemotePositionY(SetQuantityRequest) returns (SetResponse);
+  rpc SetDistributedRemotePositionZ(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetTorqueMagnitude(SetQuantityRequest) returns (SetResponse);
+  rpc SetTorqueX(SetQuantityRequest) returns (SetResponse);
+  rpc SetTorqueY(SetQuantityRequest) returns (SetResponse);
+  rpc SetTorqueZ(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetForceDistributedByLabel(GetByLabelRequest) returns (ForceDistributedDefinition);
+  rpc GetForceTorqueByLabel(GetByLabelRequest) returns (ForceTorqueDefinition);
+  
+  // Lists all force conditions under the specified parent (simulation / part)
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+// Force
+message SetForceSpecificationRequest{
+  GuidEntityIdentifier object_id = 1;
+  ForceSpecification force_specification = 2;
+}
+
+message SetForceMagnitudeDefinitionRequest{
+  GuidEntityIdentifier object_id = 1;
+  ForceMagnitudeDefinition force_magnitude_definition = 2;
+}
+
+message ForceDistributedTotalCreationRequest{
+  ScopedCreationData creation_data = 1;
+  ForceDistributedProperties force_properties = 2;
+}
+
+message ForceDistributedTotalCreationResponse{
+  CreationResponse condition_response = 1;
+  ForceDistributedDefinition condition_data = 2;
+}
+
+message ForceDistributedAreaCreationRequest{
+  ScopedCreationData creation_data = 1;
+  ForceDistributedProperties force_properties = 2;
+}
+
+message ForceDistributedAreaCreationResponse{
+  CreationResponse condition_response = 1;
+  ForceDistributedDefinition condition_data = 2;
+}
+
+message ForceTorqueCreationRequest{
+  ScopedCreationData creation_data = 1;
+  ForceTorqueProperties force_properties = 2;
+}
+
+message ForceTorqueCreationResponse{
+  CreationResponse condition_response = 1;
+  ForceTorqueDefinition condition_data = 2;
+}
+
+// force enumerations
+
+enum ForceMagnitudeDefinition {
+  TOTALFORCE = 0;
+  FORCEPERAREA = 1;
+}
+
+enum ForceSpecification {
+  DISTRIBUTED = 0;
+  TORQUE = 1;
+}
+
+// force condition definitions
+
+message ForceDistributedDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  ForceDistributedProperties force_distributed = 6;
+}
+
+message ForceDistributedProperties {
+  Quantity force = 1;
+  OptionalVector force_components = 2;
+  OptionalVector remote_point = 3;
+}
+
+message ForceTorqueDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  ForceTorqueProperties force_torque = 6;
+}
+
+message ForceTorqueProperties {
+  Quantity force = 1;
+  OptionalVector force_components = 2;
+}
+
+// Response for GetAll
+message GetAllResponse {
+  repeated ForceDistributedDefinition distributed_forces = 1;
+  repeated ForceTorqueDefinition torque_forces = 2;
+  bool success = 3;
+  string message = 4;
+}

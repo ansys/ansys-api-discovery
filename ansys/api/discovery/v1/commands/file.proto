@@ -1,0 +1,127 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.commands.file;
+
+import "ansys/api/discovery/v1/commonenums.proto";
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designdoc.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.File";
+
+service File{  
+
+  rpc Close(CloseRequest)
+    returns(CloseResponse);
+
+  rpc GetReferencedDocuments(GetReferencedDocumentsRequest) 
+    returns( stream GetReferencedDocumentsResponse);  
+
+  rpc New(NewRequest)
+    returns(NewResponse); 
+
+  rpc Open(stream OpenRequest)
+    returns (OpenResponse);
+  
+  rpc OpenFromUrl(OpenFromUrlRequest)
+    returns(OpenFromUrlResponse);
+
+  rpc Save(SaveRequest)
+    returns (stream SaveResponse);    
+
+  rpc SaveToUrl(SaveToUrlRequest)
+    returns (SaveToUrlResponse);
+}
+
+message CloseRequest{  
+  EntityIdentifier design_id = 1;  
+}  
+
+message CloseResponse{
+  CommandResponse command_response = 1;
+}  
+
+message GetReferencedDocumentsRequest {  
+  EntityIdentifier document_id = 1;
+}  
+
+message GetReferencedDocumentsResponseData
+{
+  bytes data = 1;
+  string original_file_path = 2;
+}
+
+message GetReferencedDocumentsResponse{
+  repeated GetReferencedDocumentsResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message SaveRequest{  
+  FileFormat format = 1;
+  SaveMode save_mode = 2;
+  bool write_body_facets = 3;
+}  
+
+message SaveResponse {  
+  bytes data = 1;
+  CommandResponse command_response = 2;
+}
+
+message SaveToUrlRequest{
+  SaveMode save_mode = 1;
+  bool write_body_facets = 2;
+}  
+
+message SaveToUrlResponse {  
+  CommandResponse command_response = 1;
+}
+
+message NewRequest{  
+  string name = 1;
+}  
+
+message NewResponse{  
+  ansys.api.discovery.v1.design.designdoc.DesignDocEntity design = 1;
+  CommandResponse command_response = 2;
+}  
+
+message OpenFromUrlRequest{  
+  string url_filepath = 1;  
+}  
+
+message OpenFromUrlResponse{  
+  ansys.api.discovery.v1.design.designdoc.DesignDocEntity design = 1;
+  CommandResponse command_response = 2;
+}  
+
+message ImportOptionDefinition
+{
+  oneof option{
+    bool bool_option = 1;
+    string string_option =2;
+  }
+}
+
+message OpenResponse{  
+  ansys.api.discovery.v1.design.designdoc.DesignDocEntity design = 1;
+  CommandResponse command_response = 2;
+}   
+
+message OpenRequest {
+  bytes data = 1;
+  FileFormat file_format = 2;
+  OpenMode open_mode = 3;
+  bool import_named_selections = 4;
+  map<string,bool> import_options = 5;
+  map<string, ImportOptionDefinition> import_options_definitions = 6;
+}
+
+enum OpenMode{
+  OPENMODE_NONE = 0;
+  OPENMODE_NEW = 1;
+  OPENMODE_INSERT = 2;
+}
+
+enum SaveMode{
+  SAVEMODE_STANDARD = 0;
+  SAVEMODE_WITHOUT_RESULTS = 1;
+}

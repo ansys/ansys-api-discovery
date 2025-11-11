@@ -1,0 +1,61 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.acceleration;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Acceleration";
+
+service Acceleration
+{
+  //Acceleration condition methods
+  rpc Create(AccelerationCreationRequest) returns (AccelerationCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetOrientation(SetDirectionRequest) returns(SetResponse);
+
+  rpc SetDX(SetQuantityRequest) returns (SetResponse);
+  rpc SetDY(SetQuantityRequest) returns (SetResponse);
+  rpc SetDZ(SetQuantityRequest) returns (SetResponse);
+  rpc SetTranslationalMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetIsFixedDX(SetBooleanRequest) returns (SetResponse);
+  rpc SetIsFixedDY(SetBooleanRequest) returns (SetResponse);
+  rpc SetIsFixedDZ(SetBooleanRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+
+}
+
+//Acceleration
+message AccelerationCreationRequest{
+  ScopedCreationData creation_data = 1;
+  AccelerationProperties acceleration_properties = 2;
+}
+
+message AccelerationCreationResponse{
+  CreationResponse condition_response = 1;
+  AccelerationDefinition condition_data = 2;
+}
+
+// Acceleration condition definitions
+message AccelerationProperties {
+  VectorOfOptionalQuantities acceleration = 1;
+}
+
+message AccelerationDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  AccelerationProperties acceleration = 6;
+}
+
+message GetAllResponse{
+  repeated AccelerationDefinition conditions = 1;
+  bool success = 2;
+  string message = 3;
+}

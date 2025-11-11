@@ -1,0 +1,75 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.moment;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Moment";
+
+service Moment
+{
+  //Moment condition methods
+  rpc CreateLocal(MomentCreationRequest) returns (MomentCreationResponse);
+  rpc CreateGlobal(MomentCreationRequest) returns (MomentCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetSpecification(SetMomentSpecificationRequest) returns(SetResponse);
+  rpc SetOrientation(SetDirectionRequest) returns(SetResponse);
+
+  rpc SetLocalX(SetQuantityRequest) returns (SetResponse);
+  rpc SetLocalY(SetQuantityRequest) returns (SetResponse);
+  rpc SetLocalZ(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetGlobalX(SetQuantityRequest) returns (SetResponse);
+  rpc SetGlobalY(SetQuantityRequest) returns (SetResponse);
+  rpc SetGlobalZ(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+// Moment
+message MomentCreationRequest{
+  ScopedCreationData creation_data = 1;
+  MomentProperties moment_properties = 2;
+}
+
+message MomentCreationResponse{
+  CreationResponse condition_response = 1;
+  MomentDefinition condition_data = 2;
+}
+
+message SetMomentSpecificationRequest{
+  GuidEntityIdentifier object_id = 1;
+  MomentSpecification moment_specification = 2;
+}
+
+// Moment enumerations
+
+enum MomentSpecification {
+  GLOBAL = 0;
+  LOCAL = 1;
+}
+
+// Moment condition definitions
+
+message MomentProperties {
+  QuantityVector moment = 1;
+}
+
+message MomentDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MomentProperties local = 6;
+  MomentProperties global = 7;
+}
+
+message GetAllResponse{
+  repeated MomentDefinition moment_conditions = 1;
+  bool success = 2;
+  string message = 3;
+}

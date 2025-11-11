@@ -1,0 +1,637 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+
+syntax = "proto3";
+
+package ansys.api.discovery.v1.design;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/geometryenums.proto";
+
+import "google/protobuf/struct.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design";
+
+message SetDesignEntityNameRequestData{
+  EntityIdentifier id = 1;
+  string name = 2;
+  EntityType type = 3;
+}
+
+message SetDesignEntityNameRequest{
+  repeated SetDesignEntityNameRequestData request_data = 1;
+}
+
+message SetDesignEntityNameResponse {  
+  repeated EntityIdentifier successfully_set = 1;  
+} 
+
+message BeamEntity {
+  string name = 1;
+  bool can_suppress = 2;
+  bool is_deleted = 3;
+  bool is_reversed = 4;
+  bool is_rigid = 5;
+  MaterialEntity material = 6;
+  EntityIdentifier id = 7;
+  PartEntity parent = 8;
+  ProfileCrossSectionInfo cross_section = 9;
+  ProfileProperties properties = 10;
+  TrimmedCurve shape = 11;
+  BeamType type = 12;
+}
+
+message BoltEntity
+{
+  string name=1;
+  bool can_suppress = 2;
+  bool is_deleted = 3;
+  EntityIdentifier id = 4;
+  PartEntity parent = 5;
+}
+
+message EntitiesCollection{
+  repeated CurveEntity curves=1;
+  repeated EdgeEntity edges=2;
+  repeated FaceEntity faces=3;
+  repeated BodyEntity bodies=4;
+}
+
+//
+// A part.
+message PartEntity{
+  EntityIdentifier id = 1;
+  string name = 2;
+}
+
+//
+// A body.
+message BodyEntity{
+  EntityIdentifier id = 1;
+  string name = 2;
+  bool can_suppress = 3;
+  bool is_deleted = 4;
+  bool is_suppressed = 5;
+  Matrix transform_to_master = 6;
+  BodyMasterNullable master = 7;
+  EntityIdentifier master_id = 8;
+  EntityIdentifier parent_id = 9;
+  bool is_surface = 10;
+}
+
+// A nullable body master.
+message BodyMasterNullable{
+  oneof kind 
+  {
+    google.protobuf.NullValue null = 1;
+    BodyMaster props = 2;
+  }
+}
+
+//
+// A body master.
+message BodyMaster {
+  string update_state = 6;
+  map< string, string > text_attributes = 7;
+  map< string, double > number_attributes = 8;
+  MaterialEntity material = 9;
+  MaterialEntity surface_material = 10;
+  Shape shape = 11;
+}
+
+//
+// A edge.
+message EdgeEntity{
+  EntityIdentifier id = 1;
+  BodyEntity parent = 2;
+  CurveType curve_type = 10;
+  string owner_name = 11;
+  string export_id = 12;
+  double length = 13;
+  string owner_id = 14;
+  bool is_reversed = 15;
+}
+
+//
+// A mesh.
+message MeshEntity{
+  EntityIdentifier id = 1;
+  string name=2;
+}
+
+
+//
+// A face.
+message FaceEntity{
+  EntityIdentifier id = 1;
+  BodyEntity parent = 2;
+  SurfaceType surface_type = 10;
+  string owner_name = 11;
+  string export_id = 12;
+  double area = 13;
+  bool is_reversed = 14;
+  EntityIdentifier parent_id = 15;
+}
+
+//
+// A design curve.
+message CurveEntity{
+  EntityIdentifier id = 1;
+  string owner_name = 2;
+  double length = 3;
+  repeated Point points = 4;
+}
+
+// A 3D coordinate system.
+message CoordinateSystemEntity
+{
+  EntityIdentifier id=1;
+  string name=2;
+  Frame frame = 3;
+}
+
+message DatumPlaneEntity {
+  EntityIdentifier id = 1;
+  Plane plane = 2;
+  string name = 3;
+  bool is_suppressed = 4;
+  bool is_deleted = 5;
+  bool can_suppress = 6;
+  EntityIdentifier master_id = 7;
+  EntityIdentifier parent_id = 8;
+  repeated CurveEntity curves = 9;
+}
+
+message DatumPointEntity
+{
+  EntityIdentifier id = 1;
+  Point position = 2;
+  string name = 3;
+  bool is_suppressed = 4;
+  bool is_deleted = 5;
+  bool can_suppress = 6;
+  EntityIdentifier master_id = 7;
+  EntityIdentifier parent_id = 8;
+}
+
+message NamedSelectionEntity {
+  EntityIdentifier id = 1;
+  string name = 2;
+  repeated EntityIdentifier selection=3;
+  repeated BodyEntity bodies = 4;
+  repeated FaceEntity faces = 5;
+  repeated EdgeEntity edges = 6;
+  repeated BeamEntity beams = 7;
+  repeated CurveEntity design_points = 8;
+  repeated Vertex vertices = 9;
+  repeated ComponentEntity components = 10;
+}
+
+message WeldEntity {
+  repeated TrimmedCurveList geometry = 1;
+  string display_name = 2;
+  double length = 3;
+  double volume = 4;
+  double mass = 5;
+  double time = 6;
+  double rod_length = 7;
+  bool is_intermittent = 8;
+  int32 sequence_id = 9;
+  double size1 = 10;
+  double size2 = 11;
+
+  // This data only exists if the weld is intermittent
+  bool is_angular = 12;
+  bool is_at_center = 13;
+  double intermittent_length = 14;
+  int32 number_of_welds = 15;
+  double pitch = 16;
+}
+
+message FilletWeldEntity {
+  repeated TrimmedCurveList geometry = 1;
+  string display_name = 2;
+  double length = 3;
+  double volume = 4;
+  double mass = 5;
+  double time = 6;
+  double rod_length = 7;
+  bool is_intermittent = 8;
+  int32 sequence_id = 9;
+  double size1 = 10;
+  double size2 = 11;
+
+  // This data only exists if the weld is intermittent
+  bool is_angular = 12;
+  bool is_at_center = 13;
+  double intermittent_length = 14;
+  int32 number_of_welds = 15;
+  double pitch = 16;
+
+  // Additional fillet weld specific properties
+  double trajectory_length = 17;
+  int32 number_of_sides = 18;
+  bool all_around = 19;
+}
+
+message SpotWeldEntity {
+  map<string, Point> weld_points = 1;
+}
+
+message MatingCondition {
+  EntityIdentifier id = 1;
+  bool is_deleted = 2;
+  bool is_enabled = 3;
+  bool is_satisfied = 4;
+}
+
+message AlignCondition {
+  MatingCondition condition = 1;
+  double offset = 2;
+  bool is_reversed = 3;
+  bool is_valid = 4;
+}
+
+message TangentCondition {
+  MatingCondition condition = 1;
+  double offset = 2;
+  bool is_reversed = 3;
+  bool is_valid = 4;
+}
+
+message OrientCondition {
+  MatingCondition condition = 1;
+  double offset = 2;
+  bool is_reversed = 3;
+  bool is_valid = 4;
+}
+
+message RigidCondition {
+  MatingCondition condition = 1;
+  ComponentEntity component_a = 2;
+  ComponentEntity component_b = 3;
+}
+
+message AnchorCondition {
+  MatingCondition condition = 1;
+  ComponentEntity component = 2;
+}
+
+message GearCondition {
+  MatingCondition condition = 1;
+  bool is_belt = 2;
+  bool is_reversed = 3;
+  bool is_valid = 4;
+}
+
+message SurfaceEvaluation {
+  Direction derivative_u = 1;
+  Direction derivative_uu = 2;
+  Direction derivative_uv = 3;
+  Direction derivative_v = 4;
+  Direction derivative_vv = 5;
+  double max_curvature = 6;
+  Direction max_curvature_direction = 7;
+  double min_curvature = 8;
+  Direction min_curvature_direction = 9;
+  Direction normal = 10;
+  double param_u = 11;
+  double param_v = 12;
+  Point point = 13;
+}
+
+message Surface {
+  Point origin = 1;
+  double radius = 2;
+  double half_angle = 3;
+  double major_radius = 4;
+  double minor_radius = 5;
+  Direction reference = 6;
+  Direction axis = 7;
+  NurbsSurface nurbs_surface = 8;
+}
+
+message TrimmedSurface {
+  Surface surface = 1;
+  SurfaceType type = 2;
+  double u_min = 3;
+  double u_max = 4;
+  double v_min = 5;
+  double v_max = 6;
+}
+
+message NurbsSurface {
+  repeated ControlPoint control_points = 1;
+  NurbsData nurbs_data_u = 2;
+  NurbsData nurbs_data_v = 3;
+  bool is_rational = 4;
+  Parameterization parameterization_u = 5;
+  Parameterization parameterization_v = 6;
+}
+
+message Parameterization{
+  ParameterizationBounds bounds = 1;
+  ParameterizationForm form = 2;
+}
+
+message ParameterizationBounds {
+  bool infinite_start = 1;
+  double start = 2;
+  bool infinite_end = 3;
+  double end = 4;
+}
+
+message CurveGeometry {
+  Point origin = 1;
+  double radius = 2;
+  double major_radius = 3;
+  double minor_radius = 4;
+  Direction direction = 5;
+  Direction reference = 6;
+  Direction axis = 7;
+  NurbsCurve nurbs_curve = 8;
+}
+
+message TrimmedCurve {
+  CurveGeometry curve = 1;
+  Point start = 2;
+  Point end = 3;
+  double interval_start = 4;
+  double interval_end = 5;
+  double length = 6;
+}
+
+// The shape.
+message Shape {
+  bool is_surface_body = 1;
+  double surface_area = 2;
+  double volume = 3;
+  Direction bounding_box_size = 4;
+}
+
+//
+// A homogeneous 3D transformation matrix.
+// The matrix is a pre-multiplication transformation. 
+// The rotation is in m00->m22 and contains no scaling in its leading diagonal.
+// The translation is m03/m33, m13/m33, m23/m33.
+// The uniform scale is 1/m33.
+message Matrix{
+  double m00 = 1;
+  double m01 = 2;
+  double m02 = 3;
+  double m03 = 4;
+  double m10 = 5;
+  double m11 = 6;
+  double m12 = 7;
+  double m13 = 8;
+  double m20 = 9;
+  double m21 = 10;
+  double m22 = 11;
+  double m23 = 12;
+  double m30 = 13;
+  double m31 = 14;
+  double m32 = 15;
+  double m33 = 16;
+}
+
+message MaterialEntity{
+  string name=1;
+  repeated MaterialProperty material_properties=2;
+}
+
+message MaterialProperty {
+  EntityIdentifier id=1;
+  string display_name=2;
+  double value=3;
+  string units=4;
+}
+
+message Geometries {
+  repeated Point points = 1;
+  repeated Line lines = 2;
+  repeated Arc arcs = 3;
+  repeated Circle circles = 4;
+  repeated Ellipse ellipses = 5;
+  repeated Polygon polygons = 6;
+  repeated NurbsCurve nurbs_curves = 7;
+}
+
+message ProfileCrossSectionInfo {
+  int32 section_anchor = 1;
+  double section_angle = 2;
+  Frame section_frame = 3;
+  repeated TrimmedCurveList section_profile = 4;
+}
+
+message Separation {
+  double distance = 1;
+  Point point_a = 2;
+  Point point_b = 3;
+}
+
+
+message TrimmedCurveList {
+  repeated TrimmedCurve curves = 1;
+}
+
+message ProfileProperties {
+  double area = 1;
+  double centroid_x = 2;
+  double centroid_y = 3;
+  double warping_constant = 4;
+  double ixx = 5;
+  double ixy = 6;
+  double iyy = 7;
+  double torsional_constant = 8;
+  double shear_center_x = 9;
+  double shear_center_y = 10;
+}
+
+message CurveEvaluation {
+  double curvature = 1;
+  Direction derivative = 2;
+  Direction derivative2 = 3;
+  double param = 4;
+  Point point = 5;
+  Direction tangent = 6;
+}
+
+message NurbsCurve {
+  repeated ControlPoint control_points = 1;
+  NurbsData nurbs_data = 2;
+  bool is_rational = 3;
+  Parameterization parameterization = 4;
+}
+
+message NurbsData{
+  int32 degree = 1;
+  bool is_closed = 2;
+  bool is_periodic = 3;
+  repeated Knot knots = 4;
+  int32 order = 5;
+}
+
+message Knot{
+  int32 multiplicity = 1;
+  double parameter = 2;
+}
+
+message ControlPoint {
+  Point position = 1;
+  double weight = 2;
+}
+
+// A component.
+message ComponentEntity {
+  EntityIdentifier id = 1;
+  string name = 2;
+  PartEntity part_occurrence = 3;
+  Matrix placement =4;
+  EntityIdentifier master_id=5;
+  EntityIdentifier parent_id=6;
+  PartEntity part_master=7;
+  string display_name=8;
+  string instance_name=9;
+  EntityIdentifier template = 10;
+}
+
+//
+// A driving dimension.
+message DrivingDimensionEntity {
+  EntityIdentifier id = 1;
+  string name = 2;
+  DimensionType dimension_type = 3;
+  double dimension_value = 4;
+}
+
+message GetFacesResponseData{
+  EntityIdentifier associated_id = 1;
+  repeated FaceEntity faces = 2;
+}
+
+message GetFacesResponse {
+  repeated GetFacesResponseData response_data = 1;
+}
+
+//
+// A 3D box.
+message Box {
+  Point min = 1;
+  Point max = 2;
+  Point center = 3;
+}
+
+message Loop {
+  string type=1;
+  double length=2;
+  Box bounding_box=3;
+  repeated string edges=4;
+}
+
+
+message Tessellation {
+  repeated double vertices = 1;
+  repeated int32 faces = 2;
+  int32 facecolor = 3;
+}
+
+message EdgeTessellation {
+  repeated Point vertices = 1;
+}
+
+message UpdateState {
+  int32 state=1;
+}
+
+message Vertex {
+  Point position = 1;
+  repeated EdgeEntity edges = 2;
+  EntityIdentifier id = 3;
+}
+
+message TessellationOptions{
+  double surface_deviation = 1;
+  double angle_deviation = 2;
+  double maximum_aspect_ratio = 3;
+  double maximum_edge_length = 4;
+  bool watertight = 5;
+  double curve_deviation = 6;
+}
+
+message GetUpdateStateResponse{
+  map<string,UpdateState> update_states = 1;
+}
+
+message GetBoundingBoxResponseData{
+  EntityIdentifier id = 1;
+  Box box = 2;
+}
+
+message GetBoundingBoxResponse {
+  repeated GetBoundingBoxResponseData response_data = 1;
+}
+
+message GetColorResponse {
+  map<string,string> colors = 1;
+}
+
+message SetColorRequestData{
+  EntityIdentifier id = 1;
+  string color = 2;
+}
+
+message SetColorRequest {
+  repeated SetColorRequestData request_data=1;
+}
+
+message SetColorResponse {
+  repeated EntityIdentifier successfully_set =1;
+}
+
+message GetIsDeletedResponse{
+  map<string, bool> deleted=1;
+}
+
+message TrackedCreationResponse{
+  CreationResponse creation_response = 1;
+  TrackedChanges tracked_changes = 2;
+}
+
+message TrackedSetResponse{
+  SetResponse set_response = 1;
+  TrackedChanges tracked_changes = 2;
+}
+
+message TrackedDeleteResponse{
+  DeleteResponse delete_response = 1;
+  TrackedChanges tracked_changes = 2;
+}
+
+message TrackedCommandResponse{
+  CommandResponse command_response = 1;
+  TrackedChanges tracked_changes = 2;
+}
+
+message EnhancedRepairToolMessage {
+  bool success = 1;
+  int32 found = 2;
+  int32 repaired = 3;
+  TrackedChanges tracked_changes = 4;
+}
+
+message TrackedChanges {
+  repeated BodyEntity created_bodies = 1;
+  repeated BodyEntity modified_bodies = 2;
+  repeated EntityIdentifier deleted_bodies = 3;
+  repeated EntityIdentifier created_faces = 4;
+  repeated EntityIdentifier modified_faces = 5;
+  repeated EntityIdentifier deleted_faces = 6;
+  repeated EntityIdentifier created_edges = 7;
+  repeated EntityIdentifier modified_edges = 8;
+  repeated EntityIdentifier deleted_edges = 9;
+  repeated ComponentEntity created_components = 10;
+  repeated ComponentEntity modified_components = 11;
+  repeated EntityIdentifier deleted_components = 12;
+  repeated PartEntity created_parts = 13;
+  repeated PartEntity modified_parts = 14;
+  repeated EntityIdentifier deleted_parts = 15;
+}

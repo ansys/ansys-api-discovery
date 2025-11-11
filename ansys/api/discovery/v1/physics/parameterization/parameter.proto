@@ -1,0 +1,52 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v1.physics.parameterization.definedvariationstable;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Parameterization.Parameter";
+
+// Defined variations servicer.
+//
+service Parameter{
+  // Gets all input parameters for a given variation
+  rpc GetAllInputs(GetAllInputsRequest) returns(GetAllInputsResponse);
+
+  // Get all output parameters for a given variation
+  rpc GetAllOutputs(GetAllOutputsRequest) returns(GetAllOutputsResponse);
+
+  // Set an input parameter  
+  rpc SetInputValue(SetInputValueRequest) returns(SetInputValueResponse);
+}
+
+message GetAllInputsRequest{
+  GuidEntityIdentifier variation_id = 1;
+  GuidEntityIdentifier simulation_id = 2;
+}
+
+message GetAllInputsResponse{
+  repeated InputParameter input_parameters = 1;
+}
+
+message GetAllOutputsRequest{
+  GuidEntityIdentifier variation_id = 1;
+  GuidEntityIdentifier simulation_id = 2;
+}
+
+message GetAllOutputsResponse{
+  repeated OutputParameter output_parameters = 1;
+}
+
+message SetInputValueRequest{
+  GuidEntityIdentifier variation_id = 1;
+  GuidEntityIdentifier simulation_id = 2;
+  string input_parameter_label = 3;
+  Quantity value = 4;
+  ParameterMaterial material = 5;
+}
+
+message SetInputValueResponse{
+  InputParameter input = 1;
+}

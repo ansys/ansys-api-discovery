@@ -1,0 +1,17 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+
+syntax = "proto3";
+
+package ansys.api.discovery.v1.design.designentity;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.DesignEntity";
+
+service DesignEntity{
+  rpc SetName(SetDesignEntityNameRequest) returns (SetDesignEntityNameResponse);
+
+  rpc Delete(MultipleEntitiesRequest) returns (DeleteResponse);
+}
+
