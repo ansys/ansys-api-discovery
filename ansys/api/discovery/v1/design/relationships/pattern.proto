@@ -78,12 +78,15 @@ message SetCircularPatternDataRequest {
 message CircularPatternCreationRequestData {
   repeated EntityIdentifier selection = 1;
   double circular_angle = 2;
-  EntityIdentifier circular_axis = 3;
-  int32 circular_count = 4;
-  int32 linear_count = 5;
-  double linear_pitch = 6;
-  bool two_dimensional = 7;
-  Direction radial_direction = 8;
+  oneof axis {
+    EntityIdentifier edge_axis = 3;
+    Line line_axis = 4;
+  }
+  int32 circular_count = 5;
+  int32 linear_count = 6;
+  double linear_pitch = 7;
+  bool two_dimensional = 8;
+  Direction radial_direction = 9;
 }
 
 message CircularPatternCreationRequest {
