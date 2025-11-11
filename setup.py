@@ -28,14 +28,16 @@ if __name__ == "__main__":
         name=package_name,
         version=version,
         author="ANSYS, Inc.",
-        author_email='support@ansys.com',
+        author_email="pyansys.core@ansys.com",
+        maintainer="ANSYS, Inc.",
+        maintainer_email="pyansys.core@ansys.com",
         description=description,
         long_description=long_description,
         long_description_content_type='text/markdown',
         url=f"https://github.com/ansys/{package_name}",
         license="MIT",
         python_requires=">=3.10",
-        install_requires=["grpcio~=1.44", "protobuf>=3.19,<6", "ansys-api-geometry==0.4.84"],
+        install_requires=["grpcio~=1.44", "protobuf>=3.19,<7", "ansys-api-geometry==0.4.84"],
         packages=setuptools.find_namespace_packages(".", include=("ansys.*",)),
         package_data={
             "": ["*.proto", "*.pyi", "py.typed", "VERSION"],
@@ -45,5 +47,10 @@ if __name__ == "__main__":
                 f"{dot_package_name}={dot_package_name}"
             ],
         },
-        cmdclass=CMDCLASS_OVERRIDE
+        cmdclass=CMDCLASS_OVERRIDE,
+        project_urls={
+            "Documentation": "https://github.com/ansys/ansys-api-discovery/#readme",
+            "Source": "https://github.com/ansys/ansys-api-discovery/",
+            "Tracker": "https://github.com/ansys/ansys-api-discovery/issues/",
+        },
     )
