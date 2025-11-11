@@ -1,0 +1,50 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.assignments.materialassignment;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Assignments.MaterialAssignment";
+
+service MaterialAssignment
+{
+  rpc Create(MaterialAssignmentCreationRequest) returns (MaterialAssignmentCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetMaterial(SetAssignmentRequest) returns (SetResponse);
+  
+  rpc SetTemperatureMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetTemperatureInputEnabled(SetBooleanRequest) returns (SetResponse);
+
+  rpc SetCompressibleFlowEnabled(SetBooleanRequest) returns (SetResponse);
+}
+
+message MaterialAssignmentCreationRequest{
+  ScopedCreationData creation_data = 1;
+  MaterialAssignmentProperties material_assignment_properties = 2;
+  bool enable_compressible_flow = 3;
+  bool enable_thermal_effects = 4;
+}
+
+message MaterialAssignmentCreationResponse{
+  CreationResponse condition_response = 1;
+  bool new_assignment_created = 2;
+  MaterialAssignmentDefinition condition_data = 3;
+}
+
+message MaterialAssignmentProperties {
+  GuidEntityIdentifier material_id = 1;
+  Quantity assembled_temperature = 2;
+}
+
+message MaterialAssignmentDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  MaterialAssignmentProperties assignment_properties = 6;
+}

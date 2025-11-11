@@ -14,7 +14,7 @@ with open(os.path.join(HERE, "README.md"), encoding="utf-8") as f:
 
 product = "discovery"
 library = ""
-package_info = ["ansys", "api", product, library,"v0"]
+package_info = ["ansys", "api", product, library]
 with open(os.path.join(HERE, "ansys", "api", product, library, "VERSION"), encoding="utf-8") as f:
     version = f.read().strip()
 
@@ -35,7 +35,7 @@ if __name__ == "__main__":
         url=f"https://github.com/ansys/{package_name}",
         license="MIT",
         python_requires=">=3.10",
-        install_requires=["grpcio~=1.44", "protobuf>=3.19,<6", "ansys-api-geometry==0.4.62"],
+        install_requires=["grpcio~=1.44", "protobuf>=3.19,<6", "ansys-api-geometry==0.4.84"],
         packages=setuptools.find_namespace_packages(".", include=("ansys.*",)),
         package_data={
             "": ["*.proto", "*.pyi", "py.typed", "VERSION"],

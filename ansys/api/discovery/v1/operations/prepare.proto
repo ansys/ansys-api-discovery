@@ -1,0 +1,203 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.operations.Prepair;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Operations.Prepair";
+
+service Prepare{
+  rpc CreateEnclosureBox(CreateEnclosureBoxRequest) returns (CreateEnclosureResponse);
+
+  rpc DetectHelixes(DetectHelixesRequest) returns (DetectHelixesResponse); //standardize between Find and Detect..  
+
+  rpc EnhancedShareTopology(ShareTopologyRequest) returns (EnhancedShareTopologyResponse);
+
+  rpc ExtractVolumeFromEdgeLoops(ExtractVolumeFromEdgeLoopsRequest) returns (ExtractVolumeFromEdgeLoopsResponse);
+  
+  rpc ExtractVolumeFromFaces(ExtractVolumeFromFacesRequest) returns (ExtractVolumeFromFacesResponse);
+
+  rpc FindAndRemoveLogos(FindAndRemoveLogosRequest) returns (FindAndRemoveLogosResponse);
+
+  rpc FindLogos(FindLogosRequest) returns (FindLogosResponse);
+
+  rpc FixInterference(FixInterferenceRequest) returns (FixInterferenceResponse); //duplicated in repair - remove?
+
+  rpc FixShortEdges(FixShortEdgesRequest) returns (FixShortEdgesResponse); //duplicated in repair - remove?
+
+  rpc RemoveFaces(RemoveFacesRequest) returns (RemoveFacesResponse);
+
+  rpc RemoveLogo(RemoveLogoRequest) returns (RemoveLogoResponse);
+
+  rpc RemoveRounds(RemoveRoundsRequest) returns (RemoveRoundsResponse);
+
+  rpc ShareTopology(ShareTopologyRequest) returns (ShareTopologyResponse);
+
+  rpc UnshareTopology(UnshareTopologyRequest) returns (UnshareTopologyResponse);
+}
+
+message CreateEnclosureBoxRequest{
+  repeated EntityIdentifier bodies = 1;
+  double x_low = 2;
+  double x_high = 3;
+  double y_low = 4;
+  double y_high = 5;
+  double z_low = 6;
+  double z_high = 7;
+}
+
+message CreateEnclosureResponse{
+  // The bodies representing the enclosure.
+  repeated ansys.api.discovery.v1.design.BodyEntity created_bodies = 1;
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2; //should this be a tracker?
+}
+
+message DetectHelixesRequest {
+  repeated EntityIdentifier body_ids = 1;
+  optional DetectHelixesOptions options = 2;
+}
+
+message DetectHelixesResponseData {
+  ansys.api.discovery.v1.design.TrimmedCurve trimmed_curve = 1;
+  repeated ansys.api.discovery.v1.design.EdgeEntity edges = 2;
+}
+
+message DetectHelixesResponse {
+  repeated DetectHelixesResponseData helixes = 1;
+  CommandResponse command_response = 2;
+}
+
+message FixInterferenceRequest{
+  repeated EntityIdentifier selection = 1;
+  // True if interfered body is removed from smaller body, false otherwise.
+  bool cut_smaller_body=2;
+}
+
+message FixInterferenceResponse{
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
+}
+
+message FixShortEdgesRequest{
+  repeated EntityIdentifier selection = 1;
+  // The maximum edge length in mm to remove shorter edges.
+  double max_edge_length=2;
+}
+
+message FixShortEdgesResponse{
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
+}
+
+message ShareTopologyRequest{
+  repeated EntityIdentifier selection = 1;
+  // Gets or sets the maximum distance between items to be considered intersecting in mm. 
+  double tolerance=2;
+  // Gets or sets the option for preserving the instancing. 
+  bool preserve_instances=3;
+}
+
+message ShareTopologyResponse{
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
+}
+
+message EnhancedShareTopologyResponse{
+  ansys.api.discovery.v1.design.EnhancedRepairToolMessage response_data = 1;
+}
+
+message UnshareTopologyRequest{
+  // Gets or sets a value indicating whether to include groups. 
+  bool include_groups=1;
+  // Gets or sets a value indicating whether to unshare lower topology. 
+  bool unshare_lower_topology =2;
+}
+
+message UnshareTopologyResponse{
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
+}
+
+message RemoveRoundsRequest{
+  // The round faces to be removed.
+  repeated EntityIdentifier selection = 1;
+  // Auto-shrink fill area 
+  bool auto_shrink = 2;
+}
+
+message RemoveRoundsResponse{
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
+}
+
+message RemoveFacesRequest{
+  // The faces to be removed.
+  repeated EntityIdentifier selection = 1;
+}
+
+message RemoveFacesResponse{
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
+}
+
+message ExtractVolumeFromFacesRequest{
+  // The id of the faces that seal the volume to be extracted.
+  repeated EntityIdentifier sealing_faces = 1;
+  // The id of one or more faces inside the volume to be extracted.
+  repeated EntityIdentifier inside_faces = 2;
+}
+
+message ExtractVolumeFromEdgeLoopsRequest{
+  // The id of edge loops that seal the volume to be extracted.
+  repeated EntityIdentifier sealing_edges = 1;
+  // The id of one or more faces inside the volume to be extracted. Not needed for simple cases.
+  repeated EntityIdentifier inside_faces = 2;
+}
+
+message ExtractVolumeFromEdgeLoopsResponse{
+  // The bodies created from the volume extraction.
+  repeated ansys.api.discovery.v1.design.BodyEntity created_bodies = 1;
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
+}
+
+message ExtractVolumeFromFacesResponse{
+  // The bodies created from the volume extraction.
+  repeated ansys.api.discovery.v1.design.BodyEntity created_bodies = 1;
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
+}
+
+message FindLogosRequest{
+  repeated EntityIdentifier bodies = 1;
+  optional FindLogoOptions options = 2;
+}
+
+message FindAndRemoveLogosRequest{
+  repeated EntityIdentifier bodies = 1;
+  optional FindLogoOptions options = 2;
+}
+
+message FindLogosResponse{
+  repeated ansys.api.discovery.v1.design.FaceEntity logo_faces = 1;
+  CommandResponse command_response = 2;
+}
+
+message FindAndRemoveLogosResponse{
+  repeated ansys.api.discovery.v1.design.FaceEntity logo_faces = 1;
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
+}
+
+message RemoveLogoRequest{
+  repeated EntityIdentifier face_ids = 1;
+}
+
+message RemoveLogoResponse {
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
+}
+
+message FindLogoOptions {
+  optional double min_height = 1;
+  optional double max_height = 2;
+  optional double max_fillet_radio_as_sharp = 3;
+  optional double fit_error = 4;
+}
+
+message DetectHelixesOptions {
+  optional double min_radius = 1;
+  optional double max_radius = 2;
+  optional double fit_radius_error = 3;
+}

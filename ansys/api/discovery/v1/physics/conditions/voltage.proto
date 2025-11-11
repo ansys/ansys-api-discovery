@@ -1,0 +1,52 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.voltage;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Voltage";
+
+service Voltage
+{
+  //Voltage condition methods
+  rpc Create(VoltageCreationRequest) returns (VoltageCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+// Voltage
+message VoltageCreationRequest{
+  ScopedCreationData creation_data = 1;
+  VoltageProperties voltage_properties = 2;
+}
+
+message VoltageCreationResponse{
+  CreationResponse condition_response = 1;
+  VoltageDefinition condition_data = 2;
+}
+
+// Voltage condition definitions
+message VoltageProperties {
+  Quantity voltage_magnitude = 1;
+}
+
+message VoltageDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  VoltageProperties voltage = 6;
+}
+
+// Response for GetAll
+message GetAllResponse {
+  repeated VoltageDefinition conditions = 1;
+  bool success = 2;
+  string message = 3;
+}

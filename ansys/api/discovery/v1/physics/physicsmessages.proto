@@ -1,0 +1,142 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+
+syntax = "proto3";
+
+package ansys.api.discovery.v1.physics;
+
+import "ansys/api/discovery/v1/commonenums.proto";
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/geometryenums.proto";
+import "ansys/api/discovery/v1/physicsenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics";
+
+
+//
+// Rough material wrapper for material parameters until we have a more defined material
+message ParameterMaterial {
+  oneof MaterialEntity //This should not be a MaterialEntity (CAD), it should be materialdata (Discovery, Engineering data)
+  {
+    EntityIdentifier material_id = 1;
+    string material_label = 2;
+  }
+}
+
+//
+// A Variation (represents a row into the variation table)
+message Variation {
+  EntityIdentifier id = 1;
+  string name = 2;
+  bool starred = 3;
+  repeated InputParameter inputs = 4;
+  repeated OutputParameter outputs = 5;
+  GuidEntityIdentifier simulation_id = 6;
+}
+
+//
+// An input parameter
+message InputParameter {
+  EntityIdentifier id = 1;
+  EntityIdentifier parent_id=2;
+  string name=3;
+  oneof Value
+  {
+    Quantity quantity=4;
+    ParameterMaterial material=5;
+  }
+  InputParameterType input_type=6;
+  EntityIdentifier parent_object_id=7;
+}
+
+//
+// An output parameter
+message OutputParameter {
+  EntityIdentifier id = 1;
+  EntityIdentifier parent_id = 2;
+  string name = 3;
+  Quantity quantity = 4;
+}
+
+// 
+// SIMULATIONS PROTOS
+//
+message SimulationEntity {
+  GuidEntityIdentifier object_id = 1;
+  string label = 2;
+}
+
+
+//location data definitions
+
+message ScopedCreationData{
+  optional GuidEntityIdentifier object_id = 1;
+  GuidEntityIdentifier simulation_id = 2;
+  LocationIdentifier locations = 3;
+}
+
+message DoubleSidedScopedCreationData{
+  optional GuidEntityIdentifier object_id = 1;
+  GuidEntityIdentifier simulation_id = 2;
+  LocationIdentifier side1_locations = 3;
+  LocationIdentifier side2_locations = 4;
+}
+
+message LocationIdentifier{
+  repeated EntityIdentifier location_ids = 1;
+  optional LocationType location_type = 2;
+}
+
+message SetDirectionRequest{
+  GuidEntityIdentifier object_id = 1;
+  Direction direction = 2;
+}
+
+
+message CommandRequest{
+  GuidEntityIdentifier object_id = 1;
+}
+
+message SetContactTypeRequest{
+  GuidEntityIdentifier object_id = 1;
+  ContactType contact_type = 2;
+}
+
+message ContactPairs {
+  repeated ContactPair contact_pair = 1;
+}
+
+message ContactPair {
+  repeated EntityIdentifier item1 = 1;
+  repeated EntityIdentifier item2 = 2;
+}
+
+message ContactProperties {
+  ContactType contact_type = 1;
+  ContactPairs contact_pairs = 2;
+
+  double friction_coefficient = 3;
+  double stiffness_factor = 4;
+  double detection_radius_factor = 5;
+  Quantity offset = 6;
+  Quantity shear_strenght = 7;
+  Quantity tensile_strength = 8;
+  bool are_strength_limits_set = 9;
+  bool adjust_gap_or_overlap = 10;
+  bool make_just_touching = 11;
+  bool idealize = 12;
+  bool specify_thermal_conductance = 13;
+  bool specify_electric_conductance = 14;
+  Quantity thermal_contact_conductance = 15;
+  Quantity thermal_contact_conductivity = 16;
+  Quantity thermal_conductance_thickness = 17;
+  Quantity electrical_contact_conductance = 18;
+  Quantity electrical_contact_conductivity = 19;
+  Quantity electrical_conductance_thickness = 20;
+  ConductanceOptionType thermal_conductance_option = 21;
+  ConductanceOptionType electric_conductance_option = 22;
+}
+
+message SetConductanceMethodRequest{
+  GuidEntityIdentifier object_id = 1;
+  ConductanceOptionType conductance_type = 2;
+}

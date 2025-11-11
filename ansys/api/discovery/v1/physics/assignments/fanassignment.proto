@@ -1,0 +1,105 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.assignments.fanassignment;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Assignments.FanAssignment";
+
+service FanAssignment
+{
+  rpc CreateInternal(InternalFanAssignmentCreationRequest) returns (InternalFanAssignmentCreationResponse);
+
+  rpc CreateExternal(ExternalFanAssignmentCreationRequest) returns (ExternalFanAssignmentCreationResponse);
+
+  rpc SetFan(SetAssignmentRequest) returns (SetResponse);
+
+  rpc SetExternalFanSpecification(SetExternalFanSpecificationRequest) returns (SetResponse);
+
+  rpc SetLocation(SetLocationExtendedRequest) returns (SetResponse);
+
+  rpc SetExternalFanGaugePressure(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetInternalFanInletFace(SetLocationRequest) returns (SetResponse);
+
+  rpc SetInternalFanIsShrouded(SetBooleanRequest) returns (SetResponse);
+
+  rpc SetInternalFanHubRadius(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetInternalFanTipRadius(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetInternalFanTotalHeat(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetInternalFanSpecifyTotalHeat(SetBooleanRequest) returns (SetResponse);
+}
+
+message InternalFanAssignmentCreationRequest{
+  ScopedCreationData  creation_data = 1;
+  GuidEntityIdentifier fan_id = 2;
+  InternalFanAssignmentProperties internal_fan_assignment_properties = 3;
+}
+
+message ExternalFanAssignmentCreationRequest{
+  ScopedCreationData creation_data = 1;
+  GuidEntityIdentifier fan_id = 2;
+  ExternalFanAssignmentProperties external_fan_assignment_properties = 3;
+}
+
+message InternalFanAssignmentCreationResponse{
+  CreationResponse condition_response = 1;
+  InternalFanAssignmentDefinition condition_data = 2;
+}
+
+message ExternalFanAssignmentCreationResponse{
+  CreationResponse condition_response = 1;
+  ExternalFanAssignmentDefinition condition_data = 2;
+}
+
+message SetExternalFanSpecificationRequest{
+  GuidEntityIdentifier object_id = 1;
+  ExternalFanSpecification specification = 2;
+}
+
+message ExternalFanAssignmentProperties {
+  GuidEntityIdentifier fan_id = 1;
+  ExternalFanSpecification specification = 2;
+  Quantity gauge_pressure = 3;
+  bool is_swirling = 4;
+  Quantity flow_temperature = 5;
+}
+
+message InternalFanAssignmentProperties {
+  GuidEntityIdentifier fan_id = 1;
+  bool is_shrouded = 2;
+  OptionalQuantity total_heat = 3;
+  Quantity hub_radius = 4;
+  Quantity tip_radius = 5;
+  bool is_swirling = 6;
+  optional EntityIdentifier inlet_face = 7;
+}
+
+enum ExternalFanSpecification
+{
+  INTAKE = 0;
+  EXHAUST = 1;
+}
+
+// Return definitions
+message InternalFanAssignmentDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  InternalFanAssignmentProperties assignment_properties = 6;
+}
+
+message ExternalFanAssignmentDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  ExternalFanAssignmentProperties assignment_properties = 6;
+}

@@ -1,0 +1,112 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.springpreload;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.SpringPreload";
+
+service SpringPreload
+{
+  //spring preload condition methods
+  rpc CreateLongitudinal(SpringPreloadLongitudinalCreationRequest) returns (SpringPreloadCreationResponse);
+  rpc CreateTorsional(SpringPreloadTorsionalCreationRequest) returns (SpringPreloadCreationResponse);
+
+  rpc SetSide1Location(SetLocationExtendedRequest) returns (SetResponse);
+  rpc SetSide2Location(SetLocationRequest) returns (SetResponse);
+
+  rpc SetSpecification(SetSpringPreloadSpecificationRequest) returns (SetResponse);
+
+  rpc SetLongitudinalStiffness(SetQuantityRequest) returns (SetResponse);
+  rpc SetTorsionalStiffness(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetType(SetSpringPreloadTypeRequest) returns (SetResponse);
+  rpc SetForce(SetQuantityRequest) returns (SetResponse);
+  rpc SetTorque(SetQuantityRequest) returns (SetResponse);
+  rpc SetLength(SetQuantityRequest) returns (SetResponse);
+  rpc SetRotation(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+//Creation
+message SpringPreloadLongitudinalCreationRequest {
+  DoubleSidedScopedCreationData creation_data = 1;
+  SpringPreloadLongitudinalStiffnessProperties longitudinal_stiffness_properties = 3;
+  SpringPreloadProperties preload_properties = 4;
+}
+
+message SpringPreloadTorsionalCreationRequest {
+  DoubleSidedScopedCreationData creation_data = 1;
+  SpringPreloadTorsionalStiffnessProperties torsional_stiffness_properties = 3;
+  SpringPreloadProperties preload_properties = 4;
+}
+
+message SpringPreloadCreationResponse {
+  CreationResponse condition_response = 1;
+  SpringPreloadDefinition condition_data = 2;
+}
+
+//Other requests
+message SetSpringPreloadSpecificationRequest {
+  GuidEntityIdentifier object_id = 1;
+  SpringPreloadSpecification specification = 2;
+}
+
+message SetSpringPreloadTypeRequest{
+  GuidEntityIdentifier object_id = 1;
+  SpringPreloadType type = 2;
+}
+
+// Enumerations
+
+enum SpringPreloadSpecification {
+  LONGITUDINAL = 0;
+  TORSIONAL = 1;
+}
+
+enum SpringPreloadType{
+  NONE = 0;
+  LOAD = 1;
+  LENGTH = 2;
+  TORQUE = 3;
+  ROTATION = 4;
+}
+
+// Condition definitions
+
+message SpringPreloadLongitudinalStiffnessProperties {
+  Quantity longitudinal_stiffness = 1;
+}
+
+message SpringPreloadTorsionalStiffnessProperties {
+  Quantity torsional_stiffness = 1;
+}
+
+message SpringPreloadProperties {
+  SpringPreloadType type = 1;
+  Quantity preload_force = 2;
+  Quantity preload_length = 3;
+  Quantity preload_torque = 4;
+  Quantity preload_rotation = 5;
+}
+
+message SpringPreloadDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string side1_locations = 4;
+  repeated string side2_locations = 5;
+  bool suppressed = 6;
+  SpringPreloadSpecification specification = 7;
+  SpringPreloadLongitudinalStiffnessProperties longitudinal_stiffness_properties = 8;
+  SpringPreloadTorsionalStiffnessProperties torsional_stiffness_properties = 9;
+  SpringPreloadProperties preload_properties = 10;
+}
+
+message GetAllResponse{
+  repeated SpringPreloadDefinition spring_preload_conditions = 1;
+  bool success = 2;
+  string message = 3;
+}

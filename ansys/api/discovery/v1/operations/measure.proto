@@ -1,0 +1,37 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.operations.Measure;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Operations.Measure";
+
+service Measure{
+  rpc MinDistanceBetweenObjects(MinDistanceBetweenObjectsRequest) returns (MinDistanceBetweenObjectsResponse);
+  
+  rpc MinDistanceBetweenSelectionObjects(MinDistanceBetweenSelectionObjectsRequest) returns (MinDistanceBetweenSelectionObjectsResponse);
+}
+
+message MinDistanceBetweenObjectsRequest{
+  repeated EntityIdentifier bodies=1;
+  repeated EntityIdentifier selection=2;
+}
+
+message MinDistanceBetweenSelectionObjectsRequest{
+  repeated EntityIdentifier bodies=1;
+  repeated EntityIdentifier selection=2;
+}
+
+message MinDistanceBetweenObjectsResponse{
+  Gap gap=1;
+  CommandResponse command_response=2;
+} 
+
+message MinDistanceBetweenSelectionObjectsResponse{
+  Gap gap=1;
+  CommandResponse command_response=2;
+} 
+
+message Gap {
+  double distance = 1;
+}

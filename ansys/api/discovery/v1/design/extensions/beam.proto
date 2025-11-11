@@ -1,0 +1,61 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.extensions.beam;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+import "ansys/api/discovery/v1/geometryenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Extensions.Beam";
+
+service Beam
+{
+  rpc Delete(MultipleEntitiesRequest) returns (TrackedDeleteResponse);
+
+  rpc SetBeamProfile(SetAssignmentRequest) returns (TrackedSetResponse);
+
+  rpc SetOrientationByAngle(SetQuantityRequest) returns (TrackedSetResponse);
+
+  //orient tool
+  rpc SetOrientationByReference(MultipleEntitiesRequest) returns (TrackedSetResponse);
+
+  rpc SetIsReversed(SetBooleanRequest) returns (TrackedSetResponse);
+  
+  rpc SetTreatAs(SetBeamTreatAsRequest) returns (TrackedSetResponse);
+
+  rpc SetIsRigid(SetBooleanRequest) returns (TrackedSetResponse);
+
+  rpc SetAnchorType(SetBeamAnchorPositionRequest) returns (TrackedSetResponse);
+
+  rpc SetLocationAnchorX(SetQuantityRequest) returns (TrackedSetResponse);
+
+  rpc SetLocationAnchorY(SetQuantityRequest) returns (TrackedSetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+
+  rpc Get(EntityRequest) returns (GetResponse);
+
+  //Special set capability
+  rpc Rotate90Clockwise(MultipleEntitiesRequest) returns (TrackedSetResponse);
+}
+
+message GetAllResponse{
+  repeated BeamEntity beam_entities = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetBeamTreatAsRequest{
+  repeated EntityIdentifier geometry_ids = 1;
+  BeamType treat_as = 2;
+}
+
+message GetResponse{
+  BeamEntity beam_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetBeamAnchorPositionRequest{
+  repeated EntityIdentifier geometry_ids = 1;
+  BeamAnchorPosition anchor_position = 2;
+}
+

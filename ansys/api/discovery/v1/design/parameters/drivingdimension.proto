@@ -1,0 +1,47 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.parameters.drivingdimension;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Parameters.DrivingDimension";
+
+service DrivingDimension{
+  rpc Get(EntityRequest) returns(GetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+
+  rpc Set(SetDrivingDimensionRequest) returns(SetDrivingDimensionResponse);
+
+}
+
+message GetResponse{
+  DrivingDimensionEntity driving_dimension = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllResponse{
+  repeated DrivingDimensionEntity driving_dimensions = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetDrivingDimensionRequest{
+  repeated DrivingDimensionEntity request_data = 1;
+}
+
+message SetDrivingDimensionResponseData{
+  EntityIdentifier id = 1;
+  UpdateStatus status  = 2;
+}
+
+message SetDrivingDimensionResponse{
+  repeated SetDrivingDimensionResponseData response_data = 1;
+  SetResponse set_response = 2;
+}
+
+enum UpdateStatus {
+  SUCCESS = 0;
+  FAILURE = 1;
+  CONSTRAINED_PARAMETERS = 2;
+}

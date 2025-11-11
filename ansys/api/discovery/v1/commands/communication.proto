@@ -1,0 +1,68 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v1.commands.communication;
+
+import "ansys/api/discovery/v1/commonenums.proto";
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.Communication";
+
+service Communication {
+  rpc Health(HealthRequest) returns(HealthResponse);
+  rpc Shutdown(ShutdownRequest) returns(ShutdownResponse);
+  rpc StatusInfo(StatusInfoRequest) returns(StatusInfoResponse);
+  rpc GetLogs(LogsRequest) returns(stream LogsResponse);
+
+}
+
+message LogsRequest{
+
+  LogsTarget target = 1;
+  oneof path{
+    google.protobuf.NullValue null_path = 2;
+    string target_path =3;
+  }
+
+  LogsPeriodType period_type = 4;
+
+  oneof period {
+    google.protobuf.NullValue null_period = 5;
+    google.protobuf.Timestamp logs_period = 6;
+  }
+}
+
+message LogsResponse{
+  string relative_path = 1;
+  string log_name = 2;
+  bytes log_chunk = 3;
+}
+
+message HealthResponse{
+  string message = 1;
+  CommandResponse command_response = 2;
+}
+
+
+message HealthRequest{
+}
+
+message ShutdownRequest{
+}
+
+message ShutdownResponse{
+  CommandResponse command_response = 1;
+}
+
+message StatusInfoRequest{
+}
+
+message StatusInfoResponse{
+  string touch_time = 1  [json_name = "touch_time"];
+  string application_version = 2  [json_name = "application_version"];
+  string embedded_api_version = 3  [json_name = "embedded_api_version"];
+  CommandResponse command_response = 4;
+}
+

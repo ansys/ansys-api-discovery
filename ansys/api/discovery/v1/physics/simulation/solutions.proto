@@ -1,0 +1,50 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.simulation.solutions;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Simulation.Solutions";
+
+service Solutions
+{
+  rpc GetSolverFidelity(GetSolverFidelityRequest) returns (GetSolverFidelityResponse);
+
+  rpc SetSolverFidelity(SetSolverFidelityRequest) returns (SetSolverFidelityResponse);
+
+  rpc Solve(SolveExecutionRequest) returns (SolveExecutionResponse);
+}
+
+message GetSolverFidelityRequest{
+  GuidEntityIdentifier simulation_id = 1;
+  string stage = 2;
+}
+
+message GetSolverFidelityResponse{
+  double value = 1;
+}
+
+message SetSolverFidelityRequest{
+  GetSolverFidelityRequest simulation_stage = 1;
+  double value = 2;
+}
+
+message SetSolverFidelityResponse{
+}
+
+
+message SolveExecutionRequest{
+  GuidEntityIdentifier simulation_id = 1;
+  SolverManager solver_manager = 2;
+  bool execute_remotely =3;
+  repeated EntityIdentifier variation_id_list = 4;
+}
+
+message SolveExecutionResponse{
+  CommandResponse command_response = 1;
+}
+
+enum SolverManager {
+  ARTEMIS= 0;
+  APOLLO = 1;
+}

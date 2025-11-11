@@ -1,0 +1,42 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.engineeringdata.welddata;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physicsenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.EngineeringData.WeldData";
+
+service WeldData
+{
+  rpc GetWeldDataFromLibrary(WeldDataLibraryRequest) returns (WeldDataCreationResponse);
+
+  //size, is intermittent, intermittent_length, minimum_pitch, max_number_along_length, has_minimum_pitch, has_max_number_along_length 
+}
+
+//WeldData
+message WeldDataLibraryRequest{
+  string label = 1;
+}
+
+message WeldDataCreationResponse{
+  CreationResponse response = 1;
+  WeldDataDefinition engineering_data = 2;
+}
+
+//WeldData condition definitions
+message WeldDataProperties {
+  WeldType type = 2;
+  Quantity size = 3;
+  Quantity intermittent_length = 4;
+  OptionalQuantity minimum_pitch = 5;
+  OptionalInt max_number_along_length = 6;
+}
+
+message WeldDataDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  bool suppressed = 4;
+  WeldDataProperties weld_properties = 5;
+}

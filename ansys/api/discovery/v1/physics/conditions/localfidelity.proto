@@ -1,0 +1,43 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.localfidelity;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.LocalFidelity";
+
+service LocalFidelity
+{
+  //LocalFidelity condition methods
+  rpc Create(LocalFidelityCreationRequest) returns (LocalFidelityCreationResponse);
+
+  rpc SetLocation(SetLocationExtendedRequest) returns(SetResponse);
+
+  rpc SetMagnitude(SetQuantityRequest) returns (SetResponse);
+}
+
+// LocalFidelity
+message LocalFidelityCreationRequest{
+  ScopedCreationData creation_data = 1;
+  LocalFidelityProperties local_fidelity_properties = 2;
+}
+
+message LocalFidelityCreationResponse{
+  CreationResponse condition_response = 1;
+  LocalFidelityDefinition condition_data = 2;
+}
+
+// LocalFidelity condition definitions
+message LocalFidelityProperties {
+  Quantity local_fidelity_magnitude = 1;
+}
+
+message LocalFidelityDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  LocalFidelityProperties local_fidelity = 6;
+}

@@ -1,0 +1,55 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.Selections.namedselection;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Selections.NamedSelection";
+
+service NamedSelection{
+  rpc Create(CreateRequest) returns(CreateResponse);  
+  
+  rpc Delete(MultipleEntitiesRequest) returns(DeleteResponse);  
+  
+  rpc DeleteByName(DeleteByNameRequest) returns(DeleteByNameResponse);  
+  
+  rpc Get(EntityRequest) returns(GetResponse);  
+  
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+
+  //TODO: Enable named selection contents to be defined.
+}
+
+message GetResponse{
+  NamedSelectionEntity named_selection = 1;
+  CommandResponse command_response = 2;
+}
+
+message CreateResponse{
+  repeated NamedSelectionEntity named_selections = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateRequestData{
+  string name = 1;
+  repeated EntityIdentifier members = 2;
+  EntityIdentifier parent = 3;
+}
+
+message CreateRequest{
+  repeated CreateRequestData request_data = 1;
+}
+
+message GetAllResponse{
+  repeated NamedSelectionEntity named_selections = 1;
+  CommandResponse command_response = 2;
+}
+
+message DeleteByNameRequest{
+  string name = 1;
+}
+
+message DeleteByNameResponse{
+  CommandResponse command_response = 1;
+}

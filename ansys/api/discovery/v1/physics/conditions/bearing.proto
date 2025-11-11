@@ -1,0 +1,56 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.bearing;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Bearing";
+
+service Bearing
+{
+  //Bearing condition methods
+  rpc Create(BearingCreationRequest) returns (BearingCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetRadialForce(SetQuantityRequest) returns (SetResponse);
+  rpc SetThrustForce(SetQuantityRequest) returns (SetResponse);
+  rpc SetAngle(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+//Bearing
+message BearingCreationRequest{
+  ScopedCreationData creation_data = 1;
+  BearingProperties bearing_properties = 2;
+}
+
+message BearingCreationResponse{
+  CreationResponse condition_response = 1;
+  BearingDefinition condition_data = 2;
+}
+
+// Bearing condition definitions
+message BearingProperties {
+  Quantity radial_force = 1;
+  Quantity thrust_force = 2;
+  Quantity angle = 3;
+}
+
+message BearingDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  BearingProperties bearing = 6;
+}
+
+// Response for GetAll
+message GetAllResponse {
+  repeated BearingDefinition conditions = 1;
+  bool success = 2;
+  string message = 3;
+}

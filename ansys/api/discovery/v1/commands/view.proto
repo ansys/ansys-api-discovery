@@ -1,0 +1,32 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.commands.view;
+
+import "ansys/api/discovery/v1/commonenums.proto";
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.View";
+
+service View{
+  rpc GetImage(GetImageRequest) returns(GetImageResponse); 
+
+  rpc Set(SetViewRequest) returns(SetViewResponse);
+}
+
+message GetImageRequest{
+  ImageFormat format = 1;
+}
+
+message GetImageResponse {
+  bytes data=1;
+  CommandResponse command_response = 2;
+}
+
+message SetViewRequest{
+  WindowView view = 1;
+}
+
+message SetViewResponse{
+  CommandResponse command_response = 1;
+}
+

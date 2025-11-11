@@ -1,0 +1,46 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.parameters.script;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/geometryenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Parameters.Script";
+
+// script parameters servicer.
+//
+service Script{
+  rpc Get(EntityRequest) returns(GetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse) ;
+
+  rpc Set(SetScriptParameterRequest) returns(SetScriptParameterResponse) ;
+}
+
+message GetResponse{
+  ScriptParameterEntity script_parameter = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllResponse{
+  repeated ScriptParameterEntity script_parameters = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetScriptParameterRequest{
+  repeated ScriptParameterEntity request_data = 1;
+}
+
+message SetScriptParameterResponse{
+  repeated ScriptParameterEntity response_data = 1;
+  SetResponse set_response = 2;
+}
+
+//
+// A script parameter
+message ScriptParameterEntity {
+  EntityIdentifier id = 1;
+  string name = 2;
+  DimensionType dimension_type = 3;
+  double dimension_value = 4;
+}

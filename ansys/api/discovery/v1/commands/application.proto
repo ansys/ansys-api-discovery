@@ -1,0 +1,128 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.commands.application;
+
+import "ansys/api/discovery/v1/commonenums.proto";
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.Application";
+
+service Application{ 
+  rpc IsStarted(ApplicationStartedRequest) returns(ApplicationStartedResponse);
+  
+  rpc Close(CloseApplicationRequest) returns(CloseApplicationResponse);
+
+  rpc DisposeTracker(DisposeTrackerRequest) returns (DisposeTrackerResponse);
+  
+  rpc GetMonikersCompressionMethod(GetMonikerCompressionMethodRequest) returns(GetMonikerCompressionMethodResponse);  
+  
+  rpc GetTracker(GetTrackerRequest) returns (GetTrackerResponse);
+
+  rpc GetTrackerChanges(GetTrackerChangesRequest) returns (GetTrackerChangesResponse);
+  
+  rpc SetAutomaticTrackingState(SetAutomaticTrackingStateRequest) returns (SetAutomaticTrackingStateResponse); 
+  
+  rpc SetMonikersCompressionMethod(SetMonikerCompressionMethodRequest) returns (SetMonikerCompressionMethodResponse);  
+  
+  rpc SetTitle(SetApplicationTitleRequest) returns(SetApplicationTitleResponse);  
+  
+  rpc GetBackend(GetBackendRequest) returns(GetBackendResponse);
+}
+
+message SetApplicationTitleRequest{
+  string title =1;
+}
+
+message GetBackendRequest{
+}
+
+message GetBackendResponse{
+  BackendType type = 1;
+  VersionIdentifier version = 2;
+  string backend_version_info = 3;  
+  map<string, string> additional_build_info = 4;
+  CommandResponse command_response = 5;
+}
+
+message VersionIdentifier
+{
+  int32 major_release = 1;
+  int32 minor_release = 2;
+  int32 service_pack = 3;
+  int32 build_number = 4;
+}
+
+message ApplicationStartedRequest{
+}
+
+message ApplicationStartedResponse{
+  bool is_startup_complete = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetMonikerCompressionMethodRequest{
+}
+
+message GetMonikerCompressionMethodResponse{
+  MonikerCompressionMethod method = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetMonikerCompressionMethodRequest{
+  MonikerCompressionMethod method = 1;
+}
+
+message SetMonikerCompressionMethodResponse{
+  SetResponse set_response = 1;
+}
+
+message SetApplicationTitleResponse{
+  SetResponse set_response = 1;
+}
+
+message CloseApplicationRequest{
+}
+
+message CloseApplicationResponse{
+  SetResponse set_response = 1;
+}
+
+
+message SetAutomaticTrackingStateRequest{
+  AutomaticTrackingState state = 1;
+}
+
+message SetAutomaticTrackingStateResponse{
+  SetResponse set_response = 1;
+}
+
+message GetTrackerRequest{
+  EntityIdentifier design_id = 1;
+}
+
+message GetTrackerResponse{
+  TrackerDefinition tracker  = 1;
+  CommandResponse command_response = 2;
+}
+
+message TrackerDefinition{
+  EntityIdentifier design_id = 1;
+}
+
+message GetTrackerChangesRequest{
+  EntityIdentifier design_id = 1;
+}
+
+message GetTrackerChangesResponse{
+  ansys.api.discovery.v1.design.TrackedChanges tracked_changes = 1;
+}
+
+message DisposeTrackerRequest{
+  EntityIdentifier design_id = 1;
+}
+
+message DisposeTrackerResponse{
+  CommandResponse command_response = 1;
+}

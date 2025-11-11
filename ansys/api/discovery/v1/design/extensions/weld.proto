@@ -1,0 +1,49 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.extensions.weld;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Extensions.Weld";
+
+service Weld
+{
+  rpc Delete(MultipleEntitiesRequest) returns (TrackedDeleteResponse);
+
+  rpc SetWeld(SetAssignmentRequest) returns (TrackedSetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+
+  rpc Get(EntityRequest) returns (GetResponse);
+
+  rpc GetAllFilletWelds(GetAllFilletWeldsRequest) returns (GetAllFilletWeldsResponse);
+
+  rpc GetAllSpotWelds(GetAllSpotWeldsRequest) returns (GetAllSpotWeldsResponse);
+}
+
+message GetAllResponse{
+  repeated WeldEntity weld_entities = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetResponse{
+  WeldEntity weld_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllSpotWeldsRequest{
+}
+
+message GetAllSpotWeldsResponse {
+  repeated SpotWeldEntity welds = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllFilletWeldsRequest{
+}
+
+message GetAllFilletWeldsResponse {
+  repeated FilletWeldEntity weld_entities = 1;
+  CommandResponse command_response = 2;
+}

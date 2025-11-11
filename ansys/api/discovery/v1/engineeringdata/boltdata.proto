@@ -1,0 +1,39 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.engineeringdata.boltdata;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.EngineeringData.BoltData";
+
+service BoltData
+{
+  //BoltData condition methods
+  rpc GetFromLibrary(BoltDataLibraryRequest) returns (BoltDataCreationResponse);
+}
+
+//BoltData
+message BoltDataLibraryRequest{
+  string label = 1;
+}
+
+message BoltDataCreationResponse{
+  CreationResponse condition_response = 1;
+  BoltDataDefinition condition_data = 2;
+}
+
+//BoltData condition definitions
+message BoltDataProperties {
+  string material_name = 1;
+  //TODO - add properties
+  // bolt topology data
+  // Reference to material data
+}
+
+message BoltDataDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  bool suppressed = 4;
+  BoltDataProperties bolt = 5;
+}

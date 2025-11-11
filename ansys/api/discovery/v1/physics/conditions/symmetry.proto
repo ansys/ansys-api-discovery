@@ -1,0 +1,35 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.symmetry;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Symmetry";
+
+service Symmetry
+{
+  //Symmetry condition methods
+  rpc Create(SymmetryCreationRequest) returns (SymmetryCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+}
+
+// Symmetry
+message SymmetryCreationRequest{
+  ScopedCreationData creation_data = 1;
+}
+
+message SymmetryCreationResponse{
+  CreationResponse condition_response = 1;
+  SymmetryDefinition condition_data = 2;
+}
+
+
+message SymmetryDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+}

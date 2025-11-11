@@ -1,0 +1,52 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.constructs.datumplane;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Constructs.DatumPlane";
+
+service DatumPlane{
+
+  rpc Create(DatumPlaneCreationRequest) returns (DatumPlaneCreationResponse);
+
+  rpc Delete(MultipleEntitiesRequest) returns (DeleteResponse);
+
+  rpc Get(EntityRequest) returns(GetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+
+  rpc GetIsDeleted(MultipleEntitiesRequest) returns(GetIsDeletedResponse);
+
+  rpc GetUpdateState(MultipleEntitiesRequest) returns (GetUpdateStateResponse);
+
+  //TODO: Enable plane inputs to be set.
+}
+
+
+message DatumPlaneCreationRequest {
+  repeated EntityIdentifier selection = 1;
+}
+
+message DatumPlaneCreationResponse {
+  repeated DatumPlaneEntity planes = 1;
+  CreationResponse creation_response = 2;
+}
+
+message GetResponse{
+  DatumPlaneEntity plane = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllResponse{
+  repeated DatumPlaneEntity planes = 1;
+  CommandResponse command_response = 2;
+}
+
+message UpdateStateResponse{
+  map<string, UpdateState> update_states = 1;
+  CommandResponse command_response = 2;
+}
+
+

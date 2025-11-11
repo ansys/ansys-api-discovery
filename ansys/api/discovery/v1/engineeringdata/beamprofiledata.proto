@@ -1,0 +1,162 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.engineeringdata.beamprofiledata;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.EngineeringData.BeamProfileData";
+
+service BeamProfileData
+{
+  rpc CreateCircular(CreateBeamProfileCircularRequest) returns(CreateBeamProfileCircularResponse);
+   
+  rpc CreateSegments(CreateBeamProfileSegmentsRequest) returns (CreateBeamProfileSegmentsResponse);
+
+  rpc CreateDescriptiveSegments(CreateBeamProfileSegmentsRequest) returns (CreateDescriptiveProfileSegmentsResponse);
+
+  rpc Delete(MultipleEntitiesRequest) returns (DeleteResponse);
+
+  rpc GetName(GetBeamProfileNameRequest) returns (GetBeamProfileNameResponse);
+    
+  rpc GetParts(GetBeamProfilePartsRequest) returns (GetBeamProfilePartsResponse);
+
+  rpc GetProperties(GetBeamProfilePropertiesRequest) returns (GetBeamProfilePropertiesResponse);
+
+  rpc GetCrossSectionInfo(GetBeamProfileCrossSectionInfoRequest) returns (GetBeamProfileCrossSectionInfoResponse);
+
+  rpc GetFromLibrary(DataLibraryRequest) returns (BeamDataResponse); // not required by web-app, but probably by pyDisco
+
+  rpc MoveToProject(DataLibraryRequest) returns (SetResponse); //on making a library data editable.
+  
+  rpc ImportToProject(ImportLibraryDataRequest) returns (SetResponse); //on importing from Granta web
+
+  rpc SaveToUserLibrary(DataLibraryRequest) returns (SetResponse); //on save to library for project data.
+
+  rpc ChangeQuantityProperty(ChangeDataQuantityRequest) returns (SetResponse); // generic change property (quantity)
+
+}
+
+message CreateBeamProfileCircularRequestData{
+  Plane plane=1;
+  double radius=2;
+  Point origin=3;
+  string name=4;
+}
+
+message CreateBeamProfileCircularRequest {
+  repeated CreateBeamProfileCircularRequestData request_data=1;
+}
+
+message CreateBeamProfileCircularResponse {
+  repeated EntityIdentifier ids =1;
+}
+
+message CreateBeamProfileSegmentsRequestData{
+  EntityIdentifier profile=1;
+
+  repeated Line lines=2;
+  repeated Arc arcs=3;
+  repeated Circle circles=4;
+
+  repeated Plane planes= 5;
+  EntityIdentifier parent=7;
+}
+
+message CreateBeamProfileSegmentsRequest{
+  repeated CreateBeamProfileSegmentsRequestData request_data=1;
+}
+
+message CreateBeamProfileSegmentsResponseData {
+  EntityIdentifier profile=1;
+  repeated EntityIdentifier beams = 2;
+}
+
+message CreateBeamProfileSegmentsResponse {
+  repeated CreateBeamProfileSegmentsResponseData response_data = 1;
+}
+
+message CreateDescriptiveProfileSegmentsResponseData{
+  EntityIdentifier profile=1;
+  repeated ansys.api.discovery.v1.design.BeamEntity beams = 2;
+}
+
+message CreateDescriptiveProfileSegmentsResponse{
+  repeated CreateDescriptiveProfileSegmentsResponseData response_data=1;
+}
+
+message GetBeamProfilePartsRequest{
+}
+
+message GetBeamProfilePartsResponse {
+  repeated ansys.api.discovery.v1.design.PartEntity parts = 1;
+}
+
+message GetBeamProfileNameRequest{
+  EntityIdentifier id = 1;
+}
+
+message GetBeamProfileNameResponse{
+  string name = 1;
+}
+
+message GetBeamProfilePropertiesRequest {
+  repeated EntityIdentifier ids = 1;
+}
+
+message GetBeamProfilePropertiesResponseData{
+  ansys.api.discovery.v1.design.ProfileProperties properties = 1;
+  EntityIdentifier id = 2;
+}
+
+message GetBeamProfilePropertiesResponse{
+  repeated GetBeamProfilePropertiesResponseData response_data = 1;
+}
+
+message GetBeamProfileCrossSectionInfoRequest{
+  repeated EntityIdentifier ids = 1;
+}
+
+message GetBeamProfileCrossSectionInfoResponseData{
+  ansys.api.discovery.v1.design.ProfileCrossSectionInfo cross_section_info = 1;
+  EntityIdentifier id = 2;
+}
+
+message GetBeamProfileCrossSectionInfoResponse{
+  repeated GetBeamProfileCrossSectionInfoResponseData response_data = 1;
+}
+
+
+//BeamData
+message DataLibraryRequest{
+  GuidEntityIdentifier data_id = 1;
+  GuidEntityIdentifier source_library_id = 2;
+}
+
+message BeamDataResponse{
+  BeamDataDefinition library_data = 1;
+}
+
+message ImportLibraryDataRequest{
+  string json_library_data = 1;
+}
+
+//BeamData condition definitions
+message BeamDataProperties {
+  //TODO - add properties
+  // Reference to cross section profile data
+  // Reference to material data
+  // Other properties
+}
+
+message BeamDataDefinition {
+  GuidEntityIdentifier beam_id = 1;
+  GuidEntityIdentifier source_library_id = 2;
+  string data_object_name = 3;
+  BeamDataProperties beam_data = 4;
+}
+
+message ChangeDataQuantityRequest{
+  string property_name = 1; //enum?
+  SetQuantityRequest quantity_data = 2;
+}

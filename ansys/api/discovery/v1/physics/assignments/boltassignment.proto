@@ -1,0 +1,51 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.assignments.boltassignment;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/engineeringdata/boltdata.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Assignments.BoltAssignment";
+
+service BoltAssignment
+{
+  //BoltAssignment condition methods
+  rpc Create(BoltAssignmentCreationRequest) returns (BoltAssignmentCreationResponse);
+
+  rpc SetLocation(SetBoltLocationRequest) returns(SetResponse);
+
+  rpc SetBolt(SetAssignmentRequest) returns (SetResponse);
+
+}
+
+//BoltAssignment
+message BoltAssignmentCreationRequest{
+  ScopedCreationData creation_data = 1;
+  BoltAssignmentProperties bolt_assignment_properties = 2;
+  bool create_long_bolts = 3;
+}
+
+message BoltAssignmentCreationResponse{
+  CreationResponse condition_response = 1;
+  BoltAssignmentDefinition condition_data = 2;
+}
+
+//BoltAssignment condition definitions
+message BoltAssignmentProperties {
+  ansys.api.discovery.v1.engineeringdata.boltdata.BoltDataDefinition definition = 1;
+}
+
+message BoltAssignmentDefinition {
+  EntityIdentifier id = 1;
+  EntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  BoltAssignmentProperties bolt = 6;
+}
+
+message SetBoltLocationRequest {
+  SetLocationRequest set_location_request = 1;
+  bool create_long_bolts = 3;
+}

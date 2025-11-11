@@ -14,8 +14,7 @@ service ContactGroup
   rpc ChangeContactGroupSide1Location(ChangeLocationRequest) returns(ChangeResponse);
   rpc ChangeContactGroupSide2Location(ChangeLocationRequest) returns(ChangeResponse);
 
-  rpc ChangeContactGroupContactType(ansys.api.discovery.v0.connections.contact.ChangeContactTypeRequest) 
-	  returns (ChangeResponse);
+  rpc ChangeContactGroupContactType(ansys.api.discovery.v0.connections.contact.ChangeContactTypeRequest) returns (ChangeResponse);
   rpc SplitContactGroup(ChangeEmptyRequest) returns (ChangeResponse);
   rpc ConvertContactGroup(ConvertContactGroupChangeRequest) returns (ChangeResponse);
 

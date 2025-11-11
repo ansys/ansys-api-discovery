@@ -1,0 +1,143 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.relationships.assemblycondition;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Relationships.AssemblyCondition";
+
+service AssemblyCondition{
+  rpc CreateAlign(CreateAlignRequest) returns (CreateAlignResponse);
+
+  rpc CreateAnchor(CreateAnchorRequest) returns (CreateAnchorResponse);
+
+  rpc CreateGear(CreateGearRequest) returns (CreateGearResponse);
+
+  rpc CreateOrient(CreateOrientRequest) returns (CreateOrientResponse);
+
+  rpc CreateRigid(CreateRigidRequest) returns (CreateRigidResponse);
+
+  rpc CreateTangent(CreateTangentRequest) returns (CreateTangentResponse);
+
+  //TODO: Delete, Get, GetAll
+}
+
+message CreateAnchorRequestData {
+  EntityIdentifier parent = 1;
+  EntityIdentifier component = 2;
+}
+
+message CreateAnchorRequest{
+  repeated CreateAnchorRequestData request_data = 1;
+}
+
+message CreateAnchorResponseData{
+  EntityIdentifier parent = 1;
+  AnchorCondition anchor_condition = 2;
+}
+
+message CreateAnchorResponse{
+  repeated CreateAnchorResponseData response_data = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateRigidRequestData {
+  EntityIdentifier parent = 1;
+  EntityIdentifier component_a = 2;
+  EntityIdentifier component_b = 3;
+}
+
+message CreateRigidRequest{
+  repeated CreateRigidRequestData request_data = 1;
+}
+
+message CreateRigidResponseData{
+  EntityIdentifier parent = 1;
+  RigidCondition rigid_condition = 2;
+}
+
+message CreateRigidResponse{
+  repeated CreateRigidResponseData response_data = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateTangentRequestData {
+  EntityIdentifier parent = 1;
+  EntityIdentifier geometric_a = 2;
+  EntityIdentifier geometric_b = 3;
+}
+
+message CreateTangentRequest{
+  repeated CreateTangentRequestData request_data = 1;
+}
+
+message CreateTangentResponseData{
+  EntityIdentifier parent = 1;
+  TangentCondition tangent_condition = 2;
+}
+
+message CreateTangentResponse{
+  repeated CreateTangentResponseData response_data = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateAlignRequestData {
+  EntityIdentifier parent = 1;
+  EntityIdentifier geometric_a = 2;
+  EntityIdentifier geometric_b = 3;
+}
+
+message CreateAlignRequest{
+  repeated CreateAlignRequestData request_data = 1;
+}
+
+message CreateAlignResponseData{
+  EntityIdentifier parent = 1;
+  AlignCondition align_condition = 2;
+}
+
+message CreateAlignResponse{
+  repeated CreateAlignResponseData response_data = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateOrientRequestData {
+  EntityIdentifier parent = 1;
+  EntityIdentifier geometric_a = 2;
+  EntityIdentifier geometric_b = 3;
+}
+
+message CreateOrientRequest{
+  repeated CreateOrientRequestData request_data = 1;
+}
+
+message CreateOrientResponseData{
+  EntityIdentifier parent = 1;
+  OrientCondition orient_condition = 2;
+}
+
+message CreateOrientResponse{
+  repeated CreateOrientResponseData response_data = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateGearRequestData {
+  EntityIdentifier parent = 1;
+  EntityIdentifier geometric_a = 2;
+  EntityIdentifier geometric_b = 3;
+}
+
+message CreateGearRequest{
+  repeated CreateGearRequestData request_data = 1;
+}
+
+message CreateGearResponseData{
+  EntityIdentifier parent = 1;
+  GearCondition gear_condition = 2;
+}
+
+message CreateGearResponse{
+  repeated CreateGearResponseData response_data = 1;
+  CreationResponse creation_response = 2;
+}

@@ -1,0 +1,101 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.heat;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Heat";
+
+service Heat
+{
+  //Heat condition methods
+  rpc CreateVolumetricTotal(HeatCreationRequest) returns (HeatTotalCreationResponse);
+
+  rpc CreateVolumetricDistributed(HeatCreationRequest) returns (HeatVolumetricDistributedCreationResponse);
+
+  rpc CreateSurfaceTotal(HeatCreationRequest) returns (HeatTotalCreationResponse);
+
+  rpc CreateSurfaceDistributed(HeatCreationRequest) returns (HeatSurfaceDistributedCreationResponse);
+
+  rpc SetLocation(SetLocationExtendedRequest) returns(SetResponse);
+
+  rpc SetTotalHeat(SetQuantityRequest) returns(SetResponse);
+
+  rpc SetHeatPerUnitVolume(SetQuantityRequest) returns(SetResponse);
+
+  rpc SetHeatPerUnitArea(SetQuantityRequest) returns(SetResponse);
+
+  rpc SetSpecification(SetHeatSpecificationRequest) returns(SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+// Requests and responses
+message SetHeatSpecificationRequest{
+  GuidEntityIdentifier object_id = 1;
+  HeatSpecification heat_specification = 2;
+}
+
+message HeatCreationRequest{
+  ScopedCreationData creation_data = 1;
+  Quantity heat = 2;
+}
+
+message HeatTotalCreationResponse{
+  CreationResponse condition_response = 1;
+  HeatTotalDefinition condition_data = 2;
+}
+
+message HeatVolumetricDistributedCreationResponse{
+  CreationResponse condition_response = 1;
+  HeatPerVolumeDefinition condition_data = 2;
+}
+
+message HeatSurfaceDistributedCreationResponse{
+  CreationResponse condition_response = 1;
+  HeatPerAreaDefinition condition_data = 2;
+}
+
+//Enumerations
+enum HeatSpecification {
+  TOTALHEAT = 0;
+  HEATPERUNITVOLUMEORAREA = 1;
+}
+
+//Definitions
+message HeatTotalDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  Quantity total_heat = 7;
+}
+
+message HeatPerAreaDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  Quantity heat_per_unitarea = 6;
+}
+
+message HeatPerVolumeDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  Quantity heat_per_unitvolume = 6;
+}
+
+// Response for GetAll
+message GetAllResponse {
+  repeated HeatTotalDefinition total_heats = 1;
+  repeated HeatPerVolumeDefinition volumetric_heats = 2;
+  repeated HeatPerAreaDefinition surface_heats = 3;
+  bool success = 4;
+  string message = 5;
+}

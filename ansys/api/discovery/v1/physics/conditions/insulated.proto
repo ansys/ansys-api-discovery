@@ -1,0 +1,42 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.insulated;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.Insulated";
+
+service Insulated
+{
+  rpc Create(InsulatedCreationRequest) returns (InsulatedCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+}
+
+// Requests and responses
+message InsulatedCreationRequest{
+  ScopedCreationData creation_data = 1;
+}
+
+message InsulatedCreationResponse{
+  CreationResponse condition_response = 1;
+  InsulatedDefinition condition_data = 2;
+}
+
+//Definitions
+message InsulatedDefinition {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+}
+
+message GetAllResponse{
+  repeated InsulatedDefinition insulated_conditions = 1;
+  bool success = 2;
+  string message = 3;
+}

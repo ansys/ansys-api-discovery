@@ -1,0 +1,60 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.connections.fluidinterface;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Connections.FluidInterface";
+
+service FluidInterface
+{
+  rpc SetType(SetFluidInterfaceTypeRequest) returns (SetResponse);
+  rpc SetFaceGroupingMethod(SetFluidInterfaceFaceGroupingMethodRequest) returns (SetResponse);
+  rpc SetThermalConductanceMethod(SetConductanceMethodRequest) returns(SetResponse);
+
+  rpc SetDetectionDistanceHigh(SetQuantityRequest) returns (SetResponse);
+  rpc SetFaceOverlapAllowance(SetQuantityRequest) returns (SetResponse);
+
+  rpc SetFSInterfaceThermalMaterialAssignment(SetAssignmentRequest) returns (SetResponse);
+  rpc SetFSInterfaceThermalConductance(SetQuantityRequest) returns (SetResponse);
+  rpc SetFSInterfaceThermalConductivity(SetQuantityRequest) returns (SetResponse);
+  rpc SetFSInterfaceThermalThickness(SetQuantityRequest) returns (SetResponse);         
+           
+  rpc SetFSInterfaceInternalRadiationInputEnabled(SetBooleanRequest) returns (SetResponse);
+  rpc SetFSInterfaceInternalEmissivity(SetQuantityRequest) returns (SetResponse);
+}
+
+message SetFluidInterfaceTypeRequest{
+  GuidEntityIdentifier object_id = 1;
+  FluidInterfaceType interface_type = 2;
+}
+
+// Contact group condition definitions
+enum FluidInterfaceType {
+  CONDUCTING = 0;
+  EXCLUDE = 1;
+}
+
+message SetFluidInterfaceFaceGroupingMethodRequest{
+  GuidEntityIdentifier object_id = 1;
+  FluidInterfaceFaceGroupingMethod face_grouping_method = 2;
+}
+
+enum FluidInterfaceFaceGroupingMethod {
+  GROUPBYBODY = 0;
+  GROUPTANGENTFACES = 1;
+  NOGROUPING = 2;
+}
+
+message ChangeFluidInterfaceConductanceMethod{
+  GuidEntityIdentifier object_id = 1;
+  FluidInterfaceFaceThermalConductanceMethod thermal_conductivity_method = 2;
+}
+
+enum FluidInterfaceFaceThermalConductanceMethod {
+  INSULATED = 0;
+  THERMALCONDUCTANCE = 1;
+  THICKNESSANDCONDUCTIVITY = 2;
+  THICKNESSANDMATERIAL = 3;
+}

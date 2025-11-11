@@ -1,0 +1,44 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.assignments.beamassignment;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/engineeringdata/beamprofiledata.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Assignments.BeamAssignment";
+
+service BeamAssignment
+{
+  //BeamAssignment condition methods
+  rpc Create(BeamAssignmentCreationRequest) returns (BeamAssignmentCreationResponse);
+
+  rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc SetBeamProfile(SetAssignmentRequest) returns (SetResponse);
+}
+
+//BoltAssignment
+message BeamAssignmentCreationRequest{
+  ScopedCreationData creation_data = 1;
+  BeamAssignmentProperties beam_data = 2;
+}
+
+message BeamAssignmentCreationResponse{
+  CreationResponse condition_response = 1;
+  BeamAssignmentDefinition condition_data = 2;
+}
+
+//BeamDataDefinition condition definitions
+message BeamAssignmentProperties {
+  ansys.api.discovery.v1.engineeringdata.beamprofiledata.BeamDataDefinition beam_definition = 1;
+}
+
+message BeamAssignmentDefinition {
+  EntityIdentifier id = 1;
+  EntityIdentifier parent_id = 2;
+  string label = 3;
+  repeated string locations = 4;
+  bool suppressed = 5;
+  BeamAssignmentProperties beam_data = 6;
+}

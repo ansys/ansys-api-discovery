@@ -1,0 +1,12 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.conditions.fluidinitialtemperature;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.FluidInitialTemperature";
+
+service FluidInitialTemperature
+{
+  rpc SetTemperatureMagnitude(SetQuantityRequest) returns(SetResponse);
+}

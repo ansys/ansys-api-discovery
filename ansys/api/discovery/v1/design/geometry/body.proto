@@ -1,0 +1,554 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.geometry.body;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+import "ansys/api/discovery/v1/geometryenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Geometry.Body";
+
+service Body
+{
+  rpc CreateBlockBody(CreateBlockBodyRequest) returns (CreateBlockBodyResponse);
+
+  rpc CreateDuplicate(CreateDuplicateBodyRequest) returns (CreateDuplicateBodyResponse);
+  
+  rpc CreateFromLoftWithGuides(CreateBodyFromLoftWithGuidesRequest) returns (CreateBodyFromLoftWithGuidesResponse);
+  
+  rpc CreateFromFace(CreateBodyFromFaceRequest) returns (CreateBodyFromFaceResponse);
+  
+  rpc CreateExtrudedBody(CreateExtrudedBodyRequest) returns (CreateExtrudedBodyResponse);
+  
+  rpc CreateExtrudedBodyFromFaceProfile(CreateExtrudedBodyFromFaceProfileRequest) returns (CreateExtrudedBodyFromFaceProfileResponse);
+  
+  rpc CreateExtrudedBodyFromLoftProfiles(CreateExtrudedBodyFromLoftProfilesRequest) returns (CreateExtrudedBodyFromLoftProfilesResponse);
+
+  rpc CreatePlanarBody(CreatePlanarBodyRequest) returns (CreatePlanarBodyResponse);
+
+  rpc CreateSphereBody(CreateSphereBodyRequest) returns (CreateSphereBodyResponse);
+
+  rpc CreateSurfaceBody(CreateSurfaceBodyRequest) returns (CreateSurfaceBodyResponse);
+
+  rpc CreateSurfaceBodyFromTrimmedCurves(CreateSurfaceBodyFromTrimmedCurvesRequest) returns (CreateSurfaceBodyFromTrimmedCurvesResponse);
+
+  rpc CreateSweepingChain(CreateSweepingChainRequest) returns (CreateSweepingChainResponse);
+
+  rpc CreateSweepingProfile(CreateSweepingProfileRequest) returns (CreateSweepingProfileResponse);
+  
+  rpc CreateTorus(CreateTorusRequest) returns (CreateTorusResponse);
+
+
+  rpc Delete(MultipleEntitiesRequest) returns (TrackedDeleteResponse);
+
+
+  rpc Get(GetBodyRequest) returns (GetBodyResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+
+  rpc GetAssignedCADMaterial(MultipleEntitiesRequest) returns (GetAssignedCADMaterialResponse);
+
+  rpc GetBoundingBox(MultipleEntitiesRequest) returns (GetBoundingBoxResponse);
+
+  rpc GetEdges(MultipleEntitiesRequest) returns (GetEdgesResponse);
+
+  rpc GetFaces(MultipleEntitiesRequest) returns (GetFacesResponse);
+
+  rpc GetName(MultipleEntitiesRequest) returns (GetNameResponse); //move to commands.proto?
+
+  rpc GetUpdateState(MultipleEntitiesRequest) returns (GetUpdateStateResponse);
+
+  rpc GetClosestSeparation(GetClosestSeparationRequest) returns (GetClosestSeparationResponse);
+
+  rpc GetCollision(GetCollisionRequest) returns (GetCollisionResponse);
+
+  rpc GetColor(MultipleEntitiesRequest) returns (GetColorResponse);
+
+  rpc GetFillStyle(MultipleEntitiesRequest) returns (GetFillStyleResponse);
+
+  rpc GetIsEnclosure(MultipleEntitiesRequest) returns (GetIsEnclosureBodyResponse);
+
+  rpc GetIsSuppressed(MultipleEntitiesRequest) returns (GetIsSuppressedResponse);
+
+  rpc GetSurfaceBodyThickness(MultipleEntitiesRequest) returns (GetSurfaceBodyThicknessResponse);
+
+  rpc GetTessellation(GetTessellationRequest) returns (GetTessellationResponse);
+
+  rpc GetTessellationStream(GetTessellationRequest) returns (stream GetTessellationResponse);
+
+  rpc GetVertices(MultipleEntitiesRequest) returns (GetVerticesResponse);
+
+  rpc GetVolume(MultipleEntitiesRequest) returns (GetVolumeResponse);
+
+
+  rpc RemoveAssignedCADMaterial(RemoveAssignedCADMaterialRequest) returns (RemoveAssignedCADMaterialResponse);
+
+
+  rpc SetAssignedCADMaterial(SetAssignedCADMaterialRequest) returns (SetAssignedCADMaterialResponse);
+
+  rpc SetMidSurfaceOffsetType(SetMidSurfaceOffsetTypeRequest) returns (SetMidSurfaceOffsetTypeResponse);
+
+  rpc SetMidSurfaceThickness(SetMidSurfaceThicknessRequest) returns (SetMidSurfaceThicknessResponse);
+
+  rpc SetName(SetDesignEntityNameRequest) returns (SetDesignEntityNameResponse); //duplicate with commands.proto?
+
+  rpc SetColor(SetColorRequest) returns (SetColorResponse);
+
+  rpc SetFillStyle(SetFillStyleRequest) returns (SetFillStyleResponse);
+
+  rpc SetSuppressed(SetSuppressedRequest) returns (SetSuppressedResponse);
+}
+
+message BodiesSelectionResponse{
+  repeated BodyEntity bodies = 1;
+}
+
+message CreateSurfaceBodyFromTrimmedCurvesRequestData {
+  string name = 1;
+  EntityIdentifier parent = 2;
+  repeated TrimmedCurve trimmed_curves = 3;
+}
+
+message CreateSurfaceBodyFromTrimmedCurvesRequest {
+  repeated CreateSurfaceBodyFromTrimmedCurvesRequestData request_data = 1;
+}
+
+message CreateBlockBodyRequest {
+  Point start_point = 1;
+  Point end_point = 2;
+}
+
+message CreateSurfaceBodyRequestData {
+  string name = 1;
+  EntityIdentifier parent = 2;
+  TrimmedSurface trimmed_surface = 3;
+}
+
+message CreateSurfaceBodyRequest {
+  repeated CreateSurfaceBodyRequestData request_data = 1;
+}
+
+message GetIsEnclosureBodyResponse {
+  map<string,bool> result = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetIsSuppressedResponse {
+  map<string,bool> result = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetSuppressedRequest {
+  repeated EntityIdentifier bodies = 1; // List of entity identifiers
+  bool is_suppressed = 2;
+}
+
+message GetSurfaceBodyThicknessResponseData {
+  EntityIdentifier id = 1;
+  double result = 2;
+}
+
+message GetSurfaceBodyThicknessResponse {
+  repeated GetSurfaceBodyThicknessResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetVerticesResponseData{
+  EntityIdentifier id=1;
+  repeated Vertex vertices=2;
+}
+
+message GetVerticesResponse {
+  repeated GetVerticesResponseData response_data = 1;
+  CommandResponse command_response = 2; 
+}
+
+message GetBodyRequest{
+  EntityIdentifier id = 1;
+  BodyType body_type = 2;
+}
+
+message GetBodyResponse{
+  BodyEntity body = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllResponse{
+  BodiesSelectionResponse bodies = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetAssignedCADMaterialRequestData{
+  EntityIdentifier id = 1;
+  MaterialEntity material = 2;
+}
+
+message SetAssignedCADMaterialRequest{
+  repeated SetAssignedCADMaterialRequestData request_data =1;
+}
+
+message SetAssignedCADMaterialResponse{
+  repeated EntityIdentifier successfully_set = 1;
+  TrackedSetResponse tracked_set_response = 2;
+}
+
+message RemoveAssignedCADMaterialRequest{
+  repeated EntityIdentifier ids = 1;
+}
+
+message RemoveAssignedCADMaterialResponse{
+  repeated EntityIdentifier successfully_removed = 1;
+  TrackedCommandResponse tracked_command_response = 2;
+}
+
+message CreateBodyFromFaceRequestData {
+  string name=1;
+  EntityIdentifier parent=2;
+  EntityIdentifier face=3;
+}
+
+message CreateBodyFromFaceRequest {
+  repeated CreateBodyFromFaceRequestData request_data = 1;
+}
+
+message CreateBodyFromLoftWithGuidesRequestData {
+  string name = 1;
+  EntityIdentifier parent = 2;
+  repeated TrimmedCurveList profiles = 3;
+  TrimmedCurveList guides = 6;
+}
+
+message CreateBodyFromLoftWithGuidesRequest {
+  repeated CreateBodyFromLoftWithGuidesRequestData request_data = 1;
+}
+
+message CreateExtrudedBodyFromFaceProfileRequestData {
+  string name=1;
+  EntityIdentifier parent=2;
+  EntityIdentifier face=3;
+  double distance=4;
+}
+
+message CreateExtrudedBodyFromFaceProfileRequest {
+  repeated CreateExtrudedBodyFromFaceProfileRequestData request_data = 1;
+}
+
+message CreateExtrudedBodyFromLoftProfilesRequestData {
+  string name=1;
+  EntityIdentifier parent=2;
+  repeated TrimmedCurveList profiles = 3;
+  bool periodic=4;
+  bool ruled=5;
+}
+
+message CreateExtrudedBodyFromLoftProfilesRequest{
+  repeated CreateExtrudedBodyFromLoftProfilesRequestData request_data = 1;
+}
+
+message CreateSweepingProfileRequestData{
+  string name=1;
+  EntityIdentifier parent=2;
+  Plane plane=3;
+  Geometries geometries=4;
+  repeated TrimmedCurve path = 5;
+}
+
+message CreateSweepingProfileRequest{
+  repeated CreateSweepingProfileRequestData request_data = 1;
+}
+
+message CreateSweepingChainRequestData{
+  string name=1;
+  EntityIdentifier parent=2;
+  repeated TrimmedCurve chain = 3;
+  repeated TrimmedCurve path = 4;
+}
+
+message CreateSweepingChainRequest{
+  repeated CreateSweepingChainRequestData request_data = 1;
+}
+
+message CreatePlanarBodyRequestData {
+  string name=1;
+  EntityIdentifier parent=2;
+  Plane plane=3;
+  Geometries geometries=4;
+}
+
+message CreatePlanarBodyRequest {
+  repeated CreatePlanarBodyRequestData request_data = 1;
+}
+
+message CreateSphereBodyRequestData {
+  string name=1;
+  EntityIdentifier parent=2;
+  Point center=3;
+  double radius=4;
+}
+
+message CreateSphereBodyRequest {
+  repeated CreateSphereBodyRequestData request_data = 1;
+}
+
+message CreateExtrudedBodyRequestData {
+  string name=1;
+  EntityIdentifier parent=2;
+  Plane plane=3;
+  Geometries geometries=4;
+  double distance=5;
+}
+
+message CreateExtrudedBodyRequest {
+  repeated CreateExtrudedBodyRequestData request_data = 1;
+}
+
+message GetVolumeResponseData{
+  EntityIdentifier id = 1;
+  double volume = 2;
+}
+
+message GetVolumeResponse {
+  repeated GetVolumeResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetTessellationResponseData{
+  EntityIdentifier id = 1;
+  map<string, Tessellation> face_tessellation = 2;
+  map<string, EdgeTessellation> edge_tessellation = 3;
+}
+
+message GetTessellationResponse{
+  repeated GetTessellationResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetEdgesResponseData{
+  EntityIdentifier body_id=1;
+  repeated EdgeEntity edges=2;
+}
+
+message GetEdgesResponse {
+  repeated GetEdgesResponseData response_data =1;
+  CommandResponse command_response = 2;
+}
+
+message GetNameResponse {
+  map<string,string> names=1;
+  CommandResponse command_response = 2;
+}
+
+message SetFillStyleRequestData { 
+  EntityIdentifier id=1;
+  BodyFillStyle fill_style=2;
+}
+
+message SetFillStyleRequest { 
+  repeated SetFillStyleRequestData request_data = 1;
+}
+
+message GetFillStyleResponseData {
+  EntityIdentifier id=1;
+  BodyFillStyle fill_style=2;
+}
+
+message GetFillStyleResponse{
+  repeated GetFillStyleResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetFillStyleResponse {
+  repeated EntityIdentifier successfully_set=1;
+  SetResponse set_response = 2;
+}
+
+message DuplicateBodyRequestData {
+  EntityIdentifier id=1;
+  EntityIdentifier parent=2;
+  string name=3;
+}
+
+message CreateDuplicateBodyRequest {
+  repeated DuplicateBodyRequestData request_data = 1;
+}
+
+message DuplicateBodyResponseData {
+  EntityIdentifier id=1;
+  BodyEntity body=2;
+}
+
+message CreateDuplicateBodyResponse{
+  repeated DuplicateBodyResponseData response_data = 1;
+  TrackedCreationResponse tracked_creation_response = 2;
+}
+
+message GetCollisionRequestData{
+  EntityIdentifier body_1=1;
+  EntityIdentifier body_2=2;
+}
+
+message GetCollisionRequest {
+  repeated GetCollisionRequestData request_data = 1;
+}
+
+message GetCollisionResponseData{
+  EntityIdentifier body_1=1;
+  EntityIdentifier body_2=2;
+  CollisionType collision = 3;
+}
+
+message GetCollisionResponse{
+  repeated GetCollisionResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetClosestSeparationRequestData{
+  EntityIdentifier body_1=1;
+  EntityIdentifier body_2=2;
+}
+
+message GetClosestSeparationRequest {
+  repeated GetClosestSeparationRequestData request_data = 1;
+}
+
+message GetTessellationRequestData{
+  EntityIdentifier id = 1;
+  TessellationOptions options = 2;
+  bool include_faces = 3;
+  bool include_edges = 4;
+}
+
+message GetTessellationRequest{
+  repeated GetTessellationRequestData request_data = 1;
+}
+
+message GetAssignedCADMaterialResponseData{
+  EntityIdentifier id=1;
+  MaterialEntity material=2;
+}
+
+message GetAssignedCADMaterialResponse{
+  repeated GetAssignedCADMaterialResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message CreateBodyFromFaceResponse{
+  repeated BodyEntity bodies = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateBodyFromLoftWithGuidesResponse {
+  repeated BodyEntity created_bodies = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateExtrudedBodyFromFaceProfileResponse{
+  repeated BodyEntity bodies = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateExtrudedBodyFromLoftProfilesResponse{
+  repeated BodyEntity bodies = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreatePlanarBodyResponse{
+  repeated BodyEntity bodies = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateSphereBodyResponse{
+  repeated BodyEntity bodies = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateExtrudedBodyResponse{
+  repeated BodyEntity bodies = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateSweepingProfileResponse{
+  repeated BodyEntity bodies = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateSweepingChainResponse{
+  repeated BodyEntity bodies = 1;
+  CreationResponse creation_response = 2;
+}
+
+message SetSuppressedResponse{
+  repeated EntityIdentifier successfully_set = 1;
+  TrackedSetResponse tracked_set_response = 2;
+}
+
+message CreateSurfaceBodyResponse{
+  repeated BodyEntity bodies = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateBlockBodyResponse{
+  BodyEntity body = 1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateSurfaceBodyFromTrimmedCurvesResponse{
+  repeated BodyEntity bodies = 1;
+  CreationResponse creation_response = 2;   
+}
+
+message GetClosestSeparationResponseData{
+  EntityIdentifier body_1 = 1;
+  EntityIdentifier body_2 = 2;
+  Separation separation = 3;
+}
+
+message GetClosestSeparationResponse{
+  repeated GetClosestSeparationResponseData response_data = 1;
+  CreationResponse creation_response = 2;
+}
+
+message SetMidSurfaceThicknessRequestData {
+  repeated EntityIdentifier ids=1;
+  double thickness=2;
+}
+message SetMidSurfaceThicknessRequest {
+  repeated SetMidSurfaceThicknessRequestData request_data=1;
+}
+
+message SetMidSurfaceThicknessResponse {
+  repeated EntityIdentifier successfully_set=1;
+  TrackedSetResponse tracked_set_response = 2;
+}
+
+message SetMidSurfaceOffsetTypeRequestData {
+  repeated EntityIdentifier ids=1;
+  MidSurfaceOffsetType offset_type=2;
+}
+
+message SetMidSurfaceOffsetTypeRequest {
+  repeated SetMidSurfaceOffsetTypeRequestData request_data=1;
+}
+
+message SetMidSurfaceOffsetTypeResponse {
+  repeated EntityIdentifier successfully_set=1;
+  TrackedSetResponse tracked_set_response = 2;
+}
+
+message CreateTorusRequestData {
+  string name = 1;
+  EntityIdentifier parent = 2;
+  double major_radius = 3;
+  double minor_radius = 4;
+  Frame frame = 5;
+  TrackedCreationResponse tracked_creation_response = 6;
+}
+
+message CreateTorusRequest {
+  repeated CreateTorusRequestData request_data = 1;
+}
+
+message CreateTorusResponse {
+  repeated EntityIdentifier response_data = 1;
+  TrackedCreationResponse tracked_creation_response = 2;
+}

@@ -1,0 +1,29 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.simulation.simulations;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Simulation.Simulations";
+
+service Simulations
+{
+  // Creates a new simulation
+  rpc Create(CreateSimulationRequest) returns (CreateSimulationResponse);
+
+  // Lists all simulations
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+}
+
+message CreateSimulationRequest{
+}
+
+message CreateSimulationResponse{
+  SimulationEntity simulation = 1;
+}
+
+message GetAllResponse{
+  // The simulations in the study.
+  repeated SimulationEntity simulations = 1;
+}

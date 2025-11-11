@@ -35,6 +35,7 @@ service Support
   rpc ChangeSupportDisplacedIsFixedRX(ChangeBooleanRequest) returns (ChangeResponse);
   rpc ChangeSupportDisplacedIsFixedRY(ChangeBooleanRequest) returns (ChangeResponse);
   rpc ChangeSupportDisplacedIsFixedRZ(ChangeBooleanRequest) returns (ChangeResponse);
+  rpc GetAll(GetAllRequest) returns(GetAllResponse);
 }
 
 //Support
@@ -95,4 +96,14 @@ message SupportDisplacedDefinition {
 
 message SupportDisplacedProperties {
   TensorOfOptionalQuantities displacement = 1;
+}
+
+message GetAllRequest{
+  ansys.api.dbu.v0.PhysicsEntityIdentifier parent_id = 1;
+}
+
+message GetAllResponse{
+  // The simulations in the study.
+  repeated SupportGeneralDefinition supports_general = 1;
+  repeated SupportDisplacedDefinition supports_displaced = 2;
 }
