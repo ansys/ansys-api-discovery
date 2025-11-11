@@ -34,4 +34,4 @@ lint:
   # Linter rules option.
   rules_option:
     max_line_length:
-      max_chars: 120
+      max_chars: 140
