@@ -31,7 +31,31 @@ fi
 git checkout $RELEASE_BRANCH
 
 # Merge the main branch
-git merge main --commit --no-edit
+if ! git merge main --commit --no-edit; then
+  # Check if there are merge conflicts
+  if git status --porcelain | grep -q "^UU\|^AA\|^DD"; then
+    # Check if VERSION file has conflicts
+    if git status --porcelain | grep -q "^UU ansys/api/discovery/VERSION$"; then
+      # Resolve VERSION file conflict by taking ours
+      git checkout --ours ansys/api/discovery/VERSION
+      git add ansys/api/discovery/VERSION
+      
+      # Check if there are other conflicts besides VERSION file
+      if git status --porcelain | grep -q "^UU\|^AA\|^DD" | grep -v "ansys/api/discovery/VERSION"; then
+        echo "Error: Merge conflicts detected in files other than VERSION. Please resolve manually."
+        git merge --abort
+        exit 1
+      fi
+      
+      # Complete the merge
+      git commit --no-edit
+    else
+      echo "Error: Merge conflicts detected. Please resolve manually."
+      git merge --abort
+      exit 1
+    fi
+  fi
+fi
 
 # Automatically bump the patch version (Y)
 VERSION_FILE="ansys/api/discovery/VERSION"
