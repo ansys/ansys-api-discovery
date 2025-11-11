@@ -28,7 +28,9 @@ if __name__ == "__main__":
         name=package_name,
         version=version,
         author="ANSYS, Inc.",
-        author_email='support@ansys.com',
+        author_email="pyansys.core@ansys.com",
+        maintainer="ANSYS, Inc.",
+        maintainer_email="pyansys.core@ansys.com",
         description=description,
         long_description=long_description,
         long_description_content_type='text/markdown',
@@ -45,5 +47,10 @@ if __name__ == "__main__":
                 f"{dot_package_name}={dot_package_name}"
             ],
         },
-        cmdclass=CMDCLASS_OVERRIDE
+        cmdclass=CMDCLASS_OVERRIDE,
+        project_urls={
+            "Documentation": "https://github.com/ansys/ansys-api-discovery/#readme",
+            "Source": "https://github.com/ansys/ansys-api-discovery/",
+            "Tracker": "https://github.com/ansys/ansys-api-discovery/issues/",
+        },
     )
