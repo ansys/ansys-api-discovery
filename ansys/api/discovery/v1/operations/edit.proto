@@ -512,6 +512,7 @@ message CombineIntersectBodiesRequestData {
   repeated EntityIdentifier tool_selection = 2;
   optional bool keep_cutter = 3;
   optional bool subtract_from_target = 4;
+  optional bool transfer_named_selections = 5;
 }
 
 message CombineIntersectBodiesRequest {
