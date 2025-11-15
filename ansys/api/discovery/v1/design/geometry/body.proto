@@ -541,7 +541,6 @@ message CreateTorusRequestData {
   double major_radius = 3;
   double minor_radius = 4;
   Frame frame = 5;
-  TrackedCreationResponse tracked_creation_response = 6;
 }
 
 message CreateTorusRequest {

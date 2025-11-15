@@ -10,7 +10,11 @@ option csharp_namespace = "Ansys.Api.Discovery.V1.Operations.Prepare";
 service Prepare{
   rpc CreateEnclosureBox(CreateEnclosureBoxRequest) returns (CreateEnclosureResponse);
 
-  rpc DetectHelixes(DetectHelixesRequest) returns (DetectHelixesResponse); //standardize between Find and Detect..  
+  rpc CreateEnclosureCylinder(CreateEnclosureCylinderRequest) returns (CreateEnclosureResponse);
+
+  rpc CreateEnclosureSphere(CreateEnclosureSphereRequest) returns (CreateEnclosureResponse);
+  
+  rpc FindHelixes(FindHelixesRequest) returns (FindHelixesResponse); 
 
   rpc EnhancedShareTopology(ShareTopologyRequest) returns (EnhancedShareTopologyResponse);
 
@@ -41,6 +45,21 @@ message CreateEnclosureBoxRequest{
   double y_high = 5;
   double z_low = 6;
   double z_high = 7;
+  EnclosureOptions enclosure_options = 8;
+}
+
+message CreateEnclosureCylinderRequest{
+  repeated EntityIdentifier bodies = 1;
+  double axial_distance_low = 2;
+  double axial_distance_high = 3;
+  double radial_distance = 4;
+  EnclosureOptions enclosure_options = 5;
+}
+
+message CreateEnclosureSphereRequest{
+  repeated EntityIdentifier bodies = 1;
+  double radial_distance = 2;
+  EnclosureOptions enclosure_options = 3;
 }
 
 message CreateEnclosureResponse{
@@ -49,19 +68,26 @@ message CreateEnclosureResponse{
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2; //should this be a tracker?
 }
 
-message DetectHelixesRequest {
+message FindHelixesRequest {
   repeated EntityIdentifier body_ids = 1;
-  optional DetectHelixesOptions options = 2;
+  optional FindHelixesOptions options = 2;
 }
 
-message DetectHelixesResponseData {
+message FindHelixesResponseData {
   ansys.api.discovery.v1.design.TrimmedCurve trimmed_curve = 1;
   repeated ansys.api.discovery.v1.design.EdgeEntity edges = 2;
 }
 
-message DetectHelixesResponse {
-  repeated DetectHelixesResponseData helixes = 1;
+message FindHelixesResponse {
+  repeated FindHelixesResponseData helixes = 1;
   CommandResponse command_response = 2;
+}
+
+message EnclosureOptions{
+  bool create_shared_topology = 1;
+  bool subtract_bodies = 2;
+  optional Frame frame = 3;
+  optional double cushion_proportion = 4;
 }
 
 message FixInterferenceRequest{
@@ -192,7 +218,7 @@ message FindLogoOptions {
   optional double fit_error = 4;
 }
 
-message DetectHelixesOptions {
+message FindHelixesOptions {
   optional double min_radius = 1;
   optional double max_radius = 2;
   optional double fit_radius_error = 3;
