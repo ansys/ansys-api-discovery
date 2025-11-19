@@ -18,6 +18,8 @@ service NamedSelection{
   
   rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
 
+  rpc SetName(SetDesignEntityNameRequest) returns (SetDesignEntityNameResponse);
+
   //TODO: Enable named selection contents to be defined.
 }
 
