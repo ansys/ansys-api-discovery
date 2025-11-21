@@ -38,7 +38,7 @@ service Prepare{
 }
 
 message CreateEnclosureBoxRequest{
-  repeated EntityIdentifier bodies = 1;
+  repeated EntityIdentifier body_ids = 1;
   double x_low = 2;
   double x_high = 3;
   double y_low = 4;
@@ -49,7 +49,7 @@ message CreateEnclosureBoxRequest{
 }
 
 message CreateEnclosureCylinderRequest{
-  repeated EntityIdentifier bodies = 1;
+  repeated EntityIdentifier body_ids = 1;
   double axial_distance_low = 2;
   double axial_distance_high = 3;
   double radial_distance = 4;
@@ -57,7 +57,7 @@ message CreateEnclosureCylinderRequest{
 }
 
 message CreateEnclosureSphereRequest{
-  repeated EntityIdentifier bodies = 1;
+  repeated EntityIdentifier body_ids = 1;
   double radial_distance = 2;
   EnclosureOptions enclosure_options = 3;
 }
@@ -91,7 +91,7 @@ message EnclosureOptions{
 }
 
 message FixInterferenceRequest{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   // True if interfered body is removed from smaller body, false otherwise.
   bool cut_smaller_body=2;
 }
@@ -101,7 +101,7 @@ message FixInterferenceResponse{
 }
 
 message FixShortEdgesRequest{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   // The maximum edge length in mm to remove shorter edges.
   double max_edge_length=2;
 }
@@ -111,7 +111,7 @@ message FixShortEdgesResponse{
 }
 
 message ShareTopologyRequest{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   // Gets or sets the maximum distance between items to be considered intersecting in mm. 
   double tolerance=2;
   // Gets or sets the option for preserving the instancing. 
@@ -139,7 +139,7 @@ message UnshareTopologyResponse{
 
 message RemoveRoundsRequest{
   // The round faces to be removed.
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   // Auto-shrink fill area 
   bool auto_shrink = 2;
 }
@@ -150,7 +150,7 @@ message RemoveRoundsResponse{
 
 message RemoveFacesRequest{
   // The faces to be removed.
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
 }
 
 message RemoveFacesResponse{
@@ -159,16 +159,16 @@ message RemoveFacesResponse{
 
 message ExtractVolumeFromFacesRequest{
   // The id of the faces that seal the volume to be extracted.
-  repeated EntityIdentifier sealing_faces = 1;
+  repeated EntityIdentifier sealing_face_ids = 1;
   // The id of one or more faces inside the volume to be extracted.
-  repeated EntityIdentifier inside_faces = 2;
+  repeated EntityIdentifier inside_face_ids = 2;
 }
 
 message ExtractVolumeFromEdgeLoopsRequest{
   // The id of edge loops that seal the volume to be extracted.
-  repeated EntityIdentifier sealing_edges = 1;
+  repeated EntityIdentifier sealing_edge_ids = 1;
   // The id of one or more faces inside the volume to be extracted. Not needed for simple cases.
-  repeated EntityIdentifier inside_faces = 2;
+  repeated EntityIdentifier inside_face_ids = 2;
 }
 
 message ExtractVolumeFromEdgeLoopsResponse{
@@ -184,12 +184,12 @@ message ExtractVolumeFromFacesResponse{
 }
 
 message FindLogosRequest{
-  repeated EntityIdentifier bodies = 1;
+  repeated EntityIdentifier body_ids = 1;
   optional FindLogoOptions options = 2;
 }
 
 message FindAndRemoveLogosRequest{
-  repeated EntityIdentifier bodies = 1;
+  repeated EntityIdentifier body_ids = 1;
   optional FindLogoOptions options = 2;
 }
 

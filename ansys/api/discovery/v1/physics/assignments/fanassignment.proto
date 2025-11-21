@@ -76,7 +76,7 @@ message InternalFanAssignmentProperties {
   Quantity hub_radius = 4;
   Quantity tip_radius = 5;
   bool is_swirling = 6;
-  optional EntityIdentifier inlet_face = 7;
+  optional EntityIdentifier inlet_face_id = 7;
 }
 
 enum ExternalFanSpecification

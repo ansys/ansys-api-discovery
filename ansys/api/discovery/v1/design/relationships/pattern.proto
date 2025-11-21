@@ -36,9 +36,9 @@ service Pattern
 }
 
 message LinearPatternCreationRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   bool two_dimensional = 2;
-  EntityIdentifier linear_direction = 3;
+  EntityIdentifier linear_direction_id = 3;
   int32 count_x = 4;
   int32 count_y = 5;
   double pitch_x = 6;
@@ -50,7 +50,7 @@ message LinearPatternCreationRequest {
 }
 
 message SetLinearPatternDataRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   int32 count_x = 2;
   int32 count_y = 3;
   double pitch_x = 4;
@@ -64,7 +64,7 @@ message SetLinearPatternDataRequest {
 }
 
 message SetCircularPatternDataRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   int32 circular_count = 2;
   int32 linear_count = 3;
   double step_angle = 4;
@@ -76,10 +76,10 @@ message SetCircularPatternDataRequest {
 }
 
 message CircularPatternCreationRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   double circular_angle = 2;
   oneof axis {
-    EntityIdentifier edge_axis = 3;
+    EntityIdentifier edge_axis_id = 3;
     Line line_axis = 4;
   }
   int32 circular_count = 5;
@@ -94,11 +94,11 @@ message CircularPatternCreationRequest {
 }
 
 message FillPatternCreationRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   double column_x_offset = 2;
   double column_y_offset = 3;
   FillPatternType fill_pattern_type= 4;
-  EntityIdentifier linear_direction = 5;
+  EntityIdentifier linear_direction_id = 5;
   double margin = 6;
   double row_x_offset = 7;
   double row_y_offset = 8;
@@ -111,7 +111,7 @@ message FillPatternCreationRequest {
 }
 
 message SetPatternValueRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   PatternModificationType modification_type = 2;
   double value = 3;
 }

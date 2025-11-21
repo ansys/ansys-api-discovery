@@ -57,7 +57,7 @@ message GetImportIdMapResponse{
 }
 
 message SetExportIdData{
-  EntityIdentifier moniker = 1;
+  EntityIdentifier moniker_id = 1;
   string id = 2;
   PersistentIdType type = 3;
 }

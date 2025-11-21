@@ -16,7 +16,7 @@ message EntityRequest{
 }
 
 message ParentEntityRequest{
-  EntityIdentifier parent = 1;
+  EntityIdentifier parent_id = 1;
 }
 
 message MultipleEntitiesRequest{
@@ -46,8 +46,8 @@ message CreationResponse{
 }
 
 message DeleteResponse{
-  repeated EntityIdentifier deleted_objects_ids=1;
-  repeated EntityIdentifier failed_deletions = 2;
+  repeated EntityIdentifier deleted_object_ids=1;
+  repeated EntityIdentifier failed_deletion_ids = 2;
   repeated string error_messages = 3;
 }
 

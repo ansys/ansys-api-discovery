@@ -26,7 +26,7 @@ service DatumPlane{
 
 
 message DatumPlaneCreationRequest {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
 }
 
 message DatumPlaneCreationResponse {

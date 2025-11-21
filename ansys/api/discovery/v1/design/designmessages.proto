@@ -22,7 +22,7 @@ message SetDesignEntityNameRequest{
 }
 
 message SetDesignEntityNameResponse {  
-  repeated EntityIdentifier successfully_set = 1;  
+  repeated EntityIdentifier successfully_set_ids = 1;  
 } 
 
 message BeamEntity {
@@ -176,7 +176,7 @@ message DatumPointEntity
 message NamedSelectionEntity {
   EntityIdentifier id = 1;
   string name = 2;
-  repeated EntityIdentifier selection=3;
+  repeated EntityIdentifier selection_ids = 3;
   repeated BodyEntity bodies = 4;
   repeated FaceEntity faces = 5;
   repeated EdgeEntity edges = 6;
@@ -485,13 +485,13 @@ message ComponentEntity {
   EntityIdentifier id = 1;
   string name = 2;
   PartEntity part_occurrence = 3;
-  Matrix placement =4;
-  EntityIdentifier master_id=5;
-  EntityIdentifier parent_id=6;
-  PartEntity part_master=7;
-  string display_name=8;
-  string instance_name=9;
-  EntityIdentifier template = 10;
+  Matrix placement = 4;
+  EntityIdentifier master_id = 5;
+  EntityIdentifier parent_id = 6;
+  PartEntity part_master = 7;
+  string display_name = 8;
+  string instance_name = 9;
+  EntityIdentifier template_id = 10;
 }
 
 //
@@ -584,11 +584,11 @@ message SetColorRequest {
 }
 
 message SetColorResponse {
-  repeated EntityIdentifier successfully_set =1;
+  repeated EntityIdentifier successfully_set_ids = 1;
 }
 
 message GetIsDeletedResponse{
-  map<string, bool> deleted=1;
+  map<string, bool> deleted = 1;
 }
 
 message TrackedCreationResponse{
@@ -621,17 +621,17 @@ message EnhancedRepairToolMessage {
 message TrackedChanges {
   repeated BodyEntity created_bodies = 1;
   repeated BodyEntity modified_bodies = 2;
-  repeated EntityIdentifier deleted_bodies = 3;
-  repeated EntityIdentifier created_faces = 4;
-  repeated EntityIdentifier modified_faces = 5;
-  repeated EntityIdentifier deleted_faces = 6;
-  repeated EntityIdentifier created_edges = 7;
-  repeated EntityIdentifier modified_edges = 8;
-  repeated EntityIdentifier deleted_edges = 9;
+  repeated EntityIdentifier deleted_body_ids = 3;
+  repeated EntityIdentifier created_face_ids = 4;
+  repeated EntityIdentifier modified_face_ids = 5;
+  repeated EntityIdentifier deleted_face_ids = 6;
+  repeated EntityIdentifier created_edge_ids = 7;
+  repeated EntityIdentifier modified_edge_ids = 8;
+  repeated EntityIdentifier deleted_edge_ids = 9;
   repeated ComponentEntity created_components = 10;
   repeated ComponentEntity modified_components = 11;
-  repeated EntityIdentifier deleted_components = 12;
+  repeated EntityIdentifier deleted_component_ids = 12;
   repeated PartEntity created_parts = 13;
   repeated PartEntity modified_parts = 14;
-  repeated EntityIdentifier deleted_parts = 15;
+  repeated EntityIdentifier deleted_part_ids = 15;
 }
