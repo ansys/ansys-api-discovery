@@ -53,14 +53,14 @@ message CreateBeamProfileCircularResponse {
 }
 
 message CreateBeamProfileSegmentsRequestData{
-  EntityIdentifier profile=1;
+  EntityIdentifier profile_id = 1;
 
-  repeated Line lines=2;
-  repeated Arc arcs=3;
-  repeated Circle circles=4;
+  repeated Line lines = 2;
+  repeated Arc arcs = 3;
+  repeated Circle circles = 4;
 
-  repeated Plane planes= 5;
-  EntityIdentifier parent=7;
+  repeated Plane planes = 5;
+  EntityIdentifier parent_id = 6;
 }
 
 message CreateBeamProfileSegmentsRequest{
@@ -68,8 +68,8 @@ message CreateBeamProfileSegmentsRequest{
 }
 
 message CreateBeamProfileSegmentsResponseData {
-  EntityIdentifier profile=1;
-  repeated EntityIdentifier beams = 2;
+  EntityIdentifier profile_id = 1;
+  repeated EntityIdentifier beams_ids = 2;
 }
 
 message CreateBeamProfileSegmentsResponse {
@@ -77,7 +77,7 @@ message CreateBeamProfileSegmentsResponse {
 }
 
 message CreateDescriptiveProfileSegmentsResponseData{
-  EntityIdentifier profile=1;
+  EntityIdentifier profile_id = 1;
   repeated ansys.api.discovery.v1.design.BeamEntity beams = 2;
 }
 

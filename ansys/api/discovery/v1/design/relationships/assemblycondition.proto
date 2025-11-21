@@ -24,8 +24,8 @@ service AssemblyCondition{
 }
 
 message CreateAnchorRequestData {
-  EntityIdentifier parent = 1;
-  EntityIdentifier component = 2;
+  EntityIdentifier parent_id = 1;
+  EntityIdentifier component_id = 2;
 }
 
 message CreateAnchorRequest{
@@ -33,7 +33,7 @@ message CreateAnchorRequest{
 }
 
 message CreateAnchorResponseData{
-  EntityIdentifier parent = 1;
+  EntityIdentifier parent_id = 1;
   AnchorCondition anchor_condition = 2;
 }
 
@@ -43,9 +43,9 @@ message CreateAnchorResponse{
 }
 
 message CreateRigidRequestData {
-  EntityIdentifier parent = 1;
-  EntityIdentifier component_a = 2;
-  EntityIdentifier component_b = 3;
+  EntityIdentifier parent_id = 1;
+  EntityIdentifier component_a_id = 2;
+  EntityIdentifier component_b_id = 3;
 }
 
 message CreateRigidRequest{
@@ -53,7 +53,7 @@ message CreateRigidRequest{
 }
 
 message CreateRigidResponseData{
-  EntityIdentifier parent = 1;
+  EntityIdentifier parent_id = 1;
   RigidCondition rigid_condition = 2;
 }
 
@@ -63,9 +63,9 @@ message CreateRigidResponse{
 }
 
 message CreateTangentRequestData {
-  EntityIdentifier parent = 1;
-  EntityIdentifier geometric_a = 2;
-  EntityIdentifier geometric_b = 3;
+  EntityIdentifier parent_id = 1;
+  EntityIdentifier geometric_a_id = 2;
+  EntityIdentifier geometric_b_id = 3;
 }
 
 message CreateTangentRequest{
@@ -73,7 +73,7 @@ message CreateTangentRequest{
 }
 
 message CreateTangentResponseData{
-  EntityIdentifier parent = 1;
+  EntityIdentifier parent_id = 1;
   TangentCondition tangent_condition = 2;
 }
 
@@ -83,9 +83,9 @@ message CreateTangentResponse{
 }
 
 message CreateAlignRequestData {
-  EntityIdentifier parent = 1;
-  EntityIdentifier geometric_a = 2;
-  EntityIdentifier geometric_b = 3;
+  EntityIdentifier parent_id = 1;
+  EntityIdentifier geometric_a_id = 2;
+  EntityIdentifier geometric_b_id = 3;
 }
 
 message CreateAlignRequest{
@@ -93,7 +93,7 @@ message CreateAlignRequest{
 }
 
 message CreateAlignResponseData{
-  EntityIdentifier parent = 1;
+  EntityIdentifier parent_id = 1;
   AlignCondition align_condition = 2;
 }
 
@@ -103,9 +103,9 @@ message CreateAlignResponse{
 }
 
 message CreateOrientRequestData {
-  EntityIdentifier parent = 1;
-  EntityIdentifier geometric_a = 2;
-  EntityIdentifier geometric_b = 3;
+  EntityIdentifier parent_id = 1;
+  EntityIdentifier geometric_a_id = 2;
+  EntityIdentifier geometric_b_id = 3;
 }
 
 message CreateOrientRequest{
@@ -113,7 +113,7 @@ message CreateOrientRequest{
 }
 
 message CreateOrientResponseData{
-  EntityIdentifier parent = 1;
+  EntityIdentifier parent_id = 1;
   OrientCondition orient_condition = 2;
 }
 
@@ -123,7 +123,7 @@ message CreateOrientResponse{
 }
 
 message CreateGearRequestData {
-  EntityIdentifier parent = 1;
+  EntityIdentifier parent_id = 1;
   EntityIdentifier geometric_a = 2;
   EntityIdentifier geometric_b = 3;
 }
@@ -133,7 +133,7 @@ message CreateGearRequest{
 }
 
 message CreateGearResponseData{
-  EntityIdentifier parent = 1;
+  EntityIdentifier parent_id = 1;
   GearCondition gear_condition = 2;
 }
 

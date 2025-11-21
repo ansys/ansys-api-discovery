@@ -189,8 +189,8 @@ message GetLoopsResponse {
 }
 
 message GetClosestSeparationRequestData {
-  EntityIdentifier face_1 = 2;
-  EntityIdentifier face_2 = 3;
+  EntityIdentifier face_1_id = 2;
+  EntityIdentifier face_2_id = 3;
 }
 
 message GetClosestSeparationRequest {
@@ -198,8 +198,8 @@ message GetClosestSeparationRequest {
 }
 
 message GetClosestSeparationResponseData{
-  EntityIdentifier face_1 = 1;
-  EntityIdentifier face_2 = 2;
+  EntityIdentifier face_1_id = 1;
+  EntityIdentifier face_2_id = 2;
   Separation separation = 3;
 }
 
@@ -209,27 +209,27 @@ message GetClosestSeparationResponse{
 }
 
 message FillFacesResponse{
-  repeated EntityIdentifier successfully_set=1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   TrackedCommandResponse tracked_command_response = 2;
 }
 
 message SetMidSurfaceThicknessRequestData {
-  repeated EntityIdentifier ids=1;
+  repeated EntityIdentifier ids = 1;
   double thickness = 2;
 }
 
 message SetMidSurfaceThicknessRequest {
-  repeated SetMidSurfaceThicknessRequestData request_data=1;
+  repeated SetMidSurfaceThicknessRequestData request_data = 1;
 }
 
 message SetMidSurfaceThicknessResponse {
-  repeated EntityIdentifier successfully_set=1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   TrackedSetResponse tracked_set_response = 2;
 }
 
 message SetMidSurfaceOffsetTypeRequestData {
-  repeated EntityIdentifier faces=1;
-  MidSurfaceOffsetType offset_type=2;
+  repeated EntityIdentifier face_ids = 1;
+  MidSurfaceOffsetType offset_type = 2;
 }
 
 message SetMidSurfaceOffsetTypeRequest {
@@ -237,7 +237,7 @@ message SetMidSurfaceOffsetTypeRequest {
 }
 
 message SetMidSurfaceOffsetTypeResponse {
-  repeated EntityIdentifier successfully_set=1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   TrackedSetResponse tracked_set_response = 2;
 }
 
@@ -253,16 +253,16 @@ message GetRoundInfoResponse {
 }
 
 message DetachFacesRequest {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
 }
 
 message ReplaceFaceRequest {
-  repeated EntityIdentifier target_selection = 1;
-  repeated EntityIdentifier replacement_selection = 2;
+  repeated EntityIdentifier target_selection_ids = 1;
+  repeated EntityIdentifier replacement_selection_ids = 2;
 }
 
 message RemoveFacesRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   double offset = 2;
 }
 

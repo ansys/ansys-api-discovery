@@ -85,7 +85,7 @@ service Repair{
 }
 
 message FindInterferenceRequest{
-  repeated EntityIdentifier bodies=1;
+  repeated EntityIdentifier body_ids=1;
   optional bool cut_smaller_body=2; // default: false
 }
 
@@ -102,7 +102,7 @@ message FixInterferenceResponse{
 }
 
 message FindSplitEdgesRequest{
-  repeated EntityIdentifier bodies_or_faces=1;
+  repeated EntityIdentifier body_or_face_ids=1;
   double angle=2;
   double distance = 3;
   bool comprehensive = 4;
@@ -121,7 +121,7 @@ message FixSplitEdgesResponse{
 }
 
 message FindExtraEdgesRequest{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_id = 1;
   bool comprehensive = 2;
 }
 
@@ -138,7 +138,7 @@ message FixExtraEdgesResponse{
 }
 
 message FindShortEdgesRequest{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_id = 1;
   double max_edge_length=2; 
   bool comprehensive = 3;
 }
@@ -156,7 +156,7 @@ message FixShortEdgesResponse{
 }
 
 message FindInexactEdgesRequest{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_id = 1;
 }
 
 message FindInexactEdgesResponse{
@@ -172,7 +172,7 @@ message FixInexactEdgesResponse{
 }
 
 message FindStitchFacesRequest{
-  repeated EntityIdentifier faces = 1;
+  repeated EntityIdentifier face_ids = 1;
   double maximum_distance = 2; // default: 0.0001
   bool check_for_coincidence = 3; // default: false
   bool allow_multiple_bodies = 4; // default: false
@@ -199,7 +199,7 @@ enum SolidifyFixMethodType{
 }
 
 message FindMissingFacesRequest{
-  repeated EntityIdentifier faces = 1;
+  repeated EntityIdentifier face_ids = 1;
   double angle=2;
   double distance = 3;
   oneof method
@@ -223,7 +223,7 @@ message FixMissingFacesResponse{
 }
 
 message  FindDuplicateFacesRequest{
-  repeated EntityIdentifier faces = 1;
+  repeated EntityIdentifier face_ids = 1;
   double max_gap = 2;
 }
 
@@ -240,7 +240,7 @@ message FixDuplicateFacesResponse{
 }
 
 message FindSmallFacesRequest{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_id = 1;
   double area = 2;
   double width = 3;
 }
@@ -258,7 +258,7 @@ message FixSmallFacesResponse{
 }
 
 message FindGapsRequest{
-  repeated EntityIdentifier bodies = 1;
+  repeated EntityIdentifier body_ids = 1;
   double angle=2;
   double distance = 3;
   optional SolidifyFixMethodType fix_method = 4;
@@ -307,7 +307,7 @@ message FixDuplicateCurvesResponse{
 }
 
 message FindSmallCurvesRequest{
-  repeated EntityIdentifier bodies = 1;
+  repeated EntityIdentifier body_ids = 1;
   double  max_curve_length = 2;
 }
 
@@ -324,8 +324,8 @@ message FixSmallCurvesResponse{
 }
 
 message FindAdjustMergeFacesRequest{
-  repeated EntityIdentifier selection = 1;
-  repeated EntityIdentifier tangent_faces = 2;
+  repeated EntityIdentifier selection_id = 1;
+  repeated EntityIdentifier tangent_face_ids = 2;
   bool allow_multi_patch = 3;
   bool fail_if_can_fill = 4;
   bool enforce_closed_loop_check = 5;
@@ -336,8 +336,8 @@ message FindAdjustMergeFacesResponse{
 }
 
 message AdjustMergeFacesRequest{
-  repeated EntityIdentifier selection = 1;
-  repeated EntityIdentifier tangent_faces = 2;
+  repeated EntityIdentifier selection_id = 1;
+  repeated EntityIdentifier tangent_face_ids = 2;
   bool allow_multi_patch = 3;
   bool fail_if_can_fill = 4;
   bool enforce_closed_loop_check = 5;
@@ -348,7 +348,7 @@ message AdjustMergeFacesResponse{
 }
 
 message FindAdjustSimplifyRequest{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_id = 1;
   bool comprehensive = 2;
 }
 
@@ -365,7 +365,7 @@ message FixAdjustSimplifyResponse{
 }
 
 message FitCurvesRequest{
-  EntityIdentifier selection = 1;
+  EntityIdentifier selection_id = 1;
   bool arcs = 2;
   bool lines = 3;
   bool splines = 4;
@@ -378,7 +378,7 @@ message FitCurvesResponse{
 }
 
 message InspectGeometryRequest {
-  repeated EntityIdentifier bodies = 1;
+  repeated EntityIdentifier body_ids = 1;
   optional InspectGeometryOptions options = 2;
 }
 
@@ -387,7 +387,7 @@ message InspectGeometryResponse {
 }
 
 message RepairGeometryRequest {
-  repeated EntityIdentifier bodies = 1;
+  repeated EntityIdentifier body_ids = 1;
 }
 
 message RepairGeometryResponse {
@@ -418,25 +418,25 @@ message FindAndSimplifyResponse{
 }
 
 message FindAndSimplifyRequest{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_id = 1;
   bool comprehensive = 2;
 }
 
 message FindAndFixExtraEdgesRequest{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_id = 1;
   bool comprehensive = 2;
 }
 
 
 message FindAndFixSplitEdgesRequest{
-  repeated EntityIdentifier bodies_or_faces=1;
+  repeated EntityIdentifier bodys_or_face_ids=1;
   double angle=2;
   double distance = 3;
   bool comprehensive = 4;
 }
 
 message FindAndFixStitchFacesRequest{
-  repeated EntityIdentifier faces = 1;
+  repeated EntityIdentifier face_ids = 1;
   double maximum_distance = 2; // default: 0.0001
   bool check_for_coincidence = 3; // default: false
   bool allow_multiple_bodies = 4; // default: false
@@ -445,7 +445,7 @@ message FindAndFixStitchFacesRequest{
 }
 
 message FindAndFixShortEdgesRequest{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_id = 1;
   double max_edge_length=2; 
   bool comprehensive = 3;
 }
@@ -453,13 +453,13 @@ message FindAndFixShortEdgesRequest{
 
 
 message FixInterferenceProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier body_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier body_ids = 2;
 }
 
 message SplitEdgeProblemArea {
-  int32 id = 1;    
-  repeated EntityIdentifier edge_monikers  = 2;
+  int32 problem_area_id = 1;    
+  repeated EntityIdentifier edge_ids  = 2;
 }
 
 message FixSplitEdgeOptions {
@@ -468,68 +468,68 @@ message FixSplitEdgeOptions {
 }
 
 message ExtraEdgeProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier edge_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier edge_ids = 2;
 }
 
 message InexactEdgeProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier edge_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier edge_ids = 2;
 }
 
 message ShortEdgeProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier edge_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier edge_ids = 2;
 }
 
 message DuplicateFaceProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier face_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier face_ids = 2;
 }
 
 message MissingFaceProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier edge_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier edge_ids = 2;
 }
 
 message SmallFaceProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier face_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier face_ids = 2;
 }
 
 message StitchFaceProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier body_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier body_ids = 2;
 }
 
 message CurveGapProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier curve_point_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier curve_point_ids = 2;
 }
 
 message DuplicateCurveProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier curve_point_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier curve_point_ids = 2;
 }
 
 message SmallCurveProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier curve_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier curve_ids = 2;
 }
 
 message AdjustSimplifyProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier body_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier body_ids = 2;
 }
 
 message GapProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier edge_monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier edge_ids = 2;
 }
 
 message GenericProblemArea {
-  int32 id = 1;
-  repeated EntityIdentifier monikers = 2;
+  int32 problem_area_id = 1;
+  repeated EntityIdentifier ids = 2;
 }
 
 message RepairToolMessage {
