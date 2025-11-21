@@ -35,8 +35,8 @@ message CreateResponse{
 
 message CreateRequestData{
   string name = 1;
-  repeated EntityIdentifier members = 2;
-  EntityIdentifier parent = 3;
+  repeated EntityIdentifier members_ids = 2;
+  EntityIdentifier parent_id = 3;
 }
 
 message CreateRequest{

@@ -57,24 +57,24 @@ message CoordinateSystemList {
 }
 
 message GetAsJsonResponse {  
-  string json=1;  
+  string json = 1;  
 }  
 
 
 message GetAsJsonRequest {  
-  EntityIdentifier id=1;  
+  EntityIdentifier id = 1;  
 }  
 
 //
 // A design document.
 message DesignDocEntity{ //DesignDescription
   EntityIdentifier id = 1;
-  bool is_complete=2 ;  
-  bool is_locked=3  ;   
-  bool is_modified=4;   
+  bool is_complete = 2;  
+  bool is_locked = 3;   
+  bool is_modified = 4;   
   bool is_removed = 5;  
-  EntityIdentifier main_part=6;   
-  bool main_part_displays_file_name=7; 
+  EntityIdentifier main_part_id = 6;   
+  bool main_part_displays_file_name = 7; 
   string path = 10;
-  string name=11;
+  string name = 11;
 }

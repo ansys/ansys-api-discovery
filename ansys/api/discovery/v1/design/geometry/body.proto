@@ -105,7 +105,7 @@ message BodiesSelectionResponse{
 
 message CreateSurfaceBodyFromTrimmedCurvesRequestData {
   string name = 1;
-  EntityIdentifier parent = 2;
+  EntityIdentifier parent_id = 2;
   repeated TrimmedCurve trimmed_curves = 3;
 }
 
@@ -120,7 +120,7 @@ message CreateBlockBodyRequest {
 
 message CreateSurfaceBodyRequestData {
   string name = 1;
-  EntityIdentifier parent = 2;
+  EntityIdentifier parent_id = 2;
   TrimmedSurface trimmed_surface = 3;
 }
 
@@ -139,7 +139,7 @@ message GetIsSuppressedResponse {
 }
 
 message SetSuppressedRequest {
-  repeated EntityIdentifier bodies = 1; // List of entity identifiers
+  repeated EntityIdentifier body_ids = 1; // List of entity identifiers
   bool is_suppressed = 2;
 }
 
@@ -188,7 +188,7 @@ message SetAssignedCADMaterialRequest{
 }
 
 message SetAssignedCADMaterialResponse{
-  repeated EntityIdentifier successfully_set = 1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   TrackedSetResponse tracked_set_response = 2;
 }
 
@@ -197,14 +197,14 @@ message RemoveAssignedCADMaterialRequest{
 }
 
 message RemoveAssignedCADMaterialResponse{
-  repeated EntityIdentifier successfully_removed = 1;
+  repeated EntityIdentifier successfully_removed_ids = 1;
   TrackedCommandResponse tracked_command_response = 2;
 }
 
 message CreateBodyFromFaceRequestData {
-  string name=1;
-  EntityIdentifier parent=2;
-  EntityIdentifier face=3;
+  string name = 1;
+  EntityIdentifier parent_id = 2;
+  EntityIdentifier face_id = 3;
 }
 
 message CreateBodyFromFaceRequest {
@@ -213,7 +213,7 @@ message CreateBodyFromFaceRequest {
 
 message CreateBodyFromLoftWithGuidesRequestData {
   string name = 1;
-  EntityIdentifier parent = 2;
+  EntityIdentifier parent_id = 2;
   repeated TrimmedCurveList profiles = 3;
   TrimmedCurveList guides = 6;
 }
@@ -223,10 +223,10 @@ message CreateBodyFromLoftWithGuidesRequest {
 }
 
 message CreateExtrudedBodyFromFaceProfileRequestData {
-  string name=1;
-  EntityIdentifier parent=2;
-  EntityIdentifier face=3;
-  double distance=4;
+  string name = 1;
+  EntityIdentifier parent_id = 2;
+  EntityIdentifier face_id = 3;
+  double distance = 4;
 }
 
 message CreateExtrudedBodyFromFaceProfileRequest {
@@ -234,11 +234,11 @@ message CreateExtrudedBodyFromFaceProfileRequest {
 }
 
 message CreateExtrudedBodyFromLoftProfilesRequestData {
-  string name=1;
-  EntityIdentifier parent=2;
+  string name = 1;
+  EntityIdentifier parent_id = 2;
   repeated TrimmedCurveList profiles = 3;
-  bool periodic=4;
-  bool ruled=5;
+  bool periodic = 4;
+  bool ruled = 5;
 }
 
 message CreateExtrudedBodyFromLoftProfilesRequest{
@@ -246,10 +246,10 @@ message CreateExtrudedBodyFromLoftProfilesRequest{
 }
 
 message CreateSweepingProfileRequestData{
-  string name=1;
-  EntityIdentifier parent=2;
-  Plane plane=3;
-  Geometries geometries=4;
+  string name = 1;
+  EntityIdentifier parent_id = 2;
+  Plane plane = 3;
+  Geometries geometries = 4;
   repeated TrimmedCurve path = 5;
 }
 
@@ -258,8 +258,8 @@ message CreateSweepingProfileRequest{
 }
 
 message CreateSweepingChainRequestData{
-  string name=1;
-  EntityIdentifier parent=2;
+  string name = 1;
+  EntityIdentifier parent_id = 2;
   repeated TrimmedCurve chain = 3;
   repeated TrimmedCurve path = 4;
 }
@@ -269,10 +269,10 @@ message CreateSweepingChainRequest{
 }
 
 message CreatePlanarBodyRequestData {
-  string name=1;
-  EntityIdentifier parent=2;
-  Plane plane=3;
-  Geometries geometries=4;
+  string name = 1;
+  EntityIdentifier parent_id = 2;
+  Plane plane = 3;
+  Geometries geometries = 4;
 }
 
 message CreatePlanarBodyRequest {
@@ -280,10 +280,10 @@ message CreatePlanarBodyRequest {
 }
 
 message CreateSphereBodyRequestData {
-  string name=1;
-  EntityIdentifier parent=2;
-  Point center=3;
-  double radius=4;
+  string name = 1;
+  EntityIdentifier parent_id = 2;
+  Point center = 3;
+  double radius = 4;
 }
 
 message CreateSphereBodyRequest {
@@ -291,11 +291,11 @@ message CreateSphereBodyRequest {
 }
 
 message CreateExtrudedBodyRequestData {
-  string name=1;
-  EntityIdentifier parent=2;
-  Plane plane=3;
-  Geometries geometries=4;
-  double distance=5;
+  string name = 1;
+  EntityIdentifier parent_id = 2;
+  Plane plane = 3;
+  Geometries geometries = 4;
+  double distance = 5;
 }
 
 message CreateExtrudedBodyRequest {
@@ -324,23 +324,23 @@ message GetTessellationResponse{
 }
 
 message GetEdgesResponseData{
-  EntityIdentifier body_id=1;
-  repeated EdgeEntity edges=2;
+  EntityIdentifier body_id = 1;
+  repeated EdgeEntity edges = 2;
 }
 
 message GetEdgesResponse {
-  repeated GetEdgesResponseData response_data =1;
+  repeated GetEdgesResponseData response_data = 1;
   CommandResponse command_response = 2;
 }
 
 message GetNameResponse {
-  map<string,string> names=1;
+  map<string,string> names = 1;
   CommandResponse command_response = 2;
 }
 
 message SetFillStyleRequestData { 
-  EntityIdentifier id=1;
-  BodyFillStyle fill_style=2;
+  EntityIdentifier id = 1;
+  BodyFillStyle fill_style = 2;
 }
 
 message SetFillStyleRequest { 
@@ -348,8 +348,8 @@ message SetFillStyleRequest {
 }
 
 message GetFillStyleResponseData {
-  EntityIdentifier id=1;
-  BodyFillStyle fill_style=2;
+  EntityIdentifier id = 1;
+  BodyFillStyle fill_style = 2;
 }
 
 message GetFillStyleResponse{
@@ -358,14 +358,14 @@ message GetFillStyleResponse{
 }
 
 message SetFillStyleResponse {
-  repeated EntityIdentifier successfully_set=1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   SetResponse set_response = 2;
 }
 
 message DuplicateBodyRequestData {
-  EntityIdentifier id=1;
-  EntityIdentifier parent=2;
-  string name=3;
+  EntityIdentifier id = 1;
+  EntityIdentifier parent = 2;
+  string name = 3;
 }
 
 message CreateDuplicateBodyRequest {
@@ -373,8 +373,8 @@ message CreateDuplicateBodyRequest {
 }
 
 message DuplicateBodyResponseData {
-  EntityIdentifier id=1;
-  BodyEntity body=2;
+  EntityIdentifier id = 1;
+  BodyEntity body = 2;
 }
 
 message CreateDuplicateBodyResponse{
@@ -383,8 +383,8 @@ message CreateDuplicateBodyResponse{
 }
 
 message GetCollisionRequestData{
-  EntityIdentifier body_1=1;
-  EntityIdentifier body_2=2;
+  EntityIdentifier body_1_id = 1;
+  EntityIdentifier body_2_id = 2;
 }
 
 message GetCollisionRequest {
@@ -392,8 +392,8 @@ message GetCollisionRequest {
 }
 
 message GetCollisionResponseData{
-  EntityIdentifier body_1=1;
-  EntityIdentifier body_2=2;
+  EntityIdentifier body_1_id = 1;
+  EntityIdentifier body_2_id = 2;
   CollisionType collision = 3;
 }
 
@@ -403,8 +403,8 @@ message GetCollisionResponse{
 }
 
 message GetClosestSeparationRequestData{
-  EntityIdentifier body_1=1;
-  EntityIdentifier body_2=2;
+  EntityIdentifier body_1_id = 1;
+  EntityIdentifier body_2_id = 2;
 }
 
 message GetClosestSeparationRequest {
@@ -478,7 +478,7 @@ message CreateSweepingChainResponse{
 }
 
 message SetSuppressedResponse{
-  repeated EntityIdentifier successfully_set = 1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   TrackedSetResponse tracked_set_response = 2;
 }
 
@@ -498,8 +498,8 @@ message CreateSurfaceBodyFromTrimmedCurvesResponse{
 }
 
 message GetClosestSeparationResponseData{
-  EntityIdentifier body_1 = 1;
-  EntityIdentifier body_2 = 2;
+  EntityIdentifier body_1_id = 1;
+  EntityIdentifier body_2_id = 2;
   Separation separation = 3;
 }
 
@@ -509,35 +509,35 @@ message GetClosestSeparationResponse{
 }
 
 message SetMidSurfaceThicknessRequestData {
-  repeated EntityIdentifier ids=1;
-  double thickness=2;
+  repeated EntityIdentifier ids = 1;
+  double thickness = 2;
 }
 message SetMidSurfaceThicknessRequest {
-  repeated SetMidSurfaceThicknessRequestData request_data=1;
+  repeated SetMidSurfaceThicknessRequestData request_data = 1;
 }
 
 message SetMidSurfaceThicknessResponse {
-  repeated EntityIdentifier successfully_set=1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   TrackedSetResponse tracked_set_response = 2;
 }
 
 message SetMidSurfaceOffsetTypeRequestData {
-  repeated EntityIdentifier ids=1;
-  MidSurfaceOffsetType offset_type=2;
+  repeated EntityIdentifier ids = 1;
+  MidSurfaceOffsetType offset_type = 2;
 }
 
 message SetMidSurfaceOffsetTypeRequest {
-  repeated SetMidSurfaceOffsetTypeRequestData request_data=1;
+  repeated SetMidSurfaceOffsetTypeRequestData request_data = 1;
 }
 
 message SetMidSurfaceOffsetTypeResponse {
-  repeated EntityIdentifier successfully_set=1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   TrackedSetResponse tracked_set_response = 2;
 }
 
 message CreateTorusRequestData {
   string name = 1;
-  EntityIdentifier parent = 2;
+  EntityIdentifier parent_id = 2;
   double major_radius = 3;
   double minor_radius = 4;
   Frame frame = 5;
@@ -548,6 +548,6 @@ message CreateTorusRequest {
 }
 
 message CreateTorusResponse {
-  repeated EntityIdentifier response_data = 1;
+  repeated EntityIdentifier body_ids = 1;
   TrackedCreationResponse tracked_creation_response = 2;
 }

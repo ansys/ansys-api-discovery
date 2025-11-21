@@ -31,7 +31,7 @@ message GetAllResponse{
 }
 
 message CreateRequestData{
-  EntityIdentifier parent = 1;
+  EntityIdentifier parent_id = 1;
   string name = 2;
   Frame frame = 3;
 }

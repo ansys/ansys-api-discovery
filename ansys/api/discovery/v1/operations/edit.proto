@@ -143,7 +143,7 @@ message RevolveCurvesResponse{
 }
 
 message PullCurvePointRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   double distance = 2;
   bool linear = 3;
   bool reversed = 4;
@@ -173,8 +173,8 @@ message OffsetFaceCurvesResponse {
 
 // Edge operation messages moved from edge.proto
 message ExtrudeEdgesRequestData {
-  repeated EntityIdentifier edges = 1;
-  EntityIdentifier face = 2;
+  repeated EntityIdentifier edge_ids = 1;
+  EntityIdentifier face_id = 2;
   Point point = 3;
   Direction direction = 4;
   double distance= 5;
@@ -189,8 +189,8 @@ message ExtrudeEdgesRequest {
 }
 
 message ExtrudeEdgesUpToRequestData {
-  repeated EntityIdentifier edges = 1;
-  EntityIdentifier up_to_selection = 2;
+  repeated EntityIdentifier edge_ids = 1;
+  EntityIdentifier up_to_selection_id = 2;
   Point seed_point = 3;
   Direction direction = 4;
   ExtrudeType extrude_type = 5;
@@ -212,7 +212,7 @@ enum SplitEdgeReference{
 }
 
 message SplitEdgesRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   SplitEdgeType split_type = 2;
   repeated double proportions = 3;
   repeated Point points = 4;
@@ -229,7 +229,7 @@ message SplitEdgesResponse{
 }
 
 message MoveImprintEdgesRequestData {
-  repeated EntityIdentifier edges = 1;
+  repeated EntityIdentifier edge_ids = 1;
   Direction direction = 2;
   double distance = 3;
 }
@@ -243,7 +243,7 @@ message MoveImprintEdgesResponse {
 }
 
 message OffsetEdgesRequestData {
-  repeated EntityIdentifier edges = 1;
+  repeated EntityIdentifier edge_ids = 1;
   double value = 2;
 }
 
@@ -267,11 +267,11 @@ message ExtrudeEdgesUpToResponse{
 
 
 message FillFacesRequest {
-  repeated EntityIdentifier ids=1;
+  repeated EntityIdentifier ids = 1;
 }
 
 message FillFacesResponse{
-  repeated EntityIdentifier successfully_set=1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
 }
 
@@ -358,7 +358,7 @@ message ExtrudeFacesRequest {
 
 message ExtrudeFacesUpToRequestData {
   repeated EntityIdentifier ids = 1;
-  EntityIdentifier up_to_selection = 2;
+  EntityIdentifier up_to_selection_id = 2;
   Direction direction = 3;
   ExtrudeType extrude_type = 4;
   bool pull_symmetric = 5;
@@ -373,10 +373,10 @@ message ExtrudeFacesUpToRequest {
 }
 
 message RevolveFacesRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_id = 1;
   Line axis = 2;
   double angle = 3;
-  repeated EntityIdentifier alternate_axis = 4;
+  repeated EntityIdentifier alternate_axis_ids = 4;
   Direction alternate_direction = 5;
   ExtrudeType extrude_type = 6;
 }
@@ -386,8 +386,8 @@ message RevolveFacesRequest {
 }
 
 message RevolveFacesUpToRequestData {
-  repeated EntityIdentifier selection = 1;
-  EntityIdentifier up_to_selection = 2;
+  repeated EntityIdentifier selection_ids = 1;
+  EntityIdentifier up_to_selection_id = 2;
   Direction direction = 3;
   Line axis = 4;
   ExtrudeType extrude_type = 5;
@@ -398,7 +398,7 @@ message RevolveFacesUpToRequest {
 }
 
 message RevolveFacesByHelixRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   Direction direction = 2;
   Line axis = 3;
   double height = 4;
@@ -414,8 +414,8 @@ message RevolveFacesByHelixRequest {
 }
 
 message SweepFacesRequestData {
-  repeated EntityIdentifier selection = 1;
-  repeated EntityIdentifier trajectories = 2;
+  repeated EntityIdentifier selection_ids = 1;
+  repeated EntityIdentifier trajectory_ids = 2;
   double optional_distance = 3;
 }
 
@@ -436,18 +436,18 @@ enum SplitFaceParameterType{
 }
 
 message SplitFaceRequestData{
-  EntityIdentifier selection=1;
-  Point split_parameter=2;
-  Point split_start=3;
-  Point split_end=4;
-  EntityIdentifier face_cutter=5;
-  repeated ansys.api.discovery.v1.design.TrimmedCurve split_curves=6;
-  SplitFaceType split_type=7;
-  SplitFaceParameterType parameter_type=8;
+  EntityIdentifier selection_id = 1;
+  Point split_parameter = 2;
+  Point split_start = 3;
+  Point split_end = 4;
+  EntityIdentifier face_cutter_id = 5;
+  repeated ansys.api.discovery.v1.design.TrimmedCurve split_curves = 6;
+  SplitFaceType split_type = 7;
+  SplitFaceParameterType parameter_type = 8;
 }
 
 message SplitFaceRequest{
-  repeated SplitFaceRequestData request_data =1;
+  repeated SplitFaceRequestData request_data = 1;
 }
 
 message RevolveFacesResponse{
@@ -479,7 +479,7 @@ message ExtrudeFacesUpToResponse{
 }
 
 message OffsetFacesRequestData {
-  repeated EntityIdentifier faces = 1;
+  repeated EntityIdentifier face_ids = 1;
   double offset = 2;
   Direction direction = 3;
   ExtrudeType extrude_type = 4;
@@ -496,9 +496,9 @@ message OffsetFacesResponse {
 // --- Existing messages (unchanged above) ---
 // Body edit design messages copied from body.proto
 message BooleanRequest {
-  EntityIdentifier body1 = 1;
+  EntityIdentifier body1_id = 1;
   string method = 3;
-  repeated EntityIdentifier tool_bodies = 4;
+  repeated EntityIdentifier tool_body_ids = 4;
   bool keep_other = 5;
 }
 
@@ -508,8 +508,8 @@ message BooleanResponse {
 }
 
 message CombineIntersectBodiesRequestData {
-  repeated EntityIdentifier target_selection = 1;
-  repeated EntityIdentifier tool_selection = 2;
+  repeated EntityIdentifier target_selection_ids = 1;
+  repeated EntityIdentifier tool_selection_ids = 2;
   optional bool keep_cutter = 3;
   optional bool subtract_from_target = 4;
   optional bool transfer_named_selections = 5;
@@ -524,7 +524,7 @@ message CombineIntersectBodiesResponse{
 }
 
 message CombineMergeBodiesRequestData {
-  repeated EntityIdentifier target_selection = 1;
+  repeated EntityIdentifier target_selection_ids = 1;
 }
 
 message CombineMergeBodiesRequest {
@@ -536,7 +536,7 @@ message CombineMergeBodiesResponse {
 }
 
 message MergeBodiesRequestData {
-  repeated EntityIdentifier target_selection = 1;
+  repeated EntityIdentifier target_selection_ids = 1;
   bool abort_on_error = 2;
   bool can_make_independent = 3;
   bool create_imprints = 4;
@@ -551,10 +551,10 @@ message MergeBodiesResponse {
 }
 
 message SplitBodyRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   Plane split_by_plane = 2;
-  repeated EntityIdentifier split_by_slicer = 3;
-  repeated EntityIdentifier split_by_faces = 4;
+  repeated EntityIdentifier split_by_slicer_ids = 3;
+  repeated EntityIdentifier split_by_face_ids = 4;
   bool extend_surfaces = 5;  
 }
 
@@ -567,7 +567,7 @@ message SplitBodyResponse {
 }
 
 message ShellRequestData {
-  EntityIdentifier selection = 1;
+  EntityIdentifier selection_id = 1;
   double offset = 2;
 }
 
@@ -581,7 +581,7 @@ message ShellResponse {
 
 message SweepWithGuideRequestData {
   string name=1;
-  EntityIdentifier parent=2;
+  EntityIdentifier parent_id = 2;
   Plane plane=3;
   ansys.api.discovery.v1.design.Geometries geometries=4;
   ansys.api.discovery.v1.design.TrimmedCurve path=5;
@@ -599,10 +599,10 @@ message SweepWithGuideResponse {
 }
 
 message MoveTranslateRequestData{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   Direction direction = 2;
   double distance = 3;
-  EntityIdentifier named_selection = 4;
+  EntityIdentifier named_selection_id = 4;
 }
 
 message MoveTranslateRequest{
@@ -614,7 +614,7 @@ message MoveTranslateResponse {
 }
 
 message MoveRotateRequestData{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   Line axis = 2;
   double angle = 3;
 }
@@ -633,9 +633,9 @@ message ProjectPointRequest {
 }
 
 message ProjectToSolidRequestData {
-  repeated EntityIdentifier selection = 1;
-  repeated EntityIdentifier target_faces = 2;
-  EntityIdentifier direction_selection = 3;
+  repeated EntityIdentifier selection_ids = 1;
+  repeated EntityIdentifier target_face_ids = 2;
+  EntityIdentifier direction_selection_id = 3;
 }
 
 message ProjectToSolidRequest {
@@ -643,7 +643,7 @@ message ProjectToSolidRequest {
 }
 
 message ScaleRequestData {
-  repeated EntityIdentifier objects = 1;
+  repeated EntityIdentifier object_ids = 1;
   Point point = 2;
   Direction optional_direction = 3;
   double scale = 4;
@@ -655,12 +655,12 @@ message ScaleRequest {
 }
 
 message ScaleResponse{
-  repeated EntityIdentifier successfully_set = 1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
 }
 
 message ScaleNonUniformRequestData {
-  repeated EntityIdentifier objects = 1;
+  repeated EntityIdentifier object_ids = 1;
   Frame frame= 2;
   Direction scale_vector = 3;
   bool keep_holes = 4;
@@ -693,7 +693,7 @@ message ChamferResponse {
 }
 
 message FullFilletRequest {
-  repeated EntityIdentifier faces = 1;
+  repeated EntityIdentifier face_ids = 1;
 }
 
 message FullFilletResponse{
@@ -736,42 +736,42 @@ message ScaleNonUniformResponse{
 
 // Added messages moved from body.proto
 message ImprintCurvesRequestData {
-  EntityIdentifier body=1;
-  ansys.api.discovery.v1.design.Geometries curves=2;
-  repeated EntityIdentifier faces=3;
+  EntityIdentifier body_ids = 1;
+  ansys.api.discovery.v1.design.Geometries curves = 2;
+  repeated EntityIdentifier face_ids = 3;
   Plane plane = 4;
-  repeated ansys.api.discovery.v1.design.TrimmedCurve trimmed_curves=5;
+  repeated ansys.api.discovery.v1.design.TrimmedCurve trimmed_curves = 5;
 }
 
 message ImprintCurvesRequest {
-  repeated ImprintCurvesRequestData request_data=1;
+  repeated ImprintCurvesRequestData request_data = 1;
 }
 
 message ImprintCurvesResponseData{
-  EntityIdentifier body=1;
-  ansys.api.discovery.v1.design.EntitiesCollection created_entities=2;
-  repeated EntityIdentifier deleted_faces=3;
+  EntityIdentifier body_id = 1;
+  ansys.api.discovery.v1.design.EntitiesCollection created_entities = 2;
+  repeated EntityIdentifier deleted_face_ids = 3;
 }
 
 message ImprintCurvesResponse{
-  repeated ImprintCurvesResponseData response_data=1;
+  repeated ImprintCurvesResponseData response_data = 1;
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
 }
 
 message ImprintProjectedCurvesRequestData {
-  EntityIdentifier body=1;
-  ansys.api.discovery.v1.design.Geometries curves=2;
-  Direction direction=3;
-  bool closest_face=4;
+  EntityIdentifier body_id = 1;
+  ansys.api.discovery.v1.design.Geometries curves = 2;
+  Direction direction = 3;
+  bool closest_face = 4;
   Plane plane = 5;
 }
 
 message ImprintProjectedCurvesRequest {
-  repeated ImprintProjectedCurvesRequestData request_data=1;
+  repeated ImprintProjectedCurvesRequestData request_data = 1;
 }
 
 message ImprintProjectedCurvesResponseData{
-  EntityIdentifier body = 1;
+  EntityIdentifier body_id = 1;
   ansys.api.discovery.v1.design.EntitiesCollection created_entities = 2;
 }
 
@@ -781,20 +781,20 @@ message ImprintProjectedCurvesResponse{
 }
 
 message ProjectCurvesRequestData {
-  EntityIdentifier body=1;
+  EntityIdentifier body_id = 1;
   ansys.api.discovery.v1.design.Geometries curves = 2;
-  Direction direction=3;
-  bool closest_face=4;
+  Direction direction = 3;
+  bool closest_face = 4;
   Plane plane = 5;
 }
 
 message ProjectCurvesRequest{
-  repeated ProjectCurvesRequestData request_data=1;
+  repeated ProjectCurvesRequestData request_data = 1;
 }
 
 message ProjectCurvesResponseData {
-  EntityIdentifier body_id=1;
-  repeated ansys.api.discovery.v1.design.FaceEntity faces=2;
+  EntityIdentifier body_id = 1;
+  repeated ansys.api.discovery.v1.design.FaceEntity faces = 2;
 }
 
 message ProjectCurvesResponse {
@@ -817,8 +817,8 @@ message SeparatePiecesResponse{
 }
 
 message SweepDatumPointRequestData {
-  repeated EntityIdentifier selection = 1;
-  repeated EntityIdentifier trajectories = 2;
+  repeated EntityIdentifier selection_ids = 1;
+  repeated EntityIdentifier trajectory_ids = 2;
   double distance = 3;
 }
 
@@ -827,7 +827,7 @@ message SweepDatumPointRequest {
 }
 
 message SweepDatumPointResponseData{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   repeated ansys.api.discovery.v1.design.CurveEntity created_curves = 2;
 }
 
@@ -837,17 +837,17 @@ message SweepDatumPointResponse{
 }
 
 message RevolveDatumPointRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   Line axis = 2;
   double angle = 3;
 }
 
 message RevolveDatumPointRequest {
-  repeated RevolveDatumPointRequestData request_data=1;
+  repeated RevolveDatumPointRequestData request_data = 1;
 }
 
 message RevolveDatumPointResponseData{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   repeated ansys.api.discovery.v1.design.CurveEntity created_curves = 2; 
 }
 
@@ -857,7 +857,7 @@ message RevolveDatumPointResponse{
 }
 
 message RevolveDatumPointByHelixRequestData {
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   Line axis = 2;
   double height = 3;
   double pitch = 4;
@@ -867,11 +867,11 @@ message RevolveDatumPointByHelixRequestData {
 }
 
 message RevolveDatumPointByHelixRequest {
-  repeated RevolveDatumPointByHelixRequestData request_data=1;
+  repeated RevolveDatumPointByHelixRequestData request_data = 1;
 }
 
 message RevolveDatumPointByHelixResponseData{
-  repeated EntityIdentifier selection = 1;
+  repeated EntityIdentifier selection_ids = 1;
   repeated ansys.api.discovery.v1.design.CurveEntity created_curves = 2; 
 }
 
@@ -924,7 +924,7 @@ message MapRequest {
 }
 
 message MapResponse {  
-  repeated EntityIdentifier successfully_set = 1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
 }
 
@@ -939,7 +939,7 @@ message TranslateRequest{
 }
 
 message TranslateResponse{
-  repeated EntityIdentifier successfully_set = 1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
 }
 
@@ -954,6 +954,6 @@ message MirrorRequest {
 }
 
 message MirrorResponse {
-  repeated EntityIdentifier successfully_set = 1;
+  repeated EntityIdentifier successfully_set_ids = 1;
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
 }

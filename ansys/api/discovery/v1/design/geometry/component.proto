@@ -62,8 +62,8 @@ message MakeIndependentRequest {
 
 message CreateComponentData{
   string name = 1;  
-  EntityIdentifier parent = 2;  
-  EntityIdentifier template = 3;  
+  EntityIdentifier parent_id = 2;  
+  EntityIdentifier template_id = 3;  
   string instance_name = 4;  
 }
 
@@ -87,8 +87,8 @@ message GetBeamBodiesRequest {
 }  
 
 message BeamBodies{
-  EntityIdentifier beam = 1;  
-  repeated EntityIdentifier bodies = 2;
+  EntityIdentifier beam_id = 1;  
+  repeated EntityIdentifier body_ids = 2;
 }
 
 message GetBeamBodiesResponse {  
