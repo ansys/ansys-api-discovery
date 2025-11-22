@@ -106,7 +106,7 @@ message EdgeEntity{
   CurveType curve_type = 10;
   string owner_name = 11;
   string export_id = 12;
-  double length = 13;
+  Quantity length = 13;
   string owner_id = 14;
   bool is_reversed = 15;
 }
@@ -127,7 +127,7 @@ message FaceEntity{
   SurfaceType surface_type = 10;
   string owner_name = 11;
   string export_id = 12;
-  double area = 13;
+  Quantity area = 13;
   bool is_reversed = 14;
   EntityIdentifier parent_id = 15;
 }
@@ -137,7 +137,7 @@ message FaceEntity{
 message CurveEntity{
   EntityIdentifier id = 1;
   string owner_name = 2;
-  double length = 3;
+  Quantity length = 3;
   repeated Point points = 4;
 }
 
@@ -189,46 +189,46 @@ message NamedSelectionEntity {
 message WeldEntity {
   repeated TrimmedCurveList geometry = 1;
   string display_name = 2;
-  double length = 3;
-  double volume = 4;
-  double mass = 5;
-  double time = 6;
-  double rod_length = 7;
+  Quantity length = 3;
+  Quantity volume = 4;
+  Quantity mass = 5;
+  Quantity time = 6;
+  Quantity rod_length = 7;
   bool is_intermittent = 8;
   int32 sequence_id = 9;
-  double size1 = 10;
-  double size2 = 11;
+  Quantity size1 = 10;
+  Quantity size2 = 11;
 
   // This data only exists if the weld is intermittent
   bool is_angular = 12;
   bool is_at_center = 13;
-  double intermittent_length = 14;
+  Quantity intermittent_length = 14;
   int32 number_of_welds = 15;
-  double pitch = 16;
+  Quantity pitch = 16;
 }
 
 message FilletWeldEntity {
   repeated TrimmedCurveList geometry = 1;
   string display_name = 2;
-  double length = 3;
-  double volume = 4;
-  double mass = 5;
-  double time = 6;
-  double rod_length = 7;
+  Quantity length = 3;
+  Quantity volume = 4;
+  Quantity mass = 5;
+  Quantity time = 6;
+  Quantity rod_length = 7;
   bool is_intermittent = 8;
   int32 sequence_id = 9;
-  double size1 = 10;
-  double size2 = 11;
+  Quantity size1 = 10;
+  Quantity size2 = 11;
 
   // This data only exists if the weld is intermittent
   bool is_angular = 12;
   bool is_at_center = 13;
-  double intermittent_length = 14;
+  Quantity intermittent_length = 14;
   int32 number_of_welds = 15;
-  double pitch = 16;
+  Quantity pitch = 16;
 
   // Additional fillet weld specific properties
-  double trajectory_length = 17;
+  Quantity trajectory_length = 17;
   int32 number_of_sides = 18;
   bool all_around = 19;
 }
@@ -246,21 +246,21 @@ message MatingCondition {
 
 message AlignCondition {
   MatingCondition condition = 1;
-  double offset = 2;
+  Quantity offset = 2;
   bool is_reversed = 3;
   bool is_valid = 4;
 }
 
 message TangentCondition {
   MatingCondition condition = 1;
-  double offset = 2;
+  Quantity offset = 2;
   bool is_reversed = 3;
   bool is_valid = 4;
 }
 
 message OrientCondition {
   MatingCondition condition = 1;
-  double offset = 2;
+  Quantity offset = 2;
   bool is_reversed = 3;
   bool is_valid = 4;
 }
@@ -289,22 +289,22 @@ message SurfaceEvaluation {
   Direction derivative_uv = 3;
   Direction derivative_v = 4;
   Direction derivative_vv = 5;
-  double max_curvature = 6;
+  Quantity max_curvature = 6;
   Direction max_curvature_direction = 7;
-  double min_curvature = 8;
+  Quantity min_curvature = 8;
   Direction min_curvature_direction = 9;
   Direction normal = 10;
-  double param_u = 11;
-  double param_v = 12;
+  Quantity param_u = 11;
+  Quantity param_v = 12;
   Point point = 13;
 }
 
 message Surface {
   Point origin = 1;
-  double radius = 2;
-  double half_angle = 3;
-  double major_radius = 4;
-  double minor_radius = 5;
+  Quantity radius = 2;
+  Quantity half_angle = 3;
+  Quantity major_radius = 4;
+  Quantity minor_radius = 5;
   Direction reference = 6;
   Direction axis = 7;
   NurbsSurface nurbs_surface = 8;
@@ -313,10 +313,10 @@ message Surface {
 message TrimmedSurface {
   Surface surface = 1;
   SurfaceType type = 2;
-  double u_min = 3;
-  double u_max = 4;
-  double v_min = 5;
-  double v_max = 6;
+  Quantity u_min = 3;
+  Quantity u_max = 4;
+  Quantity v_min = 5;
+  Quantity v_max = 6;
 }
 
 message NurbsSurface {
@@ -342,9 +342,9 @@ message ParameterizationBounds {
 
 message CurveGeometry {
   Point origin = 1;
-  double radius = 2;
-  double major_radius = 3;
-  double minor_radius = 4;
+  Quantity radius = 2;
+  Quantity major_radius = 3;
+  Quantity minor_radius = 4;
   Direction direction = 5;
   Direction reference = 6;
   Direction axis = 7;
@@ -357,14 +357,14 @@ message TrimmedCurve {
   Point end = 3;
   double interval_start = 4;
   double interval_end = 5;
-  double length = 6;
+  Quantity length = 6;
 }
 
 // The shape.
 message Shape {
   bool is_surface_body = 1;
-  double surface_area = 2;
-  double volume = 3;
+  Quantity surface_area = 2;
+  Quantity volume = 3;
   Direction bounding_box_size = 4;
 }
 
@@ -417,13 +417,13 @@ message Geometries {
 
 message ProfileCrossSectionInfo {
   int32 section_anchor = 1;
-  double section_angle = 2;
+  Quantity section_angle = 2;
   Frame section_frame = 3;
   repeated TrimmedCurveList section_profile = 4;
 }
 
 message Separation {
-  double distance = 1;
+  Quantity distance = 1;
   Point point_a = 2;
   Point point_b = 3;
 }
@@ -434,20 +434,20 @@ message TrimmedCurveList {
 }
 
 message ProfileProperties {
-  double area = 1;
-  double centroid_x = 2;
-  double centroid_y = 3;
+  Quantity area = 1;
+  Quantity centroid_x = 2;
+  Quantity centroid_y = 3;
   double warping_constant = 4;
-  double ixx = 5;
-  double ixy = 6;
-  double iyy = 7;
+  Quantity ixx = 5;
+  Quantity ixy = 6;
+  Quantity iyy = 7;
   double torsional_constant = 8;
-  double shear_center_x = 9;
-  double shear_center_y = 10;
+  Quantity shear_center_x = 9;
+  Quantity shear_center_y = 10;
 }
 
 message CurveEvaluation {
-  double curvature = 1;
+  Quantity curvature = 1;
   Direction derivative = 2;
   Direction derivative2 = 3;
   double param = 4;
@@ -500,7 +500,7 @@ message DrivingDimensionEntity {
   EntityIdentifier id = 1;
   string name = 2;
   DimensionType dimension_type = 3;
-  double dimension_value = 4;
+  Quantity dimension_value = 4;
 }
 
 message GetFacesResponseData{
@@ -522,7 +522,7 @@ message Box {
 
 message Loop {
   string type=1;
-  double length=2;
+  Quantity length=2;
   Box bounding_box=3;
   repeated string edges=4;
 }
@@ -549,12 +549,12 @@ message Vertex {
 }
 
 message TessellationOptions{
-  double surface_deviation = 1;
-  double angle_deviation = 2;
+  Quantity surface_deviation = 1;
+  Quantity angle_deviation = 2;
   double maximum_aspect_ratio = 3;
-  double maximum_edge_length = 4;
+  Quantity maximum_edge_length = 4;
   bool watertight = 5;
-  double curve_deviation = 6;
+  Quantity curve_deviation = 6;
 }
 
 message GetUpdateStateResponse{

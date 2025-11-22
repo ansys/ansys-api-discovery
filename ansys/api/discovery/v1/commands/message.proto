@@ -1,7 +1,7 @@
 // Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 
-package ansys.api.discovery.v1.Commands.Message;
+package ansys.api.discovery.v1.commands.message;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 

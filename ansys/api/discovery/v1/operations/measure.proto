@@ -1,6 +1,6 @@
 // Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.operations.Measure;
+package ansys.api.discovery.v1.operations.measure;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 
@@ -33,5 +33,5 @@ message MinDistanceBetweenSelectionObjectsResponse{
 } 
 
 message Gap {
-  double distance = 1;
+  Quantity distance = 1;
 }

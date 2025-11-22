@@ -76,7 +76,7 @@ message GetAllResponse{
 
 message GetAreaResponseData {
   EntityIdentifier id = 1;
-  double area = 2;
+  Quantity area = 2;
 }
 
 message GetAreaResponse {
@@ -86,10 +86,10 @@ message GetAreaResponse {
 
 message GetBoxUVResponseData {
   EntityIdentifier id = 1;
-  double start_u = 2;
-  double end_u = 3;
-  double start_v = 4;
-  double end_v = 5;
+  Quantity start_u = 2;
+  Quantity end_u = 3;
+  Quantity start_v = 4;
+  Quantity end_v = 5;
 }
 
 message GetBoxUVResponse {
@@ -120,7 +120,7 @@ message GetSurfaceResponse{
 message CreateIsoParamCurvesRequestData {
   EntityIdentifier id = 1;
   bool u_dir_curve = 2;
-  double proportion = 3;
+  Quantity proportion = 3;
 }
 
 message CreateIsoParamCurvesRequest {
@@ -139,8 +139,8 @@ message CreateIsoParamCurvesResponse {
 
 message GetNormalRequestData {
   EntityIdentifier id=1;
-  double u=2;
-  double v=3;
+  Quantity u=2;
+  Quantity v=3;
 }
 
 message GetNormalRequest {
@@ -215,7 +215,7 @@ message FillFacesResponse{
 
 message SetMidSurfaceThicknessRequestData {
   repeated EntityIdentifier ids = 1;
-  double thickness = 2;
+  Quantity thickness = 2;
 }
 
 message SetMidSurfaceThicknessRequest {
@@ -244,7 +244,7 @@ message SetMidSurfaceOffsetTypeResponse {
 message GetRoundInfoResponseData {
   EntityIdentifier id = 1;
   bool along_u = 2;
-  double radius = 3;
+  Quantity radius = 3;
 }
 
 message GetRoundInfoResponse {
@@ -263,12 +263,12 @@ message ReplaceFaceRequest {
 
 message RemoveFacesRequestData {
   repeated EntityIdentifier selection_ids = 1;
-  double offset = 2;
+  Quantity offset = 2;
 }
 
 message RemoveFacesRequest {
   repeated RemoveFacesRequestData request_data = 1;
-  double offset = 2;
+  Quantity offset = 2;
 }
 
 message DetachFacesResponse{
@@ -285,8 +285,8 @@ message RemoveFacesResponse{
 
 message EvaluateRequestData {
   EntityIdentifier id=1;
-  double u=2;
-  double v=3;
+  Quantity u=2;
+  Quantity v=3;
 }
 
 message EvaluateRequest {
@@ -315,8 +315,8 @@ message GetVerticesResponse{
 
 message GetFacesByAreaRangeRequest {
   EntityIdentifier id=1;
-  double area1=2;
-  double area2=3;
+  Quantity area1=2;
+  Quantity area2=3;
 }
 
 message GetFacesByAreaRangeResponse {

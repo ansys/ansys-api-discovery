@@ -1,6 +1,6 @@
 // Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.operations.Prepare;
+package ansys.api.discovery.v1.operations.prepare;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 import "ansys/api/discovery/v1/design/designmessages.proto";
@@ -39,26 +39,26 @@ service Prepare{
 
 message CreateEnclosureBoxRequest{
   repeated EntityIdentifier body_ids = 1;
-  double x_low = 2;
-  double x_high = 3;
-  double y_low = 4;
-  double y_high = 5;
-  double z_low = 6;
-  double z_high = 7;
+  Quantity x_low = 2;
+  Quantity x_high = 3;
+  Quantity y_low = 4;
+  Quantity y_high = 5;
+  Quantity z_low = 6;
+  Quantity z_high = 7;
   EnclosureOptions enclosure_options = 8;
 }
 
 message CreateEnclosureCylinderRequest{
   repeated EntityIdentifier body_ids = 1;
-  double axial_distance_low = 2;
-  double axial_distance_high = 3;
-  double radial_distance = 4;
+  Quantity axial_distance_low = 2;
+  Quantity axial_distance_high = 3;
+  Quantity radial_distance = 4;
   EnclosureOptions enclosure_options = 5;
 }
 
 message CreateEnclosureSphereRequest{
   repeated EntityIdentifier body_ids = 1;
-  double radial_distance = 2;
+  Quantity radial_distance = 2;
   EnclosureOptions enclosure_options = 3;
 }
 
@@ -103,7 +103,7 @@ message FixInterferenceResponse{
 message FixShortEdgesRequest{
   repeated EntityIdentifier selection_ids = 1;
   // The maximum edge length in mm to remove shorter edges.
-  double max_edge_length=2;
+  Quantity max_edge_length=2;
 }
 
 message FixShortEdgesResponse{
@@ -219,7 +219,7 @@ message FindLogoOptions {
 }
 
 message FindHelixesOptions {
-  optional double min_radius = 1;
-  optional double max_radius = 2;
-  optional double fit_radius_error = 3;
+  optional Quantity min_radius = 1;
+  optional Quantity max_radius = 2;
+  optional Quantity fit_radius_error = 3;
 }
