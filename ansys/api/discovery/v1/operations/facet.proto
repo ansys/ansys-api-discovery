@@ -1,7 +1,8 @@
 // Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.operations.Facet;
+package ansys.api.discovery.v1.operations.facet;
 
+import "ansys/api/discovery/v1/commonmessages.proto";
 import "ansys/api/discovery/v1/design/designmessages.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V1.Operations.Facet";
@@ -43,13 +44,13 @@ message FacetAutoFixResponse{
 //
 // ShrinkWrapOptions is used to specify ShrinkWrap method in the Facet Tools. 
 message ShrinkWrapOptions {
-  double size =2;
+  Quantity size =2;
   bool keep_original_bodies =3;
   bool preserve_features =4;
-  double angle_tolerance =5;
+  Quantity angle_tolerance =5;
   bool secondary_size_enabled =6;
-  double secondary_size = 7;
+  Quantity secondary_size = 7;
   bool max_size_enabled =8;
-  double max_size = 9;
-  double curvature_angle =10;
+  Quantity max_size = 9;
+  Quantity curvature_angle =10;
 }

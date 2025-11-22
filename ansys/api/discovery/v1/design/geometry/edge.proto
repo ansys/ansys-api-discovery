@@ -61,7 +61,7 @@ message GetIntervalResponse {
 
 message GetLengthResponseData{
   EntityIdentifier id = 1;
-  double length = 2;
+  Quantity length = 2;
 }
 
 message GetLengthResponse{
