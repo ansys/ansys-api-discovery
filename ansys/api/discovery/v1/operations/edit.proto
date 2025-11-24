@@ -1,6 +1,6 @@
 // Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.operations.Edit;
+package ansys.api.discovery.v1.operations.edit;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 import "ansys/api/discovery/v1/design/designmessages.proto";
@@ -130,7 +130,7 @@ message IntersectCurvesResponse {
 message RevolveCurvesRequestData {
   repeated ansys.api.discovery.v1.design.TrimmedCurve curves = 1;
   Line axis = 2;
-  double angle = 3;
+  Quantity angle = 3;
   bool symmetric = 4;
 }
 
@@ -144,7 +144,7 @@ message RevolveCurvesResponse{
 
 message PullCurvePointRequestData {
   repeated EntityIdentifier selection_ids = 1;
-  double distance = 2;
+  Quantity distance = 2;
   bool linear = 3;
   bool reversed = 4;
 }
@@ -159,7 +159,7 @@ message PullCurvePointResponse{
 
 message OffsetFaceCurvesRequestData {
   repeated EntityIdentifier ids = 1;
-  double offset = 2;
+  Quantity offset = 2;
 }
 
 message OffsetFaceCurvesRequest {
@@ -177,7 +177,7 @@ message ExtrudeEdgesRequestData {
   EntityIdentifier face_id = 2;
   Point point = 3;
   Direction direction = 4;
-  double distance= 5;
+  Quantity distance= 5;
   ExtrudeType extrude_type = 6;
   bool pull_symmetric = 7;
   bool copy = 8;
@@ -214,9 +214,9 @@ enum SplitEdgeReference{
 message SplitEdgesRequestData {
   repeated EntityIdentifier selection_ids = 1;
   SplitEdgeType split_type = 2;
-  repeated double proportions = 3;
+  repeated Quantity proportions = 3;
   repeated Point points = 4;
-  repeated double lengths = 5;
+  repeated Quantity lengths = 5;
   SplitEdgeReference reference = 6;
 }
 
@@ -231,7 +231,7 @@ message SplitEdgesResponse{
 message MoveImprintEdgesRequestData {
   repeated EntityIdentifier edge_ids = 1;
   Direction direction = 2;
-  double distance = 3;
+  Quantity distance = 3;
 }
 
 message MoveImprintEdgesRequest {
@@ -244,7 +244,7 @@ message MoveImprintEdgesResponse {
 
 message OffsetEdgesRequestData {
   repeated EntityIdentifier edge_ids = 1;
-  double value = 2;
+  Quantity value = 2;
 }
 
 message OffsetEdgesRequest {
@@ -277,7 +277,7 @@ message FillFacesResponse{
 
 message OffsetFacesSetRadiusRequestData {
   EntityIdentifier id = 1;
-  double radius = 2;
+  Quantity radius = 2;
   bool copy = 3;
   OffsetMode offset_mode = 4;
   ExtrudeType extrude_type = 5;
@@ -310,7 +310,7 @@ message FaceOffsetResponse {
 message ThickenFacesRequestData {
   repeated EntityIdentifier ids = 1;
   Direction direction = 2;
-  double value = 3;
+  Quantity value = 3;
   ExtrudeType extrude_type = 4;
   bool pull_symmetric = 5;
   bool select_direction = 6;
@@ -328,7 +328,7 @@ message DraftFacesRequestData {
   repeated EntityIdentifier ids = 1;
   repeated EntityIdentifier reference_ids = 2;
   DraftSide draft_side = 3;
-  double draft_angle = 4;
+  Quantity draft_angle = 4;
   ExtrudeType extrude_type = 5;
 }
 
@@ -343,7 +343,7 @@ message DraftFacesResponse {
 
 message ExtrudeFacesRequestData {
   repeated EntityIdentifier ids = 1;
-  double distance = 2;
+  Quantity distance = 2;
   Direction direction = 3;
   ExtrudeType extrude_type = 4;
   bool pull_symmetric = 5;
@@ -375,7 +375,7 @@ message ExtrudeFacesUpToRequest {
 message RevolveFacesRequestData {
   repeated EntityIdentifier selection_id = 1;
   Line axis = 2;
-  double angle = 3;
+  Quantity angle = 3;
   repeated EntityIdentifier alternate_axis_ids = 4;
   Direction alternate_direction = 5;
   ExtrudeType extrude_type = 6;
@@ -401,9 +401,9 @@ message RevolveFacesByHelixRequestData {
   repeated EntityIdentifier selection_ids = 1;
   Direction direction = 2;
   Line axis = 3;
-  double height = 4;
-  double pitch = 5;
-  double taper_angle = 6;
+  Quantity height = 4;
+  Quantity pitch = 5;
+  Quantity taper_angle = 6;
   bool right_handed = 7;
   bool both_sides = 8;
   ExtrudeType extrude_type = 9;
@@ -416,7 +416,7 @@ message RevolveFacesByHelixRequest {
 message SweepFacesRequestData {
   repeated EntityIdentifier selection_ids = 1;
   repeated EntityIdentifier trajectory_ids = 2;
-  double optional_distance = 3;
+  Quantity optional_distance = 3;
 }
 
 message SweepFacesRequest {
@@ -480,7 +480,7 @@ message ExtrudeFacesUpToResponse{
 
 message OffsetFacesRequestData {
   repeated EntityIdentifier face_ids = 1;
-  double offset = 2;
+  Quantity offset = 2;
   Direction direction = 3;
   ExtrudeType extrude_type = 4;
 }
@@ -568,7 +568,7 @@ message SplitBodyResponse {
 
 message ShellRequestData {
   EntityIdentifier selection_id = 1;
-  double offset = 2;
+  Quantity offset = 2;
 }
 
 message ShellRequest {
@@ -601,7 +601,7 @@ message SweepWithGuideResponse {
 message MoveTranslateRequestData{
   repeated EntityIdentifier selection_ids = 1;
   Direction direction = 2;
-  double distance = 3;
+  Quantity distance = 3;
   EntityIdentifier named_selection_id = 4;
 }
 
@@ -616,7 +616,7 @@ message MoveTranslateResponse {
 message MoveRotateRequestData{
   repeated EntityIdentifier selection_ids = 1;
   Line axis = 2;
-  double angle = 3;
+  Quantity angle = 3;
 }
 
 message MoveRotateRequest{
@@ -672,7 +672,7 @@ message ScaleNonUniformRequest {
 
 message ChamferRequestData {
   repeated EntityIdentifier ids = 1;
-  double distance = 2;
+  Quantity distance = 2;
 }
 
 message ChamferRequest {
@@ -702,7 +702,7 @@ message FullFilletResponse{
 
 message FilletRequestData {
   repeated EntityIdentifier ids = 1;
-  double radius = 2;
+  Quantity radius = 2;
 }
 
 message FilletRequest {
@@ -819,7 +819,7 @@ message SeparatePiecesResponse{
 message SweepDatumPointRequestData {
   repeated EntityIdentifier selection_ids = 1;
   repeated EntityIdentifier trajectory_ids = 2;
-  double distance = 3;
+  Quantity distance = 3;
 }
 
 message SweepDatumPointRequest {
@@ -839,7 +839,7 @@ message SweepDatumPointResponse{
 message RevolveDatumPointRequestData {
   repeated EntityIdentifier selection_ids = 1;
   Line axis = 2;
-  double angle = 3;
+  Quantity angle = 3;
 }
 
 message RevolveDatumPointRequest {
@@ -859,9 +859,9 @@ message RevolveDatumPointResponse{
 message RevolveDatumPointByHelixRequestData {
   repeated EntityIdentifier selection_ids = 1;
   Line axis = 2;
-  double height = 3;
-  double pitch = 4;
-  double taper_angle = 5;
+  Quantity height = 3;
+  Quantity pitch = 4;
+  Quantity taper_angle = 5;
   bool right_handed = 6;
   bool pull_symmetric = 7;
 }
@@ -881,7 +881,7 @@ message RevolveDatumPointByHelixResponse{
 }
 
 message RotateOptions{
-  double angle = 1;
+  Quantity angle = 1;
   Point axis_origin = 2;
   Direction axis_direction = 3;
 }
