@@ -106,17 +106,13 @@ message GetLegendMaximumValueRequest{
 message GetLegendMinimumValueRequest{
 }
 
-message DoubleValueResponse {
-  double value = 1;
-}
-
 message GetLegendMaximumValueResponse{
-  DoubleValueResponse response = 1;
+  double response = 1;
   CommandResponse command_response = 2;
 }
 
 message GetLegendMinimumValueResponse{
-  DoubleValueResponse response = 1;
+  double response = 1;
   CommandResponse command_response = 2;
 }
 

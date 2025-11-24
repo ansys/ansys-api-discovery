@@ -157,5 +157,5 @@ message PlacementData{
   Direction translation = 2;  
   Point rotation_axis_origin = 3;  
   Direction rotation_axis_direction = 4;  
-  double rotation_angle = 5;  
+  Quantity rotation_angle = 5;  
 }

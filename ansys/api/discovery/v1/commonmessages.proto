@@ -118,9 +118,9 @@ message Direction {
 }
 
 message Point {
-  double x = 1;
-  double y = 2;
-  double z = 3;
+  Quantity x = 1;
+  Quantity y = 2;
+  Quantity z = 3;
 }
 
 message Frame {
@@ -141,7 +141,7 @@ message Line {
 
 message Circle {
   Point center=1;
-  double radius=2;
+  Quantity radius=2;
 }
 
 message Arc {
@@ -153,16 +153,16 @@ message Arc {
 
 message Ellipse {
   Point center=1;
-  double majorradius=2;
-  double minorradius=3;
-  double angle=4;
+  Quantity majorradius=2;
+  Quantity minorradius=3;
+  Quantity angle=4;
 }
 
 message Polygon {
   Point center=1;
-  double radius=2;
+  Quantity radius=2;
   int32 numberofsides=3;
-  double angle=4;
+  Quantity angle=4;
 }
 
 ////////////////////
@@ -170,11 +170,12 @@ message Polygon {
 ////////////////////
 
 message Quantity {
-  QuantityType quantity_type = 1; //not required in cases where the usage context defines the quantity type
-  double quantity_value = 2;
-  int32 unit = 3;
-  string unit_abbreviation = 4; //not required in cases where the usage context defines the abbreviation
-  string as_string = 5; //Optional, but if not empty, all other properties will be defaulted from it.
+  optional QuantityType quantity_type = 1; //not required in cases where the usage context defines the quantity type
+  optional double quantity_value = 2;
+  optional int32 unit = 3;
+  optional string unit_abbreviation = 4; //not required in cases where the usage context defines the abbreviation
+  optional string as_string = 5; //Optional, but if not empty, all other properties will be defaulted from it.
+  optional double value_in_geometry_units = 6; //Mandatory for geometry dimensions, this is the raw quantity's value in SI units.
 }
 
 message QuantityVector {

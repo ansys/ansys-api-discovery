@@ -145,7 +145,7 @@ message SetSuppressedRequest {
 
 message GetSurfaceBodyThicknessResponseData {
   EntityIdentifier id = 1;
-  double result = 2;
+  Quantity result = 2;
 }
 
 message GetSurfaceBodyThicknessResponse {
@@ -226,7 +226,7 @@ message CreateExtrudedBodyFromFaceProfileRequestData {
   string name = 1;
   EntityIdentifier parent_id = 2;
   EntityIdentifier face_id = 3;
-  double distance = 4;
+  Quantity distance = 4;
 }
 
 message CreateExtrudedBodyFromFaceProfileRequest {
@@ -283,7 +283,7 @@ message CreateSphereBodyRequestData {
   string name = 1;
   EntityIdentifier parent_id = 2;
   Point center = 3;
-  double radius = 4;
+  Quantity radius = 4;
 }
 
 message CreateSphereBodyRequest {
@@ -295,7 +295,7 @@ message CreateExtrudedBodyRequestData {
   EntityIdentifier parent_id = 2;
   Plane plane = 3;
   Geometries geometries = 4;
-  double distance = 5;
+  Quantity distance = 5;
 }
 
 message CreateExtrudedBodyRequest {
@@ -304,7 +304,7 @@ message CreateExtrudedBodyRequest {
 
 message GetVolumeResponseData{
   EntityIdentifier id = 1;
-  double volume = 2;
+  Quantity volume = 2;
 }
 
 message GetVolumeResponse {
@@ -510,7 +510,7 @@ message GetClosestSeparationResponse{
 
 message SetMidSurfaceThicknessRequestData {
   repeated EntityIdentifier ids = 1;
-  double thickness = 2;
+  Quantity thickness = 2;
 }
 message SetMidSurfaceThicknessRequest {
   repeated SetMidSurfaceThicknessRequestData request_data = 1;
@@ -538,8 +538,8 @@ message SetMidSurfaceOffsetTypeResponse {
 message CreateTorusRequestData {
   string name = 1;
   EntityIdentifier parent_id = 2;
-  double major_radius = 3;
-  double minor_radius = 4;
+  Quantity major_radius = 3;
+  Quantity minor_radius = 4;
   Frame frame = 5;
 }
 

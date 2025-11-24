@@ -39,7 +39,7 @@ service BeamProfileData
 
 message CreateBeamProfileCircularRequestData{
   Plane plane=1;
-  double radius=2;
+  Quantity radius=2;
   Point origin=3;
   string name=4;
 }

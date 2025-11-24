@@ -41,8 +41,8 @@ message LinearPatternCreationRequestData {
   EntityIdentifier linear_direction_id = 3;
   int32 count_x = 4;
   int32 count_y = 5;
-  double pitch_x = 6;
-  double pitch_y = 7;  
+  Quantity pitch_x = 6;
+  Quantity pitch_y = 7;  
 }
 
 message LinearPatternCreationRequest {
@@ -53,8 +53,8 @@ message SetLinearPatternDataRequestData {
   repeated EntityIdentifier selection_ids = 1;
   int32 count_x = 2;
   int32 count_y = 3;
-  double pitch_x = 4;
-  double pitch_y = 5;
+  Quantity pitch_x = 4;
+  Quantity pitch_y = 5;
   int32 new_seed_index = 6;
   int32 old_seed_index = 7;
 }
@@ -67,8 +67,8 @@ message SetCircularPatternDataRequestData {
   repeated EntityIdentifier selection_ids = 1;
   int32 circular_count = 2;
   int32 linear_count = 3;
-  double step_angle = 4;
-  double step_linear = 5;
+  Quantity step_angle = 4;
+  Quantity step_linear = 5;
 }
 
 message SetCircularPatternDataRequest {
@@ -77,14 +77,14 @@ message SetCircularPatternDataRequest {
 
 message CircularPatternCreationRequestData {
   repeated EntityIdentifier selection_ids = 1;
-  double circular_angle = 2;
+  Quantity circular_angle = 2;
   oneof axis {
     EntityIdentifier edge_axis_id = 3;
     Line line_axis = 4;
   }
   int32 circular_count = 5;
   int32 linear_count = 6;
-  double linear_pitch = 7;
+  Quantity linear_pitch = 7;
   bool two_dimensional = 8;
   Direction radial_direction = 9;
 }
@@ -95,15 +95,15 @@ message CircularPatternCreationRequest {
 
 message FillPatternCreationRequestData {
   repeated EntityIdentifier selection_ids = 1;
-  double column_x_offset = 2;
-  double column_y_offset = 3;
+  Quantity column_x_offset = 2;
+  Quantity column_y_offset = 3;
   FillPatternType fill_pattern_type= 4;
   EntityIdentifier linear_direction_id = 5;
-  double margin = 6;
-  double row_x_offset = 7;
-  double row_y_offset = 8;
-  double x_spacing = 9;
-  double y_spacing = 10;
+  Quantity margin = 6;
+  Quantity row_x_offset = 7;
+  Quantity row_y_offset = 8;
+  Quantity x_spacing = 9;
+  Quantity y_spacing = 10;
 }
 
 message FillPatternCreationRequest {

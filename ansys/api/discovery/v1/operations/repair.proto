@@ -1,6 +1,6 @@
 // Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.operations.Repair;
+package ansys.api.discovery.v1.operations.repair;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 import "ansys/api/discovery/v1/design/designmessages.proto";
@@ -103,8 +103,8 @@ message FixInterferenceResponse{
 
 message FindSplitEdgesRequest{
   repeated EntityIdentifier body_or_face_ids=1;
-  double angle=2;
-  double distance = 3;
+  Quantity angle=2;
+  Quantity distance = 3;
   bool comprehensive = 4;
 }
 
@@ -139,7 +139,7 @@ message FixExtraEdgesResponse{
 
 message FindShortEdgesRequest{
   repeated EntityIdentifier selection_id = 1;
-  double max_edge_length=2; 
+  Quantity max_edge_length=2; 
   bool comprehensive = 3;
 }
 
@@ -173,7 +173,7 @@ message FixInexactEdgesResponse{
 
 message FindStitchFacesRequest{
   repeated EntityIdentifier face_ids = 1;
-  double maximum_distance = 2; // default: 0.0001
+  Quantity maximum_distance = 2; // default: 0.0001
   bool check_for_coincidence = 3; // default: false
   bool allow_multiple_bodies = 4; // default: false
   bool maintain_components = 5; // default: false
@@ -200,8 +200,8 @@ enum SolidifyFixMethodType{
 
 message FindMissingFacesRequest{
   repeated EntityIdentifier face_ids = 1;
-  double angle=2;
-  double distance = 3;
+  Quantity angle=2;
+  Quantity distance = 3;
   oneof method
   {
     google.protobuf.NullValue null = 4;
@@ -224,7 +224,7 @@ message FixMissingFacesResponse{
 
 message  FindDuplicateFacesRequest{
   repeated EntityIdentifier face_ids = 1;
-  double max_gap = 2;
+  Quantity max_gap = 2;
 }
 
 message FindDuplicateFacesResponse{
@@ -241,8 +241,8 @@ message FixDuplicateFacesResponse{
 
 message FindSmallFacesRequest{
   repeated EntityIdentifier selection_id = 1;
-  double area = 2;
-  double width = 3;
+  Quantity area = 2;
+  Quantity width = 3;
 }
 
 message FindSmallFacesResponse{
@@ -259,8 +259,8 @@ message FixSmallFacesResponse{
 
 message FindGapsRequest{
   repeated EntityIdentifier body_ids = 1;
-  double angle=2;
-  double distance = 3;
+  Quantity angle=2;
+  Quantity distance = 3;
   optional SolidifyFixMethodType fix_method = 4;
   bool allow_multi_patch = 5;
 }
@@ -278,7 +278,7 @@ message FixGapsResponse{
 }
 
 message FindCurveGapsRequest{
-  double distance = 1;
+  Quantity distance = 1;
 }
 
 message FindCurveGapsResponse{
@@ -287,7 +287,7 @@ message FindCurveGapsResponse{
 
 message FixCurveGapsRequest{
   int32 curve_gap_problem_area_id = 1;
-  double distance = 2;
+  Quantity distance = 2;
 }
 
 message FixCurveGapsResponse{
@@ -308,7 +308,7 @@ message FixDuplicateCurvesResponse{
 
 message FindSmallCurvesRequest{
   repeated EntityIdentifier body_ids = 1;
-  double  max_curve_length = 2;
+  Quantity  max_curve_length = 2;
 }
 
 message FindSmallCurvesResponse{
@@ -370,7 +370,7 @@ message FitCurvesRequest{
   bool lines = 3;
   bool splines = 4;
   bool tangentize = 5;
-  double tolerance = 6;
+  Quantity tolerance = 6;
 }
 
 message FitCurvesResponse{
@@ -430,14 +430,14 @@ message FindAndFixExtraEdgesRequest{
 
 message FindAndFixSplitEdgesRequest{
   repeated EntityIdentifier bodys_or_face_ids=1;
-  double angle=2;
-  double distance = 3;
+  Quantity angle=2;
+  Quantity distance = 3;
   bool comprehensive = 4;
 }
 
 message FindAndFixStitchFacesRequest{
   repeated EntityIdentifier face_ids = 1;
-  double maximum_distance = 2; // default: 0.0001
+  Quantity maximum_distance = 2; // default: 0.0001
   bool check_for_coincidence = 3; // default: false
   bool allow_multiple_bodies = 4; // default: false
   bool maintain_components = 5; // default: false
@@ -446,7 +446,7 @@ message FindAndFixStitchFacesRequest{
 
 message FindAndFixShortEdgesRequest{
   repeated EntityIdentifier selection_id = 1;
-  double max_edge_length=2; 
+  Quantity max_edge_length=2; 
   bool comprehensive = 3;
 }
 
@@ -463,8 +463,8 @@ message SplitEdgeProblemArea {
 }
 
 message FixSplitEdgeOptions {
-  double max_edge_length  = 1;
-  double min_edge_angle  = 2;
+  Quantity max_edge_length  = 1;
+  Quantity min_edge_angle  = 2;
 }
 
 message ExtraEdgeProblemArea {
@@ -541,8 +541,8 @@ message InspectGeometryOptions {
   int32 max_number_of_issues = 2;
   bool check_self_intersections = 3;
   bool find_g1_discontinuities = 4;
-  double sliver_edge_tolerance = 5;
-  double sliver_face_tolerance = 6;
+  Quantity sliver_edge_tolerance = 5;
+  Quantity sliver_face_tolerance = 6;
 }
 
 message InspectGeometryResultIssue
@@ -552,7 +552,7 @@ message InspectGeometryResultIssue
   repeated ansys.api.discovery.v1.design.FaceEntity faces = 3;
   repeated ansys.api.discovery.v1.design.EdgeEntity edges = 4;
   string message = 5;
-  optional double scalar_value = 6;
+  optional Quantity scalar_value = 6;
 }
 
 message InspectGeometryResult {
