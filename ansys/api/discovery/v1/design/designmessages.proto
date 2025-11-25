@@ -437,11 +437,11 @@ message ProfileProperties {
   Quantity area = 1;
   Quantity centroid_x = 2;
   Quantity centroid_y = 3;
-  double warping_constant = 4;
+  Quantity warping_constant = 4;
   Quantity ixx = 5;
   Quantity ixy = 6;
   Quantity iyy = 7;
-  double torsional_constant = 8;
+  Quantity torsional_constant = 8;
   Quantity shear_center_x = 9;
   Quantity shear_center_y = 10;
 }
@@ -551,7 +551,7 @@ message Vertex {
 message TessellationOptions{
   Quantity surface_deviation = 1;
   Quantity angle_deviation = 2;
-  double maximum_aspect_ratio = 3;
+  Quantity maximum_aspect_ratio = 3;
   Quantity maximum_edge_length = 4;
   bool watertight = 5;
   Quantity curve_deviation = 6;
