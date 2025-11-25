@@ -13,6 +13,8 @@ service Prepare{
   rpc CreateEnclosureCylinder(CreateEnclosureCylinderRequest) returns (CreateEnclosureResponse);
 
   rpc CreateEnclosureSphere(CreateEnclosureSphereRequest) returns (CreateEnclosureResponse);
+
+  rpc DetectSweepableBodies(DetectSweepableBodiesRequest) returns (DetectSweepableBodiesResponse);
   
   rpc FindHelixes(FindHelixesRequest) returns (FindHelixesResponse); 
 
@@ -201,6 +203,21 @@ message FindLogosResponse{
 message FindAndRemoveLogosResponse{
   repeated ansys.api.discovery.v1.design.FaceEntity logo_faces = 1;
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
+}
+
+message DetectSweepableBodiesRequest {
+  repeated EntityIdentifier bodies = 1;
+  bool get_source_target_faces = 2;
+}
+
+message DetectSweepableBodiesResponseData {
+  bool result = 1;
+  repeated EntityIdentifier face_ids = 2;
+}
+
+message DetectSweepableBodiesResponse {
+  repeated DetectSweepableBodiesResponseData response_data = 1;
+  CommandResponse command_response = 2;
 }
 
 message RemoveLogoRequest{
