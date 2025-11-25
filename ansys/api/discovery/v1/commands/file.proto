@@ -58,7 +58,8 @@ message GetReferencedDocumentsResponse{
 message SaveRequest{  
   FileFormat format = 1;
   SaveMode save_mode = 2;
-  bool write_body_facets = 3;
+  bool write_body_facets = 3;  
+  optional EntityIdentifier parent_entity_id = 7; // this allows both part export and body export.
 }  
 
 message SaveResponse {  

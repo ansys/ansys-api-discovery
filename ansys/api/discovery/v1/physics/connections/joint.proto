@@ -25,7 +25,7 @@ message JointCreationRequest{
 }
 
 message SetJointTypeRequest{
-  EntityIdentifier object_id = 1;
+  GuidEntityIdentifier object_id = 1;
   JointType joint_type = 2;
 }
 
