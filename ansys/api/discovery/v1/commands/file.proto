@@ -109,7 +109,7 @@ message OpenResponse{
 
 message OpenRequest {
   bytes data = 1;
-  FileFormat file_format = 2;
+  string file_name = 2;
   OpenMode open_mode = 3;
   bool import_named_selections = 4;
   map<string,bool> import_options = 5;
@@ -117,9 +117,8 @@ message OpenRequest {
 }
 
 enum OpenMode{
-  OPENMODE_NONE = 0;
-  OPENMODE_NEW = 1;
-  OPENMODE_INSERT = 2;
+  OPENMODE_NEW = 0;
+  OPENMODE_INSERT = 1;
 }
 
 enum SaveMode{
