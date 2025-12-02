@@ -612,10 +612,9 @@ message TrackedCommandResponse{
 }
 
 message EnhancedRepairToolMessage {
-  bool success = 1;
-  int32 found = 2;
-  int32 repaired = 3;
-  TrackedChanges tracked_changes = 4;
+  int32 found = 1;
+  int32 repaired = 2;
+  TrackedCommandResponse tracked_command_response = 3;
 }
 
 message TrackedChanges {
