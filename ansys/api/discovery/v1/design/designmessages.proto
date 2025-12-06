@@ -138,6 +138,7 @@ message CurveEntity{
   string owner_name = 2;
   Quantity length = 3;
   repeated Point points = 4;
+  EntityIdentifier parent_id = 5;
 }
 
 // A 3D coordinate system.
