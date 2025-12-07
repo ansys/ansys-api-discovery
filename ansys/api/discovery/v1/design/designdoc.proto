@@ -50,6 +50,7 @@ message GetAssemblyResponse {
   map <string, int32> component_shared_topologies=8;
   repeated ansys.api.discovery.v1.design.BeamEntity beams=9;
   repeated ansys.api.discovery.v1.design.CurveEntity design_points=10;
+  repeated ansys.api.discovery.v1.design.DrivingDimensionEntity driving_dimensions=11;
 }
 
 message CoordinateSystemList {
