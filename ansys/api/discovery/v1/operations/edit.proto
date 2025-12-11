@@ -41,6 +41,8 @@ service Edit{
 
   rpc IntersectCurves(IntersectCurvesRequest) returns (IntersectCurvesResponse);
 
+  rpc IntersectCurveAndSurface(IntersectCurveAndSurfaceRequest) returns (IntersectCurveAndSurfaceResponse);
+
   rpc MapBody(MapRequest) returns (MapResponse);
 
   rpc MergeBodies(MergeBodiesRequest) returns (MergeBodiesResponse);
@@ -77,6 +79,8 @@ service Edit{
 
   rpc RevolveFacesUpTo(RevolveFacesUpToRequest) returns (RevolveFacesUpToResponse);
 
+  rpc Rotate(RotateRequest) returns (RotateResponse);
+
   rpc Scale(ScaleRequest) returns (ScaleResponse);
 
   rpc ScaleNonUniform(ScaleNonUniformRequest) returns (ScaleNonUniformResponse);
@@ -102,6 +106,28 @@ service Edit{
   rpc RevolveDatumPointByHelix(RevolveDatumPointByHelixRequest) returns (RevolveDatumPointByHelixResponse);
 
   rpc SweepDatumPoint(SweepDatumPointRequest) returns (SweepDatumPointResponse);
+
+  rpc Translate(TranslateRequest) returns (TranslateResponse);
+}
+
+message IntersectCurveAndSurfaceResponseData {
+  repeated Point points = 1;
+  bool intersect = 2;
+}
+
+message IntersectCurveAndSurfaceResponse {
+  repeated IntersectCurveAndSurfaceResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message IntersectCurveAndSurfaceRequestData {
+  ansys.api.discovery.v1.design.CurveGeometry curve = 1;
+  ansys.api.discovery.v1.design.Surface surface = 2;
+  SurfaceType surface_type = 3;
+}
+
+message IntersectCurveAndSurfaceRequest {
+  repeated IntersectCurveAndSurfaceRequestData request_data = 1;
 }
 
 message BodiesSelectionResponse{
