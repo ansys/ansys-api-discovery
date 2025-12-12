@@ -611,12 +611,6 @@ message TrackedCommandResponse{
   TrackedChanges tracked_changes = 2;
 }
 
-message EnhancedRepairToolMessage {
-  int32 found = 1;
-  int32 repaired = 2;
-  TrackedCommandResponse tracked_command_response = 3;
-}
-
 message TrackedChanges {
   repeated BodyEntity created_bodies = 1;
   repeated BodyEntity modified_bodies = 2;

@@ -125,7 +125,9 @@ message ShareTopologyResponse{
 }
 
 message EnhancedShareTopologyResponse{
-  ansys.api.discovery.v1.design.EnhancedRepairToolMessage response_data = 1;
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
+  int32 found = 2;
+  int32 repaired = 3;
 }
 
 message UnshareTopologyRequest{
