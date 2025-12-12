@@ -398,23 +398,23 @@ message FindDuplicateCurvesRequest{
 }
 
 message FindAndFixExtraEdgesResponse{
-  ansys.api.discovery.v1.design.EnhancedRepairToolMessage response_data = 1;
+  RepairToolMessage result = 1;
 }
 
 message FindAndFixShortEdgesResponse{
-  ansys.api.discovery.v1.design.EnhancedRepairToolMessage response_data = 1;
+  RepairToolMessage result = 1;
 }
 
 message FindAndFixSplitEdgesResponse{
-  ansys.api.discovery.v1.design.EnhancedRepairToolMessage response_data = 1;
+  RepairToolMessage result = 1;
 }
 
 message FindAndFixStitchFacesResponse{
-  ansys.api.discovery.v1.design.EnhancedRepairToolMessage response_data = 1;
+  RepairToolMessage result = 1;
 }
 
 message FindAndSimplifyResponse{
-  ansys.api.discovery.v1.design.EnhancedRepairToolMessage response_data = 1;
+  RepairToolMessage result = 1;
 }
 
 message FindAndSimplifyRequest{
@@ -533,6 +533,8 @@ message GenericProblemArea {
 }
 
 message RepairToolMessage {
+  optional int32 found = 1;
+  optional int32 repaired = 2;
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 3;
 }
 
