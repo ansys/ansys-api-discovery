@@ -9,11 +9,15 @@ option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.Script";
 service Script
 {  
   // Runs a script based on a file.
-  rpc RunScriptFile(RunScriptFileRequest) returns(RunScriptFileResponse);
+  rpc RunScriptFile(stream RunScriptFileRequest) returns(RunScriptFileResponse);
+
+  rpc RunScriptFileDebug(stream RunScriptFileRequest) returns(RunScriptFileResponse);
 
   // Runs a script based on a file without having it recorded by feature tracking.
   // ATTENTION! Changing geometry within a not tracked would corrupt the feature's tracking state.
-  rpc RunNotTrackedScriptFile(RunScriptFileRequest) returns(RunScriptFileResponse);
+  rpc RunNotTrackedScriptFile(stream RunScriptFileRequest) returns(RunScriptFileResponse);
+
+  rpc RunNotTrackedScriptFileDebug(stream RunScriptFileRequest) returns(RunScriptFileResponse);
 
   // Runs a script based on a supplied string.
   rpc RunScript(RunScriptRequest) returns(RunScriptResponse);
@@ -31,6 +35,7 @@ message RunScriptFileRequest{
   int32 api_version = 3;  
   // Set the type of run script file to called
   RunScriptType script_type = 4;
+  bytes data = 5;
 }
 
 message RunScriptFileResponse{
