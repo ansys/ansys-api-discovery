@@ -19,7 +19,9 @@ service Unsupported {
   
   rpc GetFacetedBodies(GetFacetedBodiesRequest) returns(GetFacetedBodiesResponse);  
   
-  rpc GetFacetedBodiesStream(GetFacetedBodiesRequest) returns(stream GetFacetedBodiesResponse);  
+  rpc GetFacetedBodiesStream(GetFacetedBodiesRequest) returns(stream GetFacetedBodiesResponse);
+  
+  rpc CreateFacetedBodies(CreateFacetedBodiesRequest) returns (CreateFacetedBodiesResponse);
   
   rpc GetImportIdMap(GetImportIdMapRequest) returns (GetImportIdMapResponse);
   
@@ -76,6 +78,14 @@ message GetFacetedBodiesRequest
 
 message GetFacetedBodiesResponse{
   map<string, ansys.api.discovery.v1.design.Tessellation> faceted_bodies=1;
+}
+
+message CreateFacetedBodiesRequest{
+  map<string, ansys.api.discovery.v1.design.Tessellation> tessellation_data=1;
+}
+
+message CreateFacetedBodiesResponse{
+  repeated EntityIdentifier created_bodies=1;
 }
 
 message ExportResultsToOpenVDBMemoryRequest {
