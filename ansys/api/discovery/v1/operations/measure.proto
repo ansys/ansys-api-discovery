@@ -9,7 +9,8 @@ option csharp_namespace = "Ansys.Api.Discovery.V1.Operations.Measure";
 service Measure{
   rpc MinDistanceBetweenObjects(MinDistanceBetweenObjectsRequest) returns (MinDistanceBetweenObjectsResponse);
   
-  rpc MinDistanceBetweenSelectionObjects(MinDistanceBetweenSelectionObjectsRequest) returns (MinDistanceBetweenSelectionObjectsResponse);
+  rpc MinDistanceBetweenSelectionObjects(MinDistanceBetweenSelectionObjectsRequest) 
+	returns (MinDistanceBetweenSelectionObjectsResponse);
 }
 
 message MinDistanceBetweenObjectsRequest{

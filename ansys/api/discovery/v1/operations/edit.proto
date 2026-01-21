@@ -43,7 +43,7 @@ service Edit{
 
   rpc IntersectCurveAndSurface(IntersectCurveAndSurfaceRequest) returns (IntersectCurveAndSurfaceResponse);
 
-  rpc MapBody(MapRequest) returns (MapResponse);
+  rpc MapBody(MapBodyRequest) returns (MapResponse);
 
   rpc MergeBodies(MergeBodiesRequest) returns (MergeBodiesResponse);
 
@@ -762,7 +762,7 @@ message ScaleNonUniformResponse{
 
 // Added messages moved from body.proto
 message ImprintCurvesRequestData {
-  EntityIdentifier body_ids = 1;
+  EntityIdentifier body_id = 1;
   ansys.api.discovery.v1.design.Geometries curves = 2;
   repeated EntityIdentifier face_ids = 3;
   Plane plane = 4;
@@ -940,13 +940,13 @@ message ScaleObjectResponse{
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
 }
 
-message MapRequestData{
+message MapBodyRequestData{
   EntityIdentifier id = 1;
   Frame frame = 2;
 }
 
-message MapRequest {
-  repeated MapRequestData request_data = 1;
+message MapBodyRequest {
+  repeated MapBodyRequestData request_data = 1;
 }
 
 message MapResponse {  
