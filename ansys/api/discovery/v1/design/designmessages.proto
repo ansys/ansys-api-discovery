@@ -171,6 +171,7 @@ message DatumPointEntity
   bool can_suppress = 6;
   EntityIdentifier master_id = 7;
   EntityIdentifier parent_id = 8;
+  bool is_pinned = 9;
 }
 
 message NamedSelectionEntity {
@@ -559,6 +560,15 @@ message TessellationOptions{
 
 message GetUpdateStateResponse{
   map<string,UpdateState> update_states = 1;
+}
+
+message GetBoundingBoxRequestData {
+  EntityIdentifier body_id = 1;
+  bool tight_tolerance = 2;
+}
+
+message GetBoundingBoxRequest {
+  repeated GetBoundingBoxRequestData request_data = 1;
 }
 
 message GetBoundingBoxResponseData{

@@ -11,8 +11,24 @@ service DatumPoint
 {
   rpc Create(DatumPointCreationRequest) returns (DatumPointCreationResponse);
 
-  //TODO: Delete, Get, GetAll
-  //TODO: Enable x, y, z location inputs to be set.
+  rpc Delete(MultipleEntitiesRequest) returns (DeleteResponse);
+
+  rpc Get(EntityRequest) returns(GetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+
+  rpc GetIsDeleted(MultipleEntitiesRequest) returns(GetIsDeletedResponse);
+
+  rpc GetIsPinned(EntityRequest) returns(GetBooleanResponse);
+  rpc GetPointPosition(EntityRequest) returns (GetPointResponse);
+  rpc GetIsSuppressed(EntityRequest) returns (GetBooleanResponse);
+
+  rpc SetPositionX(SetQuantityRequest) returns (TrackedSetResponse);
+  rpc SetPositionY(SetQuantityRequest) returns (TrackedSetResponse);
+  rpc SetPositionZ(SetQuantityRequest) returns (TrackedSetResponse);
+
+  rpc SetIsSuppressed(SetBooleanRequest) returns (TrackedSetResponse);
+
 }
 
 message DatumPointCreationRequestData {
@@ -29,4 +45,18 @@ message DatumPointCreationResponse {
   CreationResponse creation_response = 2;
 }
 
+message GetPointResponse {
+  Point point = 1;
+  GetDataResponse get_data_response = 2;
+}
+
+message GetResponse{
+  DatumPointEntity point = 1;
+  GetDataResponse get_data_response = 2;
+}
+
+message GetAllResponse{
+  repeated DatumPointEntity points = 1;
+  GetDataResponse get_data_response = 2;
+}
 
