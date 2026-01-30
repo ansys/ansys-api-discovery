@@ -56,6 +56,18 @@ message CommandResponse{
   string message = 2;
 }
 
+message GetDataResponse{
+  bool success = 1;
+  string message = 2;
+}
+
+
+message GetBooleanResponse{
+  bool value = 1;
+  GetDataResponse get_data_response = 2;
+}
+
+
 ////////////////////
 // General Requests
 ////////////////////
