@@ -38,9 +38,7 @@ service Body
   
   rpc CreateTorus(CreateTorusRequest) returns (CreateTorusResponse);
 
-
   rpc Delete(MultipleEntitiesRequest) returns (TrackedDeleteResponse);
-
 
   rpc Get(GetBodyRequest) returns (GetBodyResponse);
 
@@ -49,6 +47,8 @@ service Body
   rpc GetAssignedCADMaterial(MultipleEntitiesRequest) returns (GetAssignedCADMaterialResponse);
 
   rpc GetBoundingBox(MultipleEntitiesRequest) returns (GetBoundingBoxResponse);
+
+  rpc GetTightBoundingBox(GetBoundingBoxRequest) returns (GetBoundingBoxResponse);
 
   rpc GetEdges(MultipleEntitiesRequest) returns (GetEdgesResponse);
 
@@ -80,9 +80,7 @@ service Body
 
   rpc GetVolume(MultipleEntitiesRequest) returns (GetVolumeResponse);
 
-
   rpc RemoveAssignedCADMaterial(RemoveAssignedCADMaterialRequest) returns (RemoveAssignedCADMaterialResponse);
-
 
   rpc SetAssignedCADMaterial(SetAssignedCADMaterialRequest) returns (SetAssignedCADMaterialResponse);
 
