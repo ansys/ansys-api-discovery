@@ -10,6 +10,8 @@ option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Geometry.Body";
 
 service Body
 {
+  rpc CopyFaces(CopyFacesRequest) returns (CopyFacesResponse);
+
   rpc CreateBlockBody(CreateBlockBodyRequest) returns (CreateBlockBodyResponse);
 
   rpc CreateDuplicate(CreateDuplicateBodyRequest) returns (CreateDuplicateBodyResponse);
@@ -548,4 +550,19 @@ message CreateTorusRequest {
 message CreateTorusResponse {
   repeated EntityIdentifier body_ids = 1;
   TrackedCreationResponse tracked_creation_response = 2;
+}
+
+message CopyFacesRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  EntityIdentifier parent_id = 2;
+  string name = 3;
+}
+
+message CopyFacesRequest {
+  repeated CopyFacesRequestData request_data = 1;
+}
+
+message CopyFacesResponse {
+  repeated BodyEntity bodies = 1;
+  CreationResponse creation_response = 2;
 }
