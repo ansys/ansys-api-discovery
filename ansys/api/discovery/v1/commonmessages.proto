@@ -276,3 +276,35 @@ message RemoveTableRowRequest{
   GuidEntityIdentifier object_id = 1;
   int32 row_index = 2;
 }
+
+//////////////////////////////////////////////////////////////
+/// Ray Fire Operations
+
+message RayFireImpact{
+  EntityIdentifier body = 1;
+  Point point = 2;
+}
+
+message RayFireImpacts{
+  repeated RayFireImpact impacts = 1;
+}
+
+message RayFireFaceImpact{
+  EntityIdentifier face = 1;
+  Point point = 2;
+}
+
+message RayFireFaceImpacts{
+  repeated RayFireFaceImpact impacts = 1;
+}
+
+message RayFireUVImpact{
+  EntityIdentifier body = 1;
+  Point point = 2;
+  optional Quantity u = 3;
+  optional Quantity v = 4;
+}
+
+message RayFireUVImpacts{
+  repeated RayFireUVImpact impacts = 1;
+}

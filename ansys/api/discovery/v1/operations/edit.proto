@@ -17,6 +17,8 @@ service Edit{
 
   rpc CombineMergeBodies(CombineMergeBodiesRequest) returns (CombineMergeBodiesResponse);
 
+  rpc DetachFaces(DetachFacesRequest) returns (DetachFacesResponse);
+
   rpc DraftFaces(DraftFacesRequest) returns (DraftFacesResponse);
 
   rpc ExtrudeEdges(ExtrudeEdgesRequest) returns (ExtrudeEdgesResponse);
@@ -980,6 +982,19 @@ message MirrorRequest {
 }
 
 message MirrorResponse {
+  repeated EntityIdentifier successfully_set_ids = 1;
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
+}
+
+message DetachFacesRequestData {
+  repeated EntityIdentifier ids = 1;
+}
+
+message DetachFacesRequest {
+  repeated DetachFacesRequestData request_data = 1;
+}
+
+message DetachFacesResponse {
   repeated EntityIdentifier successfully_set_ids = 1;
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
 }
