@@ -1,0 +1,112 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.operations.rayfire;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Operations.RayFire";
+
+service RayFire{
+  rpc Fire(FireRequest) returns (FireResponse);
+
+  rpc FireFaces(FireFacesRequest) returns (FireFacesResponse);
+
+  rpc FireOrdered(FireOrderedRequest) returns (FireOrderedResponse);
+
+  rpc FireOrderedUV(FireOrderedUVRequest) returns (FireOrderedUVResponse);
+}
+
+message FireRequestData{
+  EntityIdentifier body_id = 1;
+  repeated EntityIdentifier faces_ids = 2;
+  Direction direction = 3;
+  repeated Point points = 4;
+  Quantity max_distance = 5;
+}
+
+message FireRequest{
+  repeated FireRequestData request_data = 1;
+}
+
+message FireResponseData{
+  RayFireImpacts single_ray_fire_impacts = 1;
+}
+
+message FireResponse{
+  repeated FireResponseData response_data = 1;
+}
+
+message FireOrderedRequestData{
+  EntityIdentifier body_id = 1;
+  repeated EntityIdentifier faces_ids = 2;
+  Direction direction = 3;
+  Quantity ray_radius = 4;
+  repeated Point points = 5;
+  Quantity max_distance = 6;
+  bool tight_tolerance = 7;
+}
+
+message FireOrderedRequest{
+  repeated FireOrderedRequestData request_data = 1;
+}
+
+message FireOrderedResponseData{
+  repeated RayFireImpacts ordered_fire_impacts = 1;
+}
+
+message FireOrderedResponse{
+  repeated FireOrderedResponseData response_data = 1;
+}
+
+message FireFacesRequestData{
+  EntityIdentifier body_id = 1;
+  repeated EntityIdentifier faces_ids = 2;
+  repeated Point points = 3;
+  FireAdditionalOptions options = 4;
+}
+
+message FireFacesRequest{
+  repeated FireFacesRequestData request_data = 1;
+}
+
+message FireFacesResponseData{
+  repeated RayFireFaceImpacts faces_fire_impacts=1;
+}
+
+message FireFacesResponse{
+  repeated FireFacesResponseData response_data = 1;
+}
+
+message FireAdditionalOptions{
+  Quantity radius = 1;
+  Direction direction = 2;
+  Quantity max_distance = 3;
+  Quantity min_distance = 4;
+  bool tight_tolerance = 5;
+  bool pick_back_faces = 6;
+  int32 max_hits = 7;
+  bool request_params = 8;
+  bool request_secondary = 9;
+}
+
+message FireOrderedUVRequestData{
+  EntityIdentifier body_id = 1;
+  repeated EntityIdentifier faces_ids = 2;
+  Direction direction = 3;
+  Quantity ray_radius = 4;
+  repeated Point points = 5;
+  Quantity max_distance = 6;
+  bool tight_tolerance = 7;
+}
+
+message FireOrderedUVRequest{
+  repeated FireOrderedUVRequestData request_data = 1;
+}
+
+message FireOrderedUVResponseData{
+  repeated RayFireUVImpacts ordered_fire_impacts = 1;
+}
+
+message FireOrderedUVResponse{
+  repeated FireOrderedUVResponseData response_data = 1;
+}
