@@ -14,7 +14,9 @@ service Edge {
 
   rpc GetAll(ParentEntityRequest) returns(GetAllResponse);  
 
-  rpc GetBoundingBox(MultipleEntitiesRequest) returns(GetBoundingBoxResponse);  
+  rpc GetBoundingBox(MultipleEntitiesRequest) returns(GetBoundingBoxResponse);
+  
+  rpc GetTightBoundingBox(GetBoundingBoxRequest) returns (GetBoundingBoxResponse);
 
   rpc GetCurve(MultipleEntitiesRequest) returns(GetCurveResponse);  
 
