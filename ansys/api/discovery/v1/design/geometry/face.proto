@@ -17,6 +17,8 @@ service Face
   rpc GetArea(MultipleEntitiesRequest) returns(GetAreaResponse);
   
   rpc GetBoundingBox(MultipleEntitiesRequest) returns (GetBoundingBoxResponse);
+
+  rpc GetTightBoundingBox(GetBoundingBoxRequest) returns (GetBoundingBoxResponse);
   
   rpc GetBoxUV(MultipleEntitiesRequest) returns (GetBoxUVResponse);
   
