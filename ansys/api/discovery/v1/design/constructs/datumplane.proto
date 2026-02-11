@@ -25,8 +25,15 @@ service DatumPlane{
 }
 
 
+message DatumPlaneCreationRequestData {
+  Plane plane = 1;
+  EntityIdentifier parent_id = 2;
+  string name = 3;
+}
+
 message DatumPlaneCreationRequest {
   repeated EntityIdentifier selection_ids = 1;
+  repeated DatumPlaneCreationRequestData request_data = 2;
 }
 
 message DatumPlaneCreationResponse {

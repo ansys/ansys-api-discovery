@@ -13,6 +13,9 @@ service Symmetry
   rpc Create(SymmetryCreationRequest) returns (SymmetryCreationResponse);
 
   rpc SetLocation(SetLocationRequest) returns(SetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+
 }
 
 // Symmetry
@@ -32,4 +35,11 @@ message SymmetryDefinition {
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
+}
+
+message GetAllResponse{
+  // The symmetry conditions in the study.
+  repeated SymmetryDefinition symmetry_conditions = 1;
+  bool success = 2;
+  string message = 3;
 }

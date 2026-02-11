@@ -51,6 +51,7 @@ message GetAssemblyResponse {
   repeated ansys.api.discovery.v1.design.BeamEntity beams=9;
   repeated ansys.api.discovery.v1.design.CurveEntity design_points=10;
   repeated ansys.api.discovery.v1.design.DrivingDimensionEntity driving_dimensions=11;
+  repeated ansys.api.discovery.v1.design.DatumPlaneEntity datum_planes=12;
 }
 
 message CoordinateSystemList {
