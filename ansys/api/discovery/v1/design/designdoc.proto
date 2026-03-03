@@ -8,12 +8,27 @@ import "ansys/api/discovery/v1/design/designmessages.proto";
 option csharp_namespace = "Ansys.Api.Discovery.V1.Design.DesignDoc";
 
 service DesignDoc{
-  rpc Get(EntityRequest) returns(GetResponse);
-  rpc GetAsJson(GetAsJsonRequest) returns(GetAsJsonResponse);  
- 
-  rpc GetAssembly(GetAssemblyRequest) returns (GetAssemblyResponse); 
 
-  rpc StreamDesignTessellation(DesignTessellationRequest) returns (stream DesignTessellationResponse); 
+  rpc Get(EntityRequest) 
+    returns(GetResponse);  
+
+  rpc GetActive(GetActiveRequest)
+    returns(GetActiveResponse);
+
+  rpc GetAll(ParentEntityRequest)
+    returns(GetAllResponse);
+
+  rpc GetAsJson(GetAsJsonRequest)
+    returns(GetAsJsonResponse);  
+ 
+  rpc GetAssembly(GetAssemblyRequest) 
+    returns (GetAssemblyResponse); 
+
+  rpc StreamDesignTessellation(DesignTessellationRequest) 
+    returns (stream DesignTessellationResponse); 
+
+  rpc SetActive(SetActiveRequest)
+    returns (SetActiveResponse);
 }
 
 message DesignTessellationRequest {
@@ -79,4 +94,25 @@ message DesignDocEntity{ //DesignDescription
   bool main_part_displays_file_name = 7; 
   string path = 10;
   string name = 11;
+}
+
+message GetActiveRequest{
+}
+
+message GetActiveResponse{
+  ansys.api.discovery.v1.design.designdoc.DesignDocEntity design = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllResponse{
+  repeated ansys.api.discovery.v1.design.designdoc.DesignDocEntity designs = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetActiveRequest{
+  EntityIdentifier design_id = 1;
+}
+
+message SetActiveResponse{
+  CommandResponse command_response = 1;
 }
