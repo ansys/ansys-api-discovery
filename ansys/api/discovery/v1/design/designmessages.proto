@@ -601,6 +601,15 @@ message GetIsDeletedResponse{
   map<string, bool> deleted = 1;
 }
 
+message GetCentroidResponse {
+  repeated GetCentroidResponseData response_data = 1;
+}
+
+message GetCentroidResponseData {
+  EntityIdentifier id = 1;
+  Point centroid = 2;
+}
+
 message TrackedCreationResponse{
   CreationResponse creation_response = 1;
   TrackedChanges tracked_changes = 2;

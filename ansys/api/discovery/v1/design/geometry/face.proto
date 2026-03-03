@@ -47,6 +47,8 @@ service Face
   rpc GetUpdateState(MultipleEntitiesRequest) returns (GetUpdateStateResponse);
   
   rpc GetVertices(MultipleEntitiesRequest) returns (GetVerticesResponse);
+
+  rpc GetCentroid(MultipleEntitiesRequest) returns (GetCentroidResponse);
   
   rpc SetColor(SetColorRequest) returns (SetColorResponse);
   

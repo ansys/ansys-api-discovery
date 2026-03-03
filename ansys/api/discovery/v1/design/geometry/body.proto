@@ -82,6 +82,8 @@ service Body
 
   rpc GetVolume(MultipleEntitiesRequest) returns (GetVolumeResponse);
 
+  rpc GetCentroid(MultipleEntitiesRequest) returns (GetCentroidResponse);
+
   rpc RemoveAssignedCADMaterial(RemoveAssignedCADMaterialRequest) returns (RemoveAssignedCADMaterialResponse);
 
   rpc SetAssignedCADMaterial(SetAssignedCADMaterialRequest) returns (SetAssignedCADMaterialResponse);
