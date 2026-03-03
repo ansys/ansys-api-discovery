@@ -33,6 +33,8 @@ service Edge {
   rpc GetUpdateState(MultipleEntitiesRequest) returns(GetUpdateStateResponse);
 
   rpc GetVertices(MultipleEntitiesRequest) returns(GetVerticesResponse);
+
+  rpc GetCentroid(MultipleEntitiesRequest) returns (GetCentroidResponse);
 }
 
 message GetResponse{
