@@ -92,6 +92,7 @@ message CloseApplicationResponse{
 
 message SetAutomaticTrackingStateRequest{
   AutomaticTrackingState state = 1;
+  EntityIdentifier design_id = 2;
 }
 
 message SetAutomaticTrackingStateResponse{
