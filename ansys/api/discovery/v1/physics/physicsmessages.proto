@@ -15,11 +15,8 @@ option csharp_namespace = "Ansys.Api.Discovery.V1.Physics";
 //
 // Rough material wrapper for material parameters until we have a more defined material
 message ParameterMaterial {
-  oneof MaterialEntity //This should not be a MaterialEntity (CAD), it should be materialdata (Discovery, Engineering data)
-  {
-    EntityIdentifier material_id = 1;
-    string material_label = 2;
-  }
+  EntityIdentifier material_id = 1;
+  string material_label = 2;
 }
 
 //
