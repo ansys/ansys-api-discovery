@@ -118,6 +118,8 @@ message CreateSurfaceBodyFromTrimmedCurvesRequest {
 message CreateBlockBodyRequest {
   Point start_point = 1;
   Point end_point = 2;
+  string name = 3;
+  EntityIdentifier parent_id = 4;
 }
 
 message CreateSurfaceBodyRequestData {
