@@ -16,7 +16,9 @@ service Prepare{
 
   rpc DetectSweepableBodies(DetectSweepableBodiesRequest) returns (DetectSweepableBodiesResponse);
   
-  rpc FindHelixes(FindHelixesRequest) returns (FindHelixesResponse); 
+  rpc FindHelixes(FindHelixesRequest) returns (FindHelixesResponse);
+
+  rpc FindMappableFaces(FindMappableFacesRequest) returns (FindMappableFacesResponse);
 
   rpc EnhancedShareTopology(ShareTopologyRequest) returns (EnhancedShareTopologyResponse);
 
@@ -241,4 +243,17 @@ message FindHelixesOptions {
   optional Quantity min_radius = 1;
   optional Quantity max_radius = 2;
   optional Quantity fit_radius_error = 3;
+}
+
+message FindMappableFacesRequest {
+  repeated EntityIdentifier face_ids = 1;
+}
+
+message FindMappableFacesResponseData {
+  EntityIdentifier face = 1;
+  bool mappable = 2;
+}
+
+message FindMappableFacesResponse {
+  repeated FindMappableFacesResponseData response_data = 1;
 }

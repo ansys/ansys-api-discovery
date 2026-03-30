@@ -43,6 +43,7 @@ message InputParameter {
   }
   InputParameterType input_type=6;
   EntityIdentifier parent_object_id=7;
+  GuidEntityIdentifier parameter_id=8;
 }
 
 //
@@ -52,6 +53,7 @@ message OutputParameter {
   EntityIdentifier parent_id = 2;
   string name = 3;
   Quantity quantity = 4;
+  GuidEntityIdentifier parameter_id=5;
 }
 
 // 
