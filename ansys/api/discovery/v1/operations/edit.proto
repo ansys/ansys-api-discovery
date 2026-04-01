@@ -848,6 +848,7 @@ message SweepDatumPointRequestData {
   repeated EntityIdentifier selection_ids = 1;
   repeated EntityIdentifier trajectory_ids = 2;
   Quantity distance = 3;
+  repeated ansys.api.discovery.v1.design.TrimmedCurve trajectory_curves = 4;
 }
 
 message SweepDatumPointRequest {
