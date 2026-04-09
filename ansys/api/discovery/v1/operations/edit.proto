@@ -97,6 +97,8 @@ service Edit{
 
   rpc SplitFaces(SplitFaceRequest) returns (SplitFaceResponse);
 
+  rpc SweepEdges(SweepEdgesRequest) returns (SweepEdgesResponse);
+
   rpc SweepFaces(SweepFacesRequest) returns (SweepFacesResponse);
 
   rpc SweepWithGuide(SweepWithGuideRequest) returns (SweepWithGuideResponse);
@@ -998,4 +1000,18 @@ message DetachFacesRequest {
 message DetachFacesResponse {
   repeated EntityIdentifier successfully_set_ids = 1;
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
+}
+
+message SweepEdgesRequestData {
+  repeated EntityIdentifier selection_ids = 1;
+  repeated EntityIdentifier trajectory_ids = 2;
+  Quantity optional_distance = 3;
+}
+
+message SweepEdgesRequest {
+  repeated SweepEdgesRequestData request_data = 1;
+}
+
+message SweepEdgesResponse {
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
 }
