@@ -21,6 +21,8 @@ service Mass
   rpc SetRemotePositionY(SetQuantityRequest) returns (SetResponse);
   rpc SetRemotePositionZ(SetQuantityRequest) returns (SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 

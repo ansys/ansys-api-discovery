@@ -26,6 +26,8 @@ service Moment
   rpc SetGlobalY(SetQuantityRequest) returns (SetResponse);
   rpc SetGlobalZ(SetQuantityRequest) returns (SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
