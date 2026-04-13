@@ -16,6 +16,8 @@ service Current
 
   rpc SetMagnitude(SetQuantityRequest) returns (SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 

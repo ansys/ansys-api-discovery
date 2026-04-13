@@ -60,7 +60,6 @@ message SaveRequest{
   SaveMode save_mode = 2;
   bool write_body_facets = 3;  
   optional EntityIdentifier parent_entity_id = 7; // this allows both part export and body export.
-  string file_name = 4;
 }  
 
 message SaveResponse {  

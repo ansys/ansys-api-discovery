@@ -20,6 +20,8 @@ service RotatingFluidZone
   // Motion quantities
   rpc SetRotationalVelocityMagnitude(SetQuantityRequest) returns (SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 

@@ -46,6 +46,8 @@ service Force
   rpc SetTorqueY(SetQuantityRequest) returns (SetResponse);
   rpc SetTorqueZ(SetQuantityRequest) returns (SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+
   rpc GetForceDistributedByLabel(GetByLabelRequest) returns (ForceDistributedDefinition);
   rpc GetForceTorqueByLabel(GetByLabelRequest) returns (ForceTorqueDefinition);
   

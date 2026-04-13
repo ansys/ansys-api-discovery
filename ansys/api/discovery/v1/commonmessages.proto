@@ -15,6 +15,10 @@ message EntityRequest{
   EntityIdentifier id = 1;
 }
 
+message GetByIdRequest{
+  EntityIdentifier id = 1;
+}
+
 message ParentEntityRequest{
   EntityIdentifier parent_id = 1;
 }
