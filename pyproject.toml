@@ -1,8 +1,8 @@
 [build-system]
 requires = [
-    "setuptools >= 42.0.0",
+    "setuptools >= 82.0.1",
     "wheel", 
-    "ansys_tools_protoc_helper>=0.6.0", 
+    "ansys_tools_protoc_helper>=0.7.0", 
     "ansys-api-geometry==0.4.92"
     ]
 build-backend = "setuptools.build_meta:__legacy__"
