@@ -50,6 +50,7 @@ message MassDefinition {
   repeated string locations = 4;
   bool suppressed = 5;
   MassProperties mass = 6;
+  bool use_remote_point = 7;
 }
 
 message GetAllResponse{
