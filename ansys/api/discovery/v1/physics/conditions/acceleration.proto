@@ -25,6 +25,8 @@ service Acceleration
   rpc SetIsFixedDY(SetBooleanRequest) returns (SetResponse);
   rpc SetIsFixedDZ(SetBooleanRequest) returns (SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 
 }

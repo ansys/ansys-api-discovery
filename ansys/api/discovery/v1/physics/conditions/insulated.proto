@@ -13,6 +13,8 @@ service Insulated
 
   rpc SetLocation(SetLocationRequest) returns(SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
