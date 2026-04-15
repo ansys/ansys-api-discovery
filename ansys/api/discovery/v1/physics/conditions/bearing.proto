@@ -18,6 +18,8 @@ service Bearing
   rpc SetThrustForce(SetQuantityRequest) returns (SetResponse);
   rpc SetAngle(SetQuantityRequest) returns (SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 

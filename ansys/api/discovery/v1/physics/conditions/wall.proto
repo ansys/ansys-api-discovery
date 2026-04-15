@@ -58,6 +58,8 @@ service Wall
 
   rpc SetExternalEmissivity(SetQuantityRequest) returns (SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
   
 }

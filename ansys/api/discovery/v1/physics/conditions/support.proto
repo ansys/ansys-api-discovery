@@ -36,6 +36,8 @@ service Support
   rpc SetDisplacedIsFixedRY(SetBooleanRequest) returns (SetResponse);
   rpc SetDisplacedIsFixedRZ(SetBooleanRequest) returns (SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 
 }

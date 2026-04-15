@@ -23,6 +23,8 @@ service Script
   rpc RunScript(RunScriptRequest) returns(RunScriptResponse);
 
   rpc Replay(ReplayRequest) returns(ReplayResponse) ; //ReplayEmbedded
+
+  rpc SubscribeToRecording(SubscribeToRecordingRequest) returns(stream RecordingEventResponse);
 }
 
 
@@ -69,4 +71,11 @@ message ReplayResponse{
 enum RunScriptType {
   RUNSCRIPTTYPE_RUN = 0;
   RUNSCRIPTTYPE_DEBUG = 1;
+}
+
+message SubscribeToRecordingRequest{
+}
+
+message RecordingEventResponse{
+  string recording_string = 1; // the recording of the action in python format with marks for substitution of parameters.
 }
