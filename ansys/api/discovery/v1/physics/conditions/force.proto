@@ -117,6 +117,7 @@ message ForceDistributedDefinition {
   repeated string locations = 4;
   bool suppressed = 5;
   ForceDistributedProperties force_distributed = 6;
+  ForceMagnitudeDefinition magnitude_definition = 7;
 }
 
 message ForceDistributedProperties {

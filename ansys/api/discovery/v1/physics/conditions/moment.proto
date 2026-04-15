@@ -68,6 +68,7 @@ message MomentDefinition {
   bool suppressed = 5;
   MomentProperties local = 6;
   MomentProperties global = 7;
+  MomentSpecification specification = 8;
 }
 
 message GetAllResponse{
