@@ -31,6 +31,8 @@ service Edit{
 
   rpc FaceOffset(FaceOffsetRequest) returns (FaceOffsetResponse);
 
+  rpc FillEdgeLoops(FillEdgeLoopsRequest) returns (FillEdgeLoopsResponse);
+
   rpc Fillet(FilletRequest) returns (FilletResponse);
 
   rpc FillFaces(FillFacesRequest) returns (FillFacesResponse);
@@ -1013,5 +1015,13 @@ message SweepEdgesRequest {
 }
 
 message SweepEdgesResponse {
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
+}
+
+message FillEdgeLoopsRequest {
+  repeated ansys.api.discovery.v1.design.Loop loops = 1;
+}
+
+message FillEdgeLoopsResponse {
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
 }
