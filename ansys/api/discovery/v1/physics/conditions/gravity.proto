@@ -21,6 +21,8 @@ service Gravity
   rpc SetUseBuoyancyEnabled(SetBooleanRequest) returns (SetResponse);
   rpc SetIncludeSelfWeightEnabled(SetBooleanRequest) returns (SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+
   rpc GetByLabel(GetByLabelRequest) returns (GravityDefinition);
   
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
