@@ -5,6 +5,7 @@ package ansys.api.discovery.v1.commands.file;
 import "ansys/api/discovery/v1/commonenums.proto";
 import "ansys/api/discovery/v1/commonmessages.proto";
 import "ansys/api/discovery/v1/design/designdoc.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.File";
 
@@ -61,6 +62,7 @@ message SaveRequest{
   bool write_body_facets = 3;  
   optional EntityIdentifier parent_entity_id = 7; // this allows both part export and body export.
   string file_name = 4;
+  optional ansys.api.discovery.v1.design.FMDExportOptions fmd_export_options = 8;
 }  
 
 message SaveResponse {  
