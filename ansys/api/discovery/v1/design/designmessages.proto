@@ -558,6 +558,13 @@ message TessellationOptions{
   Quantity curve_deviation = 6;
 }
 
+message FMDExportOptions {
+  Quantity deviation = 1;
+  Quantity angle = 2;
+  int32 aspect_ratio = 3;
+  Quantity max_edge_length = 4;
+}
+
 message GetUpdateStateResponse{
   map<string,UpdateState> update_states = 1;
 }
