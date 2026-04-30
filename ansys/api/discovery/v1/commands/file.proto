@@ -6,6 +6,7 @@ import "ansys/api/discovery/v1/commonenums.proto";
 import "ansys/api/discovery/v1/commonmessages.proto";
 import "ansys/api/discovery/v1/design/designdoc.proto";
 import "ansys/api/discovery/v1/design/designmessages.proto";
+import "google/protobuf/any.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.File";
 
@@ -30,7 +31,13 @@ service File{
     returns (stream SaveResponse);    
 
   rpc SaveToUrl(SaveToUrlRequest)
-    returns (SaveToUrlResponse);
+  	returns (SaveToUrlResponse);
+
+  rpc LoadAddin(stream LoadAddinRequest)
+    returns (LoadAddinResponse);
+
+  rpc RunAddinMethod(RunAddinMethodRequest)
+    returns (RunAddinMethodResponse);
 }
 
 message CloseRequest{  
@@ -117,6 +124,26 @@ message OpenRequest {
   bool import_named_selections = 4;
   map<string,bool> import_options = 5;
   map<string, ImportOptionDefinition> import_options_definitions = 6;
+}
+
+message LoadAddinRequest {
+  string manifest_name = 1;
+  bytes data = 2;
+}
+
+message LoadAddinResponse {
+  CommandResponse command_response = 1;
+}
+
+message RunAddinMethodRequest {
+  string addin_name = 1;
+  string method_name = 2;
+  repeated google.protobuf.Any arguments = 3;
+}
+
+message RunAddinMethodResponse {
+  google.protobuf.Any return_value = 1;
+  CommandResponse command_response = 2;
 }
 
 enum OpenMode{
