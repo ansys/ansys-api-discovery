@@ -21,7 +21,7 @@ service Mass
   rpc SetRemotePositionY(SetQuantityRequest) returns (SetResponse);
   rpc SetRemotePositionZ(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -51,6 +51,12 @@ message MassDefinition {
   bool suppressed = 5;
   MassProperties mass = 6;
   bool use_remote_point = 7;
+}
+
+message GetByIdResponse{
+  MassDefinition mass_condition = 1;
+  bool success = 2;
+  string message = 3;
 }
 
 message GetAllResponse{

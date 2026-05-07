@@ -18,7 +18,7 @@ service Bearing
   rpc SetThrustForce(SetQuantityRequest) returns (SetResponse);
   rpc SetAngle(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -51,6 +51,12 @@ message BearingDefinition {
 }
 
 // Response for GetAll
+message GetByIdResponse {
+  BearingDefinition condition = 1;
+  bool success = 2;
+  string message = 3;
+}
+
 message GetAllResponse {
   repeated BearingDefinition conditions = 1;
   bool success = 2;

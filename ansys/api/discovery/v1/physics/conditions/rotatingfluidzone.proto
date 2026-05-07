@@ -20,7 +20,7 @@ service RotatingFluidZone
   // Motion quantities
   rpc SetRotationalVelocityMagnitude(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -56,6 +56,12 @@ message RotatingFluidZoneDefinition {
   repeated string locations = 4;
   bool suppressed = 5;
   RotatingFluidZoneProperties rotating_fluid_zone_properties = 6;
+}
+
+message GetByIdResponse{
+  RotatingFluidZoneDefinition rotating_fluid_zone_condition = 1;
+  bool success = 2;
+  string message = 3;
 }
 
 message GetAllResponse{

@@ -17,7 +17,7 @@ service Convection
   
   rpc SetTemperatureMagnitude(SetQuantityRequest) returns(SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -44,6 +44,12 @@ message ConvectionDefinition {
   bool suppressed = 5;
   Quantity coefficient = 6;
   Quantity temperature = 7;
+}
+
+message GetByIdResponse{
+  ConvectionDefinition convection_condition = 1;
+  bool success = 2;
+  string message = 3;
 }
 
 message GetAllResponse{

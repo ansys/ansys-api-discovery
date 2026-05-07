@@ -46,7 +46,7 @@ service Force
   rpc SetTorqueY(SetQuantityRequest) returns (SetResponse);
   rpc SetTorqueZ(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetForceDistributedByLabel(GetByLabelRequest) returns (ForceDistributedDefinition);
   rpc GetForceTorqueByLabel(GetByLabelRequest) returns (ForceTorqueDefinition);
@@ -138,6 +138,14 @@ message ForceTorqueDefinition {
 message ForceTorqueProperties {
   Quantity force = 1;
   OptionalVector force_components = 2;
+}
+
+// Response for GetById
+message GetByIdResponse {
+  ForceDistributedDefinition distributed_force = 1;
+  ForceTorqueDefinition torque_force = 2;
+  bool success = 3;
+  string message = 4;
 }
 
 // Response for GetAll

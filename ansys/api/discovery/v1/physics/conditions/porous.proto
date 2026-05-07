@@ -50,7 +50,7 @@ service Porous
 
   rpc SetSolidSpecificHeat(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
   
@@ -121,6 +121,12 @@ message PorousDefinition {
   PorousProperties porous_properties = 6;
   PorousSpecification porous_specification = 7;
   optional LocationIdentifier streamwise_flow_direction_reference = 8;
+}
+
+message GetByIdResponse{
+  PorousDefinition porous_condition = 1;
+  bool success = 2;
+  string message = 3;
 }
 
 message GetAllResponse{

@@ -27,7 +27,7 @@ service BoltPreload
   rpc SetSpecifyBoltDiameter(SetBooleanRequest) returns (SetResponse);
   rpc SetShankDiameter(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
@@ -94,6 +94,12 @@ message BoltPreloadDefinition {
   BoltPreloadClampForceProperties clamp_force_properties = 8;
   BoltPreloadGripLengthProperties grip_length_properties = 9;
   BoltPreloadTorqueProperties torque_properties = 10;
+}
+
+message GetByIdResponse{
+  BoltPreloadDefinition bolt_preload = 1;
+  bool success = 2;
+  string message = 3;
 }
 
 message GetAllResponse{

@@ -26,7 +26,7 @@ service Moment
   rpc SetGlobalY(SetQuantityRequest) returns (SetResponse);
   rpc SetGlobalZ(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -69,6 +69,12 @@ message MomentDefinition {
   MomentProperties local = 6;
   MomentProperties global = 7;
   MomentSpecification specification = 8;
+}
+
+message GetByIdResponse{
+  MomentDefinition moment_condition = 1;
+  bool success = 2;
+  string message = 3;
 }
 
 message GetAllResponse{
