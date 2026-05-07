@@ -58,7 +58,7 @@ service Wall
 
   rpc SetExternalEmissivity(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
   
@@ -217,6 +217,15 @@ message WallTranslationDefinition {
   repeated string locations = 4;
   bool suppressed = 5;
   TranslationProperties translation_properties = 6;
+}
+
+message GetByIdResponse{
+  WallFreeSlipDefinition wall_free_slip_condition = 1;
+  WallStationaryDefinition wall_stationary_condition = 2;
+  WallRotationDefinition wall_rotation_condition = 3;
+  WallTranslationDefinition wall_translation_condition = 4;
+  bool success = 5;
+  string message = 6;
 }
 
 message GetAllResponse{

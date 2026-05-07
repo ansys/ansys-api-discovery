@@ -13,7 +13,7 @@ service Insulated
 
   rpc SetLocation(SetLocationRequest) returns(SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -35,6 +35,12 @@ message InsulatedDefinition {
   string label = 3;
   repeated string locations = 4;
   bool suppressed = 5;
+}
+
+message GetByIdResponse{
+  InsulatedDefinition insulated_condition = 1;
+  bool success = 2;
+  string message = 3;
 }
 
 message GetAllResponse{

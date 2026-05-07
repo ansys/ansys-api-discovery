@@ -16,7 +16,7 @@ service Voltage
 
   rpc SetMagnitude(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -47,6 +47,12 @@ message VoltageDefinition {
 }
 
 // Response for GetAll
+message GetByIdResponse {
+  VoltageDefinition condition = 1;
+  bool success = 2;
+  string message = 3;
+}
+
 message GetAllResponse {
   repeated VoltageDefinition conditions = 1;
   bool success = 2;
