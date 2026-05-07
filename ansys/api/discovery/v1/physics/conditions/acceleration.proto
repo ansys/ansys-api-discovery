@@ -25,7 +25,7 @@ service Acceleration
   rpc SetIsFixedDY(SetBooleanRequest) returns (SetResponse);
   rpc SetIsFixedDZ(SetBooleanRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 
@@ -54,6 +54,12 @@ message AccelerationDefinition {
   repeated string locations = 4;
   bool suppressed = 5;
   AccelerationProperties acceleration = 6;
+}
+
+message GetByIdResponse{
+  AccelerationDefinition condition = 1;
+  bool success = 2;
+  string message = 3;
 }
 
 message GetAllResponse{

@@ -42,7 +42,7 @@ service Displacement
   rpc SetDistributedRemotePositionY(SetQuantityRequest) returns (SetResponse);
   rpc SetDistributedRemotePositionZ(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
@@ -105,6 +105,12 @@ message DisplacementDefinition {
   repeated string locations = 4;
   bool suppressed = 5;
   DisplacementCombinedProperties displacement = 6;
+}
+
+message GetByIdResponse {
+  DisplacementDefinition displacement = 1;
+  bool success = 2;
+  string message = 3;
 }
 
 message GetAllResponse {

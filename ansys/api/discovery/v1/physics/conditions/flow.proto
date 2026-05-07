@@ -48,7 +48,7 @@ service Flow
 
   rpc SetDirection(SetFlowDirectionRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -242,6 +242,17 @@ message FlowMassFlowOutletDefinition {
   repeated string locations = 4;
   bool suppressed = 5;
   MassFlowOutletProperties mass_flow_outlet = 6;
+}
+
+message GetByIdResponse{
+  FlowVelocityInletDefinition flow_velocity_inlet_condition = 1;
+  FlowVelocityOutletDefinition flow_velocity_outlet_condition = 2;
+  FlowPressureInletDefinition flow_pressure_inlet_condition = 3;
+  FlowPressureOutletDefinition flow_pressure_outlet_condition = 4;
+  FlowMassFlowInletDefinition flow_massflow_inlet_condition = 5;
+  FlowMassFlowOutletDefinition flow_massflow_outlet_condition = 6;
+  bool success = 7;
+  string message = 8;
 }
 
 message GetAllResponse{

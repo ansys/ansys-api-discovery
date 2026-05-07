@@ -27,7 +27,7 @@ service SpringPreload
   rpc SetLength(SetQuantityRequest) returns (SetResponse);
   rpc SetRotation(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
@@ -104,6 +104,12 @@ message SpringPreloadDefinition {
   SpringPreloadLongitudinalStiffnessProperties longitudinal_stiffness_properties = 8;
   SpringPreloadTorsionalStiffnessProperties torsional_stiffness_properties = 9;
   SpringPreloadProperties preload_properties = 10;
+}
+
+message GetByIdResponse{
+  SpringPreloadDefinition spring_preload_condition = 1;
+  bool success = 2;
+  string message = 3;
 }
 
 message GetAllResponse{

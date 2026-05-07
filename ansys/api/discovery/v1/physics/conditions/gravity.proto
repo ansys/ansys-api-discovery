@@ -21,7 +21,7 @@ service Gravity
   rpc SetUseBuoyancyEnabled(SetBooleanRequest) returns (SetResponse);
   rpc SetIncludeSelfWeightEnabled(SetBooleanRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetByLabel(GetByLabelRequest) returns (GravityDefinition);
   
@@ -45,6 +45,12 @@ message GravityDefinition {
 }
 
 // Response for GetAll
+message GetByIdResponse {
+  GravityDefinition gravity_condition = 1;
+  bool success = 2;
+  string message = 3;
+}
+
 message GetAllResponse {
   repeated GravityDefinition gravity_conditions = 1; // usually 0 or 1 item
   bool success = 2;

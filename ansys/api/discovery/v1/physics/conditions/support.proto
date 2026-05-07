@@ -36,7 +36,7 @@ service Support
   rpc SetDisplacedIsFixedRY(SetBooleanRequest) returns (SetResponse);
   rpc SetDisplacedIsFixedRZ(SetBooleanRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 
@@ -100,6 +100,13 @@ message SupportDisplacedDefinition {
 
 message SupportDisplacedProperties {
   TensorOfOptionalQuantities displacement = 1;
+}
+
+message GetByIdResponse{
+  SupportGeneralDefinition support_general = 1;
+  SupportDisplacedDefinition support_displaced = 2;
+  bool success = 3;
+  string message = 4;
 }
 
 message GetAllResponse{
