@@ -137,6 +137,7 @@ enum InspectGeometryMessageId {
   ERROR_MESH= 38;
   ERROR_NOGEOMETRY= 39;
   VERTEXOVERLAP = 40;
+  ERROR_VERTEXGEOMETRY=41;
 }
 
 //
