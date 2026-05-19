@@ -17,6 +17,8 @@ service Curve{
   rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
 
   rpc EvaluateNurbsCurve(EvaluateNurbsCurveRequest) returns (EvaluateNurbsCurveResponse);
+
+  rpc GetInterval(MultipleEntitiesRequest) returns (GetIntervalResponse);
 }
 
 message GetResponse{
@@ -51,5 +53,16 @@ message EvaluateNurbsCurveRequest{
 
 message EvaluateNurbsCurveResponse {
   CurveEvaluation curve_evaluation = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetIntervalResponseData {
+  EntityIdentifier id = 1;
+  double start = 2;
+  double end = 3;
+}
+
+message GetIntervalResponse {
+  repeated GetIntervalResponseData response_data = 1;
   CommandResponse command_response = 2;
 }
