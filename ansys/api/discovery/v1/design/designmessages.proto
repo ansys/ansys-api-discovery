@@ -186,6 +186,9 @@ message NamedSelectionEntity {
   repeated CurveEntity design_points = 8;
   repeated Vertex vertices = 9;
   repeated ComponentEntity components = 10;
+  repeated CurveEntity curves = 11;
+  repeated DatumPlaneEntity datum_planes = 12;
+  repeated CoordinateSystemEntity coordinate_systems = 13;
 }
 
 message WeldEntity {
