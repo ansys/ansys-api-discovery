@@ -40,6 +40,24 @@ service DefinedVariation{
 
   // Get the current variation for the given simulation
   rpc GetCurrent(GetCurrentRequest) returns(GetCurrentResponse);
+
+  // Get the pre script	for	the	variations table
+  rpc GetPreScript(GetScriptRequest) returns(GetScriptResponse);
+
+  // Get the post script for the variations table
+  rpc GetPostScript(GetScriptRequest) returns(GetScriptResponse);
+
+  // Set the pre script for the variations table
+  rpc SetPreScript(SetScriptRequest) returns(SetScriptResponse);
+
+  // Set the post script for the variations table
+  rpc SetPostScript(SetScriptRequest) returns(SetScriptResponse);
+
+  // Deletes the pre script from the variations table
+  rpc DeletePreScript(DeleteScriptRequest) returns(DeleteScriptResponse);
+
+  // Deletes the post script from the variations table
+  rpc DeletePostScript(DeleteScriptRequest) returns(DeleteScriptResponse);
 }
 
 message GetRequest{
@@ -128,4 +146,26 @@ message GetCurrentRequest {
 
 message GetCurrentResponse {
   Variation variation = 1;
+}
+
+message GetScriptRequest{
+}
+
+message GetScriptResponse{
+  string script = 1;
+}
+
+message SetScriptRequest{
+  string script = 1;
+}
+
+message SetScriptResponse{
+  CommandResponse command_response = 1;
+}
+
+message DeleteScriptRequest{
+}
+
+message DeleteScriptResponse{
+  CommandResponse command_response = 1;
 }
