@@ -32,7 +32,9 @@ service Unsupported {
   rpc GetLegendMaximumValue(GetLegendMaximumValueRequest) returns(GetLegendMaximumValueResponse);
   
   rpc GetLegendMinimumValue(GetLegendMinimumValueRequest) returns(GetLegendMinimumValueResponse); 
-  
+
+  rpc GetSimulationContext(GetSimulationContextRequest) returns (GetSimulationContextResponse);
+
 
   //oSl methods
   rpc SetSoundEnabled(SoundEnabledRequest) returns(SetSoundEnabledResponse);
@@ -124,6 +126,14 @@ message GetLegendMaximumValueResponse{
 message GetLegendMinimumValueResponse{
   double response = 1;
   CommandResponse command_response = 2;
+}
+
+message GetSimulationContextRequest{
+  bool include_monitors = 1;
+}
+
+message GetSimulationContextResponse{
+  string simulation_context = 1;
 }
 
 message RunCommandRequest{
