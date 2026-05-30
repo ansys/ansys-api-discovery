@@ -29,6 +29,10 @@ service Application{
   rpc SetTitle(SetApplicationTitleRequest) returns(SetApplicationTitleResponse);  
   
   rpc GetBackend(GetBackendRequest) returns(GetBackendResponse);
+  
+  rpc Undo(UndoRequest) returns(UndoResponse);
+  
+  rpc Redo(RedoRequest) returns(RedoResponse);
 }
 
 message SetApplicationTitleRequest{
@@ -125,5 +129,21 @@ message DisposeTrackerRequest{
 }
 
 message DisposeTrackerResponse{
+  CommandResponse command_response = 1;
+}
+
+message UndoRequest{
+  optional int32 steps = 1;
+}
+
+message UndoResponse{
+  CommandResponse command_response = 1;
+}
+
+message RedoRequest{
+  optional int32 steps = 1;
+}
+
+message RedoResponse{
   CommandResponse command_response = 1;
 }
