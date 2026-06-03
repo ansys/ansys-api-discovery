@@ -70,6 +70,7 @@ message SaveRequest{
   optional EntityIdentifier parent_entity_id = 7; // this allows both part export and body export.
   string file_name = 4;
   optional ansys.api.discovery.v1.design.FMDExportOptions fmd_export_options = 8;
+  optional ansys.api.discovery.v1.design.PMDBExportOptions pmdb_export_options = 9;
 }  
 
 message SaveResponse {  

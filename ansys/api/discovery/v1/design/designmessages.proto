@@ -569,6 +569,44 @@ message FMDExportOptions {
   Quantity max_edge_length = 4;
 }
 
+message PMDBExportOptions {
+  string parameter_prefixes = 1;
+  string cad_attribute_prefixes = 2;
+  string named_selection_prefixes = 3;
+  PMDBAnalysisType analysis_type = 4;
+  PMDBMixedPartExportType mixed_part_export_type = 5;
+  bool attach_flattened_assembly = 6;
+  bool use_cad_mass_properties = 7;
+  string plane_prefixes = 8;
+  string coordinate_system_prefixes = 9;
+  bool advanced_geom_processing = 10;
+  double angular_deviation = 11;
+  PMDBAttachWeightClass attach_weight_class = 12;
+  bool cad_associativity = 13;
+  bool cad_attribute_transfer = 14;
+  bool do_smart_update = 15;
+  double geometry_deviation = 16;
+  bool process_coordinate_sys = 17;
+  bool process_planes = 18;
+  bool import_using_instances = 19;
+  bool process_work_points = 20;
+  bool is_selective_update = 21;
+  bool material_properties = 22;
+  bool granta_material_properties = 23;
+  double max_facet_size = 24;
+  bool named_selection = 25;
+  PMDBParameterType parameter_processing_type = 26;
+  PMDBPlugInFacetQuality plug_in_facet_quality = 27;
+  bool process_enclosure_and_symmetry = 28;
+  bool reader_save_part = 29;
+  PMDBTargetApplication target_application = 30;
+  string temp_directory = 31;
+  bool process_physics_definition = 32;
+  bool process_solid_bodies = 33;
+  bool process_surface_bodies = 34;
+  bool process_line_bodies = 35;
+}
+
 message GetUpdateStateResponse{
   map<string,UpdateState> update_states = 1;
 }
