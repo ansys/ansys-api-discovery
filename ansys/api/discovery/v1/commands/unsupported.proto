@@ -13,13 +13,13 @@ option csharp_namespace = "Ansys.Api.Discovery.V1.Commands.Unsupported";
 service Unsupported {
 
   //Omniverse methods
-  rpc ExportResultsToOpenVDBFile(ExportResultsToOpenVDBFileRequest) returns(ExportResultsToOpenVDBFileResponse);
+  rpc ExportResultsToOpenVDBFile(ExportResultsToOpenVDBFileRequest) returns (ExportResultsToOpenVDBFileResponse);
   
-  rpc ExportResultsToOpenVDBMemory(ExportResultsToOpenVDBMemoryRequest) returns(ExportResultsToOpenVDBMemoryResponse);  
+  rpc ExportResultsToOpenVDBMemory(ExportResultsToOpenVDBMemoryRequest) returns (ExportResultsToOpenVDBMemoryResponse);  
   
-  rpc GetFacetedBodies(GetFacetedBodiesRequest) returns(GetFacetedBodiesResponse);  
+  rpc GetFacetedBodies(GetFacetedBodiesRequest) returns (GetFacetedBodiesResponse);  
   
-  rpc GetFacetedBodiesStream(GetFacetedBodiesRequest) returns(stream GetFacetedBodiesResponse);
+  rpc GetFacetedBodiesStream(GetFacetedBodiesRequest) returns (stream GetFacetedBodiesResponse);
   
   rpc CreateFacetedBodies(CreateFacetedBodiesRequest) returns (CreateFacetedBodiesResponse);
   
@@ -29,19 +29,21 @@ service Unsupported {
 
   //Omniverse Legend requests
   //Support properly in future (and depreciate these) once we have results API
-  rpc GetLegendMaximumValue(GetLegendMaximumValueRequest) returns(GetLegendMaximumValueResponse);
+  rpc GetLegendMaximumValue(GetLegendMaximumValueRequest) returns (GetLegendMaximumValueResponse);
   
-  rpc GetLegendMinimumValue(GetLegendMinimumValueRequest) returns(GetLegendMinimumValueResponse); 
+  rpc GetLegendMinimumValue(GetLegendMinimumValueRequest) returns (GetLegendMinimumValueResponse); 
 
   rpc GetSimulationContext(GetSimulationContextRequest) returns (GetSimulationContextResponse);
 
 
   //oSl methods
-  rpc SetSoundEnabled(SoundEnabledRequest) returns(SetSoundEnabledResponse);
+  rpc SetSoundEnabled(SoundEnabledRequest) returns (SetSoundEnabledResponse);
 
 
   // Runs a command. A command can be exposed by Addin.
-  rpc RunCommand(RunCommandRequest) returns(RunCommandResponse);
+  rpc RunCommand(RunCommandRequest) returns (RunCommandResponse);
+
+  rpc ConvertToHeavyweight(MultipleEntitiesRequest) returns (ConvertToHeavyweightResponse);
 }
 
 message SoundEnabledRequest {
@@ -147,4 +149,8 @@ message RunCommandResponse{
   // Data returned from command.
   string data = 1;
   CommandResponse command_response = 2;
+}
+
+message ConvertToHeavyweightResponse{
+  CommandResponse command_response = 1;
 }
