@@ -41,7 +41,22 @@ service Component{
 
   rpc SetPlacement(SetPlacementRequest) returns (SetPlacementResponse);  
 
+  rpc MoveBodiesToComponent(MoveBodiesToComponentRequest) returns (MoveBodiesToComponentResponse);
+
   rpc SetSharedTopology(SetSharedTopologyRequest) returns (SetSharedTopologyResponse);
+}
+
+message MoveBodiesToComponentRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  EntityIdentifier target_component_id = 2;
+}
+
+message MoveBodiesToComponentRequest {
+  repeated MoveBodiesToComponentRequestData request_data = 1;
+}
+
+message MoveBodiesToComponentResponse {
+  TrackedChanges tracked_changes = 1;
 }
 
 message MakeIndependentResponse {
