@@ -51,6 +51,7 @@ service Porous
   rpc SetSolidSpecificHeat(SetQuantityRequest) returns (SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (PorousDefinition);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
   

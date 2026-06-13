@@ -18,6 +18,7 @@ service SolidTemperature
   rpc SetMagnitude(SetQuantityRequest) returns(SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (TemperatureDefinition);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
