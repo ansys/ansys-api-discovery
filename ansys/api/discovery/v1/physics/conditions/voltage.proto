@@ -17,6 +17,7 @@ service Voltage
   rpc SetMagnitude(SetQuantityRequest) returns (SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (VoltageDefinition);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }

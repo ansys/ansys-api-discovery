@@ -1,0 +1,109 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.engineeringdata.material;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.EngineeringData.Material";
+
+service Material
+{
+  rpc CreateMaterial(MaterialCreationRequest) returns (MaterialCreationResponse);
+  rpc DuplicateLibraryMaterial(MaterialDuplicateLibraryRequest) returns (MaterialDuplicateLibraryResponse);
+  rpc GetById(MaterialGetByIdRequest) returns (MaterialGetByIdResponse);
+  rpc GetByLabel(MaterialGetByLabelRequest) returns (MaterialGetByLabelResponse);
+
+  // Physical Properties
+  rpc ChangeDensity(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeViscosity(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeTensileYieldStrength(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeTensileUltimateYieldStrength(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeCompressiveYieldStrength(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeCompressiveUltimateYieldStrength(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeMolarMass(SetQuantityRequest) returns (SetResponse);
+
+  // Mechanical Properties
+  rpc ChangeYoungsModulus(SetQuantityRequest) returns (SetResponse);
+  rpc ChangePoissonsRatio(SetQuantityRequest) returns (SetResponse);
+
+  // Thermal Properties
+  rpc ChangeCoefficientOfThermalExpansion(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeThermalConductivitySpecification(SetThermalConductivitySpecificationRequest) returns (SetResponse);
+  rpc ChangeIsotropicThermalConductivity(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeOrthotropicThermalConductivityX(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeOrthotropicThermalConductivityY(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeOrthotropicThermalConductivityZ(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeSpecificHeat(SetQuantityRequest) returns (SetResponse);
+
+  // Electromagnetic Properties
+  rpc ChangeRelativePermittivity(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeElectricConductivity(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeElectricLossTangent(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeRelativePermeability(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeMagneticLossTangent(SetQuantityRequest) returns (SetResponse);
+
+  // Environmental Properties
+  rpc ChangeEmbodiedEnergy(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeCo2Footprint(SetQuantityRequest) returns (SetResponse);
+  rpc ChangeRecycle(SetBooleanRequest) returns (SetResponse);
+
+  // Appearance Properties
+  rpc ChangeAlpha(SetIntRequest) returns (SetResponse);
+  rpc ChangeRed(SetIntRequest) returns (SetResponse);
+  rpc ChangeGreen(SetIntRequest) returns (SetResponse);
+  rpc ChangeBlue(SetIntRequest) returns (SetResponse);
+  rpc ChangeMetallicFinish(SetIntRequest) returns (SetResponse);
+  rpc ChangeRoughness(SetIntRequest) returns (SetResponse);
+  rpc ChangeLightTransmittance(SetIntRequest) returns (SetResponse);
+
+  // Table Operations
+  rpc AddMaterialTableRow(AddTableQuantityPairRequest) returns (SetResponse);
+  rpc EditMaterialTableRow(EditTableQuantityPairRequest) returns (SetResponse);
+  rpc RemoveMaterialTableRow(RemoveTableRowRequest) returns (SetResponse);
+
+}
+
+message MaterialCreationRequest{
+  string label = 1;
+  ansys.api.discovery.v1.physics.MaterialState material_state = 2;
+  bool add_to_project = 3;
+  optional GuidEntityIdentifier object_id = 4;
+}
+
+message MaterialCreationResponse {
+  CreationResponse creation_response = 1;
+  ansys.api.discovery.v1.physics.MaterialDefinition material_definition = 2;
+}
+message MaterialDuplicateLibraryRequest {
+  GuidEntityIdentifier object_id = 1;
+  optional string new_label = 2;
+}
+
+message MaterialDuplicateLibraryResponse {
+  CreationResponse creation_response = 1;
+  ansys.api.discovery.v1.physics.MaterialDefinition material_definition = 2;
+}
+
+message SetThermalConductivitySpecificationRequest {
+  GuidEntityIdentifier object_id = 1;
+  ansys.api.discovery.v1.physics.ThermalConductivitySpecification thermal_conductivity_specification = 2;
+}
+
+message MaterialGetByIdRequest {
+  GuidEntityIdentifier object_id = 1;
+}
+
+message MaterialGetByIdResponse {
+  ansys.api.discovery.v1.physics.MaterialDefinition material_definition = 1;
+}
+
+message MaterialGetByLabelRequest {
+  string label = 1;
+  GuidEntityIdentifier simulation_id = 2;
+}
+
+message MaterialGetByLabelResponse {
+  ansys.api.discovery.v1.physics.MaterialDefinition material_definition = 1;
+}
+

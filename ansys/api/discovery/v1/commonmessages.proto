@@ -119,8 +119,14 @@ message SetStringRequest{
   string text_value = 2;
 }
 
+message SetIntRequest {
+  GuidEntityIdentifier object_id = 1;
+  int32 value = 2;
+}
+
 message GetByLabelRequest{
   string label = 1;
+  GuidEntityIdentifier simulation_id = 2;
 }
 
 ////////////////////////////////
@@ -279,6 +285,7 @@ message AddTableQuantityPairRequest{
 message RemoveTableRowRequest{
   GuidEntityIdentifier object_id = 1;
   int32 row_index = 2;
+  optional QuantityType independent_quantity = 3; // Optional hint to identify which table to operate on
 }
 
 //////////////////////////////////////////////////////////////

@@ -19,6 +19,7 @@ service Bearing
   rpc SetAngle(SetQuantityRequest) returns (SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (BearingDefinition);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }

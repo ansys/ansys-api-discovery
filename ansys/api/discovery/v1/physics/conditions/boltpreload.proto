@@ -28,6 +28,7 @@ service BoltPreload
   rpc SetShankDiameter(SetQuantityRequest) returns (SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (BoltPreloadDefinition);
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 

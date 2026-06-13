@@ -18,6 +18,7 @@ service Convection
   rpc SetTemperatureMagnitude(SetQuantityRequest) returns(SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (ConvectionDefinition);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
