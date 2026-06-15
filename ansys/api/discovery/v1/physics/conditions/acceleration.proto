@@ -26,6 +26,7 @@ service Acceleration
   rpc SetIsFixedDZ(SetBooleanRequest) returns (SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (AccelerationDefinition);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 

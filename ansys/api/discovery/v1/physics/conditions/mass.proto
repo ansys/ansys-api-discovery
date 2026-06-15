@@ -22,6 +22,7 @@ service Mass
   rpc SetRemotePositionZ(SetQuantityRequest) returns (SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (MassDefinition);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }

@@ -49,6 +49,12 @@ service Flow
   rpc SetDirection(SetFlowDirectionRequest) returns (SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetFlowVelocityInletByLabel(GetByLabelRequest) returns (FlowVelocityInletDefinition);
+  rpc GetFlowVelocityOutletByLabel(GetByLabelRequest) returns (FlowVelocityOutletDefinition);
+  rpc GetFlowPressureInletByLabel(GetByLabelRequest) returns (FlowPressureInletDefinition);
+  rpc GetFlowPressureOutletByLabel(GetByLabelRequest) returns (FlowPressureOutletDefinition);
+  rpc GetFlowMassFlowInletByLabel(GetByLabelRequest) returns (FlowMassFlowInletDefinition);
+  rpc GetFlowMassFlowOutletByLabel(GetByLabelRequest) returns (FlowMassFlowOutletDefinition);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }

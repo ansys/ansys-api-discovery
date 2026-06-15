@@ -14,6 +14,7 @@ service Insulated
   rpc SetLocation(SetLocationRequest) returns(SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (InsulatedDefinition);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }

@@ -43,6 +43,7 @@ service Displacement
   rpc SetDistributedRemotePositionZ(SetQuantityRequest) returns (SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (DisplacementDefinition);
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
