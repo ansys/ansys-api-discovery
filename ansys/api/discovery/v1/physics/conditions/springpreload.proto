@@ -28,6 +28,7 @@ service SpringPreload
   rpc SetRotation(SetQuantityRequest) returns (SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (SpringPreloadDefinition);
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 

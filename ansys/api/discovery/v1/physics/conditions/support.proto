@@ -37,6 +37,8 @@ service Support
   rpc SetDisplacedIsFixedRZ(SetBooleanRequest) returns (SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetSupportGeneralByLabel(GetByLabelRequest) returns (SupportGeneralDefinition);
+  rpc GetSupportDisplacedByLabel(GetByLabelRequest) returns (SupportDisplacedDefinition);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 

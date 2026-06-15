@@ -139,3 +139,103 @@ message SetConductanceMethodRequest{
   GuidEntityIdentifier object_id = 1;
   ConductanceOptionType conductance_type = 2;
 }
+
+//
+// MATERIAL DEFINITIONS
+//
+enum MaterialState {
+  MATERIAL_STATE_SOLID = 0;
+  MATERIAL_STATE_FLUID = 1;
+  MATERIAL_STATE_GAS = 2;
+  MATERIAL_STATE_UNKNOWN = 3;
+}
+
+enum ThermalConductivitySpecification {
+  THERMAL_CONDUCTIVITY_SPECIFICATION_ISOTROPIC = 0;
+  THERMAL_CONDUCTIVITY_SPECIFICATION_ORTHOTROPIC = 1;
+}
+
+message MaterialDefinition {
+  GuidEntityIdentifier id = 1;
+  string label = 2;
+  MaterialPhysicalProperties physical_properties = 3;
+  MaterialMechanicalProperties mechanical_properties = 4;
+  MaterialThermalProperties thermal_properties = 5;
+  MaterialElectromagneticProperties electromagnetic_properties = 6;
+  MaterialEnvironmentalProperties environmental_properties = 7;
+  MaterialAppearanceProperties appearance_properties = 8;
+  MaterialState material_state = 9; 
+  MaterialSource material_source = 10;
+}
+
+message MaterialPhysicalProperties {
+  Quantity density = 1;
+  Quantity viscosity = 2;
+  Quantity molar_mass = 3;
+  Quantity tensile_yeld_strength = 4;
+  Quantity tensile_ultimate_yeld_strength = 5;
+  Quantity compressive_yeld_strength = 6;
+  Quantity compressive_ultimate_yeld_strength = 7;
+  QuantityGenericTable density_table = 8;
+}
+
+message MaterialMechanicalProperties {
+  Quantity youngs_modulus = 1;
+  Quantity poissons_ratio = 2;
+  Quantity shear_modulues = 3;
+  Quantity bulk_modulus = 4;
+  QuantityGenericTable youngs_modulus_table = 5;
+}
+
+message MaterialThermalProperties {
+  Quantity coefficient_of_thermal_expansion = 1;
+  Quantity specific_heat = 2;
+  MaterialThermalConductivityProperties thermal_conductivity = 3;
+  QuantityGenericTable specific_heat_table = 4;
+  MaterialInternalRadiationProperties internal_radiation_properties = 5;
+}
+
+message MaterialThermalConductivityProperties {
+  ThermalConductivitySpecification thermal_conductivity_specification = 1;
+  QuantityGenericTable isotropic_thermal_conductivity = 2;
+  QuantityGenericTable orthotropic_thermal_conductivity_x = 3;
+  QuantityGenericTable orthotropic_thermal_conductivity_y = 4;
+  QuantityGenericTable orthotropic_thermal_conductivity_z = 5;
+}
+
+message MaterialInternalRadiationProperties {
+  Quantity absorption_coefficient = 1;
+  Quantity scattering_coefficient = 2;
+  Quantity refractive_index = 3;
+}
+
+message MaterialElectromagneticProperties {
+  Quantity electric_conductivity = 1;
+  Quantity relative_permittivity = 2;
+  Quantity relative_permeability = 3;
+  Quantity electric_loss_tangent = 4;
+  Quantity magnetic_loss_tangent = 5;
+  QuantityGenericTable electric_conductivity_table = 6;
+}
+
+message MaterialEnvironmentalProperties {
+  Quantity embodied_energy = 1;
+  Quantity co2_footprint = 2;
+  optional bool recycle = 3;
+}
+
+message MaterialAppearanceProperties {
+  int32 alpha = 1;
+  int32 red = 2;
+  int32 green = 3;
+  int32 blue = 4;
+  int32 metallic_finish = 5;
+  int32 roughness = 6;
+  int32 light_transmittance = 7;
+}
+
+message MaterialSource {
+  GuidEntityIdentifier source_material_id = 1;
+  string database_key = 2;
+  string history_guid = 3;
+}

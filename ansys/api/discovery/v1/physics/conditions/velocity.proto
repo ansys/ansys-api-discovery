@@ -31,6 +31,7 @@ service Velocity
   rpc SetRemotePositionZ(SetQuantityRequest) returns (SetResponse);
 
   rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (VelocityDefinition);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
