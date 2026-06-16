@@ -106,6 +106,7 @@ message DisplacementDefinition {
   repeated string locations = 4;
   bool suppressed = 5;
   DisplacementCombinedProperties displacement = 6;
+  DisplacementSpecification specification = 7;
 }
 
 message GetByIdResponse {
