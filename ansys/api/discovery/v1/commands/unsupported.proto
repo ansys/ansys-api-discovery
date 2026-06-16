@@ -33,7 +33,10 @@ service Unsupported {
   
   rpc GetLegendMinimumValue(GetLegendMinimumValueRequest) returns (GetLegendMinimumValueResponse); 
 
+  // Discovery Copilot Methods
   rpc GetSimulationContext(GetSimulationContextRequest) returns (GetSimulationContextResponse);
+
+  rpc HasActiveSelection(HasActiveSelectionRequest) returns (HasActiveSelectionResponse);
 
 
   //oSl methods
@@ -136,6 +139,14 @@ message GetSimulationContextRequest{
 
 message GetSimulationContextResponse{
   string simulation_context = 1;
+}
+
+message HasActiveSelectionRequest{
+}
+
+message HasActiveSelectionResponse{
+  bool has_bodies = 1;
+  bool has_faces = 2;
 }
 
 message RunCommandRequest{
