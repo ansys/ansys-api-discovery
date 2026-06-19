@@ -36,7 +36,7 @@ if __name__ == "__main__":
         long_description_content_type='text/markdown',
         url=f"https://github.com/ansys/{package_name}",
         license="MIT",
-        python_requires=">=3.10",
+        python_requires=">=3.12",
         install_requires=["grpcio~=1.44", "protobuf>=5.29", "ansys-api-geometry==0.4.92"],
         packages=setuptools.find_namespace_packages(".", include=("ansys.*",)),
         package_data={
