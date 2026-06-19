@@ -36,6 +36,8 @@ service Unsupported {
   // Discovery Copilot Methods
   rpc GetSimulationContext(GetSimulationContextRequest) returns (GetSimulationContextResponse);
 
+  rpc GetSerializedSimulationObjects(GetSerializedSimulationObjectsRequest) returns (GetSerializedSimulationObjectsResponse);
+
   rpc HasActiveSelection(HasActiveSelectionRequest) returns (HasActiveSelectionResponse);
 
 
@@ -139,6 +141,13 @@ message GetSimulationContextRequest{
 
 message GetSimulationContextResponse{
   string simulation_context = 1;
+}
+
+message GetSerializedSimulationObjectsRequest{
+}
+
+message GetSerializedSimulationObjectsResponse{
+  string simulation_objects = 1;
 }
 
 message HasActiveSelectionRequest{
