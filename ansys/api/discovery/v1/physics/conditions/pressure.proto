@@ -16,8 +16,8 @@ service Pressure
 
   rpc SetMagnitude(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
-  rpc GetByLabel(GetByLabelRequest) returns (PressureDefinition);
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -47,7 +47,7 @@ message PressureDefinition {
   PressureProperties pressure = 6;
 }
 
-message GetByIdResponse {
+message GetSingleResponse {
   PressureDefinition pressure_condition = 1;
   bool success = 2;
   string message = 3;

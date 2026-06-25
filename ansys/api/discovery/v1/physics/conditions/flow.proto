@@ -48,13 +48,8 @@ service Flow
 
   rpc SetDirection(SetFlowDirectionRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
-  rpc GetFlowVelocityInletByLabel(GetByLabelRequest) returns (FlowVelocityInletDefinition);
-  rpc GetFlowVelocityOutletByLabel(GetByLabelRequest) returns (FlowVelocityOutletDefinition);
-  rpc GetFlowPressureInletByLabel(GetByLabelRequest) returns (FlowPressureInletDefinition);
-  rpc GetFlowPressureOutletByLabel(GetByLabelRequest) returns (FlowPressureOutletDefinition);
-  rpc GetFlowMassFlowInletByLabel(GetByLabelRequest) returns (FlowMassFlowInletDefinition);
-  rpc GetFlowMassFlowOutletByLabel(GetByLabelRequest) returns (FlowMassFlowOutletDefinition);
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -250,7 +245,7 @@ message FlowMassFlowOutletDefinition {
   MassFlowOutletProperties mass_flow_outlet = 6;
 }
 
-message GetByIdResponse{
+message GetSingleResponse{
   FlowVelocityInletDefinition flow_velocity_inlet_condition = 1;
   FlowVelocityOutletDefinition flow_velocity_outlet_condition = 2;
   FlowPressureInletDefinition flow_pressure_inlet_condition = 3;

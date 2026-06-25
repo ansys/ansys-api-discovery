@@ -17,8 +17,8 @@ service Convection
   
   rpc SetTemperatureMagnitude(SetQuantityRequest) returns(SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
-  rpc GetByLabel(GetByLabelRequest) returns (ConvectionDefinition);
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -47,7 +47,7 @@ message ConvectionDefinition {
   Quantity temperature = 7;
 }
 
-message GetByIdResponse{
+message GetSingleResponse{
   ConvectionDefinition convection_condition = 1;
   bool success = 2;
   string message = 3;
