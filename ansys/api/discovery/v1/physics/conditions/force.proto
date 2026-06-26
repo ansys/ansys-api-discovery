@@ -142,14 +142,16 @@ message ForceTorqueProperties {
 message GetSingleResponse {
   ForceDistributedDefinition distributed_force = 1;
   ForceTorqueDefinition torque_force = 2;
-  bool success = 3;
-  string message = 4;
+  ForceSpecification force_specification = 3;
+  bool success = 4;
+  string message = 5;
 }
 
 // Response for GetAll
 message GetAllResponse {
   repeated ForceDistributedDefinition distributed_forces = 1;
   repeated ForceTorqueDefinition torque_forces = 2;
-  bool success = 3;
-  string message = 4;
+  ForceSpecification force_specification = 3;
+  bool success = 4;
+  string message = 5;
 }
