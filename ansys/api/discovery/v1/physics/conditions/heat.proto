@@ -28,13 +28,8 @@ service Heat
 
   rpc SetSpecification(SetHeatSpecificationRequest) returns(SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
-
-  rpc GetHeatTotalByLabel(GetByLabelRequest) returns (HeatTotalDefinition);
-
-  rpc GetHeatPerVolumeByLabel(GetByLabelRequest) returns (HeatPerVolumeDefinition);
-
-  rpc GetHeatPerAreaByLabel(GetByLabelRequest) returns (HeatPerAreaDefinition);
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -100,7 +95,7 @@ message HeatPerVolumeDefinition {
 }
 
 // Response for GetAll
-message GetByIdResponse {
+message GetSingleResponse {
   HeatTotalDefinition total_heat = 1;
   HeatPerVolumeDefinition volumetric_heat = 2;
   HeatPerAreaDefinition surface_heat = 3;

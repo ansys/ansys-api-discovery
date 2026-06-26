@@ -27,8 +27,8 @@ service SpringPreload
   rpc SetLength(SetQuantityRequest) returns (SetResponse);
   rpc SetRotation(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
-  rpc GetByLabel(GetByLabelRequest) returns (SpringPreloadDefinition);
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
@@ -107,7 +107,7 @@ message SpringPreloadDefinition {
   SpringPreloadProperties preload_properties = 10;
 }
 
-message GetByIdResponse{
+message GetSingleResponse{
   SpringPreloadDefinition spring_preload_condition = 1;
   bool success = 2;
   string message = 3;

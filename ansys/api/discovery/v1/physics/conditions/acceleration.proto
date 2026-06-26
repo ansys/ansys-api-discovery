@@ -25,8 +25,8 @@ service Acceleration
   rpc SetIsFixedDY(SetBooleanRequest) returns (SetResponse);
   rpc SetIsFixedDZ(SetBooleanRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
-  rpc GetByLabel(GetByLabelRequest) returns (AccelerationDefinition);
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 
@@ -57,7 +57,7 @@ message AccelerationDefinition {
   AccelerationProperties acceleration = 6;
 }
 
-message GetByIdResponse{
+message GetSingleResponse{
   AccelerationDefinition condition = 1;
   bool success = 2;
   string message = 3;

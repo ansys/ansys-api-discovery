@@ -58,11 +58,8 @@ service Wall
 
   rpc SetExternalEmissivity(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
-  rpc GetWallFreeSlipByLabel(GetByLabelRequest) returns (WallFreeSlipDefinition);
-  rpc GetWallStationaryByLabel(GetByLabelRequest) returns (WallStationaryDefinition);
-  rpc GetWallTranslationByLabel(GetByLabelRequest) returns (WallTranslationDefinition);
-  rpc GetWallRotationByLabel(GetByLabelRequest) returns (WallRotationDefinition);
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
   
@@ -223,7 +220,7 @@ message WallTranslationDefinition {
   TranslationProperties translation_properties = 6;
 }
 
-message GetByIdResponse{
+message GetSingleResponse{
   WallFreeSlipDefinition wall_free_slip_condition = 1;
   WallStationaryDefinition wall_stationary_condition = 2;
   WallRotationDefinition wall_rotation_condition = 3;

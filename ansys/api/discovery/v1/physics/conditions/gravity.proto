@@ -21,9 +21,9 @@ service Gravity
   rpc SetUseBuoyancyEnabled(SetBooleanRequest) returns (SetResponse);
   rpc SetIncludeSelfWeightEnabled(SetBooleanRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
 
-  rpc GetByLabel(GetByLabelRequest) returns (GravityDefinition);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
   
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
@@ -45,7 +45,7 @@ message GravityDefinition {
 }
 
 // Response for GetAll
-message GetByIdResponse {
+message GetSingleResponse {
   GravityDefinition gravity_condition = 1;
   bool success = 2;
   string message = 3;

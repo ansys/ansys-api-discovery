@@ -36,9 +36,8 @@ service Support
   rpc SetDisplacedIsFixedRY(SetBooleanRequest) returns (SetResponse);
   rpc SetDisplacedIsFixedRZ(SetBooleanRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
-  rpc GetSupportGeneralByLabel(GetByLabelRequest) returns (SupportGeneralDefinition);
-  rpc GetSupportDisplacedByLabel(GetByLabelRequest) returns (SupportDisplacedDefinition);
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
 
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 
@@ -104,17 +103,19 @@ message SupportDisplacedProperties {
   TensorOfOptionalQuantities displacement = 1;
 }
 
-message GetByIdResponse{
+message GetSingleResponse{
   SupportGeneralDefinition support_general = 1;
   SupportDisplacedDefinition support_displaced = 2;
-  bool success = 3;
-  string message = 4;
+  SupportSpecification support_specification = 3;
+  bool success = 4;
+  string message = 5;
 }
 
 message GetAllResponse{
   // The simulations in the study.
   repeated SupportGeneralDefinition supports_general = 1;
   repeated SupportDisplacedDefinition supports_displaced = 2;
-  bool success = 3;
-  string message = 4;
+  SupportSpecification support_specification = 3;
+  bool success = 4;
+  string message = 5;
 }

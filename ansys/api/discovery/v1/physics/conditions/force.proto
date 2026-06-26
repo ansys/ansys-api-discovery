@@ -46,10 +46,8 @@ service Force
   rpc SetTorqueY(SetQuantityRequest) returns (SetResponse);
   rpc SetTorqueZ(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
-
-  rpc GetForceDistributedByLabel(GetByLabelRequest) returns (ForceDistributedDefinition);
-  rpc GetForceTorqueByLabel(GetByLabelRequest) returns (ForceTorqueDefinition);
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
   
   // Lists all force conditions under the specified parent (simulation / part)
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
@@ -141,17 +139,19 @@ message ForceTorqueProperties {
 }
 
 // Response for GetById
-message GetByIdResponse {
+message GetSingleResponse {
   ForceDistributedDefinition distributed_force = 1;
   ForceTorqueDefinition torque_force = 2;
-  bool success = 3;
-  string message = 4;
+  ForceSpecification force_specification = 3;
+  bool success = 4;
+  string message = 5;
 }
 
 // Response for GetAll
 message GetAllResponse {
   repeated ForceDistributedDefinition distributed_forces = 1;
   repeated ForceTorqueDefinition torque_forces = 2;
-  bool success = 3;
-  string message = 4;
+  ForceSpecification force_specification = 3;
+  bool success = 4;
+  string message = 5;
 }
