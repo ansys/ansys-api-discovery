@@ -106,16 +106,14 @@ message SupportDisplacedProperties {
 message GetSingleResponse{
   SupportGeneralDefinition support_general = 1;
   SupportDisplacedDefinition support_displaced = 2;
-  SupportSpecification support_specification = 3;
-  bool success = 4;
-  string message = 5;
+  bool success = 3;
+  string message = 4;
 }
 
 message GetAllResponse{
   // The simulations in the study.
   repeated SupportGeneralDefinition supports_general = 1;
   repeated SupportDisplacedDefinition supports_displaced = 2;
-  SupportSpecification support_specification = 3;
-  bool success = 4;
-  string message = 5;
+  bool success = 3;
+  string message = 4;
 }
