@@ -45,6 +45,6 @@ message SolveExecutionResponse{
 }
 
 enum SolverManager {
-  ARTEMIS= 0;
-  APOLLO = 1;
+  SOLVERMANAGER_ARTEMIS = 0;
+  SOLVERMANAGER_APOLLO = 1;
 }

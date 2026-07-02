@@ -76,9 +76,9 @@ message ChangeDisplacementSpecificationRequest{
 // Displacement enumerations
 
 enum DisplacementSpecification {
-  TRANSLATION = 0;
-  ROTATION = 1;
-  COMBINED = 2;
+  DISPLACEMENTSPECIFICATION_TRANSLATION = 0;
+  DISPLACEMENTSPECIFICATION_ROTATION = 1;
+  DISPLACEMENTSPECIFICATION_COMBINED = 2;
 }
 
 // Displacement condition definitions

@@ -44,18 +44,18 @@ service ContactGroup
 
 message ConvertContactGroupChangeRequest{
   GuidEntityIdentifier object_id = 1;
-  ContactGoupConversionType contact_group_type = 2;
+  ContactGroupConversionType contact_group_type = 2;
   ContactPairs contact_pairs = 3;
   optional bool idealize = 4;
   optional double friction_coefficient = 5;
 }
 
 // Contact group condition definitions
-enum ContactGoupConversionType {
-  SLIDING_CONTACT_GROUP = 0;
-  JOINT = 1;
-  BOND = 2;
-  EXCLUDE = 3;
+enum ContactGroupConversionType {
+  CONTACTGROUPCONVERSIONTYPE_SLIDING_CONTACT_GROUP = 0;
+  CONTACTGROUPCONVERSIONTYPE_JOINT = 1;
+  CONTACTGROUPCONVERSIONTYPE_BOND = 2;
+  CONTACTGROUPCONVERSIONTYPE_EXCLUDE = 3;
 }
 
 message ContactGroupDefinition {
