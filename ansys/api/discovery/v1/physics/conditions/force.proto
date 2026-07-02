@@ -97,13 +97,13 @@ message ForceTorqueCreationResponse{
 // force enumerations
 
 enum ForceMagnitudeDefinition {
-  TOTALFORCE = 0;
-  FORCEPERAREA = 1;
+  FORCEMAGNITUDEDEFINITION_TOTALFORCE = 0;
+  FORCEMAGNITUDEDEFINITION_FORCEPERAREA = 1;
 }
 
 enum ForceSpecification {
-  DISTRIBUTED = 0;
-  TORQUE = 1;
+  FORCESPECIFICATION_DISTRIBUTED = 0;
+  FORCESPECIFICATION_TORQUE = 1;
 }
 
 // force condition definitions

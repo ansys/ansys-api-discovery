@@ -79,9 +79,9 @@ message SetPorousSpecificationRequest{
 // enumerations
 
 enum PorousSpecification {
-  ISOTROPIC = 0;
-  BIDIRECTIONAL = 1;
-  ORTHOTROPIC = 2;
+  POROUSSPECIFICATION_ISOTROPIC = 0;
+  POROUSSPECIFICATION_BIDIRECTIONAL = 1;
+  POROUSSPECIFICATION_ORTHOTROPIC = 2;
 }
 
 // Conditions properties

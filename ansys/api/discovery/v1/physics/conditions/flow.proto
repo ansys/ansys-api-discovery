@@ -135,14 +135,14 @@ message SetFlowDirectionRequest{
 // fluid enumerations
 
 enum FlowDirectionDefinition {
-  IN = 0;
-  OUT = 1;
+  FLOWDIRECTIONDEFINITION_IN = 0;
+  FLOWDIRECTIONDEFINITION_OUT = 1;
 }
 
 enum FlowSpecificationDefinition {
-  VELOCITY = 0;
-  MASSFLOW = 1;
-  PRESSURE = 2;
+  FLOWSPECIFICATIONDEFINITION_VELOCITY = 0;
+  FLOWSPECIFICATIONDEFINITION_MASSFLOW = 1;
+  FLOWSPECIFICATIONDEFINITION_PRESSURE = 2;
 }
 
 // Fluid conditions properties

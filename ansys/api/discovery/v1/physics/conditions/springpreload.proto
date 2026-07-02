@@ -64,16 +64,16 @@ message SetSpringPreloadTypeRequest{
 // Enumerations
 
 enum SpringPreloadSpecification {
-  LONGITUDINAL = 0;
-  TORSIONAL = 1;
+  SPRINGPRELOADSPECIFICATION_LONGITUDINAL = 0;
+  SPRINGPRELOADSPECIFICATION_TORSIONAL = 1;
 }
 
 enum SpringPreloadType{
-  NONE = 0;
-  LOAD = 1;
-  LENGTH = 2;
-  TORQUE = 3;
-  ROTATION = 4;
+  SPRINGPRELOADTYPE_NONE = 0;
+  SPRINGPRELOADTYPE_LOAD = 1;
+  SPRINGPRELOADTYPE_LENGTH = 2;
+  SPRINGPRELOADTYPE_TORQUE = 3;
+  SPRINGPRELOADTYPE_ROTATION = 4;
 }
 
 // Condition definitions
