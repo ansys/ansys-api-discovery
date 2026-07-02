@@ -36,9 +36,9 @@ message JointCreationResponse{
 
 // Joint condition definitions
 enum JointType {
-  FIXED_JOINT = 0;
-  HINGED_JOINT = 1;
-  SPHERICAL_JOINT = 2;
+  JOINTTYPE_FIXED = 0;
+  JOINTTYPE_HINGED = 1;
+  JOINTTYPE_SPHERICAL = 2;
 }
 
 message JointProperties {

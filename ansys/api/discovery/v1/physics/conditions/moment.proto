@@ -51,8 +51,8 @@ message SetMomentSpecificationRequest{
 // Moment enumerations
 
 enum MomentSpecification {
-  GLOBAL = 0;
-  LOCAL = 1;
+  MOMENTSPECIFICATION_GLOBAL = 0;
+  MOMENTSPECIFICATION_LOCAL = 1;
 }
 
 // Moment condition definitions

@@ -1,4 +1,5 @@
 // Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+
 syntax = "proto3";
 package ansys.api.discovery.v1.commands.historytrack;
 
@@ -26,8 +27,8 @@ message ReplayResponse{
 }
 
 enum RecordingStatus{
-  OFF=0;
-  ON=1;
+  RECORDINGSTATUS_OFF = 0;
+  RECORDINGSTATUS_ON = 1;
 }
 
 message GetRecordingStatusRequest{

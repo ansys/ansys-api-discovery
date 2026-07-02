@@ -63,9 +63,9 @@ message SetBoltPreloadSpecificationRequest{
 // Enumerations
 
 enum BoltPreloadSpecification {
-  CLAMPFORCE = 0;
-  GRIPLENGTH = 1;
-  TORQUE = 2;
+  BOLTPRELOADSPECIFICATION_CLAMPFORCE = 0;
+  BOLTPRELOADSPECIFICATION_GRIPLENGTH = 1;
+  BOLTPRELOADSPECIFICATION_TORQUE = 2;
 }
 
 // Condition definitions

@@ -71,11 +71,11 @@ message SupportDisplacedCreationResponse{
 // Support enumerations
 
 enum SupportSpecification {
-  FIXED = 0;
-  SLIDING = 1;
-  HINGED = 2;
-  BALL = 3;
-  DISPLACED = 4;
+  SUPPORTSPECIFICATION_FIXED = 0;
+  SUPPORTSPECIFICATION_SLIDING = 1;
+  SUPPORTSPECIFICATION_HINGED = 2;
+  SUPPORTSPECIFICATION_BALL = 3;
+  SUPPORTSPECIFICATION_DISPLACED = 4;
 }
 
 // Support condition definitions

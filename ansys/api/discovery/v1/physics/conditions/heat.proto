@@ -62,8 +62,8 @@ message HeatSurfaceDistributedCreationResponse{
 
 //Enumerations
 enum HeatSpecification {
-  TOTALHEAT = 0;
-  HEATPERUNITVOLUMEORAREA = 1;
+  HEATSPECIFICATION_TOTALHEAT = 0;
+  HEATSPECIFICATION_HEATPERUNITVOLUMEORAREA = 1;
 }
 
 //Definitions
