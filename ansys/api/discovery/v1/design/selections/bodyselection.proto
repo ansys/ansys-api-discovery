@@ -1,0 +1,385 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.selections.bodyselection;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+import "ansys/api/discovery/v1/geometryenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Selections.BodySelection";
+
+service BodySelection {
+  // ── Static factory — query active document, no input body IDs ────────────────
+  rpc GetAllVisibleBodies(GetAllVisibleBodiesRequest) returns (BodySelectionQueryResponse);
+  rpc GetAllBodies(GetAllBodiesRequest) returns (BodySelectionQueryResponse);
+  rpc GetAllSurfaceBodies(GetAllSurfaceBodiesRequest) returns (BodySelectionQueryResponse);
+  rpc GetAllSolidBodies(GetAllSolidBodiesRequest) returns (BodySelectionQueryResponse);
+  rpc GetBodiesFromNamedSelection(GetBodiesFromNamedSelectionRequest) returns (BodySelectionQueryResponse);
+  rpc GetBodiesWithName(GetBodiesWithNameRequest) returns (BodySelectionQueryResponse);
+  rpc GetBodiesWithVolume(GetBodiesWithVolumeRequest) returns (BodySelectionQueryResponse);
+  rpc GetBodiesWithSurfaceArea(GetBodiesWithSurfaceAreaRequest) returns (BodySelectionQueryResponse);
+  rpc GetBodiesWithXLocation(GetBodiesWithLocationRequest) returns (BodySelectionQueryResponse);
+  rpc GetBodiesWithYLocation(GetBodiesWithLocationRequest) returns (BodySelectionQueryResponse);
+  rpc GetBodiesWithZLocation(GetBodiesWithLocationRequest) returns (BodySelectionQueryResponse);
+  rpc GetBodiesWithColor(GetBodiesWithColorRequest) returns (BodySelectionQueryResponse);
+
+  // ── Instance operations (operate on provided body_ids) ───────────────────────
+  rpc InvertBodySelection(InvertBodySelectionRequest) returns (BodySelectionQueryResponse);
+
+  // ── Filter ───────────────────────────────────────────────────────────────────
+  rpc FilterBodiesByVolume(FilterBodiesByVolumeRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMaxVolume(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMinVolume(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesBySurfaceArea(FilterBodiesBySurfaceAreaRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMaxSurfaceArea(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMinSurfaceArea(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesByFaceCount(FilterBodiesByIntRangeRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMaxFaceCount(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMinFaceCount(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesByEdgeCount(FilterBodiesByIntRangeRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMaxEdgeCount(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMinEdgeCount(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesByLoopCount(FilterBodiesByIntRangeRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMaxLoopCount(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMinLoopCount(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesByNumberSurfaces(FilterBodiesBySurfaceCountRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesByNumberCurves(FilterBodiesByCurveCountRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMaxNumberSurfaces(FilterBodiesBySurfaceTypeRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMaxNumberCurves(FilterBodiesByCurveTypeRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMinNumberSurfaces(FilterBodiesBySurfaceTypeRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesMinNumberCurves(FilterBodiesByCurveTypeRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesByNumberSurfacesPercentile(FilterBodiesBySurfaceTypePercentileRequest)
+      returns (BodySelectionQueryResponse);
+  rpc FilterBodiesByNumberCurvesPercentile(FilterBodiesByCurveTypePercentileRequest)
+      returns (BodySelectionQueryResponse);
+  rpc FilterBodiesByColor(FilterBodiesByColorRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesByName(FilterBodiesByNameRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesContainingSurfaceTypes(FilterBodiesContainingSurfaceTypesRequest)
+      returns (BodySelectionQueryResponse);
+  rpc FilterBodiesContainingCurveTypes(FilterBodiesContainingCurveTypesRequest)
+      returns (BodySelectionQueryResponse);
+  rpc FilterBodiesVolumePercentile(FilterBodiesPercentileRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesSurfaceAreaPercentile(FilterBodiesPercentileRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesFaceCountPercentile(FilterBodiesPercentileRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesEdgeCountPercentile(FilterBodiesPercentileRequest) returns (BodySelectionQueryResponse);
+  rpc FilterBodiesLoopCountPercentile(FilterBodiesPercentileRequest) returns (BodySelectionQueryResponse);
+  rpc FilterSurfaceBodies(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc FilterSolidBodies(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+
+  // ── Extend ───────────────────────────────────────────────────────────────────
+  rpc ExtendToSameVolume(BodySelectionExtendRequest) returns (BodySelectionQueryResponse);
+  rpc ExtendToSameSurfaceArea(BodySelectionExtendRequest) returns (BodySelectionQueryResponse);
+  rpc ExtendToSameNumberOfFaces(BodySelectionExtendRequest) returns (BodySelectionQueryResponse);
+  rpc ExtendToSameNumberOfEdges(BodySelectionExtendRequest) returns (BodySelectionQueryResponse);
+  rpc ExtendToSameColor(BodySelectionExtendRequest) returns (BodySelectionQueryResponse);
+  rpc ExtendToSameName(BodySelectionExtendRequest) returns (BodySelectionQueryResponse);
+  rpc ExtendNearbyBodies(ExtendNearbyBodiesRequest) returns (BodySelectionQueryResponse);
+
+  // ── OrderBy ──────────────────────────────────────────────────────────────────
+  rpc OrderBodiesByVolume(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc OrderBodiesBySurfaceArea(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc OrderBodiesByFaceCount(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc OrderBodiesByEdgeCount(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc OrderBodiesByLoopCount(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc OrderBodiesByNumberOfSurfaces(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+  rpc OrderBodiesByNumberOfCurves(BodySelectionInputRequest) returns (BodySelectionQueryResponse);
+
+  // ── GroupBy ──────────────────────────────────────────────────────────────────
+  rpc GroupBodiesByVolume(BodySelectionInputRequest) returns (BodyGroupResponse);
+  rpc GroupBodiesBySurfaceArea(BodySelectionInputRequest) returns (BodyGroupResponse);
+  rpc GroupBodiesByFaceCount(BodySelectionInputRequest) returns (BodyGroupResponse);
+  rpc GroupBodiesByEdgeCount(BodySelectionInputRequest) returns (BodyGroupResponse);
+  rpc GroupBodiesByLoopCount(BodySelectionInputRequest) returns (BodyGroupResponse);
+  rpc GroupBodiesByColor(BodySelectionInputRequest) returns (BodyGroupResponse);
+  rpc GroupBodiesByName(BodySelectionInputRequest) returns (BodyGroupResponse);
+}
+
+// ─── Shared message types ─────────────────────────────────────────────────────
+
+// A group of body entity identifiers (used by GroupBy responses).
+message BodyGroup {
+  repeated BodyEntity bodies = 1;
+}
+
+// ─── Common request / response types ─────────────────────────────────────────
+
+// Data item for requests carrying only an input set of body IDs.
+message BodySelectionInputRequestData {
+  repeated EntityIdentifier body_ids = 1;
+}
+
+// Batched request carrying only input body IDs.
+message BodySelectionInputRequest {
+  repeated BodySelectionInputRequestData request_data = 1;
+}
+
+// Standard flat-list response for Filter / Extend / OrderBy / static-query RPCs.
+message BodySelectionQueryResponseData {
+  repeated BodyEntity bodies = 1;
+  CommandResponse command_response = 2;
+}
+
+message BodySelectionQueryResponse {
+  repeated BodySelectionQueryResponseData response_data = 1;
+}
+
+// Data item for GroupBy responses.
+message BodyGroupResponseData {
+  repeated BodyGroup groups = 1;
+  CommandResponse command_response = 2;
+}
+
+// Standard batched response for GroupBy RPCs.
+message BodyGroupResponse {
+  repeated BodyGroupResponseData response_data = 1;
+}
+
+// Data item for Extend RPCs that accept a scope parameter.
+message BodySelectionExtendRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  ExtendScope scope = 2;
+}
+
+// Batched request for Extend RPCs.
+message BodySelectionExtendRequest {
+  repeated BodySelectionExtendRequestData request_data = 1;
+}
+
+// ─── Static factory request messages ─────────────────────────────────────────
+
+message GetAllVisibleBodiesRequest {
+}
+message GetAllBodiesRequest {
+}
+message GetAllSurfaceBodiesRequest {
+}
+message GetAllSolidBodiesRequest {
+}
+
+message GetBodiesFromNamedSelectionRequestData {
+  string name = 1;
+}
+
+message GetBodiesFromNamedSelectionRequest {
+  repeated GetBodiesFromNamedSelectionRequestData request_data = 1;
+}
+
+message GetBodiesWithNameRequestData {
+  string name = 1;
+  StringFilterType filter_type = 2;
+  bool ignore_case = 3;
+}
+
+message GetBodiesWithNameRequest {
+  repeated GetBodiesWithNameRequestData request_data = 1;
+}
+
+message GetBodiesWithVolumeRequestData {
+  Quantity min = 1;
+  Quantity max = 2;
+}
+
+message GetBodiesWithVolumeRequest {
+  repeated GetBodiesWithVolumeRequestData request_data = 1;
+}
+
+message GetBodiesWithSurfaceAreaRequestData {
+  Quantity min = 1;
+  Quantity max = 2;
+}
+
+message GetBodiesWithSurfaceAreaRequest {
+  repeated GetBodiesWithSurfaceAreaRequestData request_data = 1;
+}
+
+// Used by GetBodiesWithXLocation, GetBodiesWithYLocation, GetBodiesWithZLocation.
+message GetBodiesWithLocationRequestData {
+  Quantity min = 1;
+  Quantity max = 2;
+  RangeType range_type = 3;
+}
+
+message GetBodiesWithLocationRequest {
+  repeated GetBodiesWithLocationRequestData request_data = 1;
+}
+
+message GetBodiesWithColorRequestData {
+  string color = 1;
+}
+
+message GetBodiesWithColorRequest {
+  repeated GetBodiesWithColorRequestData request_data = 1;
+}
+
+// ─── Instance request messages ────────────────────────────────────────────────
+
+message InvertBodySelectionRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  InvertScope scope = 2;
+}
+
+message InvertBodySelectionRequest {
+  repeated InvertBodySelectionRequestData request_data = 1;
+}
+
+// ─── Filter request messages ──────────────────────────────────────────────────
+
+message FilterBodiesByVolumeRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  Quantity min = 2;
+  Quantity max = 3;
+}
+
+message FilterBodiesByVolumeRequest {
+  repeated FilterBodiesByVolumeRequestData request_data = 1;
+}
+
+message FilterBodiesBySurfaceAreaRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  Quantity min = 2;
+  Quantity max = 3;
+}
+
+message FilterBodiesBySurfaceAreaRequest {
+  repeated FilterBodiesBySurfaceAreaRequestData request_data = 1;
+}
+
+// Used by FilterBodiesByFaceCount, FilterBodiesByEdgeCount, FilterBodiesByLoopCount.
+message FilterBodiesByIntRangeRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  int32 min = 2;
+  optional int32 max = 3;
+}
+
+message FilterBodiesByIntRangeRequest {
+  repeated FilterBodiesByIntRangeRequestData request_data = 1;
+}
+
+message FilterBodiesBySurfaceCountRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  SurfaceType surface_type = 2;
+  int32 min = 3;
+  optional int32 max = 4;
+}
+
+message FilterBodiesBySurfaceCountRequest {
+  repeated FilterBodiesBySurfaceCountRequestData request_data = 1;
+}
+
+message FilterBodiesByCurveCountRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  CurveType curve_type = 2;
+  int32 min = 3;
+  optional int32 max = 4;
+}
+
+message FilterBodiesByCurveCountRequest {
+  repeated FilterBodiesByCurveCountRequestData request_data = 1;
+}
+
+// Used by FilterBodiesMaxNumberSurfaces and FilterBodiesMinNumberSurfaces.
+message FilterBodiesBySurfaceTypeRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  SurfaceType surface_type = 2;
+}
+
+message FilterBodiesBySurfaceTypeRequest {
+  repeated FilterBodiesBySurfaceTypeRequestData request_data = 1;
+}
+
+// Used by FilterBodiesMaxNumberCurves and FilterBodiesMinNumberCurves.
+message FilterBodiesByCurveTypeRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  CurveType curve_type = 2;
+}
+
+message FilterBodiesByCurveTypeRequest {
+  repeated FilterBodiesByCurveTypeRequestData request_data = 1;
+}
+
+message FilterBodiesBySurfaceTypePercentileRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  SurfaceType surface_type = 2;
+  double min_percentile = 3;
+  double max_percentile = 4;
+}
+
+message FilterBodiesBySurfaceTypePercentileRequest {
+  repeated FilterBodiesBySurfaceTypePercentileRequestData request_data = 1;
+}
+
+message FilterBodiesByCurveTypePercentileRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  CurveType curve_type = 2;
+  double min_percentile = 3;
+  double max_percentile = 4;
+}
+
+message FilterBodiesByCurveTypePercentileRequest {
+  repeated FilterBodiesByCurveTypePercentileRequestData request_data = 1;
+}
+
+message FilterBodiesByColorRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  string color = 2;
+}
+
+message FilterBodiesByColorRequest {
+  repeated FilterBodiesByColorRequestData request_data = 1;
+}
+
+message FilterBodiesByNameRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  string name = 2;
+  StringFilterType filter_type = 3;
+  bool ignore_case = 4;
+}
+
+message FilterBodiesByNameRequest {
+  repeated FilterBodiesByNameRequestData request_data = 1;
+}
+
+message FilterBodiesContainingSurfaceTypesRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  SurfaceType surface_types = 2;
+  bool exclusive = 3;
+}
+
+message FilterBodiesContainingSurfaceTypesRequest {
+  repeated FilterBodiesContainingSurfaceTypesRequestData request_data = 1;
+}
+
+message FilterBodiesContainingCurveTypesRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  CurveType curve_types = 2;
+  bool exclusive = 3;
+}
+
+message FilterBodiesContainingCurveTypesRequest {
+  repeated FilterBodiesContainingCurveTypesRequestData request_data = 1;
+}
+
+// Used by FilterBodiesVolumePercentile, FilterBodiesSurfaceAreaPercentile,
+// FilterBodiesFaceCountPercentile, FilterBodiesEdgeCountPercentile,
+// FilterBodiesLoopCountPercentile.
+message FilterBodiesPercentileRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  double min_percentile = 2;
+  double max_percentile = 3;
+}
+
+message FilterBodiesPercentileRequest {
+  repeated FilterBodiesPercentileRequestData request_data = 1;
+}
+
+// ─── Extend request messages ──────────────────────────────────────────────────
+
+message ExtendNearbyBodiesRequestData {
+  repeated EntityIdentifier body_ids = 1;
+  Quantity distance = 2;
+  ExtendScope scope = 3;
+}
+
+message ExtendNearbyBodiesRequest {
+  repeated ExtendNearbyBodiesRequestData request_data = 1;
+}
