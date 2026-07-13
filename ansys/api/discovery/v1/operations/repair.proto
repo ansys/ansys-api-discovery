@@ -81,7 +81,17 @@ service Repair{
   
   rpc InspectGeometry(InspectGeometryRequest) returns (InspectGeometryResponse);
   
-  rpc RepairGeometry(RepairGeometryRequest) returns (RepairGeometryResponse);  
+  rpc RepairGeometry(RepairGeometryRequest) returns (RepairGeometryResponse);
+
+  rpc FindBadFaces(FindBadFacesRequest) returns (FindBadFacesResponse);
+}
+
+message FindBadFacesRequest{
+  repeated EntityIdentifier body_ids = 1;
+}
+
+message FindBadFacesResponse{
+  repeated EntityIdentifier face_ids = 1;
 }
 
 message FindInterferenceRequest{
