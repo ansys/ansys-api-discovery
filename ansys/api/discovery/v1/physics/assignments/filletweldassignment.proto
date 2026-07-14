@@ -14,6 +14,10 @@ service FilletWeldAssignment
   rpc Create(FilletWeldAssignmentCreationRequest) returns (FilletWeldAssignmentCreationResponse);
 
   rpc SetWeld(SetAssignmentRequest) returns (SetResponse);
+
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
 //FilletWeldAssignment
@@ -23,7 +27,7 @@ message FilletWeldAssignmentCreationRequest{
 }
 
 message FilletWeldAssignmentCreationResponse{
-  CreationResponse condition_response = 1;
+  CreationResponse creation_response = 1;
   FilletWeldAssignmentDefinition condition_data = 2;
 }
 
@@ -35,12 +39,19 @@ message FilletWeldAssignmentProperties {
 }
 
 message FilletWeldAssignmentDefinition {
-  EntityIdentifier id = 1;
-  EntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  FilletWeldAssignmentProperties fillet_weld = 6;
-  double generated_pitch = 7;
-  int32 number_of_intermittent_welds = 8;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  FilletWeldAssignmentProperties fillet_weld = 3;
+  double generated_pitch = 4;
+  int32 number_of_intermittent_welds = 5;
+}
+
+message GetSingleResponse{
+  CommandResponse command_response = 1;
+  FilletWeldAssignmentDefinition entity_definition = 2;
+}
+
+message GetAllResponse{
+  CommandResponse command_response = 1;
+  repeated FilletWeldAssignmentDefinition entity_definitions = 2;
 }

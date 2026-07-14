@@ -34,8 +34,8 @@ message MassCreationRequest{
 }
 
 message MassCreationResponse{
-  CreationResponse condition_response = 1;
-  MassDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  MassDefinition as_created_data = 2;
 }
 
 // Mass condition definitions
@@ -45,23 +45,18 @@ message MassProperties {
 }
 
 message MassDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  MassProperties mass = 6;
-  bool use_remote_point = 7;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  MassProperties mass = 3;
+  bool use_remote_point = 4;
 }
 
 message GetSingleResponse{
-  MassDefinition mass_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  MassDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  repeated MassDefinition mass_conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated MassDefinition entity_definitions = 2;
 }

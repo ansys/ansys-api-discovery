@@ -29,8 +29,8 @@ message PressureCreationRequest{
 }
 
 message PressureCreationResponse{
-  CreationResponse condition_response = 1;
-  PressureDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  PressureDefinition as_created_data = 2;
 }
 
 // Pressure condition definitions
@@ -39,23 +39,18 @@ message PressureProperties {
 }
 
 message PressureDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  PressureProperties pressure = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  PressureProperties pressure = 3;
 }
 
 message GetSingleResponse {
-  PressureDefinition pressure_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  PressureDefinition entity_definition = 2;
 }
 
 // Response for GetAll
 message GetAllResponse {
-  repeated PressureDefinition pressure_conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated PressureDefinition entity_definitions = 2;
 }

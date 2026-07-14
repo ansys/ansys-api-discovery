@@ -30,28 +30,23 @@ message TemperatureCreationRequest{
 }
 
 message TemperatureCreationResponse{
-  CreationResponse condition_response = 1;
-  TemperatureDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  TemperatureDefinition as_created_data = 2;
 }
 
 // Definitions
 message TemperatureDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  Quantity magnitude = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  Quantity magnitude = 3;
 }
 
 message GetSingleResponse{
-  TemperatureDefinition temperature_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  TemperatureDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  repeated TemperatureDefinition temperature_conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated TemperatureDefinition entity_definitions = 2;
 }

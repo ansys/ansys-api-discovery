@@ -39,8 +39,8 @@ message MomentCreationRequest{
 }
 
 message MomentCreationResponse{
-  CreationResponse condition_response = 1;
-  MomentDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  MomentDefinition as_created_data = 2;
 }
 
 message SetMomentSpecificationRequest{
@@ -62,24 +62,19 @@ message MomentProperties {
 }
 
 message MomentDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  MomentProperties local = 6;
-  MomentProperties global = 7;
-  MomentSpecification specification = 8;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  MomentProperties local = 3;
+  MomentProperties global = 4;
+  MomentSpecification specification = 5;
 }
 
 message GetSingleResponse{
-  MomentDefinition moment_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  MomentDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  repeated MomentDefinition moment_conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated MomentDefinition entity_definitions = 2;
 }

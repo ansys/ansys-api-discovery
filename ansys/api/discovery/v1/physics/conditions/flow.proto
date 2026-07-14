@@ -63,8 +63,8 @@ message FlowVelocityInletCreationRequest{
 }
 
 message FlowVelocityInletCreationResponse{
-  CreationResponse condition_response = 1;
-  FlowVelocityInletDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  FlowVelocityInletDefinition as_created_data = 2;
 }
 
 // Velocity Out
@@ -74,8 +74,8 @@ message FlowVelocityOutletCreationRequest{
 }
 
 message FlowVelocityOutletCreationResponse{
-  CreationResponse condition_response = 1;
-  FlowVelocityOutletDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  FlowVelocityOutletDefinition as_created_data = 2;
 }
 
 // Pressure In
@@ -85,8 +85,8 @@ message FlowPressureInletCreationRequest{
 }
 
 message FlowPressureInletCreationResponse{
-  CreationResponse condition_response = 1;
-  FlowPressureInletDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  FlowPressureInletDefinition as_created_data = 2;
 }
 
 // Pressure Out
@@ -95,8 +95,8 @@ message FlowPressureOutletCreationRequest{
   PressureOutletProperties pressure_outlet = 2;
 }
 message FlowPressureOutletCreationResponse{
-  CreationResponse condition_response = 1;
-  FlowPressureOutletDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  FlowPressureOutletDefinition as_created_data = 2;
 }
 
 // Mass Flow In
@@ -106,8 +106,8 @@ message FlowMassFlowInletCreationRequest{
 }
 
 message FlowMassFlowInletCreationResponse{
-  CreationResponse condition_response = 1;
-  FlowMassFlowInletDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  FlowMassFlowInletDefinition as_created_data = 2;
 }
 
 // Mass Flow Out
@@ -117,8 +117,8 @@ message FlowMassFlowOutletCreationRequest{
 }
 
 message FlowMassFlowOutletCreationResponse{
-  CreationResponse condition_response = 1;
-  FlowMassFlowOutletDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  FlowMassFlowOutletDefinition as_created_data = 2;
 }
 
 message SetFlowSpecificationRequest{
@@ -192,77 +192,61 @@ message FlowThermalProperties
 // Fluid conditions definitions
 
 message FlowVelocityInletDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  VelocityInletProperties velocity_inlet = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  VelocityInletProperties velocity_inlet = 3;
 }
 
 message FlowVelocityOutletDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  VelocityOutletProperties velocity_outlet = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  VelocityOutletProperties velocity_outlet = 3;
 }
 
 message FlowPressureInletDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  PressureInletProperties pressure_inlet = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  PressureInletProperties pressure_inlet = 3;
 }
 
 message FlowPressureOutletDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  PressureOutletProperties pressure_outlet = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  PressureOutletProperties pressure_outlet = 3;
 }
 
 message FlowMassFlowInletDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  MassFlowInletProperties mass_flow_inlet = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  MassFlowInletProperties mass_flow_inlet = 3;
 }
 
 message FlowMassFlowOutletDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  MassFlowOutletProperties mass_flow_outlet = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  MassFlowOutletProperties mass_flow_outlet = 3;
+}
+
+// Unified flow definition returned by Get operations
+message FlowDefinition {
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  FlowSpecificationDefinition specification = 3;
+  FlowDirectionDefinition direction = 4;
+  Quantity speed = 5;
+  Quantity pressure = 6;
+  Quantity mass_flow = 7;
+  FlowThermalProperties thermal_properties = 8;
+  bool is_swirling = 9;
+  Quantity rotational_speed = 10;
 }
 
 message GetSingleResponse{
-  FlowVelocityInletDefinition flow_velocity_inlet_condition = 1;
-  FlowVelocityOutletDefinition flow_velocity_outlet_condition = 2;
-  FlowPressureInletDefinition flow_pressure_inlet_condition = 3;
-  FlowPressureOutletDefinition flow_pressure_outlet_condition = 4;
-  FlowMassFlowInletDefinition flow_massflow_inlet_condition = 5;
-  FlowMassFlowOutletDefinition flow_massflow_outlet_condition = 6;
-  bool success = 7;
-  string message = 8;
+  CommandResponse command_response = 1;
+  FlowDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  repeated FlowVelocityInletDefinition flow_velocity_inlet_conditions = 1;
-  repeated FlowVelocityOutletDefinition flow_velocity_outlet_conditions = 2;
-  repeated FlowPressureInletDefinition flow_pressure_inlet_conditions = 3;
-  repeated FlowPressureOutletDefinition flow_pressure_outlet_conditions = 4;
-  repeated FlowMassFlowInletDefinition flow_massflow_inlet_conditions = 5;
-  repeated FlowMassFlowOutletDefinition flow_massflow_outlet_conditions = 6;
-  bool success = 7;
-  string message = 8;
+  CommandResponse command_response = 1;
+  repeated FlowDefinition entity_definitions = 2;
 }

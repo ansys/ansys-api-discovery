@@ -3,10 +3,24 @@ syntax = "proto3";
 package ansys.api.discovery.v1.physics.conditions.operatingpressure;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.OperatingPressure";
 
 service OperatingPressure
 {
   rpc SetMagnitude(SetQuantityRequest) returns(SetResponse);
+
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
+}
+
+message OperatingPressureDefinition {
+  PhysicsEntityBaseProperties base_properties = 1;
+  Quantity magnitude = 2;
+}
+
+message GetSingleResponse {
+  CommandResponse command_response = 1;
+  OperatingPressureDefinition entity_definition = 2;
 }
