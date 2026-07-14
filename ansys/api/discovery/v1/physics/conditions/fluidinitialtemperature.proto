@@ -3,10 +3,24 @@ syntax = "proto3";
 package ansys.api.discovery.v1.physics.conditions.fluidinitialtemperature;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Conditions.FluidInitialTemperature";
 
 service FluidInitialTemperature
 {
   rpc SetTemperatureMagnitude(SetQuantityRequest) returns(SetResponse);
+
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
+}
+
+message FluidInitialTemperatureDefinition {
+  PhysicsEntityBaseProperties base_properties = 1;
+  Quantity temperature = 2;
+}
+
+message GetSingleResponse {
+  CommandResponse command_response = 1;
+  FluidInitialTemperatureDefinition entity_definition = 2;
 }

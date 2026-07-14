@@ -32,29 +32,24 @@ message ConvectionCreationRequest{
 }
 
 message ConvectionCreationResponse{
-  CreationResponse condition_response = 1;
-  ConvectionDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  ConvectionDefinition as_created_data = 2;
 }
 
 //Definitions
 message ConvectionDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  Quantity coefficient = 6;
-  Quantity temperature = 7;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  Quantity coefficient = 3;
+  Quantity temperature = 4;
 }
 
 message GetSingleResponse{
-  ConvectionDefinition convection_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  ConvectionDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  repeated ConvectionDefinition convection_conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated ConvectionDefinition entity_definitions = 2;
 }

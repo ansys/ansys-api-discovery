@@ -20,6 +20,10 @@ service MaterialAssignment
   rpc SetTemperatureInputEnabled(SetBooleanRequest) returns (SetResponse);
 
   rpc SetCompressibleFlowEnabled(SetBooleanRequest) returns (SetResponse);
+
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
 message MaterialAssignmentCreationRequest{
@@ -30,7 +34,7 @@ message MaterialAssignmentCreationRequest{
 }
 
 message MaterialAssignmentCreationResponse{
-  CreationResponse condition_response = 1;
+  CreationResponse creation_response = 1;
   bool new_assignment_created = 2;
   MaterialAssignmentDefinition condition_data = 3;
 }
@@ -41,10 +45,17 @@ message MaterialAssignmentProperties {
 }
 
 message MaterialAssignmentDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  MaterialAssignmentProperties assignment_properties = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  MaterialAssignmentProperties assignment_properties = 3;
+}
+
+message GetSingleResponse{
+  CommandResponse command_response = 1;
+  MaterialAssignmentDefinition entity_definition = 2;
+}
+
+message GetAllResponse{
+  CommandResponse command_response = 1;
+  repeated MaterialAssignmentDefinition entity_definitions = 2;
 }

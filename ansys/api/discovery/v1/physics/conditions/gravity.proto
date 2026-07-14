@@ -36,24 +36,19 @@ message GravityProperties {
 }
 
 message GravityDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  GravityProperties gravity = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  GravityProperties gravity = 3;
 }
 
 // Response for GetAll
 message GetSingleResponse {
-  GravityDefinition gravity_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  GravityDefinition entity_definition = 2;
 }
 
 message GetAllResponse {
-  repeated GravityDefinition gravity_conditions = 1; // usually 0 or 1 item
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated GravityDefinition entity_definitions = 2; // usually 0 or 1 item
 }
 

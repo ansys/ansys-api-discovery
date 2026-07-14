@@ -17,6 +17,10 @@ service BoltAssignment
 
   rpc SetBolt(SetAssignmentRequest) returns (SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+
 }
 
 //BoltAssignment
@@ -27,7 +31,7 @@ message BoltAssignmentCreationRequest{
 }
 
 message BoltAssignmentCreationResponse{
-  CreationResponse condition_response = 1;
+  CreationResponse creation_response = 1;
   BoltAssignmentDefinition condition_data = 2;
 }
 
@@ -37,12 +41,19 @@ message BoltAssignmentProperties {
 }
 
 message BoltAssignmentDefinition {
-  EntityIdentifier id = 1;
-  EntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  BoltAssignmentProperties bolt = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  BoltAssignmentProperties bolt = 3;
+}
+
+message GetSingleResponse{
+  CommandResponse command_response = 1;
+  BoltAssignmentDefinition entity_definition = 2;
+}
+
+message GetAllResponse{
+  CommandResponse command_response = 1;
+  repeated BoltAssignmentDefinition entity_definitions = 2;
 }
 
 message SetBoltLocationRequest {

@@ -29,8 +29,8 @@ message VoltageCreationRequest{
 }
 
 message VoltageCreationResponse{
-  CreationResponse condition_response = 1;
-  VoltageDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  VoltageDefinition as_created_data = 2;
 }
 
 // Voltage condition definitions
@@ -39,23 +39,18 @@ message VoltageProperties {
 }
 
 message VoltageDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  VoltageProperties voltage = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  VoltageProperties voltage = 3;
 }
 
 // Response for GetAll
 message GetSingleResponse {
-  VoltageDefinition condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  VoltageDefinition entity_definition = 2;
 }
 
 message GetAllResponse {
-  repeated VoltageDefinition conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated VoltageDefinition entity_definitions = 2;
 }

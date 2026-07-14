@@ -15,6 +15,11 @@ service LocalFidelity
   rpc SetLocation(SetLocationExtendedRequest) returns(SetResponse);
 
   rpc SetMagnitude(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
 // LocalFidelity
@@ -24,8 +29,8 @@ message LocalFidelityCreationRequest{
 }
 
 message LocalFidelityCreationResponse{
-  CreationResponse condition_response = 1;
-  LocalFidelityDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  LocalFidelityDefinition as_created_data = 2;
 }
 
 // LocalFidelity condition definitions
@@ -34,10 +39,17 @@ message LocalFidelityProperties {
 }
 
 message LocalFidelityDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  LocalFidelityProperties local_fidelity = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  LocalFidelityProperties local_fidelity = 3;
+}
+
+message GetSingleResponse {
+  CommandResponse command_response = 1;
+  LocalFidelityDefinition entity_definition = 2;
+}
+
+message GetAllResponse {
+  CommandResponse command_response = 1;
+  repeated LocalFidelityDefinition entity_definitions = 2;
 }

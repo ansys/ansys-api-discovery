@@ -4,6 +4,7 @@ package ansys.api.discovery.v1.physics.connections.fluidinterface;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+import "ansys/api/discovery/v1/physicsenums.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Connections.FluidInterface";
 
@@ -23,6 +24,11 @@ service FluidInterface
            
   rpc SetFSInterfaceInternalRadiationInputEnabled(SetBooleanRequest) returns (SetResponse);
   rpc SetFSInterfaceInternalEmissivity(SetQuantityRequest) returns (SetResponse);
+
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
 message SetFluidInterfaceTypeRequest{
@@ -57,4 +63,33 @@ enum FluidInterfaceFaceThermalConductanceMethod {
   FLUIDINTERFACEFACETHERMALCONDUCTANCEMETHOD_THERMALCONDUCTANCE = 1;
   FLUIDINTERFACEFACETHERMALCONDUCTANCEMETHOD_THICKNESSANDCONDUCTIVITY = 2;
   FLUIDINTERFACEFACETHERMALCONDUCTANCEMETHOD_THICKNESSANDMATERIAL = 3;
+}
+
+message FluidInterfaceProperties {
+  FluidInterfaceType interface_type = 1;
+  FluidInterfaceFaceGroupingMethod face_grouping_method = 2;
+  ConductanceOptionType thermal_conductance_method = 3;
+  Quantity detection_distance_high = 4;
+  Quantity face_overlap_allowance = 5;
+  GuidEntityIdentifier thermal_material = 6;
+  Quantity thermal_conductance = 7;
+  Quantity thermal_conductivity = 8;
+  Quantity thermal_thickness = 9;
+  bool internal_radiation_input_enabled = 10;
+  Quantity internal_emissivity = 11;
+}
+
+message FluidInterfaceDefinition {
+  PhysicsEntityBaseProperties base_properties = 1;
+  FluidInterfaceProperties fluid_interface_properties = 2;
+}
+
+message GetSingleResponse{
+  CommandResponse command_response = 1;
+  FluidInterfaceDefinition entity_definition = 2;
+}
+
+message GetAllResponse{
+  CommandResponse command_response = 1;
+  repeated FluidInterfaceDefinition entity_definitions = 2;
 }

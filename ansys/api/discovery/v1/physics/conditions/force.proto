@@ -70,8 +70,8 @@ message ForceDistributedTotalCreationRequest{
 }
 
 message ForceDistributedTotalCreationResponse{
-  CreationResponse condition_response = 1;
-  ForceDistributedDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  ForceDistributedDefinition as_created_data = 2;
 }
 
 message ForceDistributedAreaCreationRequest{
@@ -80,8 +80,8 @@ message ForceDistributedAreaCreationRequest{
 }
 
 message ForceDistributedAreaCreationResponse{
-  CreationResponse condition_response = 1;
-  ForceDistributedDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  ForceDistributedDefinition as_created_data = 2;
 }
 
 message ForceTorqueCreationRequest{
@@ -90,8 +90,8 @@ message ForceTorqueCreationRequest{
 }
 
 message ForceTorqueCreationResponse{
-  CreationResponse condition_response = 1;
-  ForceTorqueDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  ForceTorqueDefinition as_created_data = 2;
 }
 
 // force enumerations
@@ -109,14 +109,11 @@ enum ForceSpecification {
 // force condition definitions
 
 message ForceDistributedDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  ForceDistributedProperties force_distributed = 6;
-  ForceMagnitudeDefinition magnitude_definition = 7;
-  ForceSpecification force_specification = 8;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  ForceDistributedProperties force_distributed = 3;
+  ForceMagnitudeDefinition magnitude_definition = 4;
+  ForceSpecification force_specification = 5;
 }
 
 message ForceDistributedProperties {
@@ -126,13 +123,10 @@ message ForceDistributedProperties {
 }
 
 message ForceTorqueDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  ForceTorqueProperties force_torque = 6;
-  ForceSpecification force_specification = 7;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  ForceTorqueProperties force_torque = 3;
+  ForceSpecification force_specification = 4;
 }
 
 message ForceTorqueProperties {
@@ -140,18 +134,25 @@ message ForceTorqueProperties {
   OptionalVector force_components = 2;
 }
 
+// Unified force definition returned by Get operations
+message ForceDefinition {
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  ForceSpecification force_specification = 3;
+  ForceMagnitudeDefinition magnitude_definition = 4;
+  Quantity force = 5;
+  OptionalVector force_components = 6;
+  OptionalVector remote_point = 7;
+}
+
 // Response for GetById
 message GetSingleResponse {
-  ForceDistributedDefinition distributed_force = 1;
-  ForceTorqueDefinition torque_force = 2;
-  bool success = 3;
-  string message = 4;
+  CommandResponse command_response = 1;
+  ForceDefinition entity_definition = 2;
 }
 
 // Response for GetAll
 message GetAllResponse {
-  repeated ForceDistributedDefinition distributed_forces = 1;
-  repeated ForceTorqueDefinition torque_forces = 2;
-  bool success = 3;
-  string message = 4;
+  CommandResponse command_response = 1;
+  repeated ForceDefinition entity_definitions = 2;
 }

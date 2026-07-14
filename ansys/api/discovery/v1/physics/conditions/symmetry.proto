@@ -27,28 +27,23 @@ message SymmetryCreationRequest{
 }
 
 message SymmetryCreationResponse{
-  CreationResponse condition_response = 1;
-  SymmetryDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  SymmetryDefinition as_created_data = 2;
 }
 
 
 message SymmetryDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
 }
 
 message GetSingleResponse{
-  SymmetryDefinition symmetry_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  SymmetryDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
   // The symmetry conditions in the study.
-  repeated SymmetryDefinition symmetry_conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated SymmetryDefinition entity_definitions = 2;
 }

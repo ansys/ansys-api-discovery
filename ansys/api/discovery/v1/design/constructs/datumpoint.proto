@@ -41,22 +41,25 @@ message DatumPointCreationRequest {
 }
 
 message DatumPointCreationResponse {
-  repeated EntityIdentifier ids =1;
+  repeated EntityIdentifier ids = 1;
   CreationResponse creation_response = 2;
 }
 
 message GetPointResponse {
   Point point = 1;
-  GetDataResponse get_data_response = 2;
+  GetDataResponse get_data_response = 2 [deprecated = true];
+  CommandResponse command_response = 3;
 }
 
 message GetResponse{
   DatumPointEntity point = 1;
-  GetDataResponse get_data_response = 2;
+  GetDataResponse get_data_response = 2 [deprecated = true];
+  CommandResponse command_response = 3;
 }
 
 message GetAllResponse{
   repeated DatumPointEntity points = 1;
-  GetDataResponse get_data_response = 2;
+  GetDataResponse get_data_response = 2 [deprecated = true];
+  CommandResponse command_response = 3;
 }
 

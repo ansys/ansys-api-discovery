@@ -29,8 +29,8 @@ message CurrentCreationRequest{
 }
 
 message CurrentCreationResponse{
-  CreationResponse condition_response = 1;
-  CurrentDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  CurrentDefinition as_created_data = 2;
 }
 
 // Current condition definitions
@@ -39,23 +39,18 @@ message CurrentProperties {
 }
 
 message CurrentDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  CurrentProperties current = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  CurrentProperties current = 3;
 }
 
 message GetSingleResponse{
-  CurrentDefinition current_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  CurrentDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  repeated CurrentDefinition current_conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated CurrentDefinition entity_definitions = 2;
 }
 

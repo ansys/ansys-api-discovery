@@ -39,7 +39,10 @@ service ContactGroup
   rpc SetThermalContactConductance(SetQuantityRequest) returns (SetResponse);
   rpc SetElectricContactConductance(SetQuantityRequest) returns (SetResponse);
 
-  rpc GetByLabel(GetByLabelRequest) returns (ContactGroupDefinition);
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
 message ConvertContactGroupChangeRequest{
@@ -59,11 +62,18 @@ enum ContactGroupConversionType {
 }
 
 message ContactGroupDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string side1_locations = 4;
-  repeated string side2_locations = 5;
-  bool suppressed = 6;
-  ContactProperties contact = 7;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string side1_locations = 2;
+  repeated string side2_locations = 3;
+  ContactProperties contact = 4;
+}
+
+message GetSingleResponse{
+  CommandResponse command_response = 1;
+  ContactGroupDefinition entity_definition = 2;
+}
+
+message GetAllResponse{
+  CommandResponse command_response = 1;
+  repeated ContactGroupDefinition entity_definitions = 2;
 }

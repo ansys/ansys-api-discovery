@@ -16,6 +16,10 @@ service BeamAssignment
   rpc SetLocation(SetLocationRequest) returns(SetResponse);
 
   rpc SetBeamProfile(SetAssignmentRequest) returns (SetResponse);
+
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
 //BoltAssignment
@@ -25,7 +29,7 @@ message BeamAssignmentCreationRequest{
 }
 
 message BeamAssignmentCreationResponse{
-  CreationResponse condition_response = 1;
+  CreationResponse creation_response = 1;
   BeamAssignmentDefinition condition_data = 2;
 }
 
@@ -35,10 +39,17 @@ message BeamAssignmentProperties {
 }
 
 message BeamAssignmentDefinition {
-  EntityIdentifier id = 1;
-  EntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  BeamAssignmentProperties beam_data = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  BeamAssignmentProperties beam_data = 3;
+}
+
+message GetSingleResponse{
+  CommandResponse command_response = 1;
+  BeamAssignmentDefinition entity_definition = 2;
+}
+
+message GetAllResponse{
+  CommandResponse command_response = 1;
+  repeated BeamAssignmentDefinition entity_definitions = 2;
 }
