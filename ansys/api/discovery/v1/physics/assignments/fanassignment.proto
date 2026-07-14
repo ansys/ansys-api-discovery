@@ -32,6 +32,14 @@ service FanAssignment
   rpc SetInternalFanTotalHeat(SetQuantityRequest) returns (SetResponse);
 
   rpc SetInternalFanSpecifyTotalHeat(SetBooleanRequest) returns (SetResponse);
+
+  rpc GetInternalById(GetByIdRequest) returns (GetInternalSingleResponse);
+  rpc GetInternalByLabel(GetByLabelRequest) returns (GetInternalSingleResponse);
+  rpc GetAllInternal(ParentEntityRequest) returns (GetAllInternalResponse);
+
+  rpc GetExternalById(GetByIdRequest) returns (GetExternalSingleResponse);
+  rpc GetExternalByLabel(GetByLabelRequest) returns (GetExternalSingleResponse);
+  rpc GetAllExternal(ParentEntityRequest) returns (GetAllExternalResponse);
 }
 
 message InternalFanAssignmentCreationRequest{
@@ -47,12 +55,12 @@ message ExternalFanAssignmentCreationRequest{
 }
 
 message InternalFanAssignmentCreationResponse{
-  CreationResponse condition_response = 1;
+  CreationResponse creation_response = 1;
   InternalFanAssignmentDefinition condition_data = 2;
 }
 
 message ExternalFanAssignmentCreationResponse{
-  CreationResponse condition_response = 1;
+  CreationResponse creation_response = 1;
   ExternalFanAssignmentDefinition condition_data = 2;
 }
 
@@ -87,19 +95,33 @@ enum ExternalFanSpecification
 
 // Return definitions
 message InternalFanAssignmentDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  InternalFanAssignmentProperties assignment_properties = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  InternalFanAssignmentProperties assignment_properties = 3;
 }
 
 message ExternalFanAssignmentDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  ExternalFanAssignmentProperties assignment_properties = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  ExternalFanAssignmentProperties assignment_properties = 3;
+}
+
+message GetInternalSingleResponse{
+  CommandResponse command_response = 1;
+  InternalFanAssignmentDefinition entity_definition = 2;
+}
+
+message GetAllInternalResponse{
+  CommandResponse command_response = 1;
+  repeated InternalFanAssignmentDefinition entity_definitions = 2;
+}
+
+message GetExternalSingleResponse{
+  CommandResponse command_response = 1;
+  ExternalFanAssignmentDefinition entity_definition = 2;
+}
+
+message GetAllExternalResponse{
+  CommandResponse command_response = 1;
+  repeated ExternalFanAssignmentDefinition entity_definitions = 2;
 }

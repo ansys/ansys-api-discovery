@@ -35,8 +35,8 @@ message RotatingFluidZoneCreationRequest{
 }
 
 message RotatingFluidZoneCreationResponse{
-  CreationResponse condition_response = 1;
-  RotatingFluidZoneDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  RotatingFluidZoneDefinition as_created_data = 2;
 }
 
 
@@ -51,22 +51,17 @@ message RotatingFluidZoneProperties
 // Fluid conditions definitions
 
 message RotatingFluidZoneDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  RotatingFluidZoneProperties rotating_fluid_zone_properties = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  RotatingFluidZoneProperties rotating_fluid_zone_properties = 3;
 }
 
 message GetSingleResponse{
-  RotatingFluidZoneDefinition rotating_fluid_zone_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  RotatingFluidZoneDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  repeated RotatingFluidZoneDefinition rotating_fluid_zone_conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated RotatingFluidZoneDefinition entity_definitions = 2;
 }

@@ -66,8 +66,8 @@ message PorousCreationRequest{
 }
 
 message PorousCreationResponse{
-  CreationResponse condition_response = 1;
-  PorousDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  PorousDefinition as_created_data = 2;
 }
 
 // enum commands
@@ -114,24 +114,19 @@ message ResistanceCoeffients
 // conditions definitions
 
 message PorousDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  PorousProperties porous_properties = 6;
-  PorousSpecification porous_specification = 7;
-  optional LocationIdentifier streamwise_flow_direction_reference = 8;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  PorousProperties porous_properties = 3;
+  PorousSpecification porous_specification = 4;
+  optional LocationIdentifier streamwise_flow_direction_reference = 5;
 }
 
 message GetSingleResponse{
-  PorousDefinition porous_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  PorousDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  repeated PorousDefinition porous_conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated PorousDefinition entity_definitions = 2;
 }

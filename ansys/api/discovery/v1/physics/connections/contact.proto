@@ -38,6 +38,11 @@ service Contact
   rpc SetElectricContactConductance(SetQuantityRequest) returns (SetResponse);
 
   rpc Split(CommandRequest) returns (SetResponse);
+
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 }
 
 message ContactCreationRequest{
@@ -46,7 +51,7 @@ message ContactCreationRequest{
 }
 
 message ContactCreationResponse{
-  CreationResponse condition_response = 1;
+  CreationResponse creation_response = 1;
   ContactDefinition condition_data = 2;
 }
 
@@ -60,11 +65,18 @@ message ChangeContactPairRequest{
 
 
 message ContactDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string side1_locations = 4;
-  repeated string side2_locations = 5;
-  bool suppressed = 6;
-  ContactProperties contact = 7;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string side1_locations = 2;
+  repeated string side2_locations = 3;
+  ContactProperties contact = 4;
+}
+
+message GetSingleResponse{
+  CommandResponse command_response = 1;
+  ContactDefinition entity_definition = 2;
+}
+
+message GetAllResponse{
+  CommandResponse command_response = 1;
+  repeated ContactDefinition entity_definitions = 2;
 }

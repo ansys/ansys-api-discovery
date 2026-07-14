@@ -54,8 +54,8 @@ message SupportGeneralCreationRequest{
 }
 
 message SupportGeneralCreationResponse{
-  CreationResponse condition_response = 1;
-  SupportGeneralDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  SupportGeneralDefinition as_created_data = 2;
 }
 
 message SupportDisplacedCreationRequest{
@@ -64,8 +64,8 @@ message SupportDisplacedCreationRequest{
 }
 
 message SupportDisplacedCreationResponse{
-  CreationResponse condition_response = 1;
-  SupportDisplacedDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  SupportDisplacedDefinition as_created_data = 2;
 }
 
 // Support enumerations
@@ -81,39 +81,36 @@ enum SupportSpecification {
 // Support condition definitions
 
 message SupportGeneralDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  SupportSpecification support_type = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  SupportSpecification support_type = 3;
 }
 
 message SupportDisplacedDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  SupportSpecification support_type = 6;
-  TensorOfOptionalQuantities displacement = 7;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  SupportSpecification support_type = 3;
+  TensorOfOptionalQuantities displacement = 4;
 }
 
 message SupportDisplacedProperties {
   TensorOfOptionalQuantities displacement = 1;
 }
 
+// Unified support definition returned by Get operations
+message SupportDefinition {
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  SupportSpecification support_type = 3;
+  TensorOfOptionalQuantities displacement = 4;
+}
+
 message GetSingleResponse{
-  SupportGeneralDefinition support_general = 1;
-  SupportDisplacedDefinition support_displaced = 2;
-  bool success = 3;
-  string message = 4;
+  CommandResponse command_response = 1;
+  SupportDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  // The simulations in the study.
-  repeated SupportGeneralDefinition supports_general = 1;
-  repeated SupportDisplacedDefinition supports_displaced = 2;
-  bool success = 3;
-  string message = 4;
+  CommandResponse command_response = 1;
+  repeated SupportDefinition entity_definitions = 2;
 }

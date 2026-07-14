@@ -46,8 +46,8 @@ message SpringPreloadTorsionalCreationRequest {
 }
 
 message SpringPreloadCreationResponse {
-  CreationResponse condition_response = 1;
-  SpringPreloadDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  SpringPreloadDefinition as_created_data = 2;
 }
 
 //Other requests
@@ -95,26 +95,21 @@ message SpringPreloadProperties {
 }
 
 message SpringPreloadDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string side1_locations = 4;
-  repeated string side2_locations = 5;
-  bool suppressed = 6;
-  SpringPreloadSpecification specification = 7;
-  SpringPreloadLongitudinalStiffnessProperties longitudinal_stiffness_properties = 8;
-  SpringPreloadTorsionalStiffnessProperties torsional_stiffness_properties = 9;
-  SpringPreloadProperties preload_properties = 10;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string side1_locations = 2;
+  repeated string side2_locations = 3;
+  SpringPreloadSpecification specification = 4;
+  SpringPreloadLongitudinalStiffnessProperties longitudinal_stiffness_properties = 5;
+  SpringPreloadTorsionalStiffnessProperties torsional_stiffness_properties = 6;
+  SpringPreloadProperties preload_properties = 7;
 }
 
 message GetSingleResponse{
-  SpringPreloadDefinition spring_preload_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  SpringPreloadDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  repeated SpringPreloadDefinition spring_preload_conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated SpringPreloadDefinition entity_definitions = 2;
 }

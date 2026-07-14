@@ -17,6 +17,11 @@ service Joint
 
   rpc SetType(SetJointTypeRequest) returns (SetResponse);
 
+  rpc GetById(GetByIdRequest) returns (GetSingleResponse);
+  rpc GetByLabel(GetByLabelRequest) returns (GetSingleResponse);
+
+  rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
+
 }
 
 message JointCreationRequest{
@@ -30,7 +35,7 @@ message SetJointTypeRequest{
 }
 
 message JointCreationResponse{
-  CreationResponse condition_response = 1;
+  CreationResponse creation_response = 1;
   JointDefinition condition_data = 2;
 }
 
@@ -46,11 +51,18 @@ message JointProperties {
 }
 
 message JointDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string side1_locations = 4;
-  repeated string side2_locations = 5;
-  bool suppressed = 6;
-  JointProperties joint = 7;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string side1_locations = 2;
+  repeated string side2_locations = 3;
+  JointProperties joint = 4;
+}
+
+message GetSingleResponse{
+  CommandResponse command_response = 1;
+  JointDefinition entity_definition = 2;
+}
+
+message GetAllResponse{
+  CommandResponse command_response = 1;
+  repeated JointDefinition entity_definitions = 2;
 }

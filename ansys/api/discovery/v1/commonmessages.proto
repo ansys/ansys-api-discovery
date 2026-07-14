@@ -65,10 +65,10 @@ message GetDataResponse{
   string message = 2;
 }
 
-
 message GetBooleanResponse{
   bool value = 1;
-  GetDataResponse get_data_response = 2;
+  GetDataResponse get_data_response = 2 [deprecated = true];
+  CommandResponse command_response = 3;
 }
 
 

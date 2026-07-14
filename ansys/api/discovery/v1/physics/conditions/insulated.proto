@@ -25,27 +25,22 @@ message InsulatedCreationRequest{
 }
 
 message InsulatedCreationResponse{
-  CreationResponse condition_response = 1;
-  InsulatedDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  InsulatedDefinition as_created_data = 2;
 }
 
 //Definitions
 message InsulatedDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
 }
 
 message GetSingleResponse{
-  InsulatedDefinition insulated_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  InsulatedDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  repeated InsulatedDefinition insulated_conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated InsulatedDefinition entity_definitions = 2;
 }

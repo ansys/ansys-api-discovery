@@ -31,8 +31,8 @@ message BearingCreationRequest{
 }
 
 message BearingCreationResponse{
-  CreationResponse condition_response = 1;
-  BearingDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  BearingDefinition as_created_data = 2;
 }
 
 // Bearing condition definitions
@@ -43,23 +43,18 @@ message BearingProperties {
 }
 
 message BearingDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  BearingProperties bearing = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  BearingProperties bearing = 3;
 }
 
 // Response for GetAll
 message GetSingleResponse {
-  BearingDefinition condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  BearingDefinition entity_definition = 2;
 }
 
 message GetAllResponse {
-  repeated BearingDefinition conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated BearingDefinition entity_definitions = 2;
 }

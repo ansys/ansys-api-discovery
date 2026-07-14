@@ -74,8 +74,8 @@ message WallFreeSlipCreationRequest{
 }
 
 message WallFreeSlipCreationResponse{
-  CreationResponse condition_response = 1;
-  WallFreeSlipDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  WallFreeSlipDefinition as_created_data = 2;
 }
 
 // Create Stationary
@@ -85,8 +85,8 @@ message WallStationaryCreationRequest{
 }
 
 message WallStationaryCreationResponse{
-  CreationResponse condition_response = 1;
-  WallStationaryDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  WallStationaryDefinition as_created_data = 2;
 }
 
 // Create Translating
@@ -96,8 +96,8 @@ message WallTranslationCreationRequest{
 }
 
 message WallTranslationCreationResponse{
-  CreationResponse condition_response = 1;
-  WallTranslationDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  WallTranslationDefinition as_created_data = 2;
 }
 
 // Create Rotating
@@ -107,8 +107,8 @@ message WallRotationCreationRequest{
 }
 
 message WallRotationCreationResponse{
-  CreationResponse condition_response = 1;
-  WallRotationDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  WallRotationDefinition as_created_data = 2;
 }
 
 // enum commands
@@ -185,55 +185,46 @@ message WallThermalProperties
 // Fluid conditions definitions
 
 message WallFreeSlipDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  FreeSlipProperties free_slip_properties = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  FreeSlipProperties free_slip_properties = 3;
 }
 
 message WallStationaryDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  StationaryProperties stationary_properties = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  StationaryProperties stationary_properties = 3;
 }
 
 message WallRotationDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  RotationProperties rotation_properties = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  RotationProperties rotation_properties = 3;
 }
 
 message WallTranslationDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  TranslationProperties translation_properties = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  TranslationProperties translation_properties = 3;
+}
+
+// Unified wall definition returned by Get operations
+message WallDefinition {
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  WallSpecification specification = 3;
+  bool wall_thermal_option_enabled = 4;
+  optional WallThermalProperties wall_thermal_properties = 5;
+  Quantity rotational_velocity = 6;
+  QuantityVector translational_velocity = 7;
 }
 
 message GetSingleResponse{
-  WallFreeSlipDefinition wall_free_slip_condition = 1;
-  WallStationaryDefinition wall_stationary_condition = 2;
-  WallRotationDefinition wall_rotation_condition = 3;
-  WallTranslationDefinition wall_translation_condition = 4;
-  bool success = 5;
-  string message = 6;
+  CommandResponse command_response = 1;
+  WallDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  repeated WallFreeSlipDefinition wall_free_slip_conditions = 1;
-  repeated WallStationaryDefinition wall_stationary_conditions = 2;
-  repeated WallRotationDefinition wall_rotation_conditions = 3;
-  repeated WallTranslationDefinition wall_translation_conditions = 4;
-  bool success = 5;
-  string message = 6;
+  CommandResponse command_response = 1;
+  repeated WallDefinition entity_definitions = 2;
 }

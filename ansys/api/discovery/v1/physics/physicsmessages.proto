@@ -64,6 +64,13 @@ message SimulationEntity {
   string label = 2;
 }
 
+// Common physics data
+message PhysicsEntityBaseProperties {
+  GuidEntityIdentifier id = 1;
+  GuidEntityIdentifier parent_id = 2;
+  string label = 3;
+  bool suppressed = 4;
+}
 
 //location data definitions
 

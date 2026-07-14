@@ -64,8 +64,8 @@ message DisplacementCombinedCreationRequest{
 }
 
 message DisplacementCreationResponse{
-  CreationResponse condition_response = 1;
-  DisplacementDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  DisplacementDefinition as_created_data = 2;
 }
 
 message ChangeDisplacementSpecificationRequest{
@@ -100,23 +100,18 @@ message DisplacementCombinedProperties {
 }
 
 message DisplacementDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  DisplacementCombinedProperties displacement = 6;
-  DisplacementSpecification specification = 7;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  DisplacementCombinedProperties displacement = 3;
+  DisplacementSpecification specification = 4;
 }
 
 message GetSingleResponse {
-  DisplacementDefinition displacement = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  DisplacementDefinition entity_definition = 2;
 }
 
 message GetAllResponse {
-  repeated DisplacementDefinition displacements = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated DisplacementDefinition entity_definitions = 2;
 }

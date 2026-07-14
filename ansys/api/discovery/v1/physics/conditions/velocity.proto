@@ -43,8 +43,8 @@ message VelocityCreationRequest{
 }
 
 message VelocityCreationResponse{
-  CreationResponse condition_response = 1;
-  VelocityDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  VelocityDefinition as_created_data = 2;
 }
 
 // Velocity condition definitions
@@ -54,22 +54,17 @@ message VelocityProperties {
 }
 
 message VelocityDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  VelocityProperties velocity = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  VelocityProperties velocity = 3;
 }
 
 message GetSingleResponse{
-  VelocityDefinition velocity_condition = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  VelocityDefinition entity_definition = 2;
 }
 
 message GetAllResponse{
-  repeated VelocityDefinition velocity_conditions = 1;
-  bool success = 2;
-  string message = 3;
+  CommandResponse command_response = 1;
+  repeated VelocityDefinition entity_definitions = 2;
 }

@@ -46,18 +46,18 @@ message HeatCreationRequest{
 }
 
 message HeatTotalCreationResponse{
-  CreationResponse condition_response = 1;
-  HeatTotalDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  HeatTotalDefinition as_created_data = 2;
 }
 
 message HeatVolumetricDistributedCreationResponse{
-  CreationResponse condition_response = 1;
-  HeatPerVolumeDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  HeatPerVolumeDefinition as_created_data = 2;
 }
 
 message HeatSurfaceDistributedCreationResponse{
-  CreationResponse condition_response = 1;
-  HeatPerAreaDefinition condition_data = 2;
+  CreationResponse creation_response = 1;
+  HeatPerAreaDefinition as_created_data = 2;
 }
 
 //Enumerations
@@ -68,45 +68,39 @@ enum HeatSpecification {
 
 //Definitions
 message HeatTotalDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  Quantity total_heat = 7;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  Quantity total_heat = 3;
 }
 
 message HeatPerAreaDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  Quantity heat_per_unitarea = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  Quantity heat_per_unitarea = 3;
 }
 
 message HeatPerVolumeDefinition {
-  GuidEntityIdentifier id = 1;
-  GuidEntityIdentifier parent_id = 2;
-  string label = 3;
-  repeated string locations = 4;
-  bool suppressed = 5;
-  Quantity heat_per_unitvolume = 6;
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  Quantity heat_per_unitvolume = 3;
+}
+
+message HeatDefinition {
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  Quantity total_heat = 3;
+  Quantity heat_per_unitvolume = 4;
+  Quantity heat_per_unitarea = 5;
+  HeatSpecification heat_specification = 6;
 }
 
 // Response for GetAll
 message GetSingleResponse {
-  HeatTotalDefinition total_heat = 1;
-  HeatPerVolumeDefinition volumetric_heat = 2;
-  HeatPerAreaDefinition surface_heat = 3;
-  bool success = 4;
-  string message = 5;
+  CommandResponse command_response = 1;
+  HeatDefinition entity_definition = 2;
 }
 
 message GetAllResponse {
-  repeated HeatTotalDefinition total_heats = 1;
-  repeated HeatPerVolumeDefinition volumetric_heats = 2;
-  repeated HeatPerAreaDefinition surface_heats = 3;
-  bool success = 4;
-  string message = 5;
+  CommandResponse command_response = 1;
+  repeated HeatDefinition entity_definitions = 2;
 }
