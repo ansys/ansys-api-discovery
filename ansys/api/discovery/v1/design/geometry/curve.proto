@@ -10,6 +10,8 @@ option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Geometry.Curve";
 service Curve{
   rpc CreateFromProfile(CreateCurvesFromProfileRequest) returns (CreateCurvesFromProfileResponse);
 
+  rpc CreateDesignPoints(CreateDesignPointsRequest) returns (CreateDesignPointsResponse);
+
   rpc Delete(MultipleEntitiesRequest) returns(TrackedDeleteResponse);
 
   rpc Get(EntityRequest) returns(GetResponse);
@@ -43,6 +45,21 @@ message CreateCurvesFromProfileRequest {
 
 message CreateCurvesFromProfileResponse {
   repeated EntityIdentifier created_curve_ids=1;
+  CreationResponse creation_response = 2;
+}
+
+message CreateDesignPointsRequestData {
+  repeated Point points = 1;
+  EntityIdentifier parent_id = 2;
+  string name = 3;
+}
+
+message CreateDesignPointsRequest {
+  repeated CreateDesignPointsRequestData request_data = 1;
+}
+
+message CreateDesignPointsResponse {
+  repeated EntityIdentifier created_point_ids = 1;
   CreationResponse creation_response = 2;
 }
 
