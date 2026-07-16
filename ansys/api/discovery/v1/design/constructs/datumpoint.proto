@@ -34,6 +34,7 @@ service DatumPoint
 message DatumPointCreationRequestData {
   repeated DatumPointEntity points = 1;
   EntityIdentifier parent_id = 2;
+  string name = 3;
 }
 
 message DatumPointCreationRequest {
