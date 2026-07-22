@@ -26,6 +26,8 @@ service Flow
 
   rpc SetVelocityInletMagnitude(SetQuantityRequest) returns (SetResponse);
 
+  rpc SetInletFlowComponentsVelocity(SetQuantityVectorRequest) returns (SetResponse);
+
   rpc SetVelocityOutletMagnitude(SetQuantityRequest) returns (SetResponse);
 
   rpc SetPressureInletMagnitude(SetQuantityRequest) returns (SetResponse);
@@ -153,6 +155,7 @@ message VelocityInletProperties
   FlowThermalProperties thermal_properties = 2;
   bool is_swirling = 3;
   Quantity rotational_speed = 4;
+  QuantityVector inlet_flow_components_velocity = 5;
 }
 
 message VelocityOutletProperties
@@ -239,6 +242,7 @@ message FlowDefinition {
   FlowThermalProperties thermal_properties = 8;
   bool is_swirling = 9;
   Quantity rotational_speed = 10;
+  QuantityVector inlet_flow_components_velocity = 11;
 }
 
 message GetSingleResponse{
