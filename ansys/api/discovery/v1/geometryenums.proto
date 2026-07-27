@@ -321,6 +321,12 @@ enum InvertScope {
   INVERTSCOPE_ALL = 1;
 }
 
+enum InvertTopologyScope {
+  INVERTTOPOLOGYSCOPE_ALL = 0;
+  INVERTTOPOLOGYSCOPE_BODY = 1;
+  INVERTTOPOLOGYSCOPE_VISIBLE = 2;
+}
+
 enum ExtendScope {
   EXTENDSCOPE_ALL = 0;
   EXTENDSCOPE_BODY = 1;

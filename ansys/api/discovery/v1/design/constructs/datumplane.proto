@@ -21,6 +21,8 @@ service DatumPlane{
 
   rpc GetUpdateState(MultipleEntitiesRequest) returns (GetUpdateStateResponse);
 
+  rpc SetSuppressed(SetSuppressedRequest) returns (SetSuppressedResponse);
+
   //TODO: Enable plane inputs to be set.
 }
 
@@ -56,4 +58,13 @@ message UpdateStateResponse{
   CommandResponse command_response = 2;
 }
 
+message SetSuppressedRequest {
+  repeated EntityIdentifier datum_plane_ids = 1;
+  bool is_suppressed = 2;
+}
+
+message SetSuppressedResponse{
+  repeated EntityIdentifier successfully_set_ids = 1;
+  TrackedSetResponse tracked_set_response = 2;
+}
 

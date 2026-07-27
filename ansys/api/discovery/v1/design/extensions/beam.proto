@@ -31,6 +31,8 @@ service Beam
 
   rpc SetLocationAnchorY(SetQuantityRequest) returns (TrackedSetResponse);
 
+  rpc SetSuppressed(SetSuppressedRequest) returns (SetSuppressedResponse);
+
   rpc GetAll(ParentEntityRequest) returns (GetAllResponse);
 
   rpc Get(EntityRequest) returns (GetResponse);
@@ -59,3 +61,12 @@ message SetBeamAnchorPositionRequest{
   BeamAnchorPosition anchor_position = 2;
 }
 
+message SetSuppressedRequest {
+  repeated EntityIdentifier beam_ids = 1; // List of entity identifiers
+  bool is_suppressed = 2;
+}
+
+message SetSuppressedResponse{
+  repeated EntityIdentifier successfully_set_ids = 1;
+  TrackedSetResponse tracked_set_response = 2;
+}
