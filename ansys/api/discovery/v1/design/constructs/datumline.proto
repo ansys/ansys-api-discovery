@@ -1,0 +1,46 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.constructs.datumline;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Constructs.DatumLine";
+
+service DatumLine{
+
+  rpc Create(DatumLineCreationRequest) returns (DatumLineCreationResponse);
+
+  rpc Delete(MultipleEntitiesRequest) returns (DeleteResponse);
+
+  rpc Get(EntityRequest) returns(GetResponse);
+
+  rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+
+  rpc GetIsDeleted(MultipleEntitiesRequest) returns(GetIsDeletedResponse);
+}
+
+message DatumLineCreationRequestData {
+  Line line = 1;
+  EntityIdentifier parent_id = 2;
+  string name = 3;
+}
+
+message DatumLineCreationRequest {
+  repeated DatumLineCreationRequestData request_data = 1;
+}
+
+message DatumLineCreationResponse {
+  repeated DatumLineEntity lines = 1;
+  CreationResponse creation_response = 2;
+}
+
+message GetResponse{
+  DatumLineEntity line = 1;
+  CommandResponse command_response = 2;
+}
+
+message GetAllResponse{
+  repeated DatumLineEntity lines = 1;
+  CommandResponse command_response = 2;
+}
