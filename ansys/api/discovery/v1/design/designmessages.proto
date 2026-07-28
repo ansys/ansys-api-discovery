@@ -176,6 +176,17 @@ message DatumPointEntity
   bool is_pinned = 9;
 }
 
+message DatumLineEntity 
+{
+  EntityIdentifier id = 1;
+  string name = 2;
+  CurveGeometry line = 3;
+  bool is_deleted = 4;
+  EntityIdentifier master_id = 5;
+  EntityIdentifier parent_id = 6;
+  bool is_pinned = 7;
+}
+
 message NamedSelectionEntity {
   EntityIdentifier id = 1;
   string name = 2;

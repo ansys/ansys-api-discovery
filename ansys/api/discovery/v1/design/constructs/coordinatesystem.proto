@@ -17,6 +17,8 @@ service CoordinateSystem{
 
   rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
 
+  rpc SetSuppressed(SetSuppressedRequest) returns (SetSuppressedResponse);
+
   //TODO: Enable frame inputs to be set.
 }
 
@@ -43,6 +45,16 @@ message CreateRequest{
 message CreateResponse{
   repeated CoordinateSystemEntity coordinate_systems =1;
   CreationResponse creation_response = 2;
+}
+
+message SetSuppressedRequest {
+  repeated EntityIdentifier coordinate_system_ids = 1;
+  bool is_suppressed = 2;
+}
+
+message SetSuppressedResponse{
+  repeated EntityIdentifier successfully_set_ids = 1;
+  TrackedSetResponse tracked_set_response = 2;
 }
 
 

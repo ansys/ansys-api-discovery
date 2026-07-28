@@ -94,6 +94,11 @@ message SetQuantityRequest{
   Quantity quantity = 3;
 }
 
+message SetQuantityVectorRequest {
+  GuidEntityIdentifier object_id = 1;
+  QuantityVector quantity_vector = 2;
+}
+
 message SetBooleanRequest{
   GuidEntityIdentifier object_id = 1;
   repeated EntityIdentifier geometry_ids = 2;

@@ -1,0 +1,285 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.selections.faceselection;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+import "ansys/api/discovery/v1/geometryenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Selections.FaceSelection";
+
+service FaceSelection {
+  // ── Static factory — query active document, no input face IDs ────────────────
+  rpc GetAllVisibleFaces(GetAllVisibleFacesRequest) returns (FaceSelectionQueryResponse);
+  rpc GetAllFaces(GetAllFacesRequest) returns (FaceSelectionQueryResponse);
+  rpc GetFacesFromNamedSelection(GetFacesFromNamedSelectionRequest) returns (FaceSelectionQueryResponse);
+  rpc GetFacesWithArea(GetFacesWithAreaRequest) returns (FaceSelectionQueryResponse);
+  rpc GetFacesWithXLocation(GetFacesWithLocationRequest) returns (FaceSelectionQueryResponse);
+  rpc GetFacesWithYLocation(GetFacesWithLocationRequest) returns (FaceSelectionQueryResponse);
+  rpc GetFacesWithZLocation(GetFacesWithLocationRequest) returns (FaceSelectionQueryResponse);
+  rpc GetFacesWithColor(GetFacesWithColorRequest) returns (FaceSelectionQueryResponse);
+
+  // ── Instance operations (operate on provided face_ids) ────────────────────────
+  rpc InvertFaceSelection(InvertFaceSelectionRequest) returns (FaceSelectionQueryResponse);
+
+  // ── Filter ────────────────────────────────────────────────────────────────────
+  rpc FilterFacesByArea(FilterFacesByAreaRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesMaxArea(FaceSelectionInputRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesMinArea(FaceSelectionInputRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesByPerimeter(FilterFacesByPerimeterRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesMaxPerimeter(FaceSelectionInputRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesMinPerimeter(FaceSelectionInputRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesByEdgeCount(FilterFacesByIntRangeRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesMaxEdgeCount(FaceSelectionInputRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesMinEdgeCount(FaceSelectionInputRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesByLoopCount(FilterFacesByIntRangeRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesMaxLoopCount(FaceSelectionInputRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesMinLoopCount(FaceSelectionInputRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesByNumberCurves(FilterFacesByCurveCountRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesMaxNumberCurves(FilterFacesByCurveTypeRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesMinNumberCurves(FilterFacesByCurveTypeRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesContainingCurveTypes(FilterFacesContainingCurveTypesRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesByColor(FilterFacesByColorRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesAreaPercentile(FilterFacesPercentileRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesPerimeterPercentile(FilterFacesPercentileRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesEdgeCountPercentile(FilterFacesPercentileRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesLoopCountPercentile(FilterFacesPercentileRequest) returns (FaceSelectionQueryResponse);
+  rpc FilterFacesByNumberCurvesPercentile(FilterFacesByCurveTypePercentileRequest) returns (FaceSelectionQueryResponse);
+
+  // ── Extend ────────────────────────────────────────────────────────────────────
+  rpc ExtendToSameArea(FaceSelectionExtendRequest) returns (FaceSelectionQueryResponse);
+  rpc ExtendToSameNumberOfEdges(FaceSelectionExtendRequest) returns (FaceSelectionQueryResponse);
+  rpc ExtendToSameNumberOfLoops(FaceSelectionExtendRequest) returns (FaceSelectionQueryResponse);
+  rpc ExtendToSameColor(FaceSelectionExtendRequest) returns (FaceSelectionQueryResponse);
+  rpc ExtendToCoincident(FaceSelectionExtendRequest) returns (FaceSelectionQueryResponse);
+  rpc ExtendToCoaxialFaces(FaceSelectionExtendRequest) returns (FaceSelectionQueryResponse);
+
+  // ── OrderBy ───────────────────────────────────────────────────────────────────
+  rpc OrderFacesByArea(FaceSelectionInputRequest) returns (FaceSelectionQueryResponse);
+  rpc OrderFacesByPerimeter(FaceSelectionInputRequest) returns (FaceSelectionQueryResponse);
+  rpc OrderFacesByEdgeCount(FaceSelectionInputRequest) returns (FaceSelectionQueryResponse);
+  rpc OrderFacesByLoopCount(FaceSelectionInputRequest) returns (FaceSelectionQueryResponse);
+  rpc OrderFacesByNumberCurves(OrderFacesByCurveTypeRequest) returns (FaceSelectionQueryResponse);
+
+  // ── GroupBy ───────────────────────────────────────────────────────────────────
+  rpc GroupFacesByArea(FaceSelectionInputRequest) returns (FaceGroupResponse);
+  rpc GroupFacesByPerimeter(FaceSelectionInputRequest) returns (FaceGroupResponse);
+  rpc GroupFacesByBody(FaceSelectionInputRequest) returns (FaceGroupResponse);
+  rpc GroupFacesByEdgeCount(FaceSelectionInputRequest) returns (FaceGroupResponse);
+  rpc GroupFacesByLoopCount(FaceSelectionInputRequest) returns (FaceGroupResponse);
+  rpc GroupFacesByColor(FaceSelectionInputRequest) returns (FaceGroupResponse);
+  rpc GroupFacesByCoincident(FaceSelectionInputRequest) returns (FaceGroupResponse);
+}
+
+// ─── Shared message types ─────────────────────────────────────────────────────
+
+// A group of face entity identifiers (used by GroupBy responses).
+message FaceGroup {
+  repeated FaceEntity faces = 1;
+}
+
+// ─── Common request / response types ─────────────────────────────────────────
+
+// Data item for requests carrying only an input set of face IDs.
+message FaceSelectionInputRequestData {
+  repeated EntityIdentifier face_ids = 1;
+}
+
+// Batched request carrying only input face IDs.
+message FaceSelectionInputRequest {
+  repeated FaceSelectionInputRequestData request_data = 1;
+}
+
+// Standard flat-list response for Filter / Extend / OrderBy / static-query RPCs.
+message FaceSelectionQueryResponseData {
+  repeated FaceEntity faces = 1;
+  CommandResponse command_response = 2;
+}
+
+message FaceSelectionQueryResponse {
+  repeated FaceSelectionQueryResponseData response_data = 1;
+}
+
+// Data item for GroupBy responses.
+message FaceGroupResponseData {
+  repeated FaceGroup groups = 1;
+  CommandResponse command_response = 2;
+}
+
+// Standard batched response for GroupBy RPCs.
+message FaceGroupResponse {
+  repeated FaceGroupResponseData response_data = 1;
+}
+
+// Data item for Extend RPCs that accept a scope parameter.
+message FaceSelectionExtendRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  ExtendScope scope = 2;
+}
+
+// Batched request for Extend RPCs.
+message FaceSelectionExtendRequest {
+  repeated FaceSelectionExtendRequestData request_data = 1;
+}
+
+// ─── Static factory request messages ─────────────────────────────────────────
+
+message GetAllVisibleFacesRequest {
+}
+message GetAllFacesRequest {
+}
+
+message GetFacesFromNamedSelectionRequestData {
+  string name = 1;
+}
+
+message GetFacesFromNamedSelectionRequest {
+  repeated GetFacesFromNamedSelectionRequestData request_data = 1;
+}
+
+message GetFacesWithAreaRequestData {
+  Quantity min = 1;
+  Quantity max = 2;
+}
+
+message GetFacesWithAreaRequest {
+  repeated GetFacesWithAreaRequestData request_data = 1;
+}
+
+// Used by GetFacesWithXLocation, GetFacesWithYLocation, GetFacesWithZLocation.
+message GetFacesWithLocationRequestData {
+  Quantity min = 1;
+  Quantity max = 2;
+  RangeType range_type = 3;
+}
+
+message GetFacesWithLocationRequest {
+  repeated GetFacesWithLocationRequestData request_data = 1;
+}
+
+message GetFacesWithColorRequestData {
+  string color = 1;
+}
+
+message GetFacesWithColorRequest {
+  repeated GetFacesWithColorRequestData request_data = 1;
+}
+
+// ─── Instance request messages ────────────────────────────────────────────────
+
+message InvertFaceSelectionRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  InvertTopologyScope scope = 2;
+}
+
+message InvertFaceSelectionRequest {
+  repeated InvertFaceSelectionRequestData request_data = 1;
+}
+
+// ─── Filter request messages ──────────────────────────────────────────────────
+
+message FilterFacesByAreaRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  Quantity min = 2;
+  Quantity max = 3;
+}
+
+message FilterFacesByAreaRequest {
+  repeated FilterFacesByAreaRequestData request_data = 1;
+}
+
+message FilterFacesByPerimeterRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  Quantity min = 2;
+  Quantity max = 3;
+}
+
+message FilterFacesByPerimeterRequest {
+  repeated FilterFacesByPerimeterRequestData request_data = 1;
+}
+
+// Used by FilterFacesByEdgeCount, FilterFacesByLoopCount.
+message FilterFacesByIntRangeRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  int32 min = 2;
+  optional int32 max = 3;
+}
+
+message FilterFacesByIntRangeRequest {
+  repeated FilterFacesByIntRangeRequestData request_data = 1;
+}
+
+message FilterFacesByCurveCountRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  CurveType curve_type = 2;
+  int32 min = 3;
+  optional int32 max = 4;
+}
+
+message FilterFacesByCurveCountRequest {
+  repeated FilterFacesByCurveCountRequestData request_data = 1;
+}
+
+// Used by FilterFacesMaxNumberCurves and FilterFacesMinNumberCurves.
+message FilterFacesByCurveTypeRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  CurveType curve_type = 2;
+}
+
+message FilterFacesByCurveTypeRequest {
+  repeated FilterFacesByCurveTypeRequestData request_data = 1;
+}
+
+message FilterFacesContainingCurveTypesRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  CurveType curve_types = 2;
+  bool exclusive = 3;
+}
+
+message FilterFacesContainingCurveTypesRequest {
+  repeated FilterFacesContainingCurveTypesRequestData request_data = 1;
+}
+
+message FilterFacesByColorRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  string color = 2;
+}
+
+message FilterFacesByColorRequest {
+  repeated FilterFacesByColorRequestData request_data = 1;
+}
+
+// Used by FilterFacesAreaPercentile, FilterFacesPerimeterPercentile,
+// FilterFacesEdgeCountPercentile, FilterFacesLoopCountPercentile.
+message FilterFacesPercentileRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  double min_percentile = 2;
+  double max_percentile = 3;
+}
+
+message FilterFacesPercentileRequest {
+  repeated FilterFacesPercentileRequestData request_data = 1;
+}
+
+message FilterFacesByCurveTypePercentileRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  CurveType curve_type = 2;
+  double min_percentile = 3;
+  double max_percentile = 4;
+}
+
+message FilterFacesByCurveTypePercentileRequest {
+  repeated FilterFacesByCurveTypePercentileRequestData request_data = 1;
+}
+
+// ─── OrderBy request messages ─────────────────────────────────────────────────
+
+// Used by OrderFacesByNumberCurves.
+message OrderFacesByCurveTypeRequestData {
+  repeated EntityIdentifier face_ids = 1;
+  CurveType curve_type = 2;
+}
+
+message OrderFacesByCurveTypeRequest {
+  repeated OrderFacesByCurveTypeRequestData request_data = 1;
+}
