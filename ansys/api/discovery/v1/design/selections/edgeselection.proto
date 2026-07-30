@@ -1,0 +1,184 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.design.selections.edgeselection;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/design/designmessages.proto";
+import "ansys/api/discovery/v1/geometryenums.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Design.Selections.EdgeSelection";
+
+service EdgeSelection {
+  // ── Static factory — query active document, no input edge IDs ────────────────
+  rpc GetAllVisibleEdges(GetAllVisibleEdgesRequest) returns (EdgeSelectionQueryResponse);
+  rpc GetAllEdges(GetAllEdgesRequest) returns (EdgeSelectionQueryResponse);
+  rpc GetEdgesFromNamedSelection(GetEdgesFromNamedSelectionRequest) returns (EdgeSelectionQueryResponse);
+  rpc GetEdgesWithLength(GetEdgesWithLengthRequest) returns (EdgeSelectionQueryResponse);
+  rpc GetEdgesWithXLocation(GetEdgesWithLocationRequest) returns (EdgeSelectionQueryResponse);
+  rpc GetEdgesWithYLocation(GetEdgesWithLocationRequest) returns (EdgeSelectionQueryResponse);
+  rpc GetEdgesWithZLocation(GetEdgesWithLocationRequest) returns (EdgeSelectionQueryResponse);
+
+  // ── Instance operations (operate on provided edge_ids) ───────────────────────
+  rpc InvertEdgeSelection(InvertEdgeSelectionRequest) returns (EdgeSelectionQueryResponse);
+
+  // ── Filter ───────────────────────────────────────────────────────────────────
+  rpc FilterEdgesByLength(FilterEdgesByLengthRequest) returns (EdgeSelectionQueryResponse);
+  rpc FilterEdgesMaxLength(EdgeSelectionInputRequest) returns (EdgeSelectionQueryResponse);
+  rpc FilterEdgesMinLength(EdgeSelectionInputRequest) returns (EdgeSelectionQueryResponse);
+  rpc FilterEdgesByCurveType(FilterEdgesByCurveTypeRequest) returns (EdgeSelectionQueryResponse);
+  rpc FilterEdgesLengthPercentile(FilterEdgesPercentileRequest) returns (EdgeSelectionQueryResponse);
+
+  // ── Extend ───────────────────────────────────────────────────────────────────
+  rpc ExtendNearbyEdges(ExtendNearbyEdgesRequest) returns (EdgeSelectionQueryResponse);
+  rpc ExtendToConnected(EdgeSelectionExtendRequest) returns (EdgeSelectionQueryResponse);
+  rpc ExtendToTangentChain(EdgeSelectionExtendRequest) returns (EdgeSelectionQueryResponse);
+  rpc ExtendToCoaxialEdges(EdgeSelectionExtendRequest) returns (EdgeSelectionQueryResponse);
+
+  // ── OrderBy ──────────────────────────────────────────────────────────────────
+  rpc OrderEdgesByLength(EdgeSelectionInputRequest) returns (EdgeSelectionQueryResponse);
+
+  // ── GroupBy ──────────────────────────────────────────────────────────────────
+  rpc GroupEdgesByCurveType(EdgeSelectionInputRequest) returns (EdgeGroupResponse);
+}
+
+// ─── Shared message types ─────────────────────────────────────────────────────
+
+// A group of edge entities (used by GroupBy responses).
+message EdgeGroup {
+  repeated EdgeEntity edges = 1;
+}
+
+// ─── Common request / response types ─────────────────────────────────────────
+
+// Data item for requests carrying only an input set of edge IDs.
+message EdgeSelectionInputRequestData {
+  repeated EntityIdentifier edge_ids = 1;
+}
+
+// Batched request carrying only input edge IDs.
+message EdgeSelectionInputRequest {
+  repeated EdgeSelectionInputRequestData request_data = 1;
+}
+
+// Standard flat-list response for Filter / Extend / OrderBy / static-query RPCs.
+message EdgeSelectionQueryResponseData {
+  repeated EdgeEntity edges = 1;
+  CommandResponse command_response = 2;
+}
+
+message EdgeSelectionQueryResponse {
+  repeated EdgeSelectionQueryResponseData response_data = 1;
+}
+
+// Data item for GroupBy responses.
+message EdgeGroupResponseData {
+  repeated EdgeGroup groups = 1;
+  CommandResponse command_response = 2;
+}
+
+// Standard batched response for GroupBy RPCs.
+message EdgeGroupResponse {
+  repeated EdgeGroupResponseData response_data = 1;
+}
+
+// Data item for Extend RPCs that accept a scope parameter.
+message EdgeSelectionExtendRequestData {
+  repeated EntityIdentifier edge_ids = 1;
+  ExtendScope scope = 2;
+  int32 num_connected_edges = 3; // Used by ExtendToConnected.
+}
+
+// Batched request for Extend RPCs.
+message EdgeSelectionExtendRequest {
+  repeated EdgeSelectionExtendRequestData request_data = 1;
+}
+
+// ─── Static factory request messages ─────────────────────────────────────────
+
+message GetAllVisibleEdgesRequest {
+}
+message GetAllEdgesRequest {
+}
+
+message GetEdgesFromNamedSelectionRequestData {
+  string name = 1;
+}
+
+message GetEdgesFromNamedSelectionRequest {
+  repeated GetEdgesFromNamedSelectionRequestData request_data = 1;
+}
+
+message GetEdgesWithLengthRequestData {
+  Quantity min = 1;
+  Quantity max = 2;
+}
+
+message GetEdgesWithLengthRequest {
+  repeated GetEdgesWithLengthRequestData request_data = 1;
+}
+
+// Used by GetEdgesWithXLocation, GetEdgesWithYLocation, GetEdgesWithZLocation.
+message GetEdgesWithLocationRequestData {
+  Quantity min = 1;
+  Quantity max = 2;
+  RangeType range_type = 3;
+}
+
+message GetEdgesWithLocationRequest {
+  repeated GetEdgesWithLocationRequestData request_data = 1;
+}
+
+// ─── Instance request messages ────────────────────────────────────────────────
+
+message InvertEdgeSelectionRequestData {
+  repeated EntityIdentifier edge_ids = 1;
+  InvertTopologyScope scope = 2;
+}
+
+message InvertEdgeSelectionRequest {
+  repeated InvertEdgeSelectionRequestData request_data = 1;
+}
+
+// ─── Filter request messages ──────────────────────────────────────────────────
+
+message FilterEdgesByLengthRequestData {
+  repeated EntityIdentifier edge_ids = 1;
+  Quantity min = 2;
+  Quantity max = 3;
+}
+
+message FilterEdgesByLengthRequest {
+  repeated FilterEdgesByLengthRequestData request_data = 1;
+}
+
+message FilterEdgesByCurveTypeRequestData {
+  repeated EntityIdentifier edge_ids = 1;
+  CurveType curve_type = 2;
+}
+
+message FilterEdgesByCurveTypeRequest {
+  repeated FilterEdgesByCurveTypeRequestData request_data = 1;
+}
+
+// Used by FilterEdgesLengthPercentile.
+message FilterEdgesPercentileRequestData {
+  repeated EntityIdentifier edge_ids = 1;
+  double min_percentile = 2;
+  double max_percentile = 3;
+}
+
+message FilterEdgesPercentileRequest {
+  repeated FilterEdgesPercentileRequestData request_data = 1;
+}
+
+// ─── Extend request messages ──────────────────────────────────────────────────
+
+message ExtendNearbyEdgesRequestData {
+  repeated EntityIdentifier edge_ids = 1;
+  Quantity distance = 2;
+  ExtendScope scope = 3;
+}
+
+message ExtendNearbyEdgesRequest {
+  repeated ExtendNearbyEdgesRequestData request_data = 1;
+}
