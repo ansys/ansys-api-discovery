@@ -202,6 +202,7 @@ message NamedSelectionEntity {
   repeated DatumPlaneEntity datum_planes = 12;
   repeated CoordinateSystemEntity coordinate_systems = 13;
   repeated DatumPointEntity datum_points = 14;
+  repeated DatumLineEntity datum_lines = 15;
 }
 
 message WeldEntity {
