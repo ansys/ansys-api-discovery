@@ -29,6 +29,19 @@ service DesignDoc{
 
   rpc SetActive(SetActiveRequest)
     returns (SetActiveResponse);
+
+  rpc GetGeometryUnits(GetGeometryUnitsRequest)
+    returns (GetGeometryUnitsResponse);
+
+  rpc SetGeometryUnits(SetGeometryUnitsRequest)
+    returns (SetGeometryUnitsResponse);
+}
+
+enum GeometryUnits {
+  GEOMETRYUNITS_UNSPECIFIED = 0; // Proto3 default (omitted field) must not trigger an unintended unit change.
+  GEOMETRYUNITS_SMALL = 1;
+  GEOMETRYUNITS_STANDARD = 2;
+  GEOMETRYUNITS_LARGE = 3;
 }
 
 message DesignTessellationRequest {
@@ -116,5 +129,23 @@ message SetActiveRequest{
 }
 
 message SetActiveResponse{
+  CommandResponse command_response = 1;
+}
+
+message GetGeometryUnitsRequest{
+  EntityIdentifier design_id = 1;
+}
+
+message GetGeometryUnitsResponse{
+  GeometryUnits units = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetGeometryUnitsRequest{
+  EntityIdentifier design_id = 1;
+  GeometryUnits units = 2;
+}
+
+message SetGeometryUnitsResponse{
   CommandResponse command_response = 1;
 }
