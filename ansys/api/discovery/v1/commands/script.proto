@@ -51,12 +51,15 @@ message RunScriptRequest{
   string script = 1;
   // The api version to be used to run the script
   int32 api_version = 2;
+  // map of argument names to values.
+  map<string,string> script_args = 3;
 }
 
 message RunScriptResponse{
   // Result of script execution. True means script executed successfully.
   bool script_result = 1;
   CommandResponse command_response = 2;
+  map<string,string> values = 3;
 }
 
 message ReplayRequest{
