@@ -168,6 +168,7 @@ message ExtractVolumeFromFacesRequest{
   repeated EntityIdentifier sealing_face_ids = 1;
   // The id of one or more faces inside the volume to be extracted.
   repeated EntityIdentifier inside_face_ids = 2;
+  VolumeExtractOptions options = 3;
 }
 
 message ExtractVolumeFromEdgeLoopsRequest{
@@ -175,6 +176,17 @@ message ExtractVolumeFromEdgeLoopsRequest{
   repeated EntityIdentifier sealing_edge_ids = 1;
   // The id of one or more faces inside the volume to be extracted. Not needed for simple cases.
   repeated EntityIdentifier inside_face_ids = 2;
+  VolumeExtractOptions options = 3;
+}
+
+message VolumeExtractOptions {
+  bool create_shared_topology = 1;
+  bool imprint_capping_edges = 2;
+  bool merge_created_volume = 3;
+  ansys.api.discovery.v1.design.SurfaceEvaluation seed_point = 4;
+  Quantity tolerance = 5;
+  bool create_capping_surfaces = 6;
+  bool detect_leaks = 7;
 }
 
 message ExtractVolumeFromEdgeLoopsResponse{

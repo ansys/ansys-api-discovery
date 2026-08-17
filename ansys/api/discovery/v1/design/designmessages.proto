@@ -316,6 +316,7 @@ message SurfaceEvaluation {
   Quantity param_u = 11;
   Quantity param_v = 12;
   Point point = 13;
+  EntityIdentifier face_id = 14;
 }
 
 message Surface {
