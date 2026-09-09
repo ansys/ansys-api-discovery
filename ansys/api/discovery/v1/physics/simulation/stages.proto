@@ -1,0 +1,59 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+
+package ansys.api.discovery.v1.physics.simulation.stages;
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Simulation.Stages";
+
+service Stages
+{
+  rpc GetCurrentStageIdentifier(GetCurrentStageIdentifierRequest) returns (GetCurrentStageIdentifierResponse);
+
+  rpc GetStageIdentifiers(GetStageIdentifiersRequest) returns (GetStageIdentifiersResponse);
+
+  rpc SetStage(SetStageRequest) returns (SetStageResponse);
+
+  rpc SetStageByKey(SetStageByKeyRequest) returns (SetStageResponse);
+}
+
+enum StageKey
+{
+  STAGE_KEY_UNSPECIFIED = 0;
+  STAGE_KEY_EXPLORE = 1;
+  STAGE_KEY_REFINE = 2;
+  STAGE_KEY_MODEL = 3;
+}
+
+message GetCurrentStageIdentifierRequest
+{
+}
+
+message GetCurrentStageIdentifierResponse
+{
+  string stage_identifier = 1;
+}
+
+message GetStageIdentifiersRequest
+{
+}
+
+message GetStageIdentifiersResponse
+{
+  string current_stage_identifier = 1;
+  repeated string stage_identifiers = 2;
+}
+
+message SetStageRequest
+{
+  string stage_identifier = 1;
+}
+
+message SetStageByKeyRequest
+{
+  StageKey key = 1;
+}
+
+message SetStageResponse
+{
+  bool is_success = 1;
+}
