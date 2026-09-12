@@ -38,6 +38,39 @@ service File{
 
   rpc RunAddinMethod(RunAddinMethodRequest)
     returns (RunAddinMethodResponse);
+
+  rpc ExportTableToFile(ExportTableToFileRequest)
+    returns (ExportTableToFileResponse);
+
+  rpc SaveAsNewVersion(SaveAsNewVersionRequest)
+    returns (SaveAsNewVersionResponse);
+
+  rpc ExportExploreSolverDatabase(ExportExploreSolverDatabaseRequest)
+    returns (ExportExploreSolverDatabaseResponse);
+
+  rpc SaveImage(SaveImageRequest)
+    returns (SaveImageResponse);
+
+  rpc SaveAnimationFile(SaveAnimationFileRequest)
+    returns (SaveAnimationFileResponse);
+
+  rpc TransferToMechanical(TransferToMechanicalRequest)
+    returns (TransferToMechanicalResponse);
+
+  rpc TransferToFluent(TransferToFluentRequest)
+    returns (TransferToFluentResponse);
+
+  rpc TransferToHfss(TransferToHfssRequest)
+    returns (TransferToHfssResponse);
+
+  rpc TransferToIcepak(TransferToIcepakRequest)
+    returns (TransferToIcepakResponse);
+
+  rpc ImportHeatLoads(ImportHeatLoadsRequest)
+    returns (ImportHeatLoadsResponse);
+
+  rpc ExportTable(ExportTableRequest)
+    returns (ExportTableResponse);
 }
 
 message CloseRequest{  
@@ -147,6 +180,105 @@ message RunAddinMethodResponse {
   CommandResponse command_response = 2;
 }
 
+message ExportTableToFileRequest {
+  string file_path = 1;
+  int32 table_index = 2;
+  TableExportFormat table_export_format = 3;
+  repeated string column_unit_values = 4;
+}
+
+message ExportTableToFileResponse {
+  CommandResponse command_response = 1;
+}
+
+message SaveAsNewVersionRequest {
+}
+
+message SaveAsNewVersionResponse {
+  CommandResponse command_response = 1;
+}
+
+message ExportExploreSolverDatabaseRequest {
+  string file_path = 1;
+}
+
+message ExportExploreSolverDatabaseResponse {
+  CommandResponse command_response = 1;
+}
+
+message SaveImageRequest {
+  string file_path = 1;
+  SaveImageKind save_image_kind = 2;
+}
+
+message SaveImageResponse {
+  CommandResponse command_response = 1;
+}
+
+message SaveAnimationFileRequest {
+  string file_path = 1;
+  FileSolverType solver_type = 2;
+}
+
+message SaveAnimationFileResponse {
+  CommandResponse command_response = 1;
+}
+
+message TransferToMechanicalRequest {
+  string file_path = 1;
+  TransferPhysics transfer_physics = 2;
+}
+
+message TransferToMechanicalResponse {
+  CommandResponse command_response = 1;
+}
+
+message TransferToFluentRequest {
+  string file_path = 1;
+}
+
+message TransferToFluentResponse {
+  CommandResponse command_response = 1;
+}
+
+message TransferToHfssRequest {
+  string file_path = 1;
+}
+
+message TransferToHfssResponse {
+  CommandResponse command_response = 1;
+}
+
+message TransferToIcepakRequest {
+  string file_path = 1;
+  string file_filter = 2;
+}
+
+message TransferToIcepakResponse {
+  CommandResponse command_response = 1;
+}
+
+message ImportHeatLoadsRequest {
+  string file_path = 1;
+  string delimiter = 2;
+  Quantity quantity = 3;
+}
+
+message ImportHeatLoadsResponse {
+  CommandResponse command_response = 1;
+}
+
+message ExportTableRequest {
+  string file_path = 1;
+  string delimiter = 2;
+  Quantity quantity = 3;
+  bool export_only_visible_bodies = 4;
+}
+
+message ExportTableResponse {
+  CommandResponse command_response = 1;
+}
+
 enum OpenMode{
   OPENMODE_NEW = 0;
   OPENMODE_INSERT = 1;
@@ -155,4 +287,26 @@ enum OpenMode{
 enum SaveMode{
   SAVEMODE_STANDARD = 0;
   SAVEMODE_WITHOUT_RESULTS = 1;
+}
+
+enum TableExportFormat{
+  TABLEEXPORTFORMAT_CSV = 0;
+  TABLEEXPORTFORMAT_TSV = 1;
+}
+
+enum SaveImageKind {
+  SAVEIMAGEKIND_2D = 0;
+  SAVEIMAGEKIND_3D = 1;
+}
+
+enum FileSolverType {
+  FILESOLVERTYPE_EXPLORE = 0;
+  FILESOLVERTYPE_REFINE = 1;
+}
+
+enum TransferPhysics {
+  TRANSFERPHYSICS_UNSPECIFIED = 0;
+  TRANSFERPHYSICS_STRUCTURAL_ONLY = 1;
+  TRANSFERPHYSICS_THERMAL_ONLY = 2;
+  TRANSFERPHYSICS_LINKED_THERMAL_STRUCTURAL = 3;
 }
