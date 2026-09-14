@@ -537,6 +537,7 @@ message BooleanRequest {
 message BooleanResponse {
   int32 empty_result = 1;
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 2;
+  bool body_is_deleted = 3;
 }
 
 message CombineIntersectBodiesRequestData {
