@@ -13,6 +13,26 @@ service Solutions
   rpc SetSolverFidelity(SetSolverFidelityRequest) returns (SetSolverFidelityResponse);
 
   rpc Solve(SolveExecutionRequest) returns (SolveExecutionResponse);
+
+  rpc SolveAll(SolveAllExecutionRequest) returns (SolveExecutionResponse);
+
+  rpc StartSolve(StartSolveRequest) returns (SolveExecutionResponse);
+
+  rpc PauseSolve(PauseSolveRequest) returns (SolveExecutionResponse);
+
+  rpc SolveConfidence(SolveConfidenceRequest) returns (SolveExecutionResponse);
+
+  rpc ResetExplore(ResetExploreRequest) returns (ResetExploreResponse);
+
+  rpc GenerateMesh(GenerateMeshRequest) returns (GenerateMeshResponse);
+
+  rpc GetVoxelSize(GetVoxelSizeRequest) returns (GetVoxelSizeResponse);
+
+  rpc GetProgressState(GetProgressStateRequest) returns (GetProgressStateResponse);
+
+  rpc DisablePhysicsAutoUpdate(DisablePhysicsAutoUpdateRequest) returns (DisablePhysicsAutoUpdateResponse);
+
+  rpc EnablePhysicsAutoUpdate(EnablePhysicsAutoUpdateRequest) returns (EnablePhysicsAutoUpdateResponse);
 }
 
 message GetSolverFidelityRequest{
@@ -44,7 +64,80 @@ message SolveExecutionResponse{
   CommandResponse command_response = 1;
 }
 
+message SolveAllExecutionRequest{
+  GuidEntityIdentifier simulation_id = 1;
+  SolverManager solver_manager = 2;
+  bool execute_remotely = 3;
+}
+
+message StartSolveRequest{
+  GuidEntityIdentifier simulation_id = 1;
+  SolverManager solver_manager = 2;
+}
+
+message PauseSolveRequest{
+  GuidEntityIdentifier simulation_id = 1;
+  SolverManager solver_manager = 2;
+}
+
+message SolveConfidenceRequest{
+  GuidEntityIdentifier simulation_id = 1;
+}
+
+message ResetExploreRequest{
+}
+
+message ResetExploreResponse{
+  CommandResponse command_response = 1;
+}
+
+message GenerateMeshRequest{
+}
+
+message GenerateMeshResponse{
+  CommandResponse command_response = 1;
+}
+
+message GetVoxelSizeRequest{
+}
+
+message GetVoxelSizeResponse{
+  float value = 1;
+}
+
+message GetProgressStateRequest{
+}
+
+message GetProgressStateResponse{
+  SolverProgressState state = 1;
+}
+
+message DisablePhysicsAutoUpdateRequest{
+}
+
+message DisablePhysicsAutoUpdateResponse{
+  CommandResponse command_response = 1;
+}
+
+message EnablePhysicsAutoUpdateRequest{
+}
+
+message EnablePhysicsAutoUpdateResponse{
+  CommandResponse command_response = 1;
+}
+
 enum SolverManager {
   SOLVERMANAGER_ARTEMIS = 0;
   SOLVERMANAGER_APOLLO = 1;
+}
+
+enum SolverProgressState {
+  SOLVER_PROGRESS_STATE_NONE = 0;
+  SOLVER_PROGRESS_STATE_OUT_OF_DATE = 1;
+  SOLVER_PROGRESS_STATE_IN_PROGRESS = 2;
+  SOLVER_PROGRESS_STATE_COMPLETED = 3;
+  SOLVER_PROGRESS_STATE_FAILED = 4;
+  SOLVER_PROGRESS_STATE_PAUSED = 5;
+  SOLVER_PROGRESS_STATE_CANCELED = 6;
+  SOLVER_PROGRESS_STATE_UNKNOWN = 99;
 }
