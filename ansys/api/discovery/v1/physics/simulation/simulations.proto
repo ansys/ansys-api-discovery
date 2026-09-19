@@ -14,6 +14,63 @@ service Simulations
 
   // Lists all simulations
   rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+
+  // Gets the simulation label for the provided simulation.
+  rpc GetLabel(GetLabelRequest) returns (GetLabelResponse);
+
+  // Sets the simulation label for the provided simulation.
+  rpc SetLabel(SetLabelRequest) returns (SetResponse);
+
+  // Gets the natural frequency flag for the provided simulation.
+  rpc GetEnableNaturalFrequency(GetEnableNaturalFrequencyRequest) returns (GetEnableNaturalFrequencyResponse);
+
+  // Sets the natural frequency flag for the provided simulation.
+  rpc SetEnableNaturalFrequency(SetEnableNaturalFrequencyRequest) returns (SetResponse);
+
+  // Gets the random vibration flag for the provided simulation.
+  rpc GetEnableRandomVibration(GetEnableRandomVibrationRequest) returns (GetEnableRandomVibrationResponse);
+
+  // Sets the random vibration flag for the provided simulation.
+  rpc SetEnableRandomVibration(SetEnableRandomVibrationRequest) returns (SetResponse);
+
+  // Gets the thermal effects flag for the provided simulation.
+  rpc GetIncludeThermalEffects(GetIncludeThermalEffectsRequest) returns (GetIncludeThermalEffectsResponse);
+
+  // Sets the thermal effects flag for the provided simulation.
+  rpc SetIncludeThermalEffects(SetIncludeThermalEffectsRequest) returns (SetResponse);
+
+  // Gets the compressible flow flag for the provided simulation.
+  rpc GetEnableCompressibleFlow(GetEnableCompressibleFlowRequest) returns (GetEnableCompressibleFlowResponse);
+
+  // Sets the compressible flow flag for the provided simulation.
+  rpc SetEnableCompressibleFlow(SetEnableCompressibleFlowRequest) returns (SetResponse);
+
+  // Gets the physics type flags for the provided simulation.
+  rpc GetPhysicsType(GetPhysicsTypeRequest) returns (GetPhysicsTypeResponse);
+
+  // Gets suppressed bodies for the provided simulation.
+  rpc GetSuppressedBodies(GetSuppressedBodiesRequest) returns (GetSuppressedBodiesResponse);
+
+  // Gets suppressed meshes for the provided simulation.
+  rpc GetSuppressedMeshes(GetSuppressedMeshesRequest) returns (GetSuppressedMeshesResponse);
+
+  // Gets suppressed curves for the provided simulation.
+  rpc GetSuppressedCurves(GetSuppressedCurvesRequest) returns (GetSuppressedCurvesResponse);
+
+  // Gets suppressed beams for the provided simulation.
+  rpc GetSuppressedBeams(GetSuppressedBeamsRequest) returns (GetSuppressedBeamsResponse);
+
+  // Gets suppressed bolts for the provided simulation.
+  rpc GetSuppressedBolts(GetSuppressedBoltsRequest) returns (GetSuppressedBoltsResponse);
+
+  // Gets suppressed welds for the provided simulation.
+  rpc GetSuppressedWelds(GetSuppressedWeldsRequest) returns (GetSuppressedWeldsResponse);
+
+  // Gets all suppressed entities for the provided simulation.
+  rpc GetSuppressedEntities(GetSuppressedEntitiesRequest) returns (GetSuppressedEntitiesResponse);
+
+  // Gets cutter bodies for the provided simulation.
+  rpc GetCutterBodies(GetCutterBodiesRequest) returns (GetCutterBodiesResponse);
 }
 
 message CreateSimulationRequest{
@@ -26,4 +83,141 @@ message CreateSimulationResponse{
 message GetAllResponse{
   // The simulations in the study.
   repeated SimulationEntity simulations = 1;
+}
+
+message GetLabelRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetLabelResponse{
+  string label = 1;
+}
+
+message SetLabelRequest{
+  SimulationEntity simulation = 1;
+  string value = 2;
+}
+
+message GetEnableNaturalFrequencyRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetEnableNaturalFrequencyResponse{
+  bool value = 1;
+}
+
+message SetEnableNaturalFrequencyRequest{
+  SimulationEntity simulation = 1;
+  bool value = 2;
+}
+
+message GetEnableRandomVibrationRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetEnableRandomVibrationResponse{
+  bool value = 1;
+}
+
+message SetEnableRandomVibrationRequest{
+  SimulationEntity simulation = 1;
+  bool value = 2;
+}
+
+message GetIncludeThermalEffectsRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetIncludeThermalEffectsResponse{
+  bool value = 1;
+}
+
+message SetIncludeThermalEffectsRequest{
+  SimulationEntity simulation = 1;
+  bool value = 2;
+}
+
+message GetEnableCompressibleFlowRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetEnableCompressibleFlowResponse{
+  bool value = 1;
+}
+
+message SetEnableCompressibleFlowRequest{
+  SimulationEntity simulation = 1;
+  bool value = 2;
+}
+
+message GetPhysicsTypeRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetPhysicsTypeResponse{
+  int32 physics_type = 1;
+}
+
+message GetSuppressedEntitiesRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetSuppressedBodiesRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetSuppressedBodiesResponse{
+  repeated EntityIdentifier suppressed_bodies = 1;
+}
+
+message GetSuppressedMeshesRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetSuppressedMeshesResponse{
+  repeated EntityIdentifier suppressed_meshes = 1;
+}
+
+message GetSuppressedCurvesRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetSuppressedCurvesResponse{
+  repeated EntityIdentifier suppressed_curves = 1;
+}
+
+message GetSuppressedBeamsRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetSuppressedBeamsResponse{
+  repeated EntityIdentifier suppressed_beams = 1;
+}
+
+message GetSuppressedBoltsRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetSuppressedBoltsResponse{
+  repeated EntityIdentifier suppressed_bolts = 1;
+}
+
+message GetSuppressedWeldsRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetSuppressedWeldsResponse{
+  repeated EntityIdentifier suppressed_welds = 1;
+}
+
+message GetSuppressedEntitiesResponse{
+  repeated EntityIdentifier suppressed_entities = 1;
+}
+
+message GetCutterBodiesRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetCutterBodiesResponse{
+  repeated EntityIdentifier cutter_bodies = 1;
 }
