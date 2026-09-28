@@ -62,6 +62,12 @@ message OutputParameter {
 message SimulationEntity {
   GuidEntityIdentifier object_id = 1;
   string label = 2;
+  bool topology_optimization_enabled = 3;
+  bool natural_frequency_enabled = 4;
+  bool random_vibration_enabled = 5;
+  bool thermal_effects_enabled = 6;
+  bool compressible_flow_enabled = 7;
+  int32 physics_type = 8;
 }
 
 // Common physics data
