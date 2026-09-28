@@ -1,0 +1,413 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.physics.simulation.topologyoptimization;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Simulation.TopologyOptimization";
+
+service TopologyOptimization
+{
+  // Gets topology optimization settings for a simulation.
+  rpc GetTopologyOptimization(GetTopologyOptimizationRequest) returns (GetTopologyOptimizationResponse);
+
+  // Sets the active optimization objective for a simulation.
+  rpc SetOptimizationObjective(SetOptimizationObjectiveRequest) returns (SetResponse);
+
+  // Sets minimum thickness constraint activation and properties.
+  rpc SetMinThicknessConstraint(SetMinThicknessConstraintRequest) returns (SetResponse);
+
+  // Sets maximum thickness constraint activation and properties.
+  rpc SetMaxThicknessConstraint(SetMaxThicknessConstraintRequest) returns (SetResponse);
+
+  // Sets pull direction constraint activation and properties.
+  rpc SetPullDirectionConstraint(SetPullDirectionConstraintRequest) returns (SetResponse);
+
+  // Sets table direction constraint activation and properties.
+  rpc SetTableDirectionConstraint(SetTableDirectionConstraintRequest) returns (SetResponse);
+
+  // Sets overhang prevention constraint activation and properties.
+  rpc SetOverhangPreventionConstraint(SetOverhangPreventionConstraintRequest) returns (SetResponse);
+
+  // Sets moment of inertia constraint activation and properties.
+  rpc SetMomentOfInertiaConstraint(SetMomentOfInertiaConstraintRequest) returns (SetResponse);
+
+  // Sets target reduction option.
+  rpc SetTargetReductionOption(SetTargetReductionOptionRequest) returns (SetResponse);
+
+  // Sets target volume.
+  rpc SetTargetVolume(SetTargetVolumeRequest) returns (SetResponse);
+
+  // Sets target reduce-by-volume-percent.
+  rpc SetTargetReduceByVolumePercent(SetTargetReduceByVolumePercentRequest) returns (SetResponse);
+
+  // Sets target mass.
+  rpc SetTargetMass(SetTargetMassRequest) returns (SetResponse);
+
+  // Sets target reduce-by-mass-percent.
+  rpc SetTargetReduceByMassPercent(SetTargetReduceByMassPercentRequest) returns (SetResponse);
+
+  // Sets target frequency.
+  rpc SetTargetFrequency(SetTargetFrequencyRequest) returns (SetResponse);
+
+  // Sets target type.
+  rpc SetTargetType(SetTargetTypeRequest) returns (SetResponse);
+
+  // Sets target maximum stress.
+  rpc SetTargetMaximumStress(SetTargetMaximumStressRequest) returns (SetResponse);
+
+  // Sets target factor of safety.
+  rpc SetTargetFactorOfSafety(SetTargetFactorOfSafetyRequest) returns (SetResponse);
+
+  // Sets target stiffness reduction.
+  rpc SetTargetStiffnessReduction(SetTargetStiffnessReductionRequest) returns (SetResponse);
+
+  // Sets target stress objective type.
+  rpc SetTargetStressObjectiveType(SetTargetStressObjectiveTypeRequest) returns (SetResponse);
+
+  // Creates a protected depth for topology optimization.
+  rpc CreateProtectedDepth(CreateProtectedDepthRequest) returns (CreateProtectedDepthResponse);
+
+  // Sets the depth of an existing protected depth.
+  rpc SetProtectedDepth(SetQuantityRequest) returns (SetResponse);
+
+  // Sets the location of an existing protected depth.
+  rpc SetProtectedDepthLocation(SetLocationExtendedRequest) returns (SetResponse);
+
+  // Gets a single protected depth by label.
+  rpc GetProtectedDepthByLabel(GetByLabelRequest) returns (GetProtectedDepthResponse);
+
+  // Gets all protected depths.
+  rpc GetAllProtectedDepths(ParentEntityRequest) returns (GetAllProtectedDepthsResponse);
+
+  // Creates a validation simulation from a mesh or body entity.
+  rpc CreateValidationSimulation(CreateValidationSimulationRequest) returns (CreateValidationSimulationResponse);
+
+  // Converts a mesh entity to solid.
+  rpc ConvertMeshToSolid(ConvertMeshToSolidRequest) returns (SetResponse);
+
+  // Smooths a faceted body.
+  rpc SmoothFacetedBody(SmoothFacetedBodyRequest) returns (SetResponse);
+
+  // Updates topology optimization settings for a simulation using multiple contstraints and targets. 
+  // This is a convenience method that allows updating multiple settings in a single call.
+  rpc Update(UpdateTopologyOptimizationRequest) returns (UpdateTopologyOptimizationResponse);
+}
+
+message CreateValidationSimulationRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  oneof source
+  {
+    EntityIdentifier body_id = 2;
+    EntityIdentifier mesh_id = 3;
+  }
+}
+
+message CreateValidationSimulationResponse
+{
+  CommandResponse command_response = 1;
+  EntityIdentifier simulation_id = 2;
+}
+
+message ConvertMeshToSolidRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  EntityIdentifier mesh_id = 2;
+  bool merge_faces = 3;
+}
+
+message SmoothFacetedBodyRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  EntityIdentifier body_id = 2;
+}
+
+message UpdateTopologyOptimizationRequest
+{
+  ParentEntityRequest parent = 1;
+  Constraints constraints = 2;
+  OptimizationObjective optimization_objective = 3;
+  Targets targets = 5;
+}
+
+message UpdateTopologyOptimizationResponse
+{
+  CommandResponse command_response = 1;
+}
+
+message GetTopologyOptimizationRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+}
+
+message GetTopologyOptimizationResponse
+{
+  CommandResponse command_response = 1;
+  OptimizationObjective optimization_objective = 2;
+  bool enabled = 3;
+  Constraints constraints = 4;
+  Targets targets = 5;
+}
+
+message SetOptimizationObjectiveRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  OptimizationObjective optimization_objective = 2;
+}
+
+message SetMinThicknessConstraintRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  MinThicknessConstraint constraint = 2;
+}
+
+message SetMaxThicknessConstraintRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  MaxThicknessConstraint constraint = 2;
+}
+
+message SetPullDirectionConstraintRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  PullDirectionConstraint constraint = 2;
+}
+
+message SetTableDirectionConstraintRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  TableDirectionConstraint constraint = 2;
+}
+
+message SetOverhangPreventionConstraintRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  OverhangPreventionConstraint constraint = 2;
+}
+
+message SetMomentOfInertiaConstraintRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  MomentOfInertiaConstraint constraint = 2;
+}
+
+message SetTargetReductionOptionRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  ReductionOption reduction_option = 2;
+}
+
+message SetTargetVolumeRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  Quantity target_volume = 2;
+}
+
+message SetTargetReduceByVolumePercentRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  Quantity reduce_by_volume_percent = 2;
+}
+
+message SetTargetMassRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  Quantity target_mass = 2;
+}
+
+message SetTargetReduceByMassPercentRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  Quantity reduce_by_mass_percent = 2;
+}
+
+message SetTargetFrequencyRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  Quantity target_frequency = 2;
+}
+
+message SetTargetTypeRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  OptimizationMinimizeVolumeTargetType target_type = 2;
+}
+
+message SetTargetMaximumStressRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  Quantity maximum_stress = 2;
+}
+
+message SetTargetFactorOfSafetyRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  Quantity factor_of_safety = 2;
+}
+
+message SetTargetStiffnessReductionRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  Quantity stiffness_reduction = 2;
+}
+
+message SetTargetStressObjectiveTypeRequest
+{
+  GuidEntityIdentifier simulation_id = 1;
+  OptimizationStressObjectiveType stress_objective_type = 2;
+}
+
+message CreateProtectedDepthRequest
+{
+  ScopedCreationData creation_data = 1;
+  ProtectedDepthProperties protected_depth_properties = 2;
+}
+
+message CreateProtectedDepthResponse
+{
+  CreationResponse creation_response = 1;
+  ProtectedDepthDefinition as_created_data = 2;
+}
+
+message ProtectedDepthProperties
+{
+  Quantity depth = 1;
+}
+
+message ProtectedDepthDefinition
+{
+  PhysicsEntityBaseProperties base_properties = 1;
+  repeated string locations = 2;
+  ProtectedDepthProperties protected_depth = 3;
+}
+
+message GetProtectedDepthResponse
+{
+  CommandResponse command_response = 1;
+  ProtectedDepthDefinition entity_definition = 2;
+}
+
+message GetAllProtectedDepthsResponse
+{
+  CommandResponse command_response = 1;
+  repeated ProtectedDepthDefinition entity_definitions = 2;
+}
+
+message Constraints
+{
+  MinThicknessConstraint min_thickness = 1;
+  MaxThicknessConstraint max_thickness = 2;
+  PullDirectionConstraint pull_direction = 3;
+  TableDirectionConstraint table_direction = 4;
+  OverhangPreventionConstraint overhang_prevention = 5;
+  MomentOfInertiaConstraint moment_of_inertia = 6;
+}
+
+message MinThicknessConstraint
+{
+  bool is_enabled = 1;
+  Quantity thickness = 2;
+}
+
+message MaxThicknessConstraint
+{
+  bool is_enabled = 1;
+  Quantity thickness = 2;
+  bool include_minimum_gap = 3;
+  Quantity minimum_gap = 4;
+}
+
+message PullDirectionConstraint
+{
+  bool is_enabled = 1;
+  Direction direction = 2;
+  bool use_bidirectional_pull_direction = 3;
+}
+
+message TableDirectionConstraint
+{
+  bool is_enabled = 1;
+  Direction direction = 2;
+}
+
+message OverhangPreventionConstraint
+{
+  bool is_enabled = 1;
+  Quantity angle = 2;
+  Direction direction = 3;
+}
+
+message MomentOfInertiaConstraint
+{
+  bool is_enabled = 1;
+  MomentOfInertiaAxis primary_axis = 2;
+  MomentOfInertiaAxis secondary_axis = 3;
+  Quantity min_percent_to_retain = 4;
+  Quantity max_percent_to_retain = 5;
+  EntityIdentifier local_coordinate_system_id = 6;
+}
+
+message Targets
+{
+  // Applicable to objectives that use volume/mass reduction targets.
+  ReductionOption reduction_option = 1;
+  Quantity target_volume = 2;
+  Quantity reduce_by_volume_percent = 3;
+  Quantity target_mass = 4;
+  Quantity reduce_by_mass_percent = 5;
+
+  // Applicable when optimization_objective is OPTIMIZATIONOBJECTIVE_TARGET_NATURAL_FREQUENCY.
+  Quantity target_frequency = 6;
+
+  // Applicable when optimization_objective is OPTIMIZATIONOBJECTIVE_MINIMIZE_VOLUME.
+  OptimizationMinimizeVolumeTargetType target_type = 7;
+  Quantity maximum_stress = 8;
+  Quantity factor_of_safety = 9;
+  Quantity stiffness_reduction = 10;
+
+  // Applicable when optimization_objective is OPTIMIZATIONOBJECTIVE_MINIMIZE_STRESS.
+  OptimizationStressObjectiveType stress_objective_type = 11;
+}
+
+enum MomentOfInertiaAxis
+{
+  MOMENTOFINERTIAAXIS_NONE = 0;
+  MOMENTOFINERTIAAXIS_X = 1;
+  MOMENTOFINERTIAAXIS_Y = 2;
+  MOMENTOFINERTIAAXIS_Z = 3;
+}
+
+enum OptimizationObjective
+{
+  OPTIMIZATIONOBJECTIVE_MAXIMIZE_STIFFNESS = 0;
+  OPTIMIZATIONOBJECTIVE_MAXIMIZE_NATURAL_FREQUENCY = 1;
+  OPTIMIZATIONOBJECTIVE_BALANCE_STIFFNESS_AND_FREQUENCY = 2;
+  OPTIMIZATIONOBJECTIVE_TARGET_NATURAL_FREQUENCY = 3;
+  OPTIMIZATIONOBJECTIVE_MINIMIZE_VOLUME = 4;
+  OPTIMIZATIONOBJECTIVE_MINIMIZE_STRESS = 5;
+}
+
+enum OptimizationMinimizeVolumeTargetType
+{
+  OPTIMIZATIONMINIMIZEVOLUMETARGETTYPE_VON_MISES_STRESS = 0;
+  OPTIMIZATIONMINIMIZEVOLUMETARGETTYPE_PRINCIPAL_STRESS = 1;
+  OPTIMIZATIONMINIMIZEVOLUMETARGETTYPE_STIFFNESS_REDUCTION = 2;
+  OPTIMIZATIONMINIMIZEVOLUMETARGETTYPE_FACTOR_OF_SAFETY = 3;
+}
+
+enum OptimizationStressObjectiveType
+{
+  OPTIMIZATIONSTRESSOBJECTIVETYPE_VON_MISES_STRESS = 0;
+  OPTIMIZATIONSTRESSOBJECTIVETYPE_PRINCIPAL_STRESS = 1;
+}
+
+enum ReductionOption
+{
+  REDUCTIONOPTION_UNSPECIFIED = 0;
+  REDUCTIONOPTION_TARGET_VOLUME = 1;
+  REDUCTIONOPTION_REDUCE_BY_VOLUME_PERCENT = 2;
+  REDUCTIONOPTION_TARGET_MASS = 3;
+  REDUCTIONOPTION_REDUCE_BY_MASS_PERCENT = 4;
+}
