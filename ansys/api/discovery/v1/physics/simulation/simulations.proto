@@ -12,26 +12,41 @@ service Simulations
   // Creates a new simulation
   rpc Create(CreateSimulationRequest) returns (CreateSimulationResponse);
 
-  // Duplicate an existing Simulation
-  rpc Duplicate(DuplicateSimulationRequest) returns (DuplicateSimulationResponse);
-
   // Lists all simulations
   rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
+
+  // Gets the simulation label for the provided simulation.
+  rpc GetLabel(GetLabelRequest) returns (GetLabelResponse);
 
   // Sets the simulation label for the provided simulation.
   rpc SetLabel(SetLabelRequest) returns (SetResponse);
 
-  // Sets whether natural frequency is enabled for the provided simulation.
+  // Gets the natural frequency flag for the provided simulation.
+  rpc GetEnableNaturalFrequency(GetEnableNaturalFrequencyRequest) returns (GetEnableNaturalFrequencyResponse);
+
+  // Sets the natural frequency flag for the provided simulation.
   rpc SetEnableNaturalFrequency(SetEnableNaturalFrequencyRequest) returns (SetResponse);
 
-  // Sets whether random vibration is enabled for the provided simulation.
+  // Gets the random vibration flag for the provided simulation.
+  rpc GetEnableRandomVibration(GetEnableRandomVibrationRequest) returns (GetEnableRandomVibrationResponse);
+
+  // Sets the random vibration flag for the provided simulation.
   rpc SetEnableRandomVibration(SetEnableRandomVibrationRequest) returns (SetResponse);
 
-  // Sets whether thermal effects are enabled for the provided simulation.
+  // Gets the thermal effects flag for the provided simulation.
+  rpc GetIncludeThermalEffects(GetIncludeThermalEffectsRequest) returns (GetIncludeThermalEffectsResponse);
+
+  // Sets the thermal effects flag for the provided simulation.
   rpc SetIncludeThermalEffects(SetIncludeThermalEffectsRequest) returns (SetResponse);
 
-  // Sets whether compressible flow is enabled for the provided simulation.
+  // Gets the compressible flow flag for the provided simulation.
+  rpc GetEnableCompressibleFlow(GetEnableCompressibleFlowRequest) returns (GetEnableCompressibleFlowResponse);
+
+  // Sets the compressible flow flag for the provided simulation.
   rpc SetEnableCompressibleFlow(SetEnableCompressibleFlowRequest) returns (SetResponse);
+
+  // Gets the physics type flags for the provided simulation.
+  rpc GetPhysicsType(GetPhysicsTypeRequest) returns (GetPhysicsTypeResponse);
 
   // Gets suppressed bodies for the provided simulation.
   rpc GetSuppressedBodies(GetSuppressedBodiesRequest) returns (GetSuppressedBodiesResponse);
@@ -56,9 +71,6 @@ service Simulations
 
   // Gets cutter bodies for the provided simulation.
   rpc GetCutterBodies(GetCutterBodiesRequest) returns (GetCutterBodiesResponse);
-
-  // Enables or disables topology optimization for a simulation.
-  rpc SetTopologyOptimizationEnabled(SetTopologyOptimizationEnabledRequest) returns (SetResponse);
 }
 
 message CreateSimulationRequest{
@@ -68,18 +80,17 @@ message CreateSimulationResponse{
   SimulationEntity simulation = 1;
 }
 
-message DuplicateSimulationRequest{
-  GuidEntityIdentifier simulation_id = 1;
-  bool include_only_materials = 2;
-}
-
-message DuplicateSimulationResponse{
-  SimulationEntity simulation = 1;
-}
-
 message GetAllResponse{
   // The simulations in the study.
   repeated SimulationEntity simulations = 1;
+}
+
+message GetLabelRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetLabelResponse{
+  string label = 1;
 }
 
 message SetLabelRequest{
@@ -87,9 +98,25 @@ message SetLabelRequest{
   string value = 2;
 }
 
+message GetEnableNaturalFrequencyRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetEnableNaturalFrequencyResponse{
+  bool value = 1;
+}
+
 message SetEnableNaturalFrequencyRequest{
   SimulationEntity simulation = 1;
   bool value = 2;
+}
+
+message GetEnableRandomVibrationRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetEnableRandomVibrationResponse{
+  bool value = 1;
 }
 
 message SetEnableRandomVibrationRequest{
@@ -97,14 +124,38 @@ message SetEnableRandomVibrationRequest{
   bool value = 2;
 }
 
+message GetIncludeThermalEffectsRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetIncludeThermalEffectsResponse{
+  bool value = 1;
+}
+
 message SetIncludeThermalEffectsRequest{
   SimulationEntity simulation = 1;
   bool value = 2;
 }
 
+message GetEnableCompressibleFlowRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetEnableCompressibleFlowResponse{
+  bool value = 1;
+}
+
 message SetEnableCompressibleFlowRequest{
   SimulationEntity simulation = 1;
   bool value = 2;
+}
+
+message GetPhysicsTypeRequest{
+  SimulationEntity simulation = 1;
+}
+
+message GetPhysicsTypeResponse{
+  int32 physics_type = 1;
 }
 
 message GetSuppressedEntitiesRequest{
@@ -169,10 +220,4 @@ message GetCutterBodiesRequest{
 
 message GetCutterBodiesResponse{
   repeated EntityIdentifier cutter_bodies = 1;
-}
-
-message SetTopologyOptimizationEnabledRequest
-{
-  GuidEntityIdentifier simulation_id = 1;
-  bool enabled = 2;
 }
