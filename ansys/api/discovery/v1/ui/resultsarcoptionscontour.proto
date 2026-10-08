@@ -1,0 +1,88 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.ui.resultsarcoptionscontour;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsContour";
+
+service ResultsArcOptionsContour
+{
+  rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
+  rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
+  rpc SetIsVisible(SetIsVisibleRequest) returns (SetIsVisibleResponse);
+  rpc GetLocation(GetLocationRequest) returns (GetLocationResponse);
+  rpc SetLocation(SetLocationRequest) returns (SetLocationResponse);
+  rpc GetPriority(GetPriorityRequest) returns (GetPriorityResponse);
+  rpc SetPriority(SetPriorityRequest) returns (SetPriorityResponse);
+  rpc GetMaxRangeDisplayValue(GetMaxRangeDisplayValueRequest) returns (GetMaxRangeDisplayValueResponse);
+  rpc SetMaxRangeDisplayValue(SetMaxRangeDisplayValueRequest) returns (SetMaxRangeDisplayValueResponse);
+  rpc GetMinRangeDisplayValue(GetMinRangeDisplayValueRequest) returns (GetMinRangeDisplayValueResponse);
+  rpc SetMinRangeDisplayValue(SetMinRangeDisplayValueRequest) returns (SetMinRangeDisplayValueResponse);
+}
+
+message GetIsEnabledRequest {
+}
+message GetIsEnabledResponse {
+  bool value = 1;
+}
+
+message GetIsVisibleRequest {
+}
+message GetIsVisibleResponse {
+  bool value = 1;
+}
+message SetIsVisibleRequest {
+  bool value = 1;
+}
+message SetIsVisibleResponse {
+  SetResponse set_response = 1;
+}
+
+message GetLocationRequest {
+}
+message GetLocationResponse {
+  int32 value = 1;
+}
+message SetLocationRequest {
+  int32 value = 1;
+}
+message SetLocationResponse {
+  SetResponse set_response = 1;
+}
+
+message GetPriorityRequest {
+}
+message GetPriorityResponse {
+  int32 value = 1;
+}
+message SetPriorityRequest {
+  int32 value = 1;
+}
+message SetPriorityResponse {
+  SetResponse set_response = 1;
+}
+
+message GetMaxRangeDisplayValueRequest {
+}
+message GetMaxRangeDisplayValueResponse {
+  double value = 1;
+}
+message SetMaxRangeDisplayValueRequest {
+  double value = 1;
+}
+message SetMaxRangeDisplayValueResponse {
+  SetResponse set_response = 1;
+}
+
+message GetMinRangeDisplayValueRequest {
+}
+message GetMinRangeDisplayValueResponse {
+  double value = 1;
+}
+message SetMinRangeDisplayValueRequest {
+  double value = 1;
+}
+message SetMinRangeDisplayValueResponse {
+  SetResponse set_response = 1;
+}

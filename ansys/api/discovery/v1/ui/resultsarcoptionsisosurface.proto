@@ -1,0 +1,74 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.ui.resultsarcoptionsisosurface;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsIsoSurface";
+
+service ResultsArcOptionsIsoSurface
+{
+  rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
+  rpc SetIsVisible(SetIsVisibleRequest) returns (SetIsVisibleResponse);
+  rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
+  rpc GetCount(GetCountRequest) returns (GetCountResponse);
+  rpc SetCount(SetCountRequest) returns (SetCountResponse);
+  rpc GetValues(GetValuesRequest) returns (GetValuesResponse);
+  rpc SetValues(SetValuesRequest) returns (SetValuesResponse);
+  rpc GetSpacingMode(GetSpacingModeRequest) returns (GetSpacingModeResponse);
+  rpc SetSpacingMode(SetSpacingModeRequest) returns (SetSpacingModeResponse);
+}
+
+message GetIsVisibleRequest {
+}
+message GetIsVisibleResponse {
+  bool value = 1;
+}
+message SetIsVisibleRequest {
+  bool value = 1;
+}
+message SetIsVisibleResponse {
+  SetResponse set_response = 1;
+}
+
+message GetIsEnabledRequest {
+}
+message GetIsEnabledResponse {
+  bool value = 1;
+}
+
+message GetCountRequest {
+}
+message GetCountResponse {
+  int32 value = 1;
+}
+message SetCountRequest {
+  int32 value = 1;
+}
+message SetCountResponse {
+  SetResponse set_response = 1;
+}
+
+message GetValuesRequest {
+}
+message GetValuesResponse {
+  repeated double values = 1;
+}
+message SetValuesRequest {
+  repeated double values = 1;
+}
+message SetValuesResponse {
+  SetResponse set_response = 1;
+}
+
+message GetSpacingModeRequest {
+}
+message GetSpacingModeResponse {
+  int32 value = 1;
+}
+message SetSpacingModeRequest {
+  int32 value = 1;
+}
+message SetSpacingModeResponse {
+  SetResponse set_response = 1;
+}

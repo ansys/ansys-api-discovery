@@ -1,0 +1,40 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.ui.resultsarcoptionsdeformation;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsDeformation";
+
+service ResultsArcOptionsDeformation
+{
+  rpc GetIsActive(GetIsActiveRequest) returns (GetIsActiveResponse);
+  rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
+  rpc GetDeformationType(GetDeformationTypeRequest) returns (GetDeformationTypeResponse);
+  rpc SetDeformationType(SetDeformationTypeRequest) returns (SetDeformationTypeResponse);
+}
+
+message GetIsActiveRequest {
+}
+message GetIsActiveResponse {
+  bool value = 1;
+}
+
+message GetIsEnabledRequest {
+}
+message GetIsEnabledResponse {
+  bool value = 1;
+}
+
+message GetDeformationTypeRequest {
+}
+message GetDeformationTypeResponse {
+  int32 value = 1;
+}
+
+message SetDeformationTypeRequest {
+  int32 value = 1;
+}
+message SetDeformationTypeResponse {
+  SetResponse set_response = 1;
+}

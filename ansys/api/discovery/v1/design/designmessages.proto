@@ -76,6 +76,7 @@ message BodyEntity{
   EntityIdentifier parent_id = 9;
   bool is_surface = 10;
   bool is_lightweight = 11;
+  bool is_visibile = 12;
 }
 
 // A nullable body master.

@@ -96,6 +96,7 @@ message DoubleSidedScopedCreationData{
 message LocationIdentifier{
   repeated EntityIdentifier location_ids = 1;
   optional LocationType location_type = 2;
+  optional string named_selction_label = 3;
 }
 
 message SetDirectionRequest{

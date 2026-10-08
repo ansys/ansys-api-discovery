@@ -4,6 +4,7 @@ package ansys.api.discovery.v1.physics.simulation.monitors;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 import "ansys/api/discovery/v1/physics/physicsmessages.proto";
+import "ansys/api/discovery/v1/physics/simulation/solutions.proto";
 import "ansys/api/discovery/v1/resultenums.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V1.Physics.Simulation.Monitors";
@@ -15,7 +16,39 @@ service Monitors
 
   rpc GetAll(GetAllMonitorsRequest) returns (GetAllMonitorsResponse);
 
+  rpc ClearAll(ClearAllMonitorsRequest) returns (SetResponse);
+
   rpc GetValues(GetMonitorValuesRequest) returns (GetMonitorValuesResponse);
+
+  rpc GetValue(GetMonitorValueRequest) returns (GetMonitorValueResponse);
+
+  rpc GetConfidencePredictedValue(GetMonitorValueRequest) returns (GetMonitorValueResponse);
+
+  rpc GetConfidenceIntervalValue(GetMonitorValueRequest) returns (GetMonitorValueResponse);
+
+  rpc ExportChart(ExportMonitorChartRequest) returns (stream ExportMonitorChartResponse);
+
+  rpc ExportAllCharts(ExportAllMonitorChartsRequest) returns (stream ExportAllMonitorChartsResponse);
+
+  rpc ExportDetailedChart(ExportDetailedMonitorChartRequest) returns (stream ExportDetailedMonitorChartResponse);
+
+  rpc SetForceCoefficientOptions(SetForceCoefficientMonitorOptionsRequest) returns (SetResponse);
+
+  rpc SetMomentOptions(SetMomentMonitorOptionsRequest) returns (SetResponse);
+
+  rpc SetConnectionFactorOfSafetyComponent(SetConnectionFactorOfSafetyMonitorComponentRequest) returns (SetResponse);
+
+  rpc SetModeNumber(SetMonitorModeNumberRequest) returns (SetResponse);
+
+  rpc SetHarmonicOptions(SetHarmonicMonitorOptionsRequest) returns (SetResponse);
+
+  rpc SetTargetMinimum(SetMonitorTargetMinimumRequest) returns (SetResponse);
+
+  rpc SetTargetMaximum(SetMonitorTargetMaximumRequest) returns (SetResponse);
+
+  rpc SetTargetSpecifiedValue(SetMonitorTargetSpecifiedValueRequest) returns (SetResponse);
+
+  rpc SetTargetSpecificationMethod(SetMonitorTargetSpecificationMethodRequest) returns (SetResponse);
 
 }
 
@@ -35,22 +68,156 @@ message MonitorCreationResponse{
 message GetAllMonitorsRequest{
 }
 
+message ClearAllMonitorsRequest{
+}
+
 message GetAllMonitorsResponse{
   repeated MonitorDefinition monitor_definitions = 1;
 }
 
 message GetMonitorValuesRequest{
   EntityIdentifier id = 1;
+  optional ansys.api.discovery.v1.physics.simulation.solutions.SolverManager solver_manager = 2;
 }
 
 message GetMonitorValuesResponse{
   repeated Quantity monitor_values = 1;
 }
 
+message GetMonitorValueRequest{
+  EntityIdentifier id = 1;
+  optional ansys.api.discovery.v1.physics.simulation.solutions.SolverManager solver_manager = 2;
+  optional int32 confidence_interval_index = 3;
+}
+
+message GetMonitorValueResponse{
+  Quantity monitor_value = 1;
+}
+
+message ExportMonitorChartRequest {
+  EntityIdentifier id = 1;
+  string file_name = 2;
+  GuidEntityIdentifier simulation_id = 3;
+}
+
+message ExportMonitorChartResponse {
+  bytes data = 1;
+  CommandResponse command_response = 2;
+}
+
+message ExportAllMonitorChartsRequest {
+  string folder_name = 1;
+  GuidEntityIdentifier simulation_id = 2;
+}
+
+message ExportAllMonitorChartsResponse {
+  bytes data = 1;
+  CommandResponse command_response = 2;
+}
+
+message ExportDetailedMonitorChartRequest {
+  EntityIdentifier id = 1;
+  string file_name = 2;
+  GuidEntityIdentifier simulation_id = 3;
+}
+
+message ExportDetailedMonitorChartResponse {
+  bytes data = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetForceCoefficientMonitorOptionsRequest {
+  EntityIdentifier id = 1;
+  ForceCoefficientMonitorOptions options = 2;
+}
+
+message SetMomentMonitorOptionsRequest {
+  EntityIdentifier id = 1;
+  MomentMonitorOptions options = 2;
+}
+
+message SetConnectionFactorOfSafetyMonitorComponentRequest {
+  EntityIdentifier id = 1;
+  ConnectionFactorOfSafetyMonitorComponent component = 2;
+}
+
+message SetMonitorModeNumberRequest {
+  EntityIdentifier id = 1;
+  int32 mode_number = 2;
+}
+
+message SetHarmonicMonitorOptionsRequest {
+  EntityIdentifier id = 1;
+  HarmonicMonitorOptions options = 2;
+}
+
+message SetMonitorTargetMinimumRequest {
+  EntityIdentifier id = 1;
+  Quantity minimum = 2;
+}
+
+message SetMonitorTargetMaximumRequest {
+  EntityIdentifier id = 1;
+  Quantity maximum = 2;
+}
+
+message SetMonitorTargetSpecifiedValueRequest {
+  EntityIdentifier id = 1;
+  Quantity specified_value = 2;
+}
+
+message SetMonitorTargetSpecificationMethodRequest {
+  EntityIdentifier id = 1;
+  MonitorTargetSpecificationMethod specification_method = 2;
+}
+
 message MonitorProperties{
   ResultVariable result_variable = 1;
   ResultFunction result_function = 2;
   optional ResultComponent result_component = 3;
+  optional ForceCoefficientMonitorOptions force_coefficient_options = 4;
+  optional MomentMonitorOptions moment_options = 5;
+  optional ConnectionFactorOfSafetyMonitorComponent connection_factor_of_safety_component = 6;
+  optional int32 mode_number = 7;
+  optional HarmonicMonitorOptions harmonic_options = 8;
+  optional MonitorTargets targets = 9;
+}
+
+message MonitorTargets{
+  Quantity minimum = 1;
+  Quantity maximum = 2;
+  Quantity specified_value = 3;
+  MonitorTargetSpecificationMethod specification_method = 4;
+}
+
+enum MonitorTargetSpecificationMethod {
+  MONITOR_TARGET_SPECIFICATION_METHOD_UNSPECIFIED = 0;
+  MONITOR_TARGET_SPECIFICATION_METHOD_MINIMUM = 1;
+  MONITOR_TARGET_SPECIFICATION_METHOD_MAXIMUM = 2;
+  MONITOR_TARGET_SPECIFICATION_METHOD_SPECIFIED_VALUE = 3;
+}
+
+enum ConnectionFactorOfSafetyMonitorComponent {
+  CONNECTION_FACTOR_OF_SAFETY_MONITOR_COMPONENT_UNSPECIFIED = 0;
+  CONNECTION_FACTOR_OF_SAFETY_MONITOR_COMPONENT_AUTOMATIC = 1;
+  CONNECTION_FACTOR_OF_SAFETY_MONITOR_COMPONENT_SHEAR = 2;
+  CONNECTION_FACTOR_OF_SAFETY_MONITOR_COMPONENT_TENSILE = 3;
+}
+
+message ForceCoefficientMonitorOptions {
+  Quantity reference_area = 1;
+  Quantity reference_density = 2;
+  Quantity reference_velocity = 3;
+}
+
+message MomentMonitorOptions {
+  Point center = 1;
+  Direction direction = 2;
+}
+
+message HarmonicMonitorOptions {
+  Quantity frequency = 1;
+  Quantity phase_angle = 2;
 }
 
 message MonitorDefinition{
