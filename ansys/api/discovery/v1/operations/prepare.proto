@@ -38,6 +38,8 @@ service Prepare{
 
   rpc ShareTopology(ShareTopologyRequest) returns (ShareTopologyResponse);
 
+  rpc SuppressTopologies(SuppressTopologiesRequest) returns (SuppressTopologiesResponse);
+
   rpc UnshareTopology(UnshareTopologyRequest) returns (UnshareTopologyResponse);
 }
 
@@ -120,6 +122,8 @@ message ShareTopologyRequest{
   double tolerance=2;
   // Gets or sets the option for preserving the instancing. 
   bool preserve_instances=3;
+  // Optional. When true selects the geometry-based imprint workflow; omitted or false preserves current behavior.
+  bool geometry_imprint = 4;
 }
 
 message ShareTopologyResponse{
@@ -130,6 +134,21 @@ message EnhancedShareTopologyResponse{
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
   int32 found = 2;
   int32 repaired = 3;
+}
+
+message SuppressTopologiesRequestData{
+  // The edges or vertices to suppress or unsuppress.
+  repeated EntityIdentifier selection_ids = 1;
+  // True to suppress the topologies, false to unsuppress them.
+  bool suppress = 2;
+}
+
+message SuppressTopologiesRequest{
+  repeated SuppressTopologiesRequestData request_data = 1;
+}
+
+message SuppressTopologiesResponse{
+  CommandResponse command_response = 1;
 }
 
 message UnshareTopologyRequest{

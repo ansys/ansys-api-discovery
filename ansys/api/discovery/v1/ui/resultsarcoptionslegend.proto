@@ -1,0 +1,158 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.ui.resultsarcoptionslegend;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsLegend";
+
+service ResultsArcOptionsLegend
+{
+  rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
+  rpc SetIsVisible(SetIsVisibleRequest) returns (SetIsVisibleResponse);
+  rpc GetGradientStyle(GetGradientStyleRequest) returns (GetGradientStyleResponse);
+  rpc SetGradientStyle(SetGradientStyleRequest) returns (SetGradientStyleResponse);
+  rpc GetColorMap(GetColorMapRequest) returns (GetColorMapResponse);
+  rpc SetColorMap(SetColorMapRequest) returns (SetColorMapResponse);
+  rpc GetMaxRangeGlobalValue(GetMaxRangeGlobalValueRequest) returns (GetMaxRangeGlobalValueResponse);
+  rpc GetMinRangeGlobalValue(GetMinRangeGlobalValueRequest) returns (GetMinRangeGlobalValueResponse);
+  rpc GetMaxRangeDisplayValue(GetMaxRangeDisplayValueRequest) returns (GetMaxRangeDisplayValueResponse);
+  rpc SetMaxRangeDisplayValue(SetMaxRangeDisplayValueRequest) returns (SetMaxRangeDisplayValueResponse);
+  rpc GetMinRangeDisplayValue(GetMinRangeDisplayValueRequest) returns (GetMinRangeDisplayValueResponse);
+  rpc SetMinRangeDisplayValue(SetMinRangeDisplayValueRequest) returns (SetMinRangeDisplayValueResponse);
+  rpc GetResultVariable(GetResultVariableRequest) returns (GetResultVariableResponse);
+  rpc SetResultVariable(SetResultVariableRequest) returns (SetResultVariableResponse);
+  rpc GetResultComponent(GetResultComponentRequest) returns (GetResultComponentResponse);
+  rpc SetResultComponent(SetResultComponentRequest) returns (SetResultComponentResponse);
+  rpc GetResultComplexComponent(GetResultComplexComponentRequest) returns (GetResultComplexComponentResponse);
+  rpc SetResultComplexComponent(SetResultComplexComponentRequest) returns (SetResultComplexComponentResponse);
+  rpc GetSelectedMode(GetSelectedModeRequest) returns (GetSelectedModeResponse);
+  rpc SetSelectedMode(SetSelectedModeRequest) returns (SetSelectedModeResponse);
+  rpc ToggleMinMaxLocations(ToggleMinMaxLocationsRequest) returns (ToggleMinMaxLocationsResponse);
+}
+
+message GetIsVisibleRequest {
+}
+message GetIsVisibleResponse {
+  bool value = 1;
+}
+message SetIsVisibleRequest {
+  bool value = 1;
+}
+message SetIsVisibleResponse {
+  SetResponse set_response = 1;
+}
+
+message GetGradientStyleRequest {
+}
+message GetGradientStyleResponse {
+  int32 value = 1;
+}
+message SetGradientStyleRequest {
+  int32 value = 1;
+}
+message SetGradientStyleResponse {
+  SetResponse set_response = 1;
+}
+
+message GetColorMapRequest {
+}
+message GetColorMapResponse {
+  repeated int32 argb_values = 1;
+}
+message SetColorMapRequest {
+  repeated int32 argb_values = 1;
+  bool reset_to_default = 2;
+}
+message SetColorMapResponse {
+  SetResponse set_response = 1;
+}
+
+message GetMaxRangeGlobalValueRequest {
+}
+message GetMaxRangeGlobalValueResponse {
+  double value = 1;
+}
+message GetMinRangeGlobalValueRequest {
+}
+message GetMinRangeGlobalValueResponse {
+  double value = 1;
+}
+
+message GetMaxRangeDisplayValueRequest {
+}
+message GetMaxRangeDisplayValueResponse {
+  double value = 1;
+}
+message SetMaxRangeDisplayValueRequest {
+  double value = 1;
+}
+message SetMaxRangeDisplayValueResponse {
+  SetResponse set_response = 1;
+}
+
+message GetMinRangeDisplayValueRequest {
+}
+message GetMinRangeDisplayValueResponse {
+  double value = 1;
+}
+message SetMinRangeDisplayValueRequest {
+  double value = 1;
+}
+message SetMinRangeDisplayValueResponse {
+  SetResponse set_response = 1;
+}
+
+message GetResultVariableRequest {
+}
+message GetResultVariableResponse {
+  string value = 1;
+}
+message SetResultVariableRequest {
+  string value = 1;
+}
+message SetResultVariableResponse {
+  SetResponse set_response = 1;
+}
+
+message GetResultComponentRequest {
+}
+message GetResultComponentResponse {
+  int32 value = 1;
+}
+message SetResultComponentRequest {
+  int32 value = 1;
+}
+message SetResultComponentResponse {
+  SetResponse set_response = 1;
+}
+
+message GetResultComplexComponentRequest {
+}
+message GetResultComplexComponentResponse {
+  int32 value = 1;
+}
+message SetResultComplexComponentRequest {
+  int32 value = 1;
+}
+message SetResultComplexComponentResponse {
+  SetResponse set_response = 1;
+}
+
+message GetSelectedModeRequest {
+}
+message GetSelectedModeResponse {
+  int32 value = 1;
+}
+message SetSelectedModeRequest {
+  int32 value = 1;
+}
+message SetSelectedModeResponse {
+  SetResponse set_response = 1;
+}
+
+message ToggleMinMaxLocationsRequest {
+}
+message ToggleMinMaxLocationsResponse {
+  CommandResponse command_response = 1;
+}

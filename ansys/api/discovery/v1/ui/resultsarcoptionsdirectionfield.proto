@@ -1,0 +1,53 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.ui.resultsarcoptionsdirectionfield;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsDirectionField";
+
+service ResultsArcOptionsDirectionField
+{
+  rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
+  rpc GetIsActive(GetIsActiveRequest) returns (GetIsActiveResponse);
+  rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
+  rpc SetIsVisible(SetIsVisibleRequest) returns (SetIsVisibleResponse);
+  rpc GetFrame(GetFrameRequest) returns (GetFrameResponse);
+  rpc SetFrame(SetFrameRequest) returns (SetFrameResponse);
+}
+
+message GetIsEnabledRequest {
+}
+message GetIsEnabledResponse {
+  bool value = 1;
+}
+
+message GetIsActiveRequest {
+}
+message GetIsActiveResponse {
+  bool value = 1;
+}
+
+message GetIsVisibleRequest {
+}
+message GetIsVisibleResponse {
+  bool value = 1;
+}
+message SetIsVisibleRequest {
+  bool value = 1;
+}
+message SetIsVisibleResponse {
+  SetResponse set_response = 1;
+}
+
+message GetFrameRequest {
+}
+message GetFrameResponse {
+  Frame value = 1;
+}
+message SetFrameRequest {
+  Frame value = 1;
+}
+message SetFrameResponse {
+  SetResponse set_response = 1;
+}

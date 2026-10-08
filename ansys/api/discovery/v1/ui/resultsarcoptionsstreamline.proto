@@ -1,0 +1,177 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.ui.resultsarcoptionsstreamline;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsStreamline";
+
+service ResultsArcOptionsStreamline
+{
+  rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
+  rpc SetIsVisible(SetIsVisibleRequest) returns (SetIsVisibleResponse);
+  rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
+  rpc GetLineType(GetLineTypeRequest) returns (GetLineTypeResponse);
+  rpc SetLineType(SetLineTypeRequest) returns (SetLineTypeResponse);
+  rpc GetDirection(GetDirectionRequest) returns (GetDirectionResponse);
+  rpc SetDirection(SetDirectionRequest) returns (SetDirectionResponse);
+  rpc GetTailLength(GetTailLengthRequest) returns (GetTailLengthResponse);
+  rpc SetTailLength(SetTailLengthRequest) returns (SetTailLengthResponse);
+  rpc GetThickness(GetThicknessRequest) returns (GetThicknessResponse);
+  rpc SetThickness(SetThicknessRequest) returns (SetThicknessResponse);
+  rpc GetCount(GetCountRequest) returns (GetCountResponse);
+  rpc SetCount(SetCountRequest) returns (SetCountResponse);
+  rpc GetEmitterControl(GetEmitterControlRequest) returns (GetEmitterControlResponse);
+  rpc SetEmitterControl(SetEmitterControlRequest) returns (SetEmitterControlResponse);
+  rpc GetArrows(GetArrowsRequest) returns (GetArrowsResponse);
+  rpc SetArrows(SetArrowsRequest) returns (SetArrowsResponse);
+  rpc GetPulsing(GetPulsingRequest) returns (GetPulsingResponse);
+  rpc SetPulsing(SetPulsingRequest) returns (SetPulsingResponse);
+  rpc GetSeedRadii(GetSeedRadiiRequest) returns (GetSeedRadiiResponse);
+  rpc SetSeedRadii(SetSeedRadiiRequest) returns (SetSeedRadiiResponse);
+  rpc GetSeedPlane(GetSeedPlaneRequest) returns (GetSeedPlaneResponse);
+  rpc SetSeedPlane(SetSeedPlaneRequest) returns (SetSeedPlaneResponse);
+}
+
+message SeedRadiiValue {
+  float first = 1;
+  float second = 2;
+}
+
+message GetIsVisibleRequest {
+}
+message GetIsVisibleResponse {
+  bool value = 1;
+}
+message SetIsVisibleRequest {
+  bool value = 1;
+}
+message SetIsVisibleResponse {
+  SetResponse set_response = 1;
+}
+
+message GetIsEnabledRequest {
+}
+message GetIsEnabledResponse {
+  bool value = 1;
+}
+
+message GetLineTypeRequest {
+}
+message GetLineTypeResponse {
+  int32 value = 1;
+}
+message SetLineTypeRequest {
+  int32 value = 1;
+}
+message SetLineTypeResponse {
+  SetResponse set_response = 1;
+}
+
+message GetDirectionRequest {
+}
+message GetDirectionResponse {
+  int32 value = 1;
+}
+message SetDirectionRequest {
+  int32 value = 1;
+}
+message SetDirectionResponse {
+  SetResponse set_response = 1;
+}
+
+message GetTailLengthRequest {
+}
+message GetTailLengthResponse {
+  float value = 1;
+}
+message SetTailLengthRequest {
+  float value = 1;
+}
+message SetTailLengthResponse {
+  SetResponse set_response = 1;
+}
+
+message GetThicknessRequest {
+}
+message GetThicknessResponse {
+  float value = 1;
+}
+message SetThicknessRequest {
+  float value = 1;
+}
+message SetThicknessResponse {
+  SetResponse set_response = 1;
+}
+
+message GetCountRequest {
+}
+message GetCountResponse {
+  float value = 1;
+}
+message SetCountRequest {
+  float value = 1;
+}
+message SetCountResponse {
+  SetResponse set_response = 1;
+}
+
+message GetEmitterControlRequest {
+}
+message GetEmitterControlResponse {
+  bool value = 1;
+}
+message SetEmitterControlRequest {
+  bool value = 1;
+}
+message SetEmitterControlResponse {
+  SetResponse set_response = 1;
+}
+
+message GetArrowsRequest {
+}
+message GetArrowsResponse {
+  bool value = 1;
+}
+message SetArrowsRequest {
+  bool value = 1;
+}
+message SetArrowsResponse {
+  SetResponse set_response = 1;
+}
+
+message GetPulsingRequest {
+}
+message GetPulsingResponse {
+  bool value = 1;
+}
+message SetPulsingRequest {
+  bool value = 1;
+}
+message SetPulsingResponse {
+  SetResponse set_response = 1;
+}
+
+message GetSeedRadiiRequest {
+}
+message GetSeedRadiiResponse {
+  SeedRadiiValue value = 1;
+}
+message SetSeedRadiiRequest {
+  SeedRadiiValue value = 1;
+}
+message SetSeedRadiiResponse {
+  SetResponse set_response = 1;
+}
+
+message GetSeedPlaneRequest {
+}
+message GetSeedPlaneResponse {
+  Frame value = 1;
+}
+message SetSeedPlaneRequest {
+  Frame value = 1;
+}
+message SetSeedPlaneResponse {
+  SetResponse set_response = 1;
+}

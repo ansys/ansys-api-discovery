@@ -99,6 +99,10 @@ service Body
   rpc SetFillStyle(SetFillStyleRequest) returns (SetFillStyleResponse);
 
   rpc SetSuppressed(SetSuppressedRequest) returns (SetSuppressedResponse);
+
+  rpc GetVisibility(MultipleEntitiesRequest) returns (GetVisibilityResponse);
+
+  rpc SetVisibility(SetVisibilityRequest) returns (SetVisibilityResponse);
 }
 
 message BodiesSelectionResponse{
@@ -569,4 +573,19 @@ message CopyFacesRequest {
 message CopyFacesResponse {
   repeated BodyEntity bodies = 1;
   CreationResponse creation_response = 2;
+}
+
+message GetVisibilityResponse {
+  map<string,bool> result = 1;
+  CommandResponse command_response = 2;
+}
+
+message SetVisibilityRequest {
+  repeated EntityIdentifier body_ids = 1;
+  bool is_visible = 2;
+}
+
+message SetVisibilityResponse {
+  repeated EntityIdentifier successfully_set_ids = 1;
+  TrackedSetResponse tracked_set_response = 2;
 }

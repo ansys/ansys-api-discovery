@@ -1,0 +1,172 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.ui.resultsarcoptionsvectors;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsVectors";
+
+service ResultsArcOptionsVectors
+{
+  rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
+  rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
+  rpc SetIsVisible(SetIsVisibleRequest) returns (SetIsVisibleResponse);
+  rpc GetDensity(GetDensityRequest) returns (GetDensityResponse);
+  rpc SetDensity(SetDensityRequest) returns (SetDensityResponse);
+  rpc GetArrowSize(GetArrowSizeRequest) returns (GetArrowSizeResponse);
+  rpc SetArrowSize(SetArrowSizeRequest) returns (SetArrowSizeResponse);
+  rpc GetIsConstantLength(GetIsConstantLengthRequest) returns (GetIsConstantLengthResponse);
+  rpc SetIsConstantLength(SetIsConstantLengthRequest) returns (SetIsConstantLengthResponse);
+  rpc GetIsCurved(GetIsCurvedRequest) returns (GetIsCurvedResponse);
+  rpc SetIsCurved(SetIsCurvedRequest) returns (SetIsCurvedResponse);
+  rpc GetThickness(GetThicknessRequest) returns (GetThicknessResponse);
+  rpc SetThickness(SetThicknessRequest) returns (SetThicknessResponse);
+  rpc GetTailLength(GetTailLengthRequest) returns (GetTailLengthResponse);
+  rpc SetTailLength(SetTailLengthRequest) returns (SetTailLengthResponse);
+  rpc GetCount(GetCountRequest) returns (GetCountResponse);
+  rpc SetCount(SetCountRequest) returns (SetCountResponse);
+  rpc GetFilter(GetFilterRequest) returns (GetFilterResponse);
+  rpc SetFilter(SetFilterRequest) returns (SetFilterResponse);
+  rpc GetMaxCulling(GetMaxCullingRequest) returns (GetMaxCullingResponse);
+  rpc SetMaxCulling(SetMaxCullingRequest) returns (SetMaxCullingResponse);
+  rpc GetMinCulling(GetMinCullingRequest) returns (GetMinCullingResponse);
+  rpc SetMinCulling(SetMinCullingRequest) returns (SetMinCullingResponse);
+}
+
+message GetIsEnabledRequest {
+}
+message GetIsEnabledResponse {
+  bool value = 1;
+}
+
+message GetIsVisibleRequest {
+}
+message GetIsVisibleResponse {
+  bool value = 1;
+}
+message SetIsVisibleRequest {
+  bool value = 1;
+}
+message SetIsVisibleResponse {
+  SetResponse set_response = 1;
+}
+
+message GetDensityRequest {
+}
+message GetDensityResponse {
+  float value = 1;
+}
+message SetDensityRequest {
+  float value = 1;
+}
+message SetDensityResponse {
+  SetResponse set_response = 1;
+}
+
+message GetArrowSizeRequest {
+}
+message GetArrowSizeResponse {
+  float value = 1;
+}
+message SetArrowSizeRequest {
+  float value = 1;
+}
+message SetArrowSizeResponse {
+  SetResponse set_response = 1;
+}
+
+message GetIsConstantLengthRequest {
+}
+message GetIsConstantLengthResponse {
+  bool value = 1;
+}
+message SetIsConstantLengthRequest {
+  bool value = 1;
+}
+message SetIsConstantLengthResponse {
+  SetResponse set_response = 1;
+}
+
+message GetIsCurvedRequest {
+}
+message GetIsCurvedResponse {
+  bool value = 1;
+}
+message SetIsCurvedRequest {
+  bool value = 1;
+}
+message SetIsCurvedResponse {
+  SetResponse set_response = 1;
+}
+
+message GetThicknessRequest {
+}
+message GetThicknessResponse {
+  float value = 1;
+}
+message SetThicknessRequest {
+  float value = 1;
+}
+message SetThicknessResponse {
+  SetResponse set_response = 1;
+}
+
+message GetTailLengthRequest {
+}
+message GetTailLengthResponse {
+  float value = 1;
+}
+message SetTailLengthRequest {
+  float value = 1;
+}
+message SetTailLengthResponse {
+  SetResponse set_response = 1;
+}
+
+message GetCountRequest {
+}
+message GetCountResponse {
+  float value = 1;
+}
+message SetCountRequest {
+  float value = 1;
+}
+message SetCountResponse {
+  SetResponse set_response = 1;
+}
+
+message GetFilterRequest {
+}
+message GetFilterResponse {
+  int32 value = 1;
+}
+message SetFilterRequest {
+  int32 value = 1;
+}
+message SetFilterResponse {
+  SetResponse set_response = 1;
+}
+
+message GetMaxCullingRequest {
+}
+message GetMaxCullingResponse {
+  float value = 1;
+}
+message SetMaxCullingRequest {
+  float value = 1;
+}
+message SetMaxCullingResponse {
+  SetResponse set_response = 1;
+}
+
+message GetMinCullingRequest {
+}
+message GetMinCullingResponse {
+  float value = 1;
+}
+message SetMinCullingRequest {
+  float value = 1;
+}
+message SetMinCullingResponse {
+  SetResponse set_response = 1;
+}
