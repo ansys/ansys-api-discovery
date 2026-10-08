@@ -1,0 +1,67 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.ui.resultsarcoptionsnearfieldplot;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsNearFieldPlot";
+
+service ResultsArcOptionsNearFieldPlot
+{
+  rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
+  rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
+  rpc SetIsVisible(SetIsVisibleRequest) returns (SetIsVisibleResponse);
+  rpc GetIsActive(GetIsActiveRequest) returns (GetIsActiveResponse);
+  rpc GetPriority(GetPriorityRequest) returns (GetPriorityResponse);
+  rpc SetPriority(SetPriorityRequest) returns (SetPriorityResponse);
+  rpc GetCurrentFrequencyIndex(GetCurrentFrequencyIndexRequest) returns (GetCurrentFrequencyIndexResponse);
+  rpc SetCurrentFrequencyIndex(SetCurrentFrequencyIndexRequest) returns (SetCurrentFrequencyIndexResponse);
+}
+
+message GetIsEnabledRequest {
+}
+message GetIsEnabledResponse {
+  bool value = 1;
+}
+
+message GetIsVisibleRequest {
+}
+message GetIsVisibleResponse {
+  bool value = 1;
+}
+message SetIsVisibleRequest {
+  bool value = 1;
+}
+message SetIsVisibleResponse {
+  SetResponse set_response = 1;
+}
+
+message GetIsActiveRequest {
+}
+message GetIsActiveResponse {
+  bool value = 1;
+}
+
+message GetPriorityRequest {
+}
+message GetPriorityResponse {
+  int32 value = 1;
+}
+message SetPriorityRequest {
+  int32 value = 1;
+}
+message SetPriorityResponse {
+  SetResponse set_response = 1;
+}
+
+message GetCurrentFrequencyIndexRequest {
+}
+message GetCurrentFrequencyIndexResponse {
+  OptionalInt value = 1;
+}
+message SetCurrentFrequencyIndexRequest {
+  OptionalInt value = 1;
+}
+message SetCurrentFrequencyIndexResponse {
+  SetResponse set_response = 1;
+}

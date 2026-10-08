@@ -1,0 +1,55 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.ui.resultsarcoptionsanimation;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsAnimation";
+
+service ResultsArcOptionsAnimation
+{
+  rpc GetIsActive(GetIsActiveRequest) returns (GetIsActiveResponse);
+  rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
+  rpc GetAnimationState(GetAnimationStateRequest) returns (GetAnimationStateResponse);
+  rpc SetAnimationState(SetAnimationStateRequest) returns (SetAnimationStateResponse);
+  rpc GetAnimationType(GetAnimationTypeRequest) returns (GetAnimationTypeResponse);
+  rpc SetAnimationType(SetAnimationTypeRequest) returns (SetAnimationTypeResponse);
+}
+
+message GetIsActiveRequest {
+}
+message GetIsActiveResponse {
+  bool value = 1;
+}
+
+message GetIsEnabledRequest {
+}
+message GetIsEnabledResponse {
+  bool value = 1;
+}
+
+message GetAnimationStateRequest {
+}
+message GetAnimationStateResponse {
+  int32 value = 1;
+}
+
+message SetAnimationStateRequest {
+  int32 value = 1;
+}
+message SetAnimationStateResponse {
+  SetResponse set_response = 1;
+}
+
+message GetAnimationTypeRequest {
+}
+message GetAnimationTypeResponse {
+  int32 value = 1;
+}
+
+message SetAnimationTypeRequest {
+  int32 value = 1;
+}
+message SetAnimationTypeResponse {
+  SetResponse set_response = 1;
+}

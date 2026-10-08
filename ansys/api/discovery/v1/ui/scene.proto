@@ -1,0 +1,102 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.ui.scene;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.Scene";
+
+service Scene
+{
+  // Save the current scene.
+  rpc SaveScene(SaveSceneRequest) returns (SaveSceneResponse);
+
+  // Get all saved scenes.
+  rpc GetAllScenes(GetAllScenesRequest) returns (GetAllScenesResponse);
+
+  // Get all saved scenes for a given simulation.
+  rpc GetScenesForSimulation(GetScenesForSimulationRequest) returns (GetScenesForSimulationResponse);
+
+  // Activate a saved scene.
+  rpc ActivateScene(ActivateSceneRequest) returns (ActivateSceneResponse);
+
+  // Delete a saved scene.
+  rpc DeleteScene(DeleteSceneRequest) returns (DeleteSceneResponse);
+
+  // Delete all saved scenes for a given simulation.
+  rpc DeleteScenesForSimulation(DeleteScenesForSimulationRequest) returns (DeleteScenesForSimulationResponse);
+
+  // Delete all saved scenes.
+  rpc DeleteAllSavedScenes(DeleteAllSavedScenesRequest) returns (DeleteAllSavedScenesResponse);
+
+  // Rename a saved scene.
+  rpc RenameScene(RenameSceneRequest) returns (RenameSceneResponse);
+}
+
+// Identifier and display name for a saved scene.
+message SceneInfo {
+  GuidEntityIdentifier id = 1;
+  string name = 2;
+}
+
+message SaveSceneRequest {
+}
+
+message SaveSceneResponse {
+  CommandResponse command_response = 1;
+}
+
+message GetAllScenesRequest {
+}
+
+message GetAllScenesResponse {
+  repeated SceneInfo scenes = 1;
+}
+
+message GetScenesForSimulationRequest {
+  GuidEntityIdentifier simulation_id = 1;
+}
+
+message GetScenesForSimulationResponse {
+  repeated SceneInfo scenes = 1;
+}
+
+message ActivateSceneRequest {
+  GuidEntityIdentifier scene_id = 1;
+}
+
+message ActivateSceneResponse {
+  CommandResponse command_response = 1;
+}
+
+message DeleteSceneRequest {
+  GuidEntityIdentifier scene_id = 1;
+}
+
+message DeleteSceneResponse {
+  CommandResponse command_response = 1;
+}
+
+message DeleteScenesForSimulationRequest {
+  GuidEntityIdentifier simulation_id = 1;
+}
+
+message DeleteScenesForSimulationResponse {
+  CommandResponse command_response = 1;
+}
+
+message DeleteAllSavedScenesRequest {
+}
+
+message DeleteAllSavedScenesResponse {
+  CommandResponse command_response = 1;
+}
+
+message RenameSceneRequest {
+  GuidEntityIdentifier scene_id = 1;
+  string new_name = 2;
+}
+
+message RenameSceneResponse {
+  SetResponse set_response = 1;
+}

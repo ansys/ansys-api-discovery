@@ -1,0 +1,200 @@
+// Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v1.ui.resultsarcoptionsparticles;
+
+import "ansys/api/discovery/v1/commonmessages.proto";
+
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsParticles";
+
+service ResultsArcOptionsParticles
+{
+  rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
+  rpc SetIsVisible(SetIsVisibleRequest) returns (SetIsVisibleResponse);
+  rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
+  rpc GetIsActive(GetIsActiveRequest) returns (GetIsActiveResponse);
+  rpc GetSymbolSize(GetSymbolSizeRequest) returns (GetSymbolSizeResponse);
+  rpc SetSymbolSize(SetSymbolSizeRequest) returns (SetSymbolSizeResponse);
+  rpc GetCount(GetCountRequest) returns (GetCountResponse);
+  rpc SetCount(SetCountRequest) returns (SetCountResponse);
+  rpc GetEmissionRate(GetEmissionRateRequest) returns (GetEmissionRateResponse);
+  rpc SetEmissionRate(SetEmissionRateRequest) returns (SetEmissionRateResponse);
+  rpc GetEmissionRadius(GetEmissionRadiusRequest) returns (GetEmissionRadiusResponse);
+  rpc SetEmissionRadius(SetEmissionRadiusRequest) returns (SetEmissionRadiusResponse);
+  rpc GetAnimationSpeed(GetAnimationSpeedRequest) returns (GetAnimationSpeedResponse);
+  rpc SetAnimationSpeed(SetAnimationSpeedRequest) returns (SetAnimationSpeedResponse);
+  rpc GetRangeMin(GetRangeMinRequest) returns (GetRangeMinResponse);
+  rpc SetRangeMin(SetRangeMinRequest) returns (SetRangeMinResponse);
+  rpc GetRangeMax(GetRangeMaxRequest) returns (GetRangeMaxResponse);
+  rpc SetRangeMax(SetRangeMaxRequest) returns (SetRangeMaxResponse);
+  rpc GetColor(GetColorRequest) returns (GetColorResponse);
+  rpc SetColor(SetColorRequest) returns (SetColorResponse);
+  rpc GetEmitterControl(GetEmitterControlRequest) returns (GetEmitterControlResponse);
+  rpc SetEmitterControl(SetEmitterControlRequest) returns (SetEmitterControlResponse);
+  rpc GetIsPulsing(GetIsPulsingRequest) returns (GetIsPulsingResponse);
+  rpc SetIsPulsing(SetIsPulsingRequest) returns (SetIsPulsingResponse);
+  rpc GetEmitterPosition(GetEmitterPositionRequest) returns (GetEmitterPositionResponse);
+  rpc SetEmitterPosition(SetEmitterPositionRequest) returns (SetEmitterPositionResponse);
+  rpc ResetEmitter(ResetEmitterRequest) returns (ResetEmitterResponse);
+}
+
+message GetIsVisibleRequest {
+}
+message GetIsVisibleResponse {
+  bool value = 1;
+}
+message SetIsVisibleRequest {
+  bool value = 1;
+}
+message SetIsVisibleResponse {
+  SetResponse set_response = 1;
+}
+
+message GetIsEnabledRequest {
+}
+message GetIsEnabledResponse {
+  bool value = 1;
+}
+
+message GetIsActiveRequest {
+}
+message GetIsActiveResponse {
+  bool value = 1;
+}
+
+message GetSymbolSizeRequest {
+}
+message GetSymbolSizeResponse {
+  int32 value = 1;
+}
+message SetSymbolSizeRequest {
+  int32 value = 1;
+}
+message SetSymbolSizeResponse {
+  SetResponse set_response = 1;
+}
+
+message GetCountRequest {
+}
+message GetCountResponse {
+  float value = 1;
+}
+message SetCountRequest {
+  float value = 1;
+}
+message SetCountResponse {
+  SetResponse set_response = 1;
+}
+
+message GetEmissionRateRequest {
+}
+message GetEmissionRateResponse {
+  float value = 1;
+}
+message SetEmissionRateRequest {
+  float value = 1;
+}
+message SetEmissionRateResponse {
+  SetResponse set_response = 1;
+}
+
+message GetEmissionRadiusRequest {
+}
+message GetEmissionRadiusResponse {
+  float value = 1;
+}
+message SetEmissionRadiusRequest {
+  float value = 1;
+}
+message SetEmissionRadiusResponse {
+  SetResponse set_response = 1;
+}
+
+message GetAnimationSpeedRequest {
+}
+message GetAnimationSpeedResponse {
+  float value = 1;
+}
+message SetAnimationSpeedRequest {
+  float value = 1;
+}
+message SetAnimationSpeedResponse {
+  SetResponse set_response = 1;
+}
+
+message GetRangeMinRequest {
+}
+message GetRangeMinResponse {
+  float value = 1;
+}
+message SetRangeMinRequest {
+  float value = 1;
+}
+message SetRangeMinResponse {
+  SetResponse set_response = 1;
+}
+
+message GetRangeMaxRequest {
+}
+message GetRangeMaxResponse {
+  float value = 1;
+}
+message SetRangeMaxRequest {
+  float value = 1;
+}
+message SetRangeMaxResponse {
+  SetResponse set_response = 1;
+}
+
+message GetColorRequest {
+}
+message GetColorResponse {
+  bool value = 1;
+}
+message SetColorRequest {
+  bool value = 1;
+}
+message SetColorResponse {
+  SetResponse set_response = 1;
+}
+
+message GetEmitterControlRequest {
+}
+message GetEmitterControlResponse {
+  bool value = 1;
+}
+message SetEmitterControlRequest {
+  bool value = 1;
+}
+message SetEmitterControlResponse {
+  SetResponse set_response = 1;
+}
+
+message GetIsPulsingRequest {
+}
+message GetIsPulsingResponse {
+  bool value = 1;
+}
+message SetIsPulsingRequest {
+  bool value = 1;
+}
+message SetIsPulsingResponse {
+  SetResponse set_response = 1;
+}
+
+message GetEmitterPositionRequest {
+}
+message GetEmitterPositionResponse {
+  Direction value = 1;
+}
+message SetEmitterPositionRequest {
+  Direction value = 1;
+}
+message SetEmitterPositionResponse {
+  SetResponse set_response = 1;
+}
+
+message ResetEmitterRequest {
+}
+message ResetEmitterResponse {
+  CommandResponse command_response = 1;
+}
