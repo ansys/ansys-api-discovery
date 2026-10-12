@@ -1,12 +1,12 @@
 // Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.ui.resultsarcoptionsfarfieldplot;
+package ansys.api.discovery.v1.ui.results.resultsoptionsfarfieldplot;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 
-option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsFarFieldPlot";
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.Results.ResultsOptionsFarFieldPlot";
 
-service ResultsArcOptionsFarFieldPlot
+service ResultsOptionsFarFieldPlot
 {
   rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
   rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
