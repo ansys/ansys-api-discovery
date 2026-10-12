@@ -1,12 +1,12 @@
 // Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.ui.resultsarcoptionsanimation;
+package ansys.api.discovery.v1.ui.results.resultsoptionsanimation;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 
-option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsAnimation";
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.Results.ResultsOptionsAnimation";
 
-service ResultsArcOptionsAnimation
+service ResultsOptionsAnimation
 {
   rpc GetIsActive(GetIsActiveRequest) returns (GetIsActiveResponse);
   rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);

@@ -1,12 +1,12 @@
 // Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.ui.resultsarcoptionsisosurface;
+package ansys.api.discovery.v1.ui.results.resultsoptionsisosurface;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 
-option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsIsoSurface";
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.Results.ResultsOptionsIsoSurface";
 
-service ResultsArcOptionsIsoSurface
+service ResultsOptionsIsoSurface
 {
   rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
   rpc SetIsVisible(SetIsVisibleRequest) returns (SetIsVisibleResponse);
