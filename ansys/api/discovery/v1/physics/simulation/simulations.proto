@@ -14,7 +14,10 @@ service Simulations
 
   // Duplicate an existing Simulation
   rpc Duplicate(DuplicateSimulationRequest) returns (DuplicateSimulationResponse);
-
+  
+  // Deletes an existing Simulation
+  rpc Delete(DeleteSimulationRequest) returns (DeleteResponse);
+  
   // Lists all simulations
   rpc GetAll(ParentEntityRequest) returns(GetAllResponse);
 
@@ -75,6 +78,10 @@ message DuplicateSimulationRequest{
 
 message DuplicateSimulationResponse{
   SimulationEntity simulation = 1;
+}
+
+message DeleteSimulationRequest{
+  GuidEntityIdentifier simulation_id = 1;
 }
 
 message GetAllResponse{

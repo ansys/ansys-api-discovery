@@ -178,8 +178,9 @@ message MaterialDefinition {
   MaterialElectromagneticProperties electromagnetic_properties = 6;
   MaterialEnvironmentalProperties environmental_properties = 7;
   MaterialAppearanceProperties appearance_properties = 8;
-  MaterialState material_state = 9; 
-  MaterialSource material_source = 10;
+  MaterialState material_state = 9;
+  MaterialSourceType material_source = 10;
+  MaterialSourceIdentifiers material_source_identifiers = 11;
 }
 
 message MaterialPhysicalProperties {
@@ -248,7 +249,7 @@ message MaterialAppearanceProperties {
   int32 light_transmittance = 7;
 }
 
-message MaterialSource {
+message MaterialSourceIdentifiers {
   GuidEntityIdentifier source_material_id = 1;
   string database_key = 2;
   string history_guid = 3;
