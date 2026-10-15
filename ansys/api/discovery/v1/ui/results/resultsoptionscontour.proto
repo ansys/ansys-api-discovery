@@ -1,12 +1,12 @@
 // Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.ui.resultsarcoptionscontour;
+package ansys.api.discovery.v1.ui.results.resultsoptionscontour;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 
-option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsContour";
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.Results.ResultsOptionsContour";
 
-service ResultsArcOptionsContour
+service ResultsOptionsContour
 {
   rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
   rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);

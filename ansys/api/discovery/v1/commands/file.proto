@@ -104,7 +104,15 @@ message SaveRequest{
   string file_name = 4;
   optional ansys.api.discovery.v1.design.FMDExportOptions fmd_export_options = 8;
   optional ansys.api.discovery.v1.design.PMDBExportOptions pmdb_export_options = 9;
+  SaveAsOptions save_as_options = 10;
 }  
+
+message SaveAsOptions {
+  bool without_refine_results = 1;
+  bool without_explore_results = 2;
+  bool include_scene_definitions = 3;
+  string file_filter = 4;
+}
 
 message SaveResponse {  
   bytes data = 1;

@@ -1,12 +1,12 @@
 // Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.ui.resultsarcoptionsmesh;
+package ansys.api.discovery.v1.ui.results.resultsoptionsmesh;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 
-option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsMesh";
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.Results.ResultsOptionsMesh";
 
-service ResultsArcOptionsMesh
+service ResultsOptionsMesh
 {
   rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
   rpc SetIsVisible(SetIsVisibleRequest) returns (SetIsVisibleResponse);

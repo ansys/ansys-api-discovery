@@ -1,12 +1,12 @@
 // Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.ui.resultsarcoptionsparticles;
+package ansys.api.discovery.v1.ui.results.resultsoptionsparticles;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 
-option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsParticles";
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.Results.ResultsOptionsParticles";
 
-service ResultsArcOptionsParticles
+service ResultsOptionsParticles
 {
   rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
   rpc SetIsVisible(SetIsVisibleRequest) returns (SetIsVisibleResponse);

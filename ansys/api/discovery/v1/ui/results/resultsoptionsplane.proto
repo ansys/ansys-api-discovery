@@ -1,17 +1,17 @@
 // Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.ui.resultsarcoptionsdirectionfield;
+package ansys.api.discovery.v1.ui.results.resultsoptionsplane;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 
-option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsDirectionField";
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.Results.ResultsOptionsPlane";
 
-service ResultsArcOptionsDirectionField
+service ResultsOptionsPlane
 {
   rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
-  rpc GetIsActive(GetIsActiveRequest) returns (GetIsActiveResponse);
   rpc GetIsVisible(GetIsVisibleRequest) returns (GetIsVisibleResponse);
   rpc SetIsVisible(SetIsVisibleRequest) returns (SetIsVisibleResponse);
+  rpc GetIsActive(GetIsActiveRequest) returns (GetIsActiveResponse);
   rpc GetFrame(GetFrameRequest) returns (GetFrameResponse);
   rpc SetFrame(SetFrameRequest) returns (SetFrameResponse);
 }
@@ -19,12 +19,6 @@ service ResultsArcOptionsDirectionField
 message GetIsEnabledRequest {
 }
 message GetIsEnabledResponse {
-  bool value = 1;
-}
-
-message GetIsActiveRequest {
-}
-message GetIsActiveResponse {
   bool value = 1;
 }
 
@@ -38,6 +32,12 @@ message SetIsVisibleRequest {
 }
 message SetIsVisibleResponse {
   SetResponse set_response = 1;
+}
+
+message GetIsActiveRequest {
+}
+message GetIsActiveResponse {
+  bool value = 1;
 }
 
 message GetFrameRequest {

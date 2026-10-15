@@ -1,12 +1,12 @@
 // Copyright 2026, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.discovery.v1.ui.resultsarcoptionsdeformation;
+package ansys.api.discovery.v1.ui.results.resultsoptionsdeformation;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 
-option csharp_namespace = "Ansys.Api.Discovery.V1.UI.ResultsArcOptionsDeformation";
+option csharp_namespace = "Ansys.Api.Discovery.V1.UI.Results.ResultsOptionsDeformation";
 
-service ResultsArcOptionsDeformation
+service ResultsOptionsDeformation
 {
   rpc GetIsActive(GetIsActiveRequest) returns (GetIsActiveResponse);
   rpc GetIsEnabled(GetIsEnabledRequest) returns (GetIsEnabledResponse);
