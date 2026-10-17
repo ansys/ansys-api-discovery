@@ -4,7 +4,6 @@ package ansys.api.discovery.v1.engineeringdata.material;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 import "ansys/api/discovery/v1/physics/physicsmessages.proto";
-import "ansys/api/discovery/v1/physicsenums.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V1.EngineeringData.Material";
 
@@ -14,9 +13,6 @@ service Material
   rpc DuplicateLibraryMaterial(MaterialDuplicateLibraryRequest) returns (MaterialDuplicateLibraryResponse);
   rpc GetById(MaterialGetByIdRequest) returns (MaterialGetByIdResponse);
   rpc GetByLabel(MaterialGetByLabelRequest) returns (MaterialGetByLabelResponse);
-  rpc GetAllMaterials(GetAllMaterialsRequest) returns (GetAllMaterialsResponse);
-  rpc GetMaterialForEntity(GetMaterialForEntityRequest) returns (GetMaterialForEntityResponse);
-  rpc ReplaceMaterial(ReplaceMaterialRequest) returns (CommandResponse);
 
   // Physical Properties
   rpc ChangeDensity(SetQuantityRequest) returns (SetResponse);
@@ -89,12 +85,6 @@ message MaterialDuplicateLibraryResponse {
   ansys.api.discovery.v1.physics.MaterialDefinition material_definition = 2;
 }
 
-message ReplaceMaterialRequest {
-  GuidEntityIdentifier original_material_id = 1;
-  GuidEntityIdentifier new_material_id = 2;
-  GuidEntityIdentifier simulation_id = 3;
-}
-
 message SetThermalConductivitySpecificationRequest {
   GuidEntityIdentifier object_id = 1;
   ansys.api.discovery.v1.physics.ThermalConductivitySpecification thermal_conductivity_specification = 2;
@@ -113,23 +103,7 @@ message MaterialGetByLabelRequest {
   GuidEntityIdentifier simulation_id = 2;
 }
 
-message GetAllMaterialsRequest {
-  MaterialSourceType material_source = 1;
-}
-
-message GetAllMaterialsResponse {
-  repeated ansys.api.discovery.v1.physics.MaterialDefinition material_definitions = 1;
-}
-
 message MaterialGetByLabelResponse {
   ansys.api.discovery.v1.physics.MaterialDefinition material_definition = 1;
 }
 
-message GetMaterialForEntityRequest {
-  GuidEntityIdentifier entity_id = 1;
-  GuidEntityIdentifier simulation_id = 2;
-}
-
-message GetMaterialForEntityResponse {
-  ansys.api.discovery.v1.physics.MaterialDefinition material_definition = 1;
-}
