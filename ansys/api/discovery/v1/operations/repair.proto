@@ -92,7 +92,6 @@ message FindBadFacesRequest{
 
 message FindBadFacesResponse{
   repeated EntityIdentifier face_ids = 1;
-  repeated ansys.api.discovery.v1.design.FaceEntity faces = 2;
 }
 
 message FindInterferenceRequest{
@@ -496,7 +495,6 @@ message ShortEdgeProblemArea {
 message DuplicateFaceProblemArea {
   int32 problem_area_id = 1;
   repeated EntityIdentifier face_ids = 2;
-  repeated ansys.api.discovery.v1.design.FaceEntity faces = 3;
 }
 
 message MissingFaceProblemArea {
@@ -507,7 +505,6 @@ message MissingFaceProblemArea {
 message SmallFaceProblemArea {
   int32 problem_area_id = 1;
   repeated EntityIdentifier face_ids = 2;
-  repeated ansys.api.discovery.v1.design.FaceEntity faces = 3;
 }
 
 message StitchFaceProblemArea {
