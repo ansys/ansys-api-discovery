@@ -11,39 +11,43 @@ on:
         - minor
         - major
 
+concurrency:
+  group: autorelease
+  cancel-in-progress: false
+
+permissions: {}
+
 jobs:
-  release:
-    name: Auto Release
+  autorelease:
+    name: "Auto release"
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write # required to create commits and push release tags to main branch
+      pull-requests: write # required to create pull requests for version bump
     steps:
-      # Checkout the repository
-      - name: Checkout Repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: "Run hk-autorelease"
+        id: autorelease
+        uses: ansys/actions/hk-autorelease@5a91d7c2c4da2e86f2b3b62ba62daad189a6b77c # v11.2.0
         with:
-          fetch-depth: 0
-          fetch-tags: true
-          show-progress: true
+          release-type: ${{ inputs.release_type }}
+          version-source: "file"
+          version-location: "ansys/api/discovery/VERSION"
+          cherry-pick-commits: ""
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+          bot-username: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
 
-      # Configure Git
-      - name: Configure Git
-        run: |
-          git config --global user.name ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
-          git config --global user.email ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
-
-      # Run the patch release script
-      - name: Run Patch Release Script
-        if: ${{ inputs.release_type == 'patch' }}
+      - name: "Show outputs"
         env:
-          GITHUB_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+          NEW_VERSION: ${{ steps.autorelease.outputs.new-version }}
+          NEW_DEV_VERSION: ${{ steps.autorelease.outputs.new-dev-version }}
+          RELEASE_BRANCH: ${{ steps.autorelease.outputs.release-branch }}
+          DEV_VERSION_PR_URL: ${{ steps.autorelease.outputs.dev-version-pr-url }}
         run: |
-          ./scripts/patch_release.sh
-
-      # Run the major/minor release script
-      - name: Run Major/Minor Release Script
-        if: ${{ inputs.release_type == 'major' || inputs.release_type == 'minor' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-        run: |
-          ./scripts/major_minor_release.sh ${{ inputs.release_type }}
+          {
+            echo "### Auto release outputs"
+            echo "- new-version: \`${NEW_VERSION}\`"
+            echo "- new-dev-version: \`${NEW_DEV_VERSION}\`"
+            echo "- release-branch: \`${RELEASE_BRANCH}\`"
+            echo "- dev-version-pr-url: ${DEV_VERSION_PR_URL}"
+          } >> "${GITHUB_STEP_SUMMARY}"
