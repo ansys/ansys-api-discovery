@@ -27,8 +27,11 @@ service File{
   rpc OpenFromUrl(OpenFromUrlRequest)
     returns(OpenFromUrlResponse);
 
+  rpc OpenFromUrlWithToken(OpenFromUrlWithTokenRequest)
+    returns(OpenFromUrlWithTokenResponse);
+
   rpc Save(SaveRequest)
-    returns (stream SaveResponse);    
+    returns (stream SaveResponse);
 
   rpc SaveToUrl(SaveToUrlRequest)
   	returns (SaveToUrlResponse);
@@ -145,6 +148,15 @@ message OpenFromUrlResponse{
   ansys.api.discovery.v1.design.designdoc.DesignDocEntity design = 1;
   CommandResponse command_response = 2;
 }  
+
+message OpenFromUrlWithTokenRequest {
+  string url_filepath = 1;
+}
+
+message OpenFromUrlWithTokenResponse {
+  ansys.api.discovery.v1.design.designdoc.DesignDocEntity design = 1;
+  CommandResponse command_response = 2;
+}
 
 message ImportOptionDefinition
 {
