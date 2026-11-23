@@ -4,6 +4,7 @@ package ansys.api.discovery.v1.operations.prepare;
 
 import "ansys/api/discovery/v1/commonmessages.proto";
 import "ansys/api/discovery/v1/design/designmessages.proto";
+import "ansys/api/discovery/v1/geometryenums.proto";
 
 option csharp_namespace = "Ansys.Api.Discovery.V1.Operations.Prepare";
 
@@ -30,6 +31,8 @@ service Prepare{
 
   rpc FindLogos(FindLogosRequest) returns (FindLogosResponse);
 
+  rpc FixImprint(FixImprintRequest) returns (FixImprintResponse);
+
   rpc RemoveFaces(RemoveFacesRequest) returns (RemoveFacesResponse);
 
   rpc RemoveLogo(RemoveLogoRequest) returns (RemoveLogoResponse);
@@ -37,6 +40,10 @@ service Prepare{
   rpc RemoveRounds(RemoveRoundsRequest) returns (RemoveRoundsResponse);
 
   rpc ShareTopology(ShareTopologyRequest) returns (ShareTopologyResponse);
+
+  rpc ShareTopologyCreateNamedSelection(ShareTopologyCreateNamedSelectionRequest) returns (ShareTopologyCreateNamedSelectionResponse);
+
+  rpc ShareTopologyCreate(ShareTopologyCreateRequest) returns (ShareTopologyCreateResponse);
 
   rpc SuppressTopologies(SuppressTopologiesRequest) returns (SuppressTopologiesResponse);
 
@@ -131,6 +138,45 @@ message ShareTopologyResponse{
 }
 
 message EnhancedShareTopologyResponse{
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
+  int32 found = 2;
+  int32 repaired = 3;
+}
+
+message ShareTopologyCreateNamedSelectionRequest{
+  double tolerance = 1;
+  bool preserve_instances = 2;
+  bool geometry_imprint = 3;
+}
+
+message ShareTopologyCreateNamedSelectionResponse{
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
+}
+
+message ShareTopologyCreateRequest{
+  double tolerance = 1;
+  bool preserve_instances = 2;
+  bool geometry_imprint = 3;
+}
+
+message ShareTopologyCreateResponse{
+  ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
+}
+
+message FixImprintOptions{
+  double tolerance = 1;
+  bool search_curves = 2;
+  bool search_faces = 3;
+  bool search_edges = 4;
+  ImprintInstanceType instance_type = 5;
+}
+
+message FixImprintRequest{
+  repeated EntityIdentifier selection_ids = 1;
+  FixImprintOptions options = 2;
+}
+
+message FixImprintResponse{
   ansys.api.discovery.v1.design.TrackedCommandResponse tracked_command_response = 1;
   int32 found = 2;
   int32 repaired = 3;
